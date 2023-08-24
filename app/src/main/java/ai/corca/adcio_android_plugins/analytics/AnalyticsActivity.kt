@@ -1,8 +1,8 @@
 package ai.corca.adcio_android_plugins.analytics
 
 import ai.corca.adcio_android_plugins.databinding.ActivityAnalyticsBinding
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 
 class AnalyticsActivity : AppCompatActivity() {
 
