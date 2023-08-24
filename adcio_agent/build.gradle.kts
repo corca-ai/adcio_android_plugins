@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
 }
 
 android {

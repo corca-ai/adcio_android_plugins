@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
 }
 
 android {
@@ -47,4 +48,8 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    implementation(project(path = ":adcio_agent"))
+    implementation(project(path = ":adcio_placement"))
+    implementation(project(path = ":adcio_analytics"))
 }
