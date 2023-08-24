@@ -15,3 +15,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "adcio_android_plugins"
 include(":app")
+include(":adcio_placement")
+include(":adcio_agent")
+include(":adcio_analytics")
