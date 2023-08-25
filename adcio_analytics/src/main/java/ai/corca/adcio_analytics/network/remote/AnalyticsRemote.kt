@@ -51,7 +51,7 @@ internal class AnalyticsRemote {
         checkError(response)?.let { throw it }
     }
 
-    private fun checkError(response: Response<Unit>): PlatformException? =  if (response.code() !in networkSuccessRange) {
+    private fun checkError(response: Response<Unit>): PlatformException? = if (response.code() !in networkSuccessRange) {
         val platformException = RetrofitClient.exceptionHandling(response).toException()
         Log.e(
             TRACE_EXCEPTION_TAG,

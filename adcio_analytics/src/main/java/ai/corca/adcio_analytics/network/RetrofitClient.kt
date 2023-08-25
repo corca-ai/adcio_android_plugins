@@ -15,9 +15,11 @@ internal object RetrofitClient {
     private var retrofit: Retrofit? = null
 
     private val okHttpClient = OkHttpClient().newBuilder()
-        .addInterceptor(HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        })
+        .addInterceptor(
+            interceptor = HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            }
+        )
         .build()
 
     // TODO RuntimeException 처리
