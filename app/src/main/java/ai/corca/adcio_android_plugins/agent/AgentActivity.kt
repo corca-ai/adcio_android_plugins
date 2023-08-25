@@ -5,7 +5,6 @@ import ai.corca.adcio_agent.productId
 import ai.corca.adcio_android_plugins.R
 import ai.corca.adcio_android_plugins.databinding.ActivityAgentBinding
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 

@@ -2,14 +2,12 @@ package ai.corca.adcio_agent
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.appcompat.app.AppCompatActivity
 
-class AdcioAgentActivity : AppCompatActivity() {
+class AdcioAgent : AppCompatActivity() {
 
     private lateinit var webView: WebView
 

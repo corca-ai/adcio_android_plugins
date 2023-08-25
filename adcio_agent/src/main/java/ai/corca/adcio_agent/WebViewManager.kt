@@ -3,16 +3,6 @@ package ai.corca.adcio_agent
 import android.content.Context
 import android.content.Intent
 
-
-//required this.onClickProduct,
-//this.baseUrl = 'https://agent.adcio.ai',
-//this.onNavigationRequest,
-//this.onPageStarted,
-//this.onPageFinished,
-//this.onProgress,
-//this.onWebResourceError,
-//this.onUrlChange,
-
 var productId = ""
 
 open class WebViewManager(
@@ -25,8 +15,8 @@ open class WebViewManager(
 
     fun callAdcioAgent() {
         val startPage = "start/"
-        val agentUrl = "${baseUrl}/${clientId}/${startPage}?platform=android"
-        val intent = Intent(context, AdcioAgentActivity::class.java)
+        val agentUrl = "$baseUrl/$clientId/$startPage?platform=android"
+        val intent = Intent(context, AdcioAgent::class.java)
         intent.putExtra("agentUrl", agentUrl)
         context!!.startActivity(intent)
     }
