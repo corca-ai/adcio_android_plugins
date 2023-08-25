@@ -12,7 +12,7 @@ import android.util.Log
 import retrofit2.Response
 import java.lang.RuntimeException
 
-internal class AnalyticsRemote {
+internal class PlacementRemote {
 
     private val networkSuccessRange = 200 until 300
 
