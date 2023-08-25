@@ -8,7 +8,10 @@ internal fun AnalyticsRequest.toLogOption(): AdcioLogOption = AdcioLogOption(
     adsetId = this.adsetId,
 )
 
-internal fun AdcioLogOption.toAnalyticsRequest(): AnalyticsRequest = AnalyticsRequest(
+internal fun AdcioLogOption.toAnalyticsRequest(
+    amount: Int? = null
+): AnalyticsRequest = AnalyticsRequest(
     requestId = this.requestId,
     adsetId = this.adsetId,
+    amount = amount,
 )
