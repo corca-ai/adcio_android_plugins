@@ -1,0 +1,15 @@
+package ai.corca.adcio_placement.network.data
+
+import com.google.gson.annotations.SerializedName
+
+data class Banner(
+    @SerializedName("id") val id: String,
+    @SerializedName("clientId") val clientId: String,
+    @SerializedName("imageUrl") val imageUrl: String,
+    @SerializedName("url") val url: String,
+    @SerializedName("activated") val activated: Boolean,
+    @SerializedName("startsAt") val startsAt: String,
+    @SerializedName("endsAt") val endsAt: String?,
+    @SerializedName("createdAt") val createdAt: String,
+    @SerializedName("deletedAt") val deletedAt: String
+)
