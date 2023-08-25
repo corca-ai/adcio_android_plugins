@@ -6,7 +6,7 @@
     <application
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".AdcioAgentActivity"
+            android:name=".AdcioAgent"
             android:hardwareAccelerated="true"
             android:exported="true">
             <intent-filter>
