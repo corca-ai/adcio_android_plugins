@@ -12,13 +12,13 @@ interface PlacementService {
     fun getSuggestion(
         @Query("sessionId") sessionId: String,
         @Query("deviceId") deviceId: String,
-        @Query("customerId") customerId: String? = null,
+        @Query("customerId") customerId: String?,
         @Query("placementId") placementId: String,
-        @Query("placementPosX") placementPosX: Int? = null,
-        @Query("placementPosY") placementPosY: Int? = null,
-        @Query("fromAgent") fromAgent: Boolean = false,
-        @Query("age") age: String? = null,
-        @Query("gender") gender: String? = null,
-        @Query("area") area: String? = null,
+        @Query("placementPosX") placementPosX: Int?,
+        @Query("placementPosY") placementPosY: Int?,
+        @Query("fromAgent") fromAgent: Boolean,
+        @Query("age") age: String?,
+        @Query("gender") gender: String?,
+        @Query("area") area: String?,
     ): Call<AdcioSuggestionRawData>
 }
