@@ -2,7 +2,7 @@ package ai.corca.adcio_placement.network.data
 
 import com.google.gson.annotations.SerializedName
 
-data class Product(
+data class ProductData(
     @SerializedName("id") val id: String,
     @SerializedName("code") val code: String,
     @SerializedName("storeId") val storeId: String,

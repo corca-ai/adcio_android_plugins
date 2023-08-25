@@ -2,17 +2,17 @@ package ai.corca.adcio_placement.network.data
 
 import com.google.gson.annotations.SerializedName
 
-enum class Property { NEW, HOT, PERSONAL, SAME_GOODS, DIFF_GOODS }
+enum class PropertyData { NEW, HOT, PERSONAL, SAME_GOODS, DIFF_GOODS }
 
-enum class Type { GRID, BANNER }
+enum class TypeData { GRID, BANNER }
 
-enum class SuggestionType { RECOMMEND, ADVERTISE }
+enum class SuggestionTypeData { RECOMMEND, ADVERTISE }
 
-data class Placement(
+data class PlacementData(
     @SerializedName("id") val id: String,
     @SerializedName("title") val title: String,
-    @SerializedName("type") val type: Type,
-    @SerializedName("suggestionType") val suggestionType: SuggestionType,
+    @SerializedName("type") val type: TypeData,
+    @SerializedName("suggestionType") val suggestionType: SuggestionTypeData,
     @SerializedName("displayCount") val displayCount: Int,
     @SerializedName("activated") val activated: Boolean,
     @SerializedName("clientId") val clientId: String,
@@ -20,7 +20,7 @@ data class Placement(
     @SerializedName("screenShot") val screenShot: String,
     @SerializedName("displayFormatWidth") val displayFormatWidth: Int?,
     @SerializedName("displayFormatHeight") val displayFormatHeight: Int?,
-    @SerializedName("property") val placementProperty: Property,
+    @SerializedName("property") val placementProperty: PropertyData,
     @SerializedName("createdAt") val createdAt: String,
     @SerializedName("updatedAt") val updatedAt: String,
     @SerializedName("deletedAt") val deletedAt: String,

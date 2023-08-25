@@ -2,7 +2,7 @@ package ai.corca.adcio_placement.network.data
 
 import com.google.gson.annotations.SerializedName
 
-data class Banner(
+data class BannerData(
     @SerializedName("id") val id: String,
     @SerializedName("clientId") val clientId: String,
     @SerializedName("imageUrl") val imageUrl: String,
