@@ -1,14 +1,18 @@
 package ai.corca.adcio_analytics.network
 
+import ai.corca.adcio_analytics.exception.UNKNOWN_EXCEPTION_MESSAGE
+import ai.corca.adcio_analytics.network.data.ErrorResponse
 import ai.corca.adcio_analytics.network.service.AnalyticsService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.lang.RuntimeException
 
 internal object RetrofitClient {
     private var analyticsService: AnalyticsService? = null
+    private var retrofit: Retrofit? = null
 
     private val okHttpClient = OkHttpClient().newBuilder()
         .addInterceptor(HttpLoggingInterceptor().apply {
@@ -28,9 +32,8 @@ internal object RetrofitClient {
 
             // else -> 사용자가 요청한 baseurl이 null이거나 빈 경우.
             // 기본으로 등록된 baseUrl 사용하겠다.
-
-            val analyticsRetrofit: Retrofit = createRetrofit()
-            analyticsService = analyticsRetrofit.create(AnalyticsService::class.java)
+            createRetrofit()
+            analyticsService = retrofit?.create(AnalyticsService::class.java)
             return analyticsService ?: throw RuntimeException()
         } else {
             // 초기화된 service 객체가 있는 경우.
@@ -47,17 +50,32 @@ internal object RetrofitClient {
                 } else {
                     // 기존의 baseUrl과 다르다? -> 새로운 객체가 필요하다.
                     AnalyticsUrl.baseUrl = baseUrl
-                    val analyticsRetrofit: Retrofit = createRetrofit()
-                    analyticsService = analyticsRetrofit.create(AnalyticsService::class.java)
+                    createRetrofit()
+                    analyticsService = retrofit?.create(AnalyticsService::class.java)
                     analyticsService ?: throw RuntimeException()
                 }
             }
         }
     }
 
-    private fun createRetrofit(): Retrofit = Retrofit.Builder().apply {
-        baseUrl(AnalyticsUrl.baseUrl)
-        client(okHttpClient)
-        addConverterFactory(GsonConverterFactory.create())
-    }.build()
+    fun exceptionHandling(response: Response<Unit>): ErrorResponse {
+        val errorResponse = response.errorBody()?.let {
+            retrofit?.responseBodyConverter<ErrorResponse>(
+                ErrorResponse::class.java,
+                ErrorResponse::class.java.annotations
+            )?.convert(it)
+        }?.message ?: listOf(UNKNOWN_EXCEPTION_MESSAGE)
+        return ErrorResponse(
+            statusCode = response.code(),
+            message = errorResponse
+        )
+    }
+
+    private fun createRetrofit() {
+        retrofit = Retrofit.Builder().apply {
+            baseUrl(AnalyticsUrl.baseUrl)
+            client(okHttpClient)
+            addConverterFactory(GsonConverterFactory.create())
+        }.build()
+    }
 }
