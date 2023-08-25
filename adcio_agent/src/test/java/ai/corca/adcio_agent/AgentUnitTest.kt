@@ -19,8 +19,6 @@ class AgentUnitTest {
         )
 
         webViewManager.apply {
-            callAdcioAgent()
-
             setDelayedString("productId")
             assertEquals(getDelayedString(), "productId")
         }
