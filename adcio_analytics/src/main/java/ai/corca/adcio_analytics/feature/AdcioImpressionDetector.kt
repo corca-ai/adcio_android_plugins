@@ -23,10 +23,8 @@ class AdcioImpressionDetector : FrameLayout {
             getGlobalVisibleRect(rect).let {
                 if (isVisible != it) {
                     isVisible = it
-                    if (isVisible) {
-                        if (manager.adcioAnalyticsHistory.getImpressionHistories().contains(manager.adsetId).not()) {
-                            onImpression()
-                        }
+                    if (isVisible && manager.adcioAnalyticsHistory.getImpressionHistories().contains(manager.adsetId).not()) {
+                        onImpression()
                     }
                 }
             }
