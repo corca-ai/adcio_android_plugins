@@ -6,6 +6,7 @@ import ai.corca.adcio_analytics.network.remote.AnalyticsRemote
 object AdcioAnalytics {
 
     private val analyticsRemote: AnalyticsRemote = AnalyticsRemote()
+    private lateinit var adcioAnalyticsHistory: AdcioAnalyticsHistory
 
     /**
      * click event log
@@ -34,6 +35,7 @@ object AdcioAnalytics {
         adsetId: String,
         baseUrl: String? = null,
     ) {
+        adcioAnalyticsHistory.addImpressionHistory(adsetId)
         analyticsRemote.onImpression(
             adcioLogOption = AdcioLogOption(
                 requestId = requestId,

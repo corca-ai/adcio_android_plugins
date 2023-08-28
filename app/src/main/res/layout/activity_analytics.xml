@@ -6,13 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".placement.PlacementActivity">
 
-    <TextView
+    <ai.corca.adcio_analytics.feature.AdcioImpressionDetector
+        android:id="@+id/adcio_impression"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="analytics"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        >
+
+        <TextView
+            android:id="@+id/tv_samp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="analytics"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </ai.corca.adcio_analytics.feature.AdcioImpressionDetector>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

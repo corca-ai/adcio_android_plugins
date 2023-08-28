@@ -1,6 +1,6 @@
 package ai.corca.adcio_analytics.network
 
-object AnalyticsUrl {
+internal object AnalyticsUrl {
 
     internal var baseUrl = "https://receiver-dev.adcio.ai/"
 
