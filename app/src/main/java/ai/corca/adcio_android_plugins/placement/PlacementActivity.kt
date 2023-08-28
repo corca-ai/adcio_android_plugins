@@ -5,13 +5,26 @@ import ai.corca.adcio_placement.feature.AdcioPlacement
 import ai.corca.adcio_placement.model.AdcioSuggestion
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 
 class PlacementActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlacementBinding
     private lateinit var suggestionListAdapter: SuggestionListAdapter
-    private val suggestions: List<Suggestion> = emptyList()
+    private var suggestions: MutableList<Suggestion> = emptyList<Suggestion>().toMutableList()
+
+    private val handler = object : Handler(Looper.getMainLooper()) {
+        override fun handleMessage(msg: Message) {
+            if (suggestions.isNotEmpty()) {
+                suggestionListAdapter.submitList(suggestions)
+                suggestionListAdapter.notifyDataSetChanged()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,8 +49,9 @@ class PlacementActivity : AppCompatActivity() {
                 placementId = "9f9f9b00-dc16-41c7-a5cd-f9a788d3d481",
                 baseUrl = "https://api-dev.adcio.ai",
             )
+            suggestions.clear()
             result.suggestions.forEach {
-                suggestions.toMutableList().add(
+                suggestions.add(
                     Suggestion(
                         name = it.product.name,
                         image = it.product.image,
@@ -45,7 +59,7 @@ class PlacementActivity : AppCompatActivity() {
                 )
             }
 
-            suggestionListAdapter.submitList(suggestions)
+            handler.sendEmptyMessage(0)
         }
     }
 }
