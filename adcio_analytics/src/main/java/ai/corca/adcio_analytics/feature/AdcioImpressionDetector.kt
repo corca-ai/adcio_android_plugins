@@ -3,7 +3,6 @@ package ai.corca.adcio_analytics.feature
 import android.content.Context
 import android.graphics.Rect
 import android.util.AttributeSet
-import android.util.Log
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 
