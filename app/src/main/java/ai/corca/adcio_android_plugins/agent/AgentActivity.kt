@@ -2,7 +2,6 @@ package ai.corca.adcio_android_plugins.agent
 
 import ai.corca.adcio_agent.WebViewManager
 import ai.corca.adcio_android_plugins.R
-import ai.corca.adcio_android_plugins.databinding.ActivityAgentBinding
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
