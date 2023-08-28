@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         context = this,
         clientId = "30cb6fd0-17a5-4c56-b144-fef67de81bef",
         "https://agent-dev.adcio.ai",
-        R.id.frame
+        R.id.adcio_webview_frame
     )
 
     override fun onRestart() {

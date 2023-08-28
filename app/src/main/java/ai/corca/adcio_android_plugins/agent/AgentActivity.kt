@@ -8,17 +8,16 @@ import androidx.appcompat.app.AppCompatActivity
 
 class AgentActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityAgentBinding
-
     private val webViewManager = WebViewManager(
         context = this,
         clientId = "30cb6fd0-17a5-4c56-b144-fef67de81bef",
         "https://agent-dev.adcio.ai",
-        R.id.frame
+        R.id.adcio_webview_frame
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_agent)
         webViewManager.callAdcioAgent()
     }
 }
