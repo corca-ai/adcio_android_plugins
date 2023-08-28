@@ -3,7 +3,7 @@ package ai.corca.adcio_placement.feature
 import android.os.Build
 import java.util.UUID
 
-object AdcioSuggestionInfo {
+class AdcioSuggestionInfo {
     private var sessionId: String? = null
     private var deviceId: String? = null
 

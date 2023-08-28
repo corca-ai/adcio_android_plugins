@@ -5,31 +5,39 @@ import ai.corca.adcio_placement.network.remote.PlacementRemote
 
 object AdcioPlacement {
 
-    fun getDeviceId() = AdcioSuggestionInfo.getDeviceId()
+    val adcioInfo = AdcioSuggestionInfo()
 
-    fun getSessionId() = AdcioSuggestionInfo.getSessionId()
+    fun getDeviceId(
+        otherInfo: AdcioSuggestionInfo? = null
+    ): String {
+        return otherInfo?.getDeviceId() ?: adcioInfo.getDeviceId()
+    }
+
+    fun getSessionId(
+        otherInfo: AdcioSuggestionInfo? = null
+    ): String {
+        return otherInfo?.getSessionId() ?: adcioInfo.getSessionId()
+    }
 
     fun adcioSuggest(
         placementId: String,
-        sessionId: String = AdcioSuggestionInfo.getSessionId(),
-        deviceId: String = AdcioSuggestionInfo.getDeviceId(),
+        otherInfo: AdcioSuggestionInfo? = null,
         customerId: String? = null,
         placementPosX: Int? = null,
         placementPosY: Int? = null,
-        fromAgent: Boolean = false,
         age: String? = null,
         gender: String? = null,
         area: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionRaw {
         return PlacementRemote().getSuggestion(
-            sessionId = sessionId,
-            deviceId = deviceId,
-            customerId = customerId,
             placementId = placementId,
+            sessionId = getSessionId(otherInfo),
+            deviceId = getDeviceId(otherInfo),
+            customerId = customerId,
             placementPosX = placementPosX,
             placementPosY = placementPosY,
-            fromAgent = fromAgent,
+            fromAgent = false,
             age = age,
             gender = gender,
             area = area,

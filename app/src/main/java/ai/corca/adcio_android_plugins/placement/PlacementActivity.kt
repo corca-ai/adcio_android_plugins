@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -34,7 +35,7 @@ class PlacementActivity : AppCompatActivity() {
         suggestionListAdapter.submitList(suggestions)
 
         binding.ivRefresh.setOnClickListener {
-            GetSuggestionThread().start()
+            GetFakeSuggestionThread().start()
         }
 
         binding.tvDeviceId.setOnClickListener {
@@ -64,6 +65,31 @@ class PlacementActivity : AppCompatActivity() {
                         image = it.product.image,
                     )
                 )
+            }
+
+            handler.sendEmptyMessage(0)
+        }
+    }
+
+    inner class GetFakeSuggestionThread : Thread() {
+        override fun run() {
+            try {
+                val result = AdcioPlacement.adcioSuggest(
+                    placementId = "9f9f9b00-dc16-41c7-a5cd-f9a788d3d481",
+                    baseUrl = "https://api-dev.adcio.aiii",
+                )
+
+                suggestions.clear()
+                result.suggestions.forEach {
+                    suggestions.add(
+                        Suggestion(
+                            name = it.product.name,
+                            image = it.product.image,
+                        )
+                    )
+                }
+            } catch (e: Exception) {
+                Log.e("TestLogLog", e.stackTraceToString())
             }
 
             handler.sendEmptyMessage(0)

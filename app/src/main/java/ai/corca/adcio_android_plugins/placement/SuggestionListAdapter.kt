@@ -14,7 +14,7 @@ class SuggestionListAdapter : ListAdapter<Suggestion, SuggestionListAdapter.Sugg
         fun bind(item: Suggestion) = with(binding) {
             Glide.with(binding.root)
                 .load(item.image)
-                .centerCrop()
+                .circleCrop()
                 .into(binding.ivImage)
 
             binding.tvTitle.text = item.name
