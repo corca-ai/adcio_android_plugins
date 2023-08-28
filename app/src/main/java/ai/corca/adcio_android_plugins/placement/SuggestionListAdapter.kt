@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 
 class SuggestionListAdapter : ListAdapter<Suggestion, SuggestionListAdapter.SuggestionViewHolder>(ProductDiffUtilCallback) {
 
-    inner class SuggestionViewHolder(private var binding: ItemSuggestionBinding): ViewHolder(binding.root) {
+    inner class SuggestionViewHolder(private var binding: ItemSuggestionBinding) : ViewHolder(binding.root) {
         fun bind(item: Suggestion) = with(binding) {
             Glide.with(binding.root)
                 .load(item.image)

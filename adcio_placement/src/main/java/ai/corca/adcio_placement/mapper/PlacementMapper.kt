@@ -45,7 +45,7 @@ internal fun PlacementData.toPlacement(): Placement = Placement(
     deletedAt = this.deletedAt,
 )
 
-internal fun PropertyData.toProperty(): Property = when(this.name) {
+internal fun PropertyData.toProperty(): Property = when (this.name) {
     Property.NEW.name -> Property.NEW
     Property.HOT.name -> Property.HOT
     Property.PERSONAL.name -> Property.PERSONAL
@@ -54,19 +54,19 @@ internal fun PropertyData.toProperty(): Property = when(this.name) {
     else -> Property.NEW
 }
 
-internal fun TypeData.toType(): Type = when(this.name) {
+internal fun TypeData.toType(): Type = when (this.name) {
     Type.GRID.name -> Type.GRID
     Type.BANNER.name -> Type.BANNER
     else -> Type.GRID
 }
 
-internal fun SuggestionTypeData.toSuggestionType(): SuggestionType = when(this.name) {
+internal fun SuggestionTypeData.toSuggestionType(): SuggestionType = when (this.name) {
     SuggestionType.RECOMMEND.name -> SuggestionType.RECOMMEND
     SuggestionType.ADVERTISE.name -> SuggestionType.ADVERTISE
     else -> SuggestionType.RECOMMEND
 }
 
-internal fun Property.toPropertyData(): PropertyData = when(this.name) {
+internal fun Property.toPropertyData(): PropertyData = when (this.name) {
     PropertyData.NEW.name -> PropertyData.NEW
     PropertyData.HOT.name -> PropertyData.HOT
     PropertyData.PERSONAL.name -> PropertyData.PERSONAL
@@ -75,13 +75,13 @@ internal fun Property.toPropertyData(): PropertyData = when(this.name) {
     else -> PropertyData.NEW
 }
 
-internal fun Type.toTypeData(): TypeData = when(this.name) {
+internal fun Type.toTypeData(): TypeData = when (this.name) {
     TypeData.GRID.name -> TypeData.GRID
     TypeData.BANNER.name -> TypeData.BANNER
     else -> TypeData.GRID
 }
 
-internal fun SuggestionType.toSuggestionTypeData(): SuggestionTypeData = when(this.name) {
+internal fun SuggestionType.toSuggestionTypeData(): SuggestionTypeData = when (this.name) {
     SuggestionTypeData.RECOMMEND.name -> SuggestionTypeData.RECOMMEND
     SuggestionTypeData.ADVERTISE.name -> SuggestionTypeData.ADVERTISE
     else -> SuggestionTypeData.RECOMMEND
