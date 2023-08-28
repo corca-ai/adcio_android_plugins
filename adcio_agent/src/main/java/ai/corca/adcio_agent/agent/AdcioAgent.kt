@@ -1,5 +1,7 @@
-package ai.corca.adcio_agent
+package ai.corca.adcio_agent.agent
 
+import ai.corca.adcio_agent.R
+import ai.corca.adcio_agent.provider.WebViewManager
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle

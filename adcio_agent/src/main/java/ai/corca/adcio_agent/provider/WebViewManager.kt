@@ -1,5 +1,6 @@
-package ai.corca.adcio_agent
+package ai.corca.adcio_agent.provider
 
+import ai.corca.adcio_agent.agent.AdcioAgent
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 
