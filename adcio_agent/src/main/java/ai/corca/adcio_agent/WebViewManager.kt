@@ -1,7 +1,7 @@
 package ai.corca.adcio_agent
 
 import android.content.Context
-import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 
 var productId = ""
 
@@ -9,6 +9,7 @@ open class WebViewManager(
     val context: Context?,
     val clientId: String,
     val baseUrl: String = "https://agent-dev.adcio.ai",
+    val fragmentContainer: Int
 ) {
 
     private lateinit var delayedString: String
@@ -16,10 +17,15 @@ open class WebViewManager(
     fun callAdcioAgent() {
         val startPage = "start/"
         val agentUrl = "$baseUrl/$clientId/$startPage?platform=android"
-        val intent = Intent(context, AdcioAgent::class.java)
-        intent.putExtra("agentUrl", agentUrl)
-        context!!.startActivity(intent)
+        val fragmentManager = (context as AppCompatActivity).supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        val fragment = AdcioAgent.newInstance(agentUrl)
+        fragmentTransaction.replace(fragmentContainer, fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
     }
+
     fun setDelayedString(value: String) {
         delayedString = value
     }
