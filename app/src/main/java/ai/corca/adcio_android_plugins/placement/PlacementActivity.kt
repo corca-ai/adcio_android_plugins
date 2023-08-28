@@ -9,6 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class PlacementActivity : AppCompatActivity() {
@@ -39,13 +40,21 @@ class PlacementActivity : AppCompatActivity() {
             GetSuggestionThread().start()
         }
 
+        binding.tvDeviceId.setOnClickListener {
+            Toast.makeText(this, "Device Id: ${AdcioPlacement.getDeviceId()}", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.tvSessionId.setOnClickListener {
+            Toast.makeText(this, "Session Id: ${AdcioPlacement.getSessionId()}", Toast.LENGTH_SHORT).show()
+        }
+
         val getSuggestionThread = GetSuggestionThread()
         getSuggestionThread.start()
     }
 
     inner class GetSuggestionThread: Thread() {
         override fun run() {
-            val result = AdcioPlacement().adcioSuggest(
+            val result = AdcioPlacement.adcioSuggest(
                 placementId = "9f9f9b00-dc16-41c7-a5cd-f9a788d3d481",
                 baseUrl = "https://api-dev.adcio.ai",
             )

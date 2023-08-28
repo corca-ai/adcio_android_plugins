@@ -3,7 +3,12 @@ package ai.corca.adcio_placement.feature
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import ai.corca.adcio_placement.network.remote.PlacementRemote
 
-class AdcioPlacement {
+object AdcioPlacement {
+
+    fun getDeviceId() = AdcioSuggestionInfo.getDeviceId()
+
+    fun getSessionId() = AdcioSuggestionInfo.getSessionId()
+
     fun adcioSuggest(
         placementId: String,
         sessionId: String = AdcioSuggestionInfo.getSessionId(),

@@ -14,7 +14,7 @@
         android:layout_margin="3dp"
         android:layout_marginBottom="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:cardBackgroundColor="@color/material_dynamic_primary95"
+        app:cardBackgroundColor="@color/material_dynamic_primary99"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 tools:text="어니스트 후드 화이트 오트밀 JEHD3416"
                 android:textColor="@color/black"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:layout_marginStart="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/card_image"
