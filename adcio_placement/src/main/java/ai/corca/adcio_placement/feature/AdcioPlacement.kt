@@ -6,6 +6,7 @@ import ai.corca.adcio_placement.network.remote.PlacementRemote
 object AdcioPlacement {
 
     private val adcioInfo = AdcioSuggestionInfo()
+    private val placementRemote = PlacementRemote()
 
     fun getDeviceId(
         otherInfo: AdcioSuggestionInfo? = null
@@ -30,7 +31,7 @@ object AdcioPlacement {
         area: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionRaw {
-        return PlacementRemote().getSuggestion(
+        return placementRemote.getSuggestion(
             placementId = placementId,
             sessionId = getSessionId(otherInfo),
             deviceId = getDeviceId(otherInfo),
