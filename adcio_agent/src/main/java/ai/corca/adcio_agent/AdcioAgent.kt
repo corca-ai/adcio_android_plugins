@@ -1,23 +1,39 @@
 package ai.corca.adcio_agent
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
+import android.view.View
 import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.OnBackPressedCallback
+import androidx.fragment.app.Fragment
 
-class AdcioAgent : AppCompatActivity() {
+class AdcioAgent : Fragment(R.layout.activity_adcio_agent) { // Replace with your fragment layout resource
 
     private lateinit var webView: WebView
+    private lateinit var callback: OnBackPressedCallback
+
+    companion object {
+        private const val ARG_AGENT_URL = "agentUrl"
+
+        fun newInstance(agentUrl: String): AdcioAgent {
+            val fragment = AdcioAgent()
+            val args = Bundle().apply {
+                putString(ARG_AGENT_URL, agentUrl)
+            }
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
     @SuppressLint("SetJavaScriptEnabled")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_adcio_agent) // Replace with your layout resource
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val agentUrl = intent.getStringExtra("agentUrl")!!
-        webView = findViewById(R.id.webView) // Replace with your WebView ID from XML layout
+        val agentUrl = arguments?.getString("agentUrl") ?: ""
+        webView = view.findViewById(R.id.webView) // Replace with your WebView ID from XML layout
 
         webView.apply {
             settings.javaScriptEnabled = true
@@ -32,16 +48,27 @@ class AdcioAgent : AppCompatActivity() {
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                requireActivity().finish()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
     private inner class ProductRouterJavascriptInterface {
         @JavascriptInterface
         fun postMessage(productId: String) {
             WebViewManager(
-                context = applicationContext,
+                context = requireContext().applicationContext,
                 clientId = "",
                 "",
+                0
             ).getProductId(productId)
-            runOnUiThread {
-                finish()
+            requireActivity().runOnUiThread {
+                requireActivity().finish()
             }
         }
     }
