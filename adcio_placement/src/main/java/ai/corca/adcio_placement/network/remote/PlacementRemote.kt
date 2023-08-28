@@ -14,7 +14,7 @@ import java.lang.RuntimeException
 
 internal class PlacementRemote {
 
-    private val networkSuccessRange = 200 until 300
+    private val networkSuccessRange = 200..300
 
     fun getSuggestion(
         sessionId: String,
@@ -30,6 +30,7 @@ internal class PlacementRemote {
         baseUrl: String? = null,
     ): AdcioSuggestionRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
+        // TODO Retrofit Test 후 지우는 작업!
         Log.d("TestLogLog", "Service : ${service.hashCode()}")
         val response = service.getSuggestion(
             sessionId = sessionId,

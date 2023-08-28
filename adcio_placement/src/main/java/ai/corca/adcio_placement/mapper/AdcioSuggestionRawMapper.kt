@@ -8,7 +8,8 @@ internal fun AdcioSuggestionRawData.toAdcioSuggestionRaw(): AdcioSuggestionRaw =
     suggestions = this.suggestionsData.map { it.toAdcioSuggestion() }
 )
 
-internal fun AdcioSuggestionRaw.toAdcioSuggestionRawData(): AdcioSuggestionRawData = AdcioSuggestionRawData(
-    placementData = this.placement.toPlacementData(),
-    suggestionsData = this.suggestions.map { it.toAdcioSuggestionData() }
-)
+internal fun AdcioSuggestionRaw.toAdcioSuggestionRawData(): AdcioSuggestionRawData =
+    AdcioSuggestionRawData(
+        placementData = this.placement.toPlacementData(),
+        suggestionsData = this.suggestions.map { it.toAdcioSuggestionData() }
+    )
