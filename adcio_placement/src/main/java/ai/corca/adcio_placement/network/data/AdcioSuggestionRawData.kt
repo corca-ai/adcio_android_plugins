@@ -4,5 +4,5 @@ import com.google.gson.annotations.SerializedName
 
 data class AdcioSuggestionRawData(
     @SerializedName("placement") val placementData: PlacementData,
-    @SerializedName("suggestions") val suggestionsData: List<AdcioSuggestionData>,
+    @SerializedName("suggestions") val suggestionDataList: List<AdcioSuggestionData>,
 )
