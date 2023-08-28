@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 internal object RetrofitClient {
     private var placementService: PlacementService? = null
-    private var retrofit: Retrofit? = null
+    private lateinit var retrofit: Retrofit
 
     private val okHttpClient = OkHttpClient().newBuilder()
         .addInterceptor(
@@ -27,7 +27,7 @@ internal object RetrofitClient {
             if (baseUrl.isNullOrBlank().not()) PlacementUrl.baseUrl = baseUrl ?: ""
 
             createRetrofit()
-            placementService = retrofit?.create(PlacementService::class.java)
+            placementService = retrofit.create(PlacementService::class.java)
             return placementService ?: throw RuntimeException()
         } else {
             return if (baseUrl.isNullOrBlank()) {
@@ -38,7 +38,7 @@ internal object RetrofitClient {
                 } else {
                     PlacementUrl.baseUrl = baseUrl
                     createRetrofit()
-                    placementService = retrofit?.create(PlacementService::class.java)
+                    placementService = retrofit.create(PlacementService::class.java)
                     placementService ?: throw RuntimeException()
                 }
             }
@@ -47,10 +47,10 @@ internal object RetrofitClient {
 
     fun exceptionHandling(response: Response<AdcioSuggestionRawData>): ErrorResponse {
         val errorResponse = response.errorBody()?.let {
-            retrofit?.responseBodyConverter<ErrorResponse>(
+            retrofit.responseBodyConverter<ErrorResponse>(
                 ErrorResponse::class.java,
                 ErrorResponse::class.java.annotations
-            )?.convert(it)
+            ).convert(it)
         }?.message ?: listOf(UNKNOWN_EXCEPTION_MESSAGE)
         return ErrorResponse(
             statusCode = response.code(),

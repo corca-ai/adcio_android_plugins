@@ -30,8 +30,6 @@ internal class PlacementRemote {
         baseUrl: String? = null,
     ): AdcioSuggestionRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
-        // TODO Retrofit Test 후 지우는 작업!
-        Log.d("TestLogLog", "Service : ${service.hashCode()}")
         val response = service.getSuggestion(
             sessionId = sessionId,
             deviceId = deviceId,
