@@ -5,7 +5,6 @@ import ai.corca.adcio_android_plugins.R
 import ai.corca.adcio_android_plugins.databinding.ActivityAgentBinding
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.DataBindingUtil
 
 class AgentActivity : AppCompatActivity() {
 
@@ -20,7 +19,6 @@ class AgentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_agent)
         webViewManager.callAdcioAgent()
     }
 }

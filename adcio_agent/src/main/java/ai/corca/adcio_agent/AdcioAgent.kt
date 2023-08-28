@@ -10,7 +10,7 @@ import android.webkit.WebView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 
-class AdcioAgent : Fragment(R.layout.activity_adcio_agent) { // Replace with your fragment layout resource
+class AdcioAgent : Fragment(R.layout.fragment_adcio_agent) {
 
     private lateinit var webView: WebView
     private lateinit var callback: OnBackPressedCallback
@@ -33,7 +33,7 @@ class AdcioAgent : Fragment(R.layout.activity_adcio_agent) { // Replace with you
         super.onViewCreated(view, savedInstanceState)
 
         val agentUrl = arguments?.getString("agentUrl") ?: ""
-        webView = view.findViewById(R.id.webView) // Replace with your WebView ID from XML layout
+        webView = view.findViewById(R.id.webView)
 
         webView.apply {
             settings.javaScriptEnabled = true

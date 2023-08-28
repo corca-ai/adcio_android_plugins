@@ -48,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         webViewManager.setDelayedString(productId)
         val getProductId = webViewManager.getDelayedString()
         if (getProductId != "") {
-            Toast.makeText(this, webViewManager.getDelayedString(), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, productId, Toast.LENGTH_SHORT).show()
         }
     }
 }
