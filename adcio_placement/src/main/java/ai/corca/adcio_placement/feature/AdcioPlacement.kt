@@ -5,7 +5,7 @@ import ai.corca.adcio_placement.network.remote.PlacementRemote
 
 object AdcioPlacement {
 
-    val adcioInfo = AdcioSuggestionInfo()
+    private val adcioInfo = AdcioSuggestionInfo()
 
     fun getDeviceId(
         otherInfo: AdcioSuggestionInfo? = null

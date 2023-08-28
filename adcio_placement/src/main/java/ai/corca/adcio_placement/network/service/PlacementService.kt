@@ -6,7 +6,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface PlacementService {
+internal interface PlacementService {
 
     @GET(PlacementUrl.EndPoint.suggestion)
     fun getSuggestion(
