@@ -21,5 +21,5 @@ data class Placement(
     val placementProperty: Property,
     val createdAt: String,
     val updatedAt: String,
-    val deletedAt: String,
+    val deletedAt: String?,
 )

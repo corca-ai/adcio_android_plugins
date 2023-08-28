@@ -23,5 +23,5 @@ data class PlacementData(
     @SerializedName("property") val placementProperty: PropertyData,
     @SerializedName("createdAt") val createdAt: String,
     @SerializedName("updatedAt") val updatedAt: String,
-    @SerializedName("deletedAt") val deletedAt: String,
+    @SerializedName("deletedAt") val deletedAt: String?,
 )
