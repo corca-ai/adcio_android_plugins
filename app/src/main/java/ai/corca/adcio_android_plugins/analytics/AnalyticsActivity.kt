@@ -26,6 +26,5 @@ class AnalyticsActivity : AppCompatActivity() {
         )
 
         Log.d("TESTTEST", "${app.adcioAnalyticsHistory.getImpressionHistories()}")
-
     }
 }
