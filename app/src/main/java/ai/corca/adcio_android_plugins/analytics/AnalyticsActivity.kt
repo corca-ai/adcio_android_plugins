@@ -14,6 +14,7 @@ import android.os.Message
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlin.math.log
 
 class AnalyticsActivity : AppCompatActivity() {
 
@@ -36,14 +37,11 @@ class AnalyticsActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val app = applicationContext as AdcioAndroidPluginsApplication
-        app.adcioAnalyticsHistory.addImpressionHistory("asdf")
+        AdcioAnalytics.initAnalytics(app.adcioAnalyticsHistory)
+        AdcioPlacement.initPlacement(app.adcioAnalyticsHistory)
 
-        adapter = AnalyticsSuggestionListAdapter {
-            AdcioAnalytics.onPurchase(
-                requestId = it.requestId,
-                adsetId = it.adsetId,
-                amount = 2,
-            )
+        adapter = AnalyticsSuggestionListAdapter { logOption ->
+            OnPurchaseThread(logOption = logOption).start()
         }
         binding.rvSuggestions.adapter = adapter
         adapter.submitList(suggestions)
@@ -73,6 +71,18 @@ class AnalyticsActivity : AppCompatActivity() {
             }
 
             handler.sendEmptyMessage(0)
+        }
+    }
+
+    inner class OnPurchaseThread(
+        val logOption: AdcioLogOption
+    ) : Thread() {
+        override fun run() {
+            AdcioAnalytics.onPurchase(
+                requestId = logOption.requestId,
+                adsetId = logOption.adsetId,
+                amount = 2,
+            )
         }
     }
 }

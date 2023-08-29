@@ -1,9 +1,23 @@
 package ai.corca.adcio_placement.feature
 
+import ai.corca.adcio_analytics.feature.AdcioAnalyticsHistory
+import ai.corca.adcio_placement.exception.NotInitializedException
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import ai.corca.adcio_placement.network.remote.PlacementRemote
+import android.util.Log
 
 object AdcioPlacement {
+
+    private lateinit var adcioAnalyticsHistory: AdcioAnalyticsHistory
+    private var isInitialized: Boolean = false
+
+    fun initPlacement(
+        adcioAnalyticsHistory: AdcioAnalyticsHistory
+    ) {
+        Log.d("TestTestTest", "in Placement: ${adcioAnalyticsHistory.hashCode()}")
+        isInitialized = true
+        this.adcioAnalyticsHistory = adcioAnalyticsHistory
+    }
 
     private val adcioInfo = AdcioSuggestionInfo()
     private val placementRemote = PlacementRemote()
@@ -31,6 +45,9 @@ object AdcioPlacement {
         area: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionRaw {
+        if (!isInitialized) throw NotInitializedException()
+
+        adcioAnalyticsHistory.clearHistories()
         return placementRemote.getSuggestion(
             placementId = placementId,
             sessionId = getSessionId(otherInfo),

@@ -1,5 +1,6 @@
 package ai.corca.adcio_android_plugins.analytics
 
+import ai.corca.adcio_analytics.feature.AdcioImpressionDetectorManager
 import ai.corca.adcio_analytics.model.AdcioLogOption
 import ai.corca.adcio_android_plugins.databinding.ItemAnalyticsSuggestionBinding
 import ai.corca.adcio_android_plugins.databinding.ItemSuggestionBinding
@@ -31,6 +32,10 @@ class AnalyticsSuggestionListAdapter(
             binding.layoutPurchase.setOnClickListener {
                 onClickPurchase(item.logOption)
             }
+            binding.adcioDetector.manager = AdcioImpressionDetectorManager(
+                requestId = item.logOption.requestId,
+                adsetId = item.logOption.adsetId,
+            )
             if (position == 1) {
                 binding.adcioDetector.useImpression = true
             }
