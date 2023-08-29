@@ -18,6 +18,7 @@ class ComposeWebViewManager {
 
     fun emptyProductId() {
         composeProductId = ""
+        delayedString = ""
     }
 
     fun getProductId(id: String) {

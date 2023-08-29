@@ -10,8 +10,8 @@ class XmlActivity : AppCompatActivity() {
     private val webViewManager = WebViewManager(
         context = this,
         clientId = "30cb6fd0-17a5-4c56-b144-fef67de81bef",
-        "https://agent-dev.adcio.ai",
-        R.id.adcio_webview_frame
+        baseUrl = "https://agent-dev.adcio.ai",
+        fragmentContainer = R.id.adcio_webview_frame
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
