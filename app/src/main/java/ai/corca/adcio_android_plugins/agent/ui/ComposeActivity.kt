@@ -2,9 +2,9 @@ package ai.corca.adcio_android_plugins.agent.ui
 
 import ai.corca.adcio_agent_compose.agent.callAdcioAgent
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
