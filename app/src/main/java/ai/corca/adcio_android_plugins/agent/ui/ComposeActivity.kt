@@ -7,10 +7,8 @@ import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,8 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.navigation.compose.rememberNavController
 
 class ComposeActivity : AppCompatActivity() {
 
@@ -62,8 +58,6 @@ class ComposeActivity : AppCompatActivity() {
                 )
             }
             callAdcioAgent(
-                modifier = Modifier.fillMaxSize(),
-                context = context,
                 clientId = "30cb6fd0-17a5-4c56-b144-fef67de81bef",
                 baseUrl = "https://agent-dev.adcio.ai",
                 this@ComposeActivity
