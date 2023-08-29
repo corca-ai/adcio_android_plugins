@@ -1,56 +1,62 @@
 package ai.corca.adcio_agent_compose.agent
 
 import ai.corca.adcio_agent_compose.provider.ComposeWebViewManager
-import android.app.Activity
-import android.content.Context
+import android.annotation.SuppressLint
 import android.webkit.JavascriptInterface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.google.accompanist.web.AccompanistWebChromeClient
-import com.google.accompanist.web.AccompanistWebViewClient
+import androidx.navigation.NavController
 import com.google.accompanist.web.WebView
 import com.google.accompanist.web.rememberWebViewState
 
+class ViewManager {
+    var getProductId: String = ""
+    var postMessageCalled = mutableStateOf(false)
+}
+
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun callAdcioAgent(
+    modifier: Modifier = Modifier,
     clientId: String,
     baseUrl: String = "https://agent-dev.adcio.ai",
-    activity: Activity,
+    navController: NavController
 ) {
     val startPage = "start/"
     val agentUrl = "$baseUrl/$clientId/$startPage?platform=android"
 
-    val webViewState =
-        rememberWebViewState(
-            url = agentUrl,
-            additionalHttpHeaders = emptyMap()
-        )
-    val webViewClient = AccompanistWebViewClient()
-    val webChromeClient = AccompanistWebChromeClient()
+    val webViewManager = remember { ViewManager() }
+
+    if (webViewManager.postMessageCalled.value) {
+        navController.popBackStack("main", false)
+        webViewManager.postMessageCalled.value = false
+    }
 
     WebView(
-        state = webViewState,
-        client = webViewClient,
-        chromeClient = webChromeClient,
-        onCreated = { webView ->
-            with(webView) {
-                settings.run {
-                    javaScriptEnabled = true
-                    domStorageEnabled = true
-                    javaScriptCanOpenWindowsAutomatically = false
+        modifier = modifier,
+        state = rememberWebViewState(url=agentUrl),
+        onCreated={ webView ->
+            with(webView){
+                settings.run{
+                    javaScriptEnabled=true
+                    domStorageEnabled=true
+                    javaScriptCanOpenWindowsAutomatically=false
                 }
-                addJavascriptInterface(ProductRouterJavascriptInterface(activity), "ProductRouter")
+                addJavascriptInterface(ProductRouterJavascriptInterface(webViewManager), "ProductRouter")
             }
-        }
+        },
     )
 }
 
-class ProductRouterJavascriptInterface(private val activity: Activity) {
+class ProductRouterJavascriptInterface(private val viewManager: ViewManager) {
+
+    private val composeWebViewManager = ComposeWebViewManager()
+
     @JavascriptInterface
-    fun postMessage(message: String) {
-        webViewManager.getProductId(message)
-        activity.finish()
+    fun postMessage(message: String){
+        composeWebViewManager.getProductId(message)
+        viewManager.postMessageCalled.value=true
     }
 }
-
-val webViewManager = ComposeWebViewManager()
