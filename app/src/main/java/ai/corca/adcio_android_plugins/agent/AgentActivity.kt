@@ -2,12 +2,15 @@ package ai.corca.adcio_android_plugins.agent
 
 import ai.corca.adcio_agent.provider.WebViewManager
 import ai.corca.adcio_agent.provider.productId
+import ai.corca.adcio_agent_compose.provider.ComposeWebViewManager
+import ai.corca.adcio_agent_compose.provider.composeProductId
 import ai.corca.adcio_android_plugins.R
 import ai.corca.adcio_android_plugins.agent.ui.ComposeActivity
 import ai.corca.adcio_android_plugins.agent.ui.XmlActivity
 import ai.corca.adcio_android_plugins.databinding.ActivityAgentBinding
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -38,12 +41,20 @@ class AgentActivity : AppCompatActivity() {
         R.id.adcio_webview_frame
     )
 
+    private val composeWebViewManager = ComposeWebViewManager()
+
     override fun onRestart() {
         super.onRestart()
         webViewManager.setDelayedString(productId)
+        composeWebViewManager.setDelayedString(composeProductId)
         val getProductId = webViewManager.getDelayedString()
+        val getComposeProductId = composeWebViewManager.getDelayedString()
         if (getProductId != "") {
-            Toast.makeText(this, productId, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getProductId, Toast.LENGTH_SHORT).show()
+            webViewManager.emptyProductId()
+        } else if (getComposeProductId != "") {
+            Toast.makeText(this, getComposeProductId, Toast.LENGTH_SHORT).show()
+            composeWebViewManager.emptyProductId()
         }
     }
 }
