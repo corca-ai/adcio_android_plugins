@@ -38,6 +38,10 @@ open class WebViewManager(
         return delayedString
     }
 
+    fun emptyProductId() {
+        productId = ""
+    }
+
     fun getProductId(id: String) {
         productId = id
     }
