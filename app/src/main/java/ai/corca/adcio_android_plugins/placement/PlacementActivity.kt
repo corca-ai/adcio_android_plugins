@@ -1,5 +1,7 @@
 package ai.corca.adcio_android_plugins.placement
 
+import ai.corca.adcio_agent.productId
+import ai.corca.adcio_analytics.model.AdcioLogOption
 import ai.corca.adcio_android_plugins.databinding.ActivityPlacementBinding
 import ai.corca.adcio_placement.feature.AdcioPlacement
 import android.os.Bundle
@@ -61,8 +63,11 @@ class PlacementActivity : AppCompatActivity() {
             result.suggestions.forEach {
                 suggestions.add(
                     Suggestion(
+                        productId = it.product.id,
                         name = it.product.name,
                         image = it.product.image,
+                        price = it.product.price.toString(),
+                        logOption = AdcioLogOption(requestId = it.logOptions.requestId, adsetId = it.logOptions.adsetId),
                     )
                 )
             }
@@ -83,8 +88,11 @@ class PlacementActivity : AppCompatActivity() {
                 result.suggestions.forEach {
                     suggestions.add(
                         Suggestion(
+                            productId = it.product.id,
                             name = it.product.name,
                             image = it.product.image,
+                            price = it.product.price.toString(),
+                            logOption = AdcioLogOption(requestId = it.logOptions.requestId, adsetId = it.logOptions.adsetId),
                         )
                     )
                 }
