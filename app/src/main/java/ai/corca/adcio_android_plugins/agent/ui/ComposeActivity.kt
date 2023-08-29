@@ -1,11 +1,17 @@
 package ai.corca.adcio_android_plugins.agent.ui
 
+import ai.corca.adcio_agent_compose.agent.callAdcioAgent
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,28 +22,38 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.navigation.compose.rememberNavController
 
 class ComposeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            callAgentWebView()
+        setContent() {
+            agentScreen(
+                modifier = Modifier
+                    .fillMaxSize(),
+                this
+            )
         }
     }
 
     @Composable
-    fun callAgentWebView() {
+    fun agentScreen(
+        modifier: Modifier,
+        context: Context
+    ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
         ) {
-            Box(
+            Row(
                 modifier = Modifier
+                    .background(color = Color.Blue)
                     .fillMaxWidth()
                     .height(60.dp)
-                    .background(color = Color.Blue)
                     .padding(start = 30.dp),
-                contentAlignment = Alignment.CenterStart,
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Start
             ) {
                 Text(
                     fontSize = 18.sp,
@@ -45,8 +61,13 @@ class ComposeActivity : AppCompatActivity() {
                     color = Color.White
                 )
             }
-
-
+            callAdcioAgent(
+                modifier = Modifier.fillMaxSize(),
+                context = context,
+                clientId = "30cb6fd0-17a5-4c56-b144-fef67de81bef",
+                baseUrl = "https://agent-dev.adcio.ai",
+                this@ComposeActivity
+            )
         }
     }
 }
