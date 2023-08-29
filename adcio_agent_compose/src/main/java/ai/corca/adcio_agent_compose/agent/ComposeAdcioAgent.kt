@@ -13,8 +13,6 @@ import com.google.accompanist.web.rememberWebViewState
 
 @Composable
 fun callAdcioAgent(
-    modifier: Modifier,
-    context: Context,
     clientId: String,
     baseUrl: String = "https://agent-dev.adcio.ai",
     activity: Activity,
