@@ -1,6 +1,6 @@
 package ai.corca.adcio_agent.provider
 
-import ai.corca.adcio_agent.agent.AgentConnectImpl
+import ai.corca.adcio_agent.agent.AgentClient
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.properties.Delegates
@@ -36,15 +36,15 @@ open class AdcioAgent(
         val fragmentManager = (context as AppCompatActivity).supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 
-        val fragment = AgentConnectImpl.newInstance(agentUrl)
+        val fragment = AgentClient.newInstance(agentUrl)
         fragmentTransaction.replace(fragmentContainer, fragment)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 
-    fun isAgentStartPage(): Boolean = AgentConnectImpl().isAgentStartPage
+    fun isAgentStartPage(): Boolean = AgentClient().isAgentStartPage
 
-    fun agentGoBack(): Boolean = AgentConnectImpl().agentBackManager()
+    fun agentGoBack(): Boolean = AgentClient().agentBackManager()
 
     internal fun setProductId(newProductId: String) {
         _productId = newProductId

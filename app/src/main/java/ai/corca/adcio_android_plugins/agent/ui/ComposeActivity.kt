@@ -3,7 +3,6 @@ package ai.corca.adcio_android_plugins.agent.ui
 import ai.corca.adcio_agent_compose.agent.callAdcioAgent
 import ai.corca.adcio_agent_compose.provider.productId
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.background

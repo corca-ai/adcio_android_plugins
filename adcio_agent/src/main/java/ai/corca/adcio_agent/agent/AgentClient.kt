@@ -12,7 +12,7 @@ import android.webkit.WebView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 
-class AgentConnectImpl : Fragment(R.layout.fragment_adcio_agent) {
+class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
 
     private lateinit var webView: WebView
     private lateinit var callback: OnBackPressedCallback
@@ -20,8 +20,8 @@ class AgentConnectImpl : Fragment(R.layout.fragment_adcio_agent) {
     companion object {
         private const val ARG_AGENT_URL = "agentUrl"
 
-        fun newInstance(agentUrl: String): AgentConnectImpl {
-            val fragment = AgentConnectImpl()
+        fun newInstance(agentUrl: String): AgentClient {
+            val fragment = AgentClient()
             val args = Bundle().apply {
                 putString(ARG_AGENT_URL, agentUrl)
             }
