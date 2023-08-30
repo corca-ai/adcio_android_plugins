@@ -3,6 +3,7 @@ package ai.corca.adcio_agent_compose.agent
 import ai.corca.adcio_agent_compose.provider.ComposeWebViewManager
 import android.annotation.SuppressLint
 import android.webkit.JavascriptInterface
+import android.webkit.WebView
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -12,10 +13,8 @@ import androidx.navigation.NavController
 import com.google.accompanist.web.WebView
 import com.google.accompanist.web.rememberWebViewState
 
-data class ViewManager(
-    var getProductId: String = "",
-    var postMessageCalled: MutableState<Boolean> = mutableStateOf(false)
-)
+@SuppressLint("StaticFieldLeak")
+private lateinit var webViewState: WebView
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
@@ -23,17 +22,10 @@ fun callAdcioAgent(
     modifier: Modifier = Modifier,
     clientId: String,
     baseUrl: String = "https://agent-dev.adcio.ai",
-    navController: NavController
+    showAppBar: Boolean = false,
 ) {
     val startPage = "start/"
-    val agentUrl = "$baseUrl/$clientId/$startPage?platform=android"
-
-    val webViewManager = remember { ViewManager() }
-
-    if (webViewManager.postMessageCalled.value) {
-        navController.popBackStack("main", false)
-        webViewManager.postMessageCalled.value = false
-    }
+    val agentUrl = "$baseUrl/$clientId/$startPage?platform=android&show_appbar=$showAppBar"
 
     WebView(
         modifier = modifier,
@@ -45,19 +37,33 @@ fun callAdcioAgent(
                     domStorageEnabled=true
                     javaScriptCanOpenWindowsAutomatically=false
                 }
-                addJavascriptInterface(ProductRouterJavascriptInterface(webViewManager), "ProductRouter")
+                addJavascriptInterface(ProductRouterJavascriptInterface(), "ProductRouter")
             }
+            webViewState = webView
         },
     )
 }
 
-class ProductRouterJavascriptInterface(private val viewManager: ViewManager) {
+class WebViewStateManager {
+    val isAgentStartPage: Boolean
+        get() = webViewState.url?.contains("start/") ?: false
+
+    fun agentBackManager(): Boolean {
+        return if (webViewState.canGoBack()) {
+            webViewState.goBack()
+            false
+        } else {
+            true
+        }
+    }
+}
+
+class ProductRouterJavascriptInterface() {
 
     private val composeWebViewManager = ComposeWebViewManager()
 
     @JavascriptInterface
     fun postMessage(message: String){
-        composeWebViewManager.getProductId(message)
-        viewManager.postMessageCalled.value=true
+        composeWebViewManager.setProductId(message)
     }
 }
