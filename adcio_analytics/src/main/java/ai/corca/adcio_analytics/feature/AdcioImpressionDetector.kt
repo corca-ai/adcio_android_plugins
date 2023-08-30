@@ -4,7 +4,6 @@ import ai.corca.adcio_analytics.R
 import android.content.Context
 import android.graphics.Rect
 import android.util.AttributeSet
-import android.util.Log
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import androidx.core.content.withStyledAttributes
@@ -42,9 +41,7 @@ class AdcioImpressionDetector @JvmOverloads constructor(
     }
 
     private fun onImpression() {
-        Log.d("TestTestTest", "in detector on impression")
         thread(start = true) {
-            Log.d("TestTestTest", "in detector on impression thread")
             AdcioAnalytics.onImpression(
                 requestId = manager.requestId,
                 adsetId = manager.adsetId,

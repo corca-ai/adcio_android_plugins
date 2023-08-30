@@ -4,7 +4,6 @@ import ai.corca.adcio_analytics.feature.AdcioAnalyticsHistory
 import ai.corca.adcio_placement.exception.NotInitializedException
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import ai.corca.adcio_placement.network.remote.PlacementRemote
-import android.util.Log
 
 object AdcioPlacement {
 
@@ -14,7 +13,6 @@ object AdcioPlacement {
     fun initPlacement(
         adcioAnalyticsHistory: AdcioAnalyticsHistory
     ) {
-        Log.d("TestTestTest", "in Placement: ${adcioAnalyticsHistory.hashCode()}")
         isInitialized = true
         this.adcioAnalyticsHistory = adcioAnalyticsHistory
     }
