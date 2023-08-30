@@ -3,13 +3,10 @@ package ai.corca.adcio_android_plugins.analytics
 import ai.corca.adcio_analytics.feature.AdcioImpressionDetectorManager
 import ai.corca.adcio_analytics.model.AdcioLogOption
 import ai.corca.adcio_android_plugins.databinding.ItemAnalyticsSuggestionBinding
-import ai.corca.adcio_android_plugins.databinding.ItemSuggestionBinding
 import ai.corca.adcio_android_plugins.placement.ProductDiffUtilCallback
 import ai.corca.adcio_android_plugins.placement.Suggestion
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
