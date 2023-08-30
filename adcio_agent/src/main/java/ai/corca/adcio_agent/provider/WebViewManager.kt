@@ -1,21 +1,21 @@
 package ai.corca.adcio_agent.provider
 
-import ai.corca.adcio_agent.agent.AdcioAgent
+import ai.corca.adcio_agent.agent.AgentConnectImpl
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.properties.Delegates
 
-interface ProductChangeListener {
-    fun onProductIdChanged(newId: String)
+interface AdcioAgentListener {
+    fun onClickProductId(productId: String)
 }
 
-var productChangeListener: ProductChangeListener? = null
+var adcioAgentListener: AdcioAgentListener? = null
 
 private var _productId: String by Delegates.observable("") { _, _, new ->
-    productChangeListener?.onProductIdChanged(new)
+    adcioAgentListener?.onClickProductId(new)
 }
 
-open class WebViewManager(
+open class AdcioAgent(
     val context: Context?,
     val clientId: String,
     val baseUrl: String = "https://agent-dev.adcio.ai",
@@ -36,15 +36,15 @@ open class WebViewManager(
         val fragmentManager = (context as AppCompatActivity).supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 
-        val fragment = AdcioAgent.newInstance(agentUrl)
+        val fragment = AgentConnectImpl.newInstance(agentUrl)
         fragmentTransaction.replace(fragmentContainer, fragment)
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commit()
     }
 
-    fun isAgentStartPage(): Boolean = AdcioAgent().isAgentStartPage
+    fun isAgentStartPage(): Boolean = AgentConnectImpl().isAgentStartPage
 
-    fun agentGoBack(): Boolean = AdcioAgent().agentBackManager()
+    fun agentGoBack(): Boolean = AgentConnectImpl().agentBackManager()
 
     internal fun setProductId(newProductId: String) {
         _productId = newProductId

@@ -54,7 +54,6 @@ class ComposeActivity : AppCompatActivity() {
                     text = "adcio_agent example",
                     color = Color.White
                 )
-                Log.d("tagtagtag", id)
                 Text(
                     fontSize = 18.sp,
                     color = Color.White,

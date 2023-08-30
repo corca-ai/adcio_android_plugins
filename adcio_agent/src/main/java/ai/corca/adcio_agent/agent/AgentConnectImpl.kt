@@ -1,7 +1,7 @@
 package ai.corca.adcio_agent.agent
 
 import ai.corca.adcio_agent.R
-import ai.corca.adcio_agent.provider.WebViewManager
+import ai.corca.adcio_agent.provider.AdcioAgent
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
@@ -12,7 +12,7 @@ import android.webkit.WebView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 
-class AdcioAgent : Fragment(R.layout.fragment_adcio_agent) {
+class AgentConnectImpl : Fragment(R.layout.fragment_adcio_agent) {
 
     private lateinit var webView: WebView
     private lateinit var callback: OnBackPressedCallback
@@ -20,8 +20,8 @@ class AdcioAgent : Fragment(R.layout.fragment_adcio_agent) {
     companion object {
         private const val ARG_AGENT_URL = "agentUrl"
 
-        fun newInstance(agentUrl: String): AdcioAgent {
-            val fragment = AdcioAgent()
+        fun newInstance(agentUrl: String): AgentConnectImpl {
+            val fragment = AgentConnectImpl()
             val args = Bundle().apply {
                 putString(ARG_AGENT_URL, agentUrl)
             }
@@ -67,7 +67,7 @@ class AdcioAgent : Fragment(R.layout.fragment_adcio_agent) {
     private inner class ProductRouterJavascriptInterface {
         @JavascriptInterface
         fun postMessage(productId: String) {
-            WebViewManager(
+            AdcioAgent(
                 context = requireContext().applicationContext,
                 clientId = "",
                 "",
