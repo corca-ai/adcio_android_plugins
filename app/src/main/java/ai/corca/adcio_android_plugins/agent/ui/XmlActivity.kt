@@ -33,6 +33,4 @@ class XmlActivity : AppCompatActivity() {
             }
         }
     }
- }
-
-
+}

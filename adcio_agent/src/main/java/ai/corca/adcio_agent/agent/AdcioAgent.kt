@@ -5,14 +5,10 @@ import ai.corca.adcio_agent.provider.WebViewManager
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebView
-import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 
@@ -43,9 +39,9 @@ class AdcioAgent : Fragment(R.layout.fragment_adcio_agent) {
 
         webView.apply {
             settings.apply {
-                javaScriptEnabled=true
-                domStorageEnabled=true
-                javaScriptCanOpenWindowsAutomatically=false
+                javaScriptEnabled = true
+                domStorageEnabled = true
+                javaScriptCanOpenWindowsAutomatically = false
             }
             addJavascriptInterface(ProductRouterJavascriptInterface(), "ProductRouter")
             webChromeClient = object : WebChromeClient() {

@@ -2,7 +2,6 @@ package ai.corca.adcio_agent.provider
 
 import ai.corca.adcio_agent.agent.AdcioAgent
 import android.content.Context
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.properties.Delegates
 

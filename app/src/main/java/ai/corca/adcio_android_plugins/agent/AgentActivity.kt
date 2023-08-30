@@ -1,13 +1,10 @@
 package ai.corca.adcio_android_plugins.agent
 
-import ai.corca.adcio_agent.provider.WebViewManager
-import ai.corca.adcio_android_plugins.R
 import ai.corca.adcio_android_plugins.agent.ui.ComposeActivity
 import ai.corca.adcio_android_plugins.agent.ui.XmlActivity
 import ai.corca.adcio_android_plugins.databinding.ActivityAgentBinding
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class AgentActivity : AppCompatActivity() {
