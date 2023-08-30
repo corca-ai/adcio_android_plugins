@@ -1,4 +1,4 @@
-package ai.corca.adcio_agent
+package ai.corca.adcio_agent.layout
 
 import android.content.Context
 import android.util.AttributeSet

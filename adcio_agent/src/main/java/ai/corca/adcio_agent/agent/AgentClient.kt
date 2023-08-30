@@ -1,5 +1,7 @@
-package ai.corca.adcio_agent
+package ai.corca.adcio_agent.agent
 
+import ai.corca.adcio_agent.R
+import ai.corca.adcio_agent.provider.AdcioAgent
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
@@ -10,7 +12,7 @@ import android.webkit.WebView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 
-class AdcioAgent : Fragment(R.layout.fragment_adcio_agent) {
+class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
 
     private lateinit var webView: WebView
     private lateinit var callback: OnBackPressedCallback
@@ -18,8 +20,8 @@ class AdcioAgent : Fragment(R.layout.fragment_adcio_agent) {
     companion object {
         private const val ARG_AGENT_URL = "agentUrl"
 
-        fun newInstance(agentUrl: String): AdcioAgent {
-            val fragment = AdcioAgent()
+        fun newInstance(agentUrl: String): AgentClient {
+            val fragment = AgentClient()
             val args = Bundle().apply {
                 putString(ARG_AGENT_URL, agentUrl)
             }
@@ -36,7 +38,11 @@ class AdcioAgent : Fragment(R.layout.fragment_adcio_agent) {
         webView = view.findViewById(R.id.webView)
 
         webView.apply {
-            settings.javaScriptEnabled = true
+            settings.apply {
+                javaScriptEnabled = true
+                domStorageEnabled = true
+                javaScriptCanOpenWindowsAutomatically = false
+            }
             addJavascriptInterface(ProductRouterJavascriptInterface(), "ProductRouter")
             webChromeClient = object : WebChromeClient() {
                 override fun onJsAlert(view: WebView?, url: String?, message: String?, result: android.webkit.JsResult?): Boolean {
@@ -61,15 +67,24 @@ class AdcioAgent : Fragment(R.layout.fragment_adcio_agent) {
     private inner class ProductRouterJavascriptInterface {
         @JavascriptInterface
         fun postMessage(productId: String) {
-            WebViewManager(
+            AdcioAgent(
                 context = requireContext().applicationContext,
                 clientId = "",
                 "",
                 0
-            ).getProductId(productId)
-            requireActivity().runOnUiThread {
-                requireActivity().finish()
-            }
+            ).setProductId(productId)
+        }
+    }
+
+    val isAgentStartPage: Boolean
+        get() = webView.url?.contains("start/") ?: false
+
+    fun agentBackManager(): Boolean {
+        return if (webView.canGoBack()) {
+            webView.goBack()
+            false
+        } else {
+            true
         }
     }
 }
