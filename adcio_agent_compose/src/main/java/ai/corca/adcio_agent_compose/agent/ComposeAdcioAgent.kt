@@ -4,6 +4,7 @@ import ai.corca.adcio_agent_compose.provider.ComposeWebViewManager
 import android.annotation.SuppressLint
 import android.webkit.JavascriptInterface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -11,10 +12,10 @@ import androidx.navigation.NavController
 import com.google.accompanist.web.WebView
 import com.google.accompanist.web.rememberWebViewState
 
-class ViewManager {
-    var getProductId: String = ""
-    var postMessageCalled = mutableStateOf(false)
-}
+data class ViewManager(
+    var getProductId: String = "",
+    var postMessageCalled: MutableState<Boolean> = mutableStateOf(false)
+)
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
