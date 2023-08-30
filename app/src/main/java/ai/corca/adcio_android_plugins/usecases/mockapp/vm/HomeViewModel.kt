@@ -25,16 +25,21 @@ class HomeViewModel : ViewModel() {
             placementId = "9f9f9b00-dc16-41c7-a5cd-f9a788d3d481",
         )
         result.suggestions.forEach {
-            products.add(Product(
-                productId = it.product.id,
-                isAd = true,
-                name = it.product.name,
-                image = it.product.image,
-                brand = "SanSanGear",
-                sale = "30",
-                price = it.product.price.toString(),
-                logOption = AdcioLogOption(requestId = it.logOptions.requestId, adsetId = it.logOptions.adsetId)
-            ))
+            products.add(
+                Product(
+                    productId = it.product.id,
+                    isAd = true,
+                    name = it.product.name,
+                    image = it.product.image,
+                    brand = "SanSanGear",
+                    sale = "30",
+                    price = it.product.price.toString(),
+                    logOption = AdcioLogOption(
+                        requestId = it.logOptions.requestId,
+                        adsetId = it.logOptions.adsetId
+                    )
+                )
+            )
         }
 
         _suggestionState.value = products

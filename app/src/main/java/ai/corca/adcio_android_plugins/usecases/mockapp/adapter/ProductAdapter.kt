@@ -32,7 +32,7 @@ class ProductAdapter(
 
             binding.tvAd.visibility = if (product.isAd) View.VISIBLE else View.INVISIBLE
 
-            if (product.isAd){
+            if (product.isAd) {
                 product.logOption?.let {
                     binding.adcioProduct.manager = AdcioImpressionDetectorManager(requestId = it.requestId, adsetId = it.adsetId)
                 }

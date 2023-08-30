@@ -32,16 +32,13 @@ class AdcioImpressionDetector @JvmOverloads constructor(
                 getGlobalVisibleRect(rect).let {
                     if (isVisible != it) {
                         isVisible = it
-                        if (isVisible && AdcioAnalytics.adcioAnalyticsHistory.getImpressionHistories()
-                                .contains(manager.adsetId).not()
-                        ) {
+                        if (isVisible && AdcioAnalytics.adcioAnalyticsHistory.getImpressionHistories().contains(manager.adsetId).not()) {
                             onImpression()
                         }
                     }
                 }
             }
         }
-
     }
 
     private fun onImpression() {

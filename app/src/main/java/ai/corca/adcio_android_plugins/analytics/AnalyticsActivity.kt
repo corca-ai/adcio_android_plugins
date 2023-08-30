@@ -1,7 +1,6 @@
 package ai.corca.adcio_android_plugins.analytics
 
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
-import ai.corca.adcio_analytics.feature.AdcioImpressionDetectorManager
 import ai.corca.adcio_analytics.model.AdcioLogOption
 import ai.corca.adcio_android_plugins.AdcioAndroidPluginsApplication
 import ai.corca.adcio_android_plugins.databinding.ActivityAnalyticsBinding
@@ -11,10 +10,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
-import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlin.math.log
 
 class AnalyticsActivity : AppCompatActivity() {
 
