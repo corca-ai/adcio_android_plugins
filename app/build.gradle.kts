@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "ai.corca.adcio_android_plugins"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "ai.corca.adcio_android_plugins"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -50,6 +50,9 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.1")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
 
     implementation(project(path = ":adcio_agent"))
     implementation(project(path = ":adcio_placement"))

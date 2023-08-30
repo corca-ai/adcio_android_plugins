@@ -21,7 +21,7 @@ class AnalyticsSuggestionListAdapter(
 ) {
 
     inner class AnalyticsSuggestionViewHolder(private var binding: ItemAnalyticsSuggestionBinding) : ViewHolder(binding.root) {
-        fun bind(item: Suggestion, position: Int) = with(binding) {
+        fun bind(item: Suggestion) = with(binding) {
             Glide.with(binding.root)
                 .load(item.image)
                 .centerCrop()
@@ -36,10 +36,6 @@ class AnalyticsSuggestionListAdapter(
                 requestId = item.logOption.requestId,
                 adsetId = item.logOption.adsetId,
             )
-            if (position == 1) {
-                binding.adcioDetector.useImpression = true
-            }
-            Log.d("TestTest", "position : $position")
         }
     }
 
@@ -54,6 +50,6 @@ class AnalyticsSuggestionListAdapter(
     }
 
     override fun onBindViewHolder(holder: AnalyticsSuggestionViewHolder, position: Int) {
-        holder.bind(getItem(position), position)
+        holder.bind(getItem(position))
     }
 }
