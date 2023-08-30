@@ -21,11 +21,6 @@ class RecommendFragment : Fragment() {
             container,
             false,
         )
-        initView()
         return binding.root
-    }
-
-    private fun initView() {
-
     }
 }

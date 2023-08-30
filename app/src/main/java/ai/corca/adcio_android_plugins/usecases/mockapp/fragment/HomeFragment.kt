@@ -1,20 +1,30 @@
 package ai.corca.adcio_android_plugins.usecases.mockapp.fragment
 
+import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_android_plugins.databinding.FragmentHomeBinding
 import ai.corca.adcio_android_plugins.usecases.mockapp.adapter.CategoryAdapter
 import ai.corca.adcio_android_plugins.usecases.mockapp.adapter.ProductAdapter
-import ai.corca.adcio_android_plugins.usecases.mockapp.adapter.model.Product
+import ai.corca.adcio_android_plugins.usecases.mockapp.utils.sampleProducts
+import ai.corca.adcio_android_plugins.usecases.mockapp.vm.HomeViewModel
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var productAdapter: ProductAdapter
+    private lateinit var homeViewModel: HomeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,36 +36,39 @@ class HomeFragment : Fragment() {
             container,
             false,
         )
+        homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         initView()
+        getData()
         return binding.root
     }
 
     private fun initView() {
+        binding.ivRefresh.setOnClickListener {
+            homeViewModel.getProducts()
+        }
         categoryAdapter = CategoryAdapter()
         binding.rvCategory.adapter = categoryAdapter
         categoryAdapter.submitList(listOf("럭셔리", "뷰티", "스포츠", "아울렛", "키즈", "골프", "어스", "패션톡"))
 
-        productAdapter = ProductAdapter()
+        productAdapter = ProductAdapter { logOption ->
+            CoroutineScope(Dispatchers.IO).launch {
+                AdcioAnalytics.onClick(
+                    requestId = logOption.requestId,
+                    adsetId = logOption.adsetId,
+                )
+            }
+        }
         binding.rvProduct.adapter = productAdapter
-        productAdapter.submitList(
-            listOf(
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-                Product(productId = "djslfjd", isAd = false, name = "어센틱클래식 후드 화이트 오트밀 STHD3338", image = "https://image.msscdn.net/images/goods_img/20200903/1582356/1582356_1_500.jpg", brand = "티떠블유엔", sale = "10%", price = "60000원"),
-            )
-        )
+    }
+
+    private fun getData() = lifecycleScope.launch {
+        repeatOnLifecycle(Lifecycle.State.STARTED) {
+            homeViewModel.suggestionState.collect { products ->
+                if (products.isNotEmpty()) {
+                    val myProducts = (products + sampleProducts).shuffled()
+                    productAdapter.submitList(myProducts)
+                }
+            }
+        }
     }
 }

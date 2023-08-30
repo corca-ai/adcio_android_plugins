@@ -16,7 +16,7 @@ data class PlacementData(
     @SerializedName("displayCount") val displayCount: Int,
     @SerializedName("activated") val activated: Boolean,
     @SerializedName("clientId") val clientId: String,
-    @SerializedName("pageUrl") val pageUrl: String,
+    @SerializedName("pageUrl") val pageUrl: String?,
     @SerializedName("screenShot") val screenShot: String,
     @SerializedName("displayFormatWidth") val displayFormatWidth: Int?,
     @SerializedName("displayFormatHeight") val displayFormatHeight: Int?,

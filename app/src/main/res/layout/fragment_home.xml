@@ -42,6 +42,17 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/black" />
 
+        <ImageView
+            android:id="@+id/iv_refresh"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_refresh"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/iv_search"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/black" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.tabs.TabLayout

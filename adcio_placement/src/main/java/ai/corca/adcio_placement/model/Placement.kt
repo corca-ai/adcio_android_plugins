@@ -14,7 +14,7 @@ data class Placement(
     val displayCount: Int,
     val activated: Boolean,
     val clientId: String,
-    val pageUrl: String,
+    val pageUrl: String?,
     val screenShot: String,
     val displayFormatWidth: Int?,
     val displayFormatHeight: Int?,
