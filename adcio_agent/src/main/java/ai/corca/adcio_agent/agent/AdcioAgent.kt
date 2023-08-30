@@ -5,10 +5,14 @@ import ai.corca.adcio_agent.provider.WebViewManager
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.webkit.JavascriptInterface
 import android.webkit.WebChromeClient
 import android.webkit.WebView
+import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 
@@ -38,7 +42,11 @@ class AdcioAgent : Fragment(R.layout.fragment_adcio_agent) {
         webView = view.findViewById(R.id.webView)
 
         webView.apply {
-            settings.javaScriptEnabled = true
+            settings.apply {
+                javaScriptEnabled=true
+                domStorageEnabled=true
+                javaScriptCanOpenWindowsAutomatically=false
+            }
             addJavascriptInterface(ProductRouterJavascriptInterface(), "ProductRouter")
             webChromeClient = object : WebChromeClient() {
                 override fun onJsAlert(view: WebView?, url: String?, message: String?, result: android.webkit.JsResult?): Boolean {
@@ -68,10 +76,19 @@ class AdcioAgent : Fragment(R.layout.fragment_adcio_agent) {
                 clientId = "",
                 "",
                 0
-            ).getProductId(productId)
-            requireActivity().runOnUiThread {
-                requireActivity().finish()
-            }
+            ).setProductId(productId)
+        }
+    }
+
+    val isAgentStartPage: Boolean
+        get() = webView.url?.contains("start/") ?: false
+
+    fun agentBackManager(): Boolean {
+        return if (webView.canGoBack()) {
+            webView.goBack()
+            false
+        } else {
+            true
         }
     }
 }
