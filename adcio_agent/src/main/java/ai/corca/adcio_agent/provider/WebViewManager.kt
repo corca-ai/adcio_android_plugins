@@ -2,22 +2,38 @@ package ai.corca.adcio_agent.provider
 
 import ai.corca.adcio_agent.agent.AdcioAgent
 import android.content.Context
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import kotlin.properties.Delegates
 
-var productId = ""
+interface ProductChangeListener {
+    fun onProductIdChanged(newId: String)
+}
+
+var productChangeListener: ProductChangeListener? = null
+
+private var _productId: String by Delegates.observable("") { _, _, new ->
+    productChangeListener?.onProductIdChanged(new)
+}
 
 open class WebViewManager(
     val context: Context?,
     val clientId: String,
     val baseUrl: String = "https://agent-dev.adcio.ai",
-    val fragmentContainer: Int
+    /**
+     * Your FrameLayout Resource ID But, We Recommand our AdcioAgentLayout
+     */
+    val fragmentContainer: Int,
+    private val showAppBar: Boolean = false,
 ) {
-
-    private lateinit var delayedString: String
-
+    /**
+     * Call ADCIO Agent Webview in FrameLayout by your fragmentId Param
+     *
+     * 💡 If it happen product click event the Agent will be destroy
+     */
     fun callAdcioAgent() {
         val startPage = "start/"
-        val agentUrl = "$baseUrl/$clientId/$startPage?platform=android"
+        val agentUrl = "$baseUrl/$clientId/$startPage?platform=android&show_appbar=$showAppBar"
         val fragmentManager = (context as AppCompatActivity).supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 
@@ -27,22 +43,11 @@ open class WebViewManager(
         fragmentTransaction.commit()
     }
 
-    fun setDelayedString(value: String) {
-        delayedString = value
-    }
+    fun isAgentStartPage(): Boolean = AdcioAgent().isAgentStartPage
 
-    fun getDelayedString(): String {
-        if (!::delayedString.isInitialized) {
-            throw IllegalStateException("Delayed string is not initialized yet.")
-        }
-        return delayedString
-    }
+    fun agentGoBack(): Boolean = AdcioAgent().agentBackManager()
 
-    fun emptyProductId() {
-        productId = ""
-    }
-
-    fun getProductId(id: String) {
-        productId = id
+    internal fun setProductId(newProductId: String) {
+        _productId = newProductId
     }
 }

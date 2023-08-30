@@ -1,27 +1,22 @@
 package ai.corca.adcio_agent_compose.provider
 
-var composeProductId = ""
+import ai.corca.adcio_agent_compose.agent.WebViewStateManager
+import android.util.Log
+import androidx.compose.runtime.mutableStateOf
+
+val productId = mutableStateOf("")
 
 class ComposeWebViewManager {
-    private lateinit var delayedString: String
+    /**
+     * You Should Initialize by this func before getDelayedString()
+     */
+    fun isAgentStartPage(): Boolean = WebViewStateManager().isAgentStartPage
 
-    fun setDelayedString(value: String) {
-        delayedString = value
-    }
+    fun agentGoBack(): Boolean = WebViewStateManager().agentBackManager()
 
-    fun getDelayedString(): String {
-        if (!::delayedString.isInitialized) {
-            throw IllegalStateException("Delayed string is not initialized yet.")
-        }
-        return delayedString
-    }
+    internal fun setProductId(newProductId: String) {
+        productId.value = newProductId
+        Log.d("taglog", newProductId)
 
-    fun emptyProductId() {
-        composeProductId = ""
-        delayedString = ""
-    }
-
-    fun getProductId(id: String) {
-        composeProductId = id
     }
 }
