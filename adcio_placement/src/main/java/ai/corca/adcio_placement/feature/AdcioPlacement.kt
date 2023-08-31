@@ -1,7 +1,6 @@
 package ai.corca.adcio_placement.feature
 
 import ai.corca.adcio_analytics.feature.AdcioAnalyticsHistory
-import ai.corca.adcio_placement.exception.NotInitializedException
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import ai.corca.adcio_placement.network.remote.PlacementRemote
 
@@ -43,9 +42,8 @@ object AdcioPlacement {
         area: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionRaw {
-        if (!isInitialized) throw NotInitializedException()
+        if (isInitialized) adcioAnalyticsHistory.clearHistories()
 
-        adcioAnalyticsHistory.clearHistories()
         return placementRemote.getSuggestion(
             placementId = placementId,
             sessionId = getSessionId(otherInfo),
