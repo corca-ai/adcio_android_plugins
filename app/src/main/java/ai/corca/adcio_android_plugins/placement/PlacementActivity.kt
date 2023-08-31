@@ -1,6 +1,5 @@
 package ai.corca.adcio_android_plugins.placement
 
-import ai.corca.adcio_agent.productId
 import ai.corca.adcio_analytics.model.AdcioLogOption
 import ai.corca.adcio_android_plugins.databinding.ActivityPlacementBinding
 import ai.corca.adcio_placement.feature.AdcioPlacement
