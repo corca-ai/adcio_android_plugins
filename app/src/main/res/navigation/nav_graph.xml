@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="ai.corca.adcio_android_plugins.usecases.mockapp.fragment.HomeFragment"
+        android:label="HomeFragment" />
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="ai.corca.adcio_android_plugins.usecases.mockapp.fragment.ListFragment"
+        android:label="ListFragment" />
+    <fragment
+        android:id="@+id/recommendFragment"
+        android:name="ai.corca.adcio_android_plugins.usecases.mockapp.fragment.RecommendFragment"
+        android:label="RecommendFragment" />
+</navigation>
