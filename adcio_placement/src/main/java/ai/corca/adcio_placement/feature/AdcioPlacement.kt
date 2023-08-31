@@ -31,6 +31,9 @@ object AdcioPlacement {
         return otherInfo?.getSessionId() ?: adcioInfo.getSessionId()
     }
 
+    /**
+     *
+     */
     fun adcioSuggest(
         placementId: String,
         otherInfo: AdcioSuggestionInfo? = null,

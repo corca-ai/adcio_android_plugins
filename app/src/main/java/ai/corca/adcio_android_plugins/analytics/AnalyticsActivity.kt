@@ -75,8 +75,7 @@ class AnalyticsActivity : AppCompatActivity() {
     ) : Thread() {
         override fun run() {
             AdcioAnalytics.onPurchase(
-                requestId = logOption.requestId,
-                adsetId = logOption.adsetId,
+                option = logOption,
                 amount = 2,
             )
         }

@@ -1,6 +1,7 @@
 package ai.corca.adcio_analytics.feature
 
 import ai.corca.adcio_analytics.R
+import ai.corca.adcio_analytics.model.AdcioLogOption
 import android.content.Context
 import android.graphics.Rect
 import android.util.AttributeSet
@@ -19,7 +20,7 @@ class AdcioImpressionDetector @JvmOverloads constructor(
     private var isVisible: Boolean = false
     private val rect = Rect()
     var useImpression: Boolean = true
-    lateinit var manager: AdcioImpressionDetectorManager
+    lateinit var option: AdcioLogOption
 
     init {
         context.withStyledAttributes(attrs, R.styleable.AdcioImpressionDetector, defStyleAttr) {
@@ -27,11 +28,11 @@ class AdcioImpressionDetector @JvmOverloads constructor(
         }
 
         myViewTreeObserver.addOnDrawListener {
-            if (useImpression && this::manager.isInitialized) {
+            if (useImpression && this::option.isInitialized) {
                 getGlobalVisibleRect(rect).let {
                     if (isVisible != it) {
                         isVisible = it
-                        if (isVisible && AdcioAnalytics.adcioAnalyticsHistory.getImpressionHistories().contains(manager.adsetId).not()) {
+                        if (isVisible && AdcioAnalytics.adcioAnalyticsHistory.getImpressionHistories().contains(option.adsetId).not()) {
                             onImpression()
                         }
                     }
@@ -43,16 +44,8 @@ class AdcioImpressionDetector @JvmOverloads constructor(
     private fun onImpression() {
         thread(start = true) {
             AdcioAnalytics.onImpression(
-                requestId = manager.requestId,
-                adsetId = manager.adsetId,
-                baseUrl = manager.baseUrl
+                option = option,
             )
         }
     }
 }
-
-data class AdcioImpressionDetectorManager(
-    val requestId: String,
-    val adsetId: String,
-    val baseUrl: String? = null,
-)

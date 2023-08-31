@@ -53,8 +53,7 @@ class HomeFragment : Fragment() {
         productAdapter = ProductAdapter { logOption ->
             CoroutineScope(Dispatchers.IO).launch {
                 AdcioAnalytics.onClick(
-                    requestId = logOption.requestId,
-                    adsetId = logOption.adsetId,
+                    option = logOption
                 )
             }
         }

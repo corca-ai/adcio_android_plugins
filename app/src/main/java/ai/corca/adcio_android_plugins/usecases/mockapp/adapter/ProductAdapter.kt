@@ -1,6 +1,5 @@
 package ai.corca.adcio_android_plugins.usecases.mockapp.adapter
 
-import ai.corca.adcio_analytics.feature.AdcioImpressionDetectorManager
 import ai.corca.adcio_analytics.model.AdcioLogOption
 import ai.corca.adcio_android_plugins.databinding.ItemProductBinding
 import ai.corca.adcio_android_plugins.usecases.mockapp.adapter.model.Product
@@ -34,7 +33,7 @@ class ProductAdapter(
 
             if (product.isAd) {
                 product.logOption?.let {
-                    binding.adcioProduct.manager = AdcioImpressionDetectorManager(requestId = it.requestId, adsetId = it.adsetId)
+                    binding.adcioProduct.option = it
                 }
             }
             binding.adcioProduct.useImpression = product.isAd
