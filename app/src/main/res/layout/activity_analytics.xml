@@ -28,15 +28,28 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_suggestions"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_marginTop="5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_appbar"
         tools:listitem="@layout/item_analytics_suggestion" />
+
+    <ai.corca.adcio_analytics.feature.AdcioImpressionDetector
+        android:id="@+id/adcio_detector_analytics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/rv_suggestions">
+
+        <View
+            android:id="@+id/tv_testtest"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/design_default_color_error"/>
+
+    </ai.corca.adcio_analytics.feature.AdcioImpressionDetector>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

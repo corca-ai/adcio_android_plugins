@@ -31,6 +31,8 @@ class AnalyticsActivity : AppCompatActivity() {
         binding = ActivityAnalyticsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.adcioDetectorAnalytics.option = AdcioLogOption(requestId = "", adsetId = "")
+
         adapter = AnalyticsSuggestionListAdapter { logOption ->
             OnPurchaseThread(logOption = logOption).start()
         }
