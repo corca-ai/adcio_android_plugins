@@ -33,7 +33,6 @@ class AdcioImpressionDetector @JvmOverloads constructor(
         if (isMoreThanHalfVisible()) {
             if (!isImpression && useImpression) {
                 isImpression = true
-                Log.d("TESTLOG", "FUCKING GOOD")
                 if (AdcioAnalytics.hasImpression(option.adsetId).not()) {
                     onImpression()
                 }
@@ -57,7 +56,6 @@ class AdcioImpressionDetector @JvmOverloads constructor(
 
         getGlobalVisibleRect(rect)
 
-        // Check if the view's area is more than half of the screen's area.
         return rect.height() > height / 2 && rect.width() > width / 2 &&
                 rect.top >= 0 && rect.bottom <= rootView.height &&
                 rect.left >= 0 && rect.right <= rootView.width

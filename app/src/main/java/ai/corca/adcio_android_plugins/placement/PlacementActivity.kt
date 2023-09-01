@@ -40,7 +40,11 @@ class PlacementActivity : AppCompatActivity() {
         }
 
         binding.tvDeviceId.setOnClickListener {
-            Toast.makeText(this, "Device Id: ${AdcioPlacement.getDeviceId()}", Toast.LENGTH_SHORT).show()
+            //
+            // S
+            val deviceId=AdcioPlacement.getDeviceId();
+            // E
+            Toast.makeText(this, "Device Id: ${deviceId}", Toast.LENGTH_SHORT).show()
         }
 
         binding.tvSessionId.setOnClickListener {
@@ -53,10 +57,12 @@ class PlacementActivity : AppCompatActivity() {
 
     inner class GetSuggestionThread : Thread() {
         override fun run() {
+            // S
             val result = AdcioPlacement.adcioSuggest(
                 placementId = "9f9f9b00-dc16-41c7-a5cd-f9a788d3d481",
                 baseUrl = "https://api-dev.adcio.ai",
             )
+            // E
 
             suggestions.clear()
             result.suggestions.forEach {

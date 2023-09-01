@@ -22,7 +22,7 @@ object AdcioPlacement {
     }
 
     /**
-     *
+     * It smartly predicts products with high click or purchase probabilities from the client's products and returns the product information.
      */
     fun adcioSuggest(
         placementId: String,

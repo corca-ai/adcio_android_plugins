@@ -1,6 +1,5 @@
 package ai.corca.adcio_analytics.feature
 
-import ai.corca.adcio_analytics.exception.NotInitializedException
 import ai.corca.adcio_analytics.model.AdcioLogOption
 import ai.corca.adcio_analytics.network.remote.AnalyticsRemote
 
@@ -10,8 +9,11 @@ object AdcioAnalytics {
 
     private val impressionHistory: MutableSet<String> = mutableSetOf()
 
-    fun hasImpression(adsetId: String): Boolean = impressionHistory.contains(adsetId)
+    internal fun hasImpression(adsetId: String): Boolean = impressionHistory.contains(adsetId)
 
+    /**
+     * [Warning] Do not call this event. This event is only used internally in 'adcio_placement'. If called, the necessary logs for analysis may not be collected correctly.
+     */
     fun clearImpressionHistory() = impressionHistory.clear()
 
     /**

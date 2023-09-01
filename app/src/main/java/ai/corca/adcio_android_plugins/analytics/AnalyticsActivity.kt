@@ -30,7 +30,9 @@ class AnalyticsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAnalyticsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+//
+        //
+        //
         binding.adcioDetectorAnalytics.option = AdcioLogOption(requestId = "", adsetId = "")
 
         adapter = AnalyticsSuggestionListAdapter { logOption ->
