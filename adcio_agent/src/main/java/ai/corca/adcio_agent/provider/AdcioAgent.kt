@@ -1,6 +1,7 @@
 package ai.corca.adcio_agent.provider
 
 import ai.corca.adcio_agent.agent.AgentClient
+import android.app.Activity
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.properties.Delegates
@@ -18,7 +19,12 @@ private var _productId: String by Delegates.observable("") { _, _, new ->
 open class AdcioAgent(
     val context: Context?,
     val clientId: String,
+    /**
+     *  A URL configuration parameter for library developers.
+     *  It has nothing to do with the clients, so please don't reveal it.
+     */
     val baseUrl: String = "https://agent-dev.adcio.ai",
+
     /**
      * Your FrameLayout Resource ID But, We Recommand our AdcioAgentLayout
      */
@@ -42,9 +48,9 @@ open class AdcioAgent(
         fragmentTransaction.commit()
     }
 
-    fun isAgentStartPage(): Boolean = AgentClient().isAgentStartPage
+    fun isAgentStartPage(): Boolean = AgentClient().pageManager.isAgentStartPage()
 
-    fun agentGoBack(): Boolean = AgentClient().agentBackManager()
+    fun agentGoBack(): Boolean = AgentClient().pageManager.agentGoBack()
 
     internal fun setProductId(newProductId: String) {
         _productId = newProductId
