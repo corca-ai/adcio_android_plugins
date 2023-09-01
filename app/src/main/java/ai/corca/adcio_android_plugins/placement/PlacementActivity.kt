@@ -15,12 +15,12 @@ class PlacementActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlacementBinding
     private lateinit var suggestionListAdapter: SuggestionListAdapter
-    private var suggestions: MutableList<Suggestion> = emptyList<Suggestion>().toMutableList()
+    private var productions: MutableList<Production> = emptyList<Production>().toMutableList()
 
     private val handler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
-            if (suggestions.isNotEmpty()) {
-                suggestionListAdapter.submitList(suggestions)
+            if (productions.isNotEmpty()) {
+                suggestionListAdapter.submitList(productions)
                 suggestionListAdapter.notifyDataSetChanged()
             }
         }
@@ -33,7 +33,7 @@ class PlacementActivity : AppCompatActivity() {
 
         suggestionListAdapter = SuggestionListAdapter()
         binding.rvSuggestions.adapter = suggestionListAdapter
-        suggestionListAdapter.submitList(suggestions)
+        suggestionListAdapter.submitList(productions)
 
         binding.ivRefresh.setOnClickListener {
             GetFakeSuggestionThread().start()
@@ -64,10 +64,10 @@ class PlacementActivity : AppCompatActivity() {
             )
             // E
 
-            suggestions.clear()
+            productions.clear()
             result.suggestions.forEach {
-                suggestions.add(
-                    Suggestion(
+                productions.add(
+                    Production(
                         productId = it.product.id,
                         name = it.product.name,
                         image = it.product.image,
@@ -89,10 +89,10 @@ class PlacementActivity : AppCompatActivity() {
                     baseUrl = "https://api-dev.adcio.aiii",
                 )
 
-                suggestions.clear()
+                productions.clear()
                 result.suggestions.forEach {
-                    suggestions.add(
-                        Suggestion(
+                    productions.add(
+                        Production(
                             productId = it.product.id,
                             name = it.product.name,
                             image = it.product.image,

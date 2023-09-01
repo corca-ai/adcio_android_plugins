@@ -8,10 +8,10 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 
-class SuggestionListAdapter : ListAdapter<Suggestion, SuggestionListAdapter.SuggestionViewHolder>(ProductDiffUtilCallback) {
+class SuggestionListAdapter : ListAdapter<Production, SuggestionListAdapter.SuggestionViewHolder>(ProductionDiffUtilCallback) {
 
     inner class SuggestionViewHolder(private var binding: ItemSuggestionBinding) : ViewHolder(binding.root) {
-        fun bind(item: Suggestion) = with(binding) {
+        fun bind(item: Production) = with(binding) {
             Glide.with(binding.root)
                 .load(item.image)
                 .circleCrop()
@@ -36,13 +36,13 @@ class SuggestionListAdapter : ListAdapter<Suggestion, SuggestionListAdapter.Sugg
     }
 }
 
-object ProductDiffUtilCallback : DiffUtil.ItemCallback<Suggestion>() {
+object ProductionDiffUtilCallback : DiffUtil.ItemCallback<Production>() {
 
-    override fun areItemsTheSame(oldItem: Suggestion, newItem: Suggestion): Boolean {
+    override fun areItemsTheSame(oldItem: Production, newItem: Production): Boolean {
         return oldItem.name == newItem.name
     }
 
-    override fun areContentsTheSame(oldItem: Suggestion, newItem: Suggestion): Boolean {
+    override fun areContentsTheSame(oldItem: Production, newItem: Production): Boolean {
         return oldItem == newItem
     }
 }
