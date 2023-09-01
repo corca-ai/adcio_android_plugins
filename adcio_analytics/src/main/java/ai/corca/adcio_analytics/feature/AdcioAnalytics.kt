@@ -6,19 +6,13 @@ import ai.corca.adcio_analytics.network.remote.AnalyticsRemote
 
 object AdcioAnalytics {
 
-    private var isInitialized: Boolean = false
-
     private val analyticsRemote: AnalyticsRemote = AnalyticsRemote()
-    lateinit var adcioAnalyticsHistory: AdcioAnalyticsHistory
 
-    /**
-     * call this function first! - init analytics function.
-     * If you do not call initAnalytics, NotInitializedException will be thrown.
-     */
-    fun initAnalytics(adcioAnalyticsHistory: AdcioAnalyticsHistory) {
-        isInitialized = true
-        this.adcioAnalyticsHistory = adcioAnalyticsHistory
-    }
+    private val impressionHistory: MutableSet<String> = mutableSetOf()
+
+    fun hasImpression(adsetId: String): Boolean = impressionHistory.contains(adsetId)
+
+    fun clearImpressionHistory() = impressionHistory.clear()
 
     /**
      * click event log
@@ -28,8 +22,6 @@ object AdcioAnalytics {
         option: AdcioLogOption,
         baseUrl: String? = null,
     ) {
-        if (!isInitialized) throw NotInitializedException()
-
         analyticsRemote.onClick(
             adcioLogOption = option,
             baseUrl = baseUrl,
@@ -44,14 +36,12 @@ object AdcioAnalytics {
         option: AdcioLogOption,
         baseUrl: String? = null,
     ) {
-        if (!isInitialized) throw NotInitializedException()
+        impressionHistory.add(option.adsetId)
 
-        if (adcioAnalyticsHistory.addImpressionHistory(option.adsetId)) {
-            analyticsRemote.onImpression(
-                adcioLogOption = option,
-                baseUrl = baseUrl,
-            )
-        }
+        analyticsRemote.onImpression(
+            adcioLogOption = option,
+            baseUrl = baseUrl,
+        )
     }
 
     /**
@@ -63,8 +53,6 @@ object AdcioAnalytics {
         amount: Int,
         baseUrl: String? = null,
     ) {
-        if (!isInitialized) throw NotInitializedException()
-
         analyticsRemote.onPurchase(
             adcioLogOption = option,
             amount = amount,

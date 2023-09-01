@@ -32,7 +32,7 @@ class AdcioImpressionDetector @JvmOverloads constructor(
                 getGlobalVisibleRect(rect).let {
                     if (isVisible != it) {
                         isVisible = it
-                        if (isVisible && AdcioAnalytics.adcioAnalyticsHistory.getImpressionHistories().contains(option.adsetId).not()) {
+                        if (isVisible && AdcioAnalytics.hasImpression(option.adsetId).not()) {
                             onImpression()
                         }
                     }

@@ -2,7 +2,6 @@ package ai.corca.adcio_android_plugins.analytics
 
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_analytics.model.AdcioLogOption
-import ai.corca.adcio_android_plugins.AdcioAndroidPluginsApplication
 import ai.corca.adcio_android_plugins.databinding.ActivityAnalyticsBinding
 import ai.corca.adcio_android_plugins.placement.Suggestion
 import ai.corca.adcio_placement.feature.AdcioPlacement
@@ -31,10 +30,6 @@ class AnalyticsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAnalyticsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val app = applicationContext as AdcioAndroidPluginsApplication
-        AdcioAnalytics.initAnalytics(app.adcioAnalyticsHistory)
-        AdcioPlacement.initPlacement(app.adcioAnalyticsHistory)
 
         adapter = AnalyticsSuggestionListAdapter { logOption ->
             OnPurchaseThread(logOption = logOption).start()
