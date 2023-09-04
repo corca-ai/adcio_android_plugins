@@ -5,6 +5,6 @@ internal object PlacementUrl {
     var baseUrl: String = "https://api-dev.adcio.ai/"
 
     object EndPoint {
-        const val suggestion = "suggestion"
+        const val suggestions = "suggestions"
     }
 }
