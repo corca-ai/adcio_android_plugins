@@ -8,28 +8,14 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.webkit.JavascriptInterface
-import android.webkit.WebChromeClient
 import android.webkit.WebView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-
-interface AgentPageManager {
-    fun isAgentStartPage(): Boolean
-
-    fun agentGoBack(): Boolean
-}
 
 internal class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
 
-    internal var webView: WebView? = null
+    internal var pageManager: AgentPageManager? = null
     private lateinit var callback: OnBackPressedCallback
-    internal var pageManager = AgentPageManagerImpl()
-
     internal companion object {
         private const val ARG_AGENT_URL = "agentUrl"
 
@@ -43,61 +29,40 @@ internal class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
         }
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val agentUrl = arguments?.getString("agentUrl") ?: ""
-        webView = view.findViewById(R.id.webView)
-
-        webView?.apply {
-            settings.apply {
-                javaScriptEnabled = true
-                domStorageEnabled = true
-                javaScriptCanOpenWindowsAutomatically = false
-            }
-            addJavascriptInterface(ProductRouterJavascriptInterface(), "ProductRouter")
-            webChromeClient = object : WebChromeClient() {
-                override fun onJsAlert(
-                    view: WebView?,
-                    url: String?,
-                    message: String?,
-                    result: android.webkit.JsResult?
-                ): Boolean {
-                    ProductRouterJavascriptInterface().postMessage(message!!)
-                    return super.onJsAlert(view, url, message, result)
-                }
-            }
-
-            loadUrl(agentUrl)
-            pageManager = AgentPageManagerImpl()
-        }
-    }
-
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (pageManager.agentGoBack()) {  // webView?.canGoBack() == true인 경우
-                    webView?.goBack()
-                    Log.d("goBack", "너의 전화는")
-                } else {  // webView?.canGoBack() == false인 경우
-                    isEnabled = false  // 현재 콜백 비활성화
-                    requireActivity().finish()  // Activity의 onBackPressed 메서드 호출
+                if (pageManager?.agentGoBack() == true) { // 웹뷰에서 뒤로 갔으면
+                    Log.d("goBack", "WebView goes back.")
+                } else { // 웹뷰에서 더 이상 뒤로 갈 수 없으면
+                    isEnabled = false // 현재 콜백 비활성화
+                    requireActivity().finish() // Activity의 onBackPressed 메서드 호출
                 }
             }
         }
-
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)  // 콜백 등록
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback) // 콜백 등록
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        val agentUrl = arguments?.getString(ARG_AGENT_URL) ?: ""
+        val webView = view.findViewById<WebView>(R.id.webView)
+
+        pageManager = WebViewManager(webView, agentUrl)
+    }
+
+    interface AgentPageManager {
+        fun isAgentStartPage(): Boolean
+
+        fun agentGoBack(): Boolean
+    }
 
     private inner class ProductRouterJavascriptInterface {
         @JavascriptInterface
-
         fun postMessage(productId: String) {
             AdcioAgent(
                 context = requireContext().applicationContext,
@@ -108,16 +73,35 @@ internal class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
         }
     }
 
-    inner class AgentPageManagerImpl : AgentPageManager {
+    @SuppressLint("SetJavaScriptEnabled")
+    inner class WebViewManager(private val webView: WebView, agentUrl: String) : AgentPageManager {
+
+        init {
+            webView.apply {
+                settings.apply {
+                    javaScriptEnabled = true // JavaScript 실행 여부
+                    domStorageEnabled = true // WebView DOM Storage 사용 여부 (ADCIO 채팅 기록)
+                    javaScriptCanOpenWindowsAutomatically = false // JavaScript의 새 창 열기 여부
+                }
+                loadUrl(agentUrl)
+            }
+            /**
+             * 브릿지 요청 감지
+             */
+            webView.addJavascriptInterface(ProductRouterJavascriptInterface(), "ProductRouter")
+        }
 
         override fun isAgentStartPage(): Boolean {
-            return webView?.url?.contains("start/") == true
+            return webView.url?.contains("start/") ?: false
         }
 
         override fun agentGoBack(): Boolean {
-            return webView?.canGoBack() == true
+            return if (webView.canGoBack()) {
+                webView.goBack()
+                true
+            } else {
+                false
+            }
         }
     }
 }
-
-
