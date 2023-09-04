@@ -3,10 +3,8 @@ package ai.corca.adcio_analytics.feature
 import ai.corca.adcio_analytics.R
 import ai.corca.adcio_analytics.model.AdcioLogOption
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Rect
 import android.util.AttributeSet
-import android.util.Log
 import android.view.ViewTreeObserver
 import android.widget.FrameLayout
 import androidx.core.content.withStyledAttributes
@@ -57,8 +55,8 @@ class AdcioImpressionDetector @JvmOverloads constructor(
         getGlobalVisibleRect(rect)
 
         return rect.height() > height / 2 && rect.width() > width / 2 &&
-                rect.top >= 0 && rect.bottom <= rootView.height &&
-                rect.left >= 0 && rect.right <= rootView.width
+            rect.top >= 0 && rect.bottom <= rootView.height &&
+            rect.left >= 0 && rect.right <= rootView.width
     }
 
     private fun onImpression() {
