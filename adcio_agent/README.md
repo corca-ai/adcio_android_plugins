@@ -1,11 +1,14 @@
 # adcio_agent
 
 Android plugin that provides a ADCIO Agent widget
+
 **SDK 21+ support**
+
 
 ## Installation
 
 Add `adcio_agent_compose` as a dependency in your module’s build.gradle
+
 
 ## Usage
 
@@ -18,6 +21,7 @@ android {
     }
 }
 ```
+
 
 ### ADCIO Agent View Sample Code
 
@@ -67,6 +71,7 @@ class XmlActivity : AppCompatActivity() {
 | showAppBar | Agent show AppBar | boolean | false |
 
 **Get Clicked ProductId**
+
 fetchProductId sample when product clicked
 
 ```kotlin
@@ -87,6 +92,7 @@ adcioAgentListener = object : AdcioAgentListener {
 }
 ```
 
+
 **isAgentStartPage**
 
 Returns whether the current page is the first page of the agent's page.
@@ -101,7 +107,7 @@ val isPageStart: Boolean = agent.isAgentStartPage()
 
 An action to navigate back to the previous page in the agent's page.
 
-**💡 Important: If you use the app's own AppBar to enable POP of the AppBar's WebView, You must enable the following settings:**
+**Important: If you use the app's own AppBar to enable POP of the AppBar's WebView, You must enable the following settings:**
 
 ```kotlin
 val agent = AdcioAgent(..)
