@@ -11,6 +11,6 @@ data class SuggestionsRequest(
     @SerializedName("placementPosY") val placementPosY: Int? = null,
     @SerializedName("fromAgent") val fromAgent: Boolean = false,
     @SerializedName("age") val age: String? = null,
-    @SerializedName("gender") val gender: String? = null ,
+    @SerializedName("gender") val gender: String? = null,
     @SerializedName("area") val area: String? = null,
 )

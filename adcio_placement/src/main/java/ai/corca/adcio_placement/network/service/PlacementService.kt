@@ -6,7 +6,6 @@ import ai.corca.adcio_placement.network.data.request.SuggestionsRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.POST
-import retrofit2.http.Query
 
 internal interface PlacementService {
 
