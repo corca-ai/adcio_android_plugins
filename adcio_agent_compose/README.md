@@ -13,14 +13,15 @@ Add **AdcioAgentCompose** as a dependency in your module’s build.gradle
 ### Maven
 ```groovy
 android {
-  <dependency>
-          <groupId>io.github.corca-ai</groupId>
-          <artifactId>agent_compose</artifactId>
-          <version>0.0.1</version>
-</dependency>
+    <dependency>
+            <groupId>io.github.corca-ai</groupId>
+            <artifactId>agent_compose</artifactId>
+            <version>0.0.1</version>
+    </dependency>
+}
 ```
 
-### Groovy
+### Gradle
 ```groovy
 implementation("io.github.corca-ai/agent_compose:0.0.1")
 ```
