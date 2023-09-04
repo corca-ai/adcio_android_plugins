@@ -1,10 +1,7 @@
-# adcio_agent_xml
+# adcio_agent
 
 Android plugin that provides a ADCIO Agent widget
-
-|  | Android |
-| --- | --- |
-| Support | minSdk 21+ |
+**SDK 21+ support**
 
 ## Installation
 
@@ -12,7 +9,7 @@ Add `adcio_agent_compose` as a dependency in your module’s build.gradle
 
 ## Usage
 
-You should however make sure to set the correct `minSdkVersion` in `android/app/build.gradle` if it was previously lower than 21:
+The agent requires a minSdkVersion of 21 or higher to use Androidx:
 
 ```groovy
 android {
@@ -28,8 +25,8 @@ You should make `<AdcioAgentLayout>` the space where Agent will be placed
 
 ```xml
 <androidx.constraintlayout.widget.ConstraintLayout>
-
-		...
+    
+    ...
 
     <ai.corca.adcio_agent.layout.AdcioAgentLayout
         android:id="@+id/adcio_agent_frame"
@@ -69,7 +66,7 @@ class XmlActivity : AppCompatActivity() {
 | fragmentContainer | AdcioAgentLayout ResId | int | required |
 | showAppBar | Agent show AppBar | boolean | false |
 
-### Get Clicked ProductId
+**Get Clicked ProductId**
 fetchProductId sample when product clicked
 
 ```kotlin
@@ -90,7 +87,7 @@ adcioAgentListener = object : AdcioAgentListener {
 }
 ```
 
-### isAgentStartPage
+**isAgentStartPage**
 
 Returns whether the current page is the first page of the agent's page.
 
@@ -100,20 +97,17 @@ val agent = AdcioAgent(..)
 val isPageStart: Boolean = agent.isAgentStartPage()
 ```
 
-### agentGoback
+**agentGoback**
 
 An action to navigate back to the previous page in the agent's page.
 
-<aside>
-💡 **Important: If you use the app's own AppBar to enable POP of the AppBar's WebView, 
-You must enable the following settings:**
-</aside>
+**💡 Important: If you use the app's own AppBar to enable POP of the AppBar's WebView, You must enable the following settings:**
 
 ```kotlin
 val agent = AdcioAgent(..)
 
 binding.btnBack.setOnClickListener {
-	onBackPressedDispatcher.onBackPressed()
+	onBackPressedDispatcher.onBackPressed() // IMPORTANT THING TO DO
 	agent.agentGoBack()
 }
 ```

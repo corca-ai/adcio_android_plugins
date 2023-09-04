@@ -1,16 +1,13 @@
 # adcio_agent_compose
 
 Android plugin that provides a ADCIO Agent_JetpackCompose widget
-
-|  | Android |
-| --- | --- |
-| Support | minSdk 21+ |
+**SDK 21+ support**
 
 ## Installation
-Add `adcio_agent` as a dependency in your module’s build.gradle
+Add `adcio_agent_compose` as a dependency in your module’s build.gradle
 
 ## Usage
-You should however make sure to set the correct `minSdkVersion` in `android/app/build.gradle` if it was previously lower than 21:
+The agent requires a minSdkVersion of 21 or higher to use Androidx:
 
 ```groovy
 android {
@@ -58,7 +55,7 @@ fun agentScreen() {
 }
 ```
 
-### isAgentStartPage
+**isAgentStartPage**
 Returns whether the current page is the first page of the agent's page.
 
 ```kotlin
@@ -67,13 +64,10 @@ val agent = AdcioAgentCompose()
 val isPageStart: Boolean = agent.isAgentStartPage()
 ```
 
-### agentGoback
+**agentGoback**
 An action to navigate back to the previous page in the agent's page.
 
-<aside>
-💡 **Important: If you use the app's own AppBar to enable POP of the AppBar's WebView, You must enable the following settings:**
-
-</aside>
+**💡 Important: If you use the app's own AppBar to enable POP of the AppBar's WebView, You must enable the following settings:**
 
 ```kotlin
 ...
