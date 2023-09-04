@@ -4,11 +4,13 @@ Android plugin that provides a ADCIO Agent widget
 
 **SDK 21+ support**
 
+</br>
 
 ## Installation
 
 Add `adcio_agent_compose` as a dependency in your module’s build.gradle
 
+</br>
 
 ## Usage
 
@@ -92,6 +94,7 @@ adcioAgentListener = object : AdcioAgentListener {
 }
 ```
 
+</br>
 
 **isAgentStartPage**
 
