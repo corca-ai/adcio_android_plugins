@@ -5,6 +5,8 @@ import ai.corca.adcio_agent_compose.provider.AdcioAgentCompose
 import ai.corca.adcio_agent_compose.provider.productId
 import ai.corca.adcio_android_plugins.R
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
@@ -27,9 +29,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 class ComposeActivity : AppCompatActivity() {
 
@@ -47,12 +51,17 @@ class ComposeActivity : AppCompatActivity() {
          * if the value of productId changes, the value of “id” will also be updated
          */
         var id by remember { productId }
+        val context = LocalContext.current
         val adcioAgentCompose = AdcioAgentCompose()
 
         /**
          * Returns whether the current page is the first page of the agent's page.
          */
         val isPageStart: Boolean = adcioAgentCompose.isAgentStartPage()
+
+        if(id != "") {
+            Toast.makeText(context, id, Toast.LENGTH_SHORT).show()
+        }
 
         Column(
             modifier = Modifier.fillMaxSize()
@@ -76,8 +85,8 @@ class ComposeActivity : AppCompatActivity() {
                          * Important: If you use the app's own AppBar to enable POP of the AppBar's WebView,
                          * You must enable the following settings: onBackPressedDispatcher.onBackPressed()
                          */
-                        onBackPressedDispatcher.onBackPressed() // IMPORTANT THING TO DO
                         adcioAgentCompose.agentGoBack() // Agent move back page
+                        onBackPressedDispatcher.onBackPressed() // IMPORTANT THING TO DO
                     }
                 )
                 Spacer(modifier = Modifier.width(20.dp))

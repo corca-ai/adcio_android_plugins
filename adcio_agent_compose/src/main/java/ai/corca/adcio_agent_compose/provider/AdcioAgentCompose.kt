@@ -19,7 +19,10 @@ class AdcioAgentCompose {
     /**
      * An action to navigate back to the previous page in the agent's page.
      */
-    fun agentGoBack(): Boolean = WebViewStateManager().agentBackManager()
+    fun agentGoBack(): Boolean {
+        setProductId("")
+        return WebViewStateManager().agentBackManager()
+    }
 
     internal fun setProductId(newProductId: String) {
         productId.value = newProductId
