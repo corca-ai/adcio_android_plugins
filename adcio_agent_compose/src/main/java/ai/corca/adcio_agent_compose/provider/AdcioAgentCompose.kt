@@ -4,19 +4,27 @@ import ai.corca.adcio_agent_compose.agent.WebViewStateManager
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 
+/**
+ * When a product is clicked on Agent, the clicked productId is updated in productId.
+ */
 val productId = mutableStateOf("")
 
-class ComposeWebViewManager {
+class AdcioAgentCompose {
+
     /**
-     * You Should Initialize by this func before getDelayedString()
+     * Returns whether the current page is the first page of the agent's page.
      */
     fun isAgentStartPage(): Boolean = WebViewStateManager().isAgentStartPage
 
-    fun agentGoBack(): Boolean = WebViewStateManager().agentBackManager()
+    /**
+     * An action to navigate back to the previous page in the agent's page.
+     */
+    fun agentGoBack(): Boolean {
+        setProductId("")
+        return WebViewStateManager().agentBackManager()
+    }
 
     internal fun setProductId(newProductId: String) {
         productId.value = newProductId
-        Log.d("taglog", newProductId)
-
     }
 }
