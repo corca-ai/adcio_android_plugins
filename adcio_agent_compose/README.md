@@ -7,7 +7,7 @@ Android plugin that provides a ADCIO Agent_JetpackCompose widget
 </br>
 
 ## Installation
-Add `adcio_agent_compose` as a dependency in your module’s build.gradle
+Add **io.github.corca-ai/agent_compose:${version}** as a dependency in your module’s build.gradle
 
 </br>
 
@@ -42,9 +42,9 @@ fun agentScreen() {
 ```
 
 | property | description | type | default |
-| --- | --- | --- | --- |
+| --- | -- | --- | --- |
 | modifier | Agent Layout Control | Modifier | fillMaxSize() |
-| clientId | : ~ adcio admin | String | required |
+| clientId | Your Adcio Client Id | String | required |
 | showAppBar | Agent show AppBar | boolean | false |
 
 **Super simple get productId: Import productId and create a variable that remembers it.**
@@ -83,11 +83,11 @@ An action to navigate back to the previous page in the agent's page.
 ...
 val agent = AdcioAgentCompose()
 
-// YOUR APPBAR BackButton
+// YOUR AppBar BackButton
 Button(
    onClick = { 
        onBackPressedDispatcher.onBackPressed() // IMPORTANT THING TO DO
-       agent.agentGoBack
+       agent.agentGoBack()
    }
 )
 ...

@@ -8,7 +8,7 @@ Android plugin that provides a ADCIO Agent widget
 
 ## Installation
 
-Add `adcio_agent_compose` as a dependency in your module’s build.gradle
+Add **io.github.corca-ai/agent:${version}** as a dependency in your module’s build.gradle
 
 </br>
 
@@ -66,9 +66,9 @@ class XmlActivity : AppCompatActivity() {
 ```
 
 | property | description | type | default |
-| --- | --- | --- | --- |
+| --- | -- | --- | --- |
 | context | Activity Context | Context | required |
-| clientId | : ~ adcio admin | String | required |
+| clientId | Your Adcio Client Id | String | required |
 | fragmentContainer | AdcioAgentLayout ResId | int | required |
 | showAppBar | Agent show AppBar | boolean | false |
 
@@ -110,7 +110,8 @@ val isPageStart: Boolean = agent.isAgentStartPage()
 
 An action to navigate back to the previous page in the agent's page.
 
-**Important: If you use the app's own AppBar to enable POP of the AppBar's WebView, You must enable the following settings:**
+**Important: If you use the app's own AppBar to enable POP of the AppBar's WebView,
+  You must enable the following settings:**
 
 ```kotlin
 val agent = AdcioAgent(..)
