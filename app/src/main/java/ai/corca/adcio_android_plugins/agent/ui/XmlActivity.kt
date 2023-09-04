@@ -7,7 +7,6 @@ import ai.corca.adcio_android_plugins.R
 import ai.corca.adcio_android_plugins.databinding.ActivityXmlBinding
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -17,7 +16,7 @@ class XmlActivity : AppCompatActivity() {
 
     private val agent = AdcioAgent(
         context = this,
-        clientId = "30cb6fd0-17a5-4c56-b144-fef67de81bef",
+        clientId = "YOUR_CLIENT_ID",
         fragmentContainer = R.id.adcio_agent_frame,
     )
 
@@ -43,10 +42,17 @@ class XmlActivity : AppCompatActivity() {
             }
         }
 
+        if (agent.isAgentStartPage()) {
+            print(true)
+        } else print(false)
 
         binding.btnBack.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
-            agent.agentGoBack()
+            /**
+             * Important: If you use the app's own AppBar to enable POP of the AppBar's WebView,
+             * You must enable the following settings: onBackPressedDispatcher.onBackPressed()
+             */
+            onBackPressedDispatcher.onBackPressed() // IMPORTANT THING TO DO
+            agent.agentGoBack() // Agent move back page
         }
     }
 }

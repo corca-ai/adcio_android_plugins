@@ -6,17 +6,19 @@ import androidx.compose.runtime.mutableStateOf
 
 val productId = mutableStateOf("")
 
-class ComposeWebViewManager {
+class AdcioAgentCompose {
+
     /**
-     * You Should Initialize by this func before getDelayedString()
+     * Returns whether the current page is the first page of the agent's page.
      */
     fun isAgentStartPage(): Boolean = WebViewStateManager().isAgentStartPage
 
+    /**
+     * An action to navigate back to the previous page in the agent's page.
+     */
     fun agentGoBack(): Boolean = WebViewStateManager().agentBackManager()
 
     internal fun setProductId(newProductId: String) {
         productId.value = newProductId
-        Log.d("taglog", newProductId)
-
     }
 }
