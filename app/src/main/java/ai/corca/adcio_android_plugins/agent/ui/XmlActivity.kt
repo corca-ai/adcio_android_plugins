@@ -29,12 +29,12 @@ class XmlActivity : AppCompatActivity() {
         adcioAgentListener = object : AdcioAgentListener {
             override fun onClickProductId(productId: String) {
                 /**
-                 * An example of a Toast for productId.
+                 * Example of a Toast for productId.
                  */
                 Toast.makeText(this@XmlActivity, productId, Toast.LENGTH_SHORT).show()
 
                 /**
-                 * An example of screen movement for productId.
+                 * Another example of screen movement for productId.
                  */
                 val intent = Intent(this@XmlActivity, SecondActivity::class.java)
                 intent.putExtra("productId", productId)

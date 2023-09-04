@@ -4,6 +4,9 @@ import ai.corca.adcio_agent_compose.agent.WebViewStateManager
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 
+/**
+ * When a product is clicked on Agent, the clicked productId is updated in productId.
+ */
 val productId = mutableStateOf("")
 
 class AdcioAgentCompose {

@@ -18,6 +18,10 @@ private lateinit var webViewState: WebView
 fun callAdcioAgent(
     modifier: Modifier = Modifier.fillMaxSize(),
     clientId: String,
+    /**
+     *  A URL configuration parameter for library developers.
+     *  It has nothing to do with the clients, so please don't reveal it.
+     */
     baseUrl: String = "https://agent.adcio.ai",
     showAppBar: Boolean = false,
 ) {
@@ -29,14 +33,12 @@ fun callAdcioAgent(
         state = rememberWebViewState(url = agentUrl),
         onCreated={ webView ->
             with(webView){
+                // Webview permission settings
                 settings.run{
-                    javaScriptEnabled = true // JavaScript 실행 여부
-                    domStorageEnabled = true // WebView DOM Storage 사용 여부 (ADCIO 채팅 기록)
-                    javaScriptCanOpenWindowsAutomatically = false // JavaScript의 새 창 열기 여부
+                    javaScriptEnabled = true
+                    domStorageEnabled = true
+                    javaScriptCanOpenWindowsAutomatically = false
                 }
-                /**
-                 * 브릿지 요청 감지
-                 */
                 addJavascriptInterface(ProductRouterJavascriptInterface(), "ProductRouter")
             }
             webViewState = webView
@@ -44,6 +46,9 @@ fun callAdcioAgent(
     )
 }
 
+/**
+ * Implementation of Agent management functions
+ */
 internal class WebViewStateManager {
     val isAgentStartPage: Boolean
         get() = if (::webViewState.isInitialized) webViewState.url?.contains("start/") ?: true else false

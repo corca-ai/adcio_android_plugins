@@ -16,6 +16,7 @@ internal class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
 
     internal var pageManager: AgentPageManager? = null
     private lateinit var callback: OnBackPressedCallback
+
     internal companion object {
         private const val ARG_AGENT_URL = "agentUrl"
 
@@ -32,17 +33,18 @@ internal class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
+        // Detect back button on screen
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                if (pageManager?.agentGoBack() == true) { // 웹뷰에서 뒤로 갔으면
+                if (pageManager?.agentGoBack() == true) {
                     Log.d("goBack", "WebView goes back.")
-                } else { // 웹뷰에서 더 이상 뒤로 갈 수 없으면
-                    isEnabled = false // 현재 콜백 비활성화
-                    requireActivity().finish() // Activity의 onBackPressed 메서드 호출
+                } else {
+                    isEnabled = false
+                    requireActivity().finish()
                 }
             }
         }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback) // 콜백 등록
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback) // register callback
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -54,6 +56,7 @@ internal class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
 
         pageManager = WebViewManager(webView, agentUrl)
     }
+
 
     interface AgentPageManager {
         fun isAgentStartPage(): Boolean
@@ -73,21 +76,22 @@ internal class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
         }
     }
 
+    /**
+     * Implementation of Agent management functions
+     */
     @SuppressLint("SetJavaScriptEnabled")
     inner class WebViewManager(private val webView: WebView, agentUrl: String) : AgentPageManager {
 
         init {
             webView.apply {
                 settings.apply {
-                    javaScriptEnabled = true // JavaScript 실행 여부
-                    domStorageEnabled = true // WebView DOM Storage 사용 여부 (ADCIO 채팅 기록)
-                    javaScriptCanOpenWindowsAutomatically = false // JavaScript의 새 창 열기 여부
+                    // Webview permission settings
+                    javaScriptEnabled = true
+                    domStorageEnabled = true
+                    javaScriptCanOpenWindowsAutomatically = false
                 }
                 loadUrl(agentUrl)
             }
-            /**
-             * 브릿지 요청 감지
-             */
             webView.addJavascriptInterface(ProductRouterJavascriptInterface(), "ProductRouter")
         }
 
