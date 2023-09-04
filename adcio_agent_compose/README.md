@@ -7,7 +7,23 @@ Android plugin that provides a ADCIO Agent_JetpackCompose widget
 </br>
 
 ## Installation
-Add **io.github.corca-ai/agent_compose:${version}** as a dependency in your module’s build.gradle
+
+Add **AdcioAgentCompose** as a dependency in your module’s build.gradle
+
+### Maven
+```groovy
+android {
+  <dependency>
+          <groupId>io.github.corca-ai</groupId>
+          <artifactId>agent_compose</artifactId>
+          <version>0.0.1</version>
+</dependency>
+```
+
+### Groovy
+```groovy
+implementation("io.github.corca-ai/agent_compose:0.0.1")
+```
 
 </br>
 
