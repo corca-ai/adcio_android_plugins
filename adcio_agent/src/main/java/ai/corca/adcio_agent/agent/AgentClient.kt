@@ -57,7 +57,6 @@ internal class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
         pageManager = WebViewManager(webView, agentUrl)
     }
 
-
     interface AgentPageManager {
         fun isAgentStartPage(): Boolean
 
