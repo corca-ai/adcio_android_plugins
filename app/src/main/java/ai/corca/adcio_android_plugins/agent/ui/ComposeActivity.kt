@@ -6,7 +6,6 @@ import ai.corca.adcio_agent_compose.provider.productId
 import ai.corca.adcio_android_plugins.R
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
@@ -33,7 +32,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 
 class ComposeActivity : AppCompatActivity() {
 
@@ -59,7 +57,7 @@ class ComposeActivity : AppCompatActivity() {
          */
         val isPageStart: Boolean = adcioAgentCompose.isAgentStartPage()
 
-        if(id != "") {
+        if (id != "") {
             Toast.makeText(context, id, Toast.LENGTH_SHORT).show()
         }
 
