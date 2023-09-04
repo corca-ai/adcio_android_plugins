@@ -2,8 +2,9 @@ package ai.corca.adcio_android_plugins.analytics
 
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_analytics.model.AdcioLogOption
+import ai.corca.adcio_android_plugins.analytics.utils.AnalyticsProductionListAdapter
 import ai.corca.adcio_android_plugins.databinding.ActivityAnalyticsBinding
-import ai.corca.adcio_android_plugins.placement.Production
+import ai.corca.adcio_android_plugins.placement.utils.Production
 import ai.corca.adcio_placement.feature.AdcioPlacement
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import android.os.Bundle
@@ -68,7 +69,7 @@ class AnalyticsActivity : AppCompatActivity() {
         // If you don't add an option, an error will occur.
         // 'AdcioLogOption(requestId = "", adsetId = "")' is just sample AdcioLogOption!
         // please get AdcioLogOption to adcio_placement's suggest function.
-        binding.adcioDetectorAnalytics.option = AdcioLogOption(requestId = "", adsetId = "")
+        binding.adcioDetectorFixedView.option = AdcioLogOption(requestId = "", adsetId = "")
 
         adapter = AnalyticsProductionListAdapter(
             onClickPurchase = { logOption ->

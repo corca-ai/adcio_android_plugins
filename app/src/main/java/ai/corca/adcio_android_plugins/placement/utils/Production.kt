@@ -1,4 +1,4 @@
-package ai.corca.adcio_android_plugins.placement
+package ai.corca.adcio_android_plugins.placement.utils
 
 import ai.corca.adcio_analytics.model.AdcioLogOption
 

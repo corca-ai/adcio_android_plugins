@@ -28,27 +28,47 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_suggestions"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_appbar"
+        app:layout_constraintBottom_toBottomOf="@id/adcio_detector_fixed_view"
         tools:listitem="@layout/item_analytics_production" />
 
     <ai.corca.adcio_analytics.feature.AdcioImpressionDetector
-        android:id="@+id/adcio_detector_analytics"
+        android:id="@+id/adcio_detector_fixed_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/rv_suggestions">
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <View
-            android:id="@+id/tv_testtest"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_fixed"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@color/design_default_color_error"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:cardBackgroundColor="@color/material_dynamic_primary95"
+            app:cardCornerRadius="10dp">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="30dp"
+                    android:gravity="center"
+                    android:text="이 카드는 스크롤이 적용되지 않은 고정된 뷰에서\nAdcioImpressionDetector 작동을 보여줍니다."
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
     </ai.corca.adcio_analytics.feature.AdcioImpressionDetector>
 
 

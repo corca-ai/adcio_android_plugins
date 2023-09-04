@@ -1,8 +1,9 @@
-package ai.corca.adcio_android_plugins.analytics
+package ai.corca.adcio_android_plugins.analytics.utils
 
 import ai.corca.adcio_analytics.model.AdcioLogOption
-import ai.corca.adcio_android_plugins.placement.ProductionDiffUtilCallback
-import ai.corca.adcio_android_plugins.placement.Production
+import ai.corca.adcio_android_plugins.databinding.ItemAnalyticsProductionBinding
+import ai.corca.adcio_android_plugins.placement.utils.ProductionDiffUtilCallback
+import ai.corca.adcio_android_plugins.placement.utils.Production
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -37,7 +38,7 @@ class AnalyticsProductionListAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnalyticsProductionViewHolder {
         return AnalyticsProductionViewHolder(
-            ItemAnaly.inflate(
+            ItemAnalyticsProductionBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false,
