@@ -13,11 +13,12 @@ Add **AdcioAgent** as a dependency in your module’s build.gradle
 ### Maven
 ```groovy
 android {
-  <dependency>
+    <dependency>
           <groupId>io.github.corca-ai</groupId>
           <artifactId>agent</artifactId>
           <version>0.0.1</version>
-</dependency>
+    </dependency>
+}
 ```
 
 ### Groovy
