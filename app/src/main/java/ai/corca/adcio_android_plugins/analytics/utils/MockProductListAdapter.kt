@@ -1,24 +1,33 @@
 package ai.corca.adcio_android_plugins.analytics.utils
 
 import ai.corca.adcio_analytics.model.AdcioLogOption
-import ai.corca.adcio_android_plugins.databinding.ItemAnalyticsProductionBinding
-import ai.corca.adcio_android_plugins.placement.utils.ProductionDiffUtilCallback
-import ai.corca.adcio_android_plugins.placement.utils.Production
+import ai.corca.adcio_android_plugins.databinding.ItemMockProductBinding
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 
-class AnalyticsProductionListAdapter(
+class MockProductListAdapter(
     val onClickPurchase: (logOption: AdcioLogOption) -> Unit,
     val onClickItem: (logOption: AdcioLogOption) -> Unit,
-) : ListAdapter<Production, AnalyticsProductionListAdapter.AnalyticsProductionViewHolder>(
-    ProductionDiffUtilCallback
+) : ListAdapter<MockProduct, MockProductListAdapter.MockProductViewHolder>(
+    MockProductDiffUtilCallback
 ) {
 
-    inner class AnalyticsProductionViewHolder(private var binding: ItemAnalyticsProductionBinding) : ViewHolder(binding.root) {
-        fun bind(item: Production) = with(binding) {
+    inner class MockProductViewHolder(private var binding: ItemMockProductBinding) : ViewHolder(binding.root) {
+        fun bind(item: MockProduct) = with(binding) {
+
+            // View will not work unless you enter a LogOption object
+            // as an option in the AdcioImpressionDetector!
+            binding.adcioDetector.option = item.logOption
+            // You can get the recommended product and its Log Option
+            // through the Suggestion function in your adcio_placement library.
+
+            setOtherViews(item)
+        }
+
+        private fun setOtherViews(item: MockProduct) {
             Glide.with(binding.root)
                 .load(item.image)
                 .centerCrop()
@@ -32,13 +41,12 @@ class AnalyticsProductionListAdapter(
             binding.cardAnalyticsSuggestion.setOnClickListener {
                 onClickItem(item.logOption)
             }
-            binding.adcioDetector.option = item.logOption
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnalyticsProductionViewHolder {
-        return AnalyticsProductionViewHolder(
-            ItemAnalyticsProductionBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MockProductViewHolder {
+        return MockProductViewHolder(
+            ItemMockProductBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false,
@@ -46,7 +54,7 @@ class AnalyticsProductionListAdapter(
         )
     }
 
-    override fun onBindViewHolder(holder: AnalyticsProductionViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MockProductViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 }

@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layout_appbar"
         app:layout_constraintBottom_toBottomOf="@id/adcio_detector_fixed_view"
-        tools:listitem="@layout/item_analytics_production" />
+        tools:listitem="@layout/item_mock_product" />
 
     <ai.corca.adcio_analytics.feature.AdcioImpressionDetector
         android:id="@+id/adcio_detector_fixed_view"
