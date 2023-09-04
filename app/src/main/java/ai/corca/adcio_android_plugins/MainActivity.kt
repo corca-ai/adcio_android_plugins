@@ -4,7 +4,6 @@ import ai.corca.adcio_android_plugins.agent.AgentActivity
 import ai.corca.adcio_android_plugins.analytics.AnalyticsActivity
 import ai.corca.adcio_android_plugins.databinding.ActivityMainBinding
 import ai.corca.adcio_android_plugins.placement.PlacementActivity
-import ai.corca.adcio_android_plugins.usecases.mockapp.MockActivity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -30,11 +29,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.btnPlacement.setOnClickListener {
             val intent = Intent(this, PlacementActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.btnMock.setOnClickListener {
-            val intent = Intent(this, MockActivity::class.java)
             startActivity(intent)
         }
     }

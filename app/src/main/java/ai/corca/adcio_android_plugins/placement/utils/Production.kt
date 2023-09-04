@@ -1,8 +1,8 @@
-package ai.corca.adcio_android_plugins.placement
+package ai.corca.adcio_android_plugins.placement.utils
 
 import ai.corca.adcio_analytics.model.AdcioLogOption
 
-data class Suggestion(
+data class Production(
     val productId: String,
     val name: String,
     val image: String,

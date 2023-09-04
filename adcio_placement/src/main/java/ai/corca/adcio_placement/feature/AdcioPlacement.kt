@@ -1,21 +1,10 @@
 package ai.corca.adcio_placement.feature
 
-import ai.corca.adcio_analytics.feature.AdcioAnalyticsHistory
-import ai.corca.adcio_placement.exception.NotInitializedException
+import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import ai.corca.adcio_placement.network.remote.PlacementRemote
 
 object AdcioPlacement {
-
-    private lateinit var adcioAnalyticsHistory: AdcioAnalyticsHistory
-    private var isInitialized: Boolean = false
-
-    fun initPlacement(
-        adcioAnalyticsHistory: AdcioAnalyticsHistory
-    ) {
-        isInitialized = true
-        this.adcioAnalyticsHistory = adcioAnalyticsHistory
-    }
 
     private val adcioInfo = AdcioSuggestionInfo()
     private val placementRemote = PlacementRemote()
@@ -32,6 +21,9 @@ object AdcioPlacement {
         return otherInfo?.getSessionId() ?: adcioInfo.getSessionId()
     }
 
+    /**
+     * It smartly predicts products with high click or purchase probabilities from the client's products and returns the product information.
+     */
     fun adcioSuggest(
         placementId: String,
         otherInfo: AdcioSuggestionInfo? = null,
@@ -43,9 +35,8 @@ object AdcioPlacement {
         area: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionRaw {
-        if (!isInitialized) throw NotInitializedException()
+        AdcioAnalytics.clearImpressionHistory()
 
-        adcioAnalyticsHistory.clearHistories()
         return placementRemote.getSuggestion(
             placementId = placementId,
             sessionId = getSessionId(otherInfo),

@@ -5,6 +5,7 @@ import ai.corca.adcio_placement.mapper.toAdcioSuggestionRaw
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import ai.corca.adcio_placement.network.RetrofitClient
 import ai.corca.adcio_placement.network.data.AdcioSuggestionRawData
+import ai.corca.adcio_placement.network.data.request.SuggestionsRequest
 import ai.corca.adcio_placement.network.data.toException
 import ai.corca.adcio_placement.utils.TRACE_EXCEPTION_TAG
 import ai.corca.adcio_placement.utils.toNetworkErrorLog
@@ -30,17 +31,19 @@ internal class PlacementRemote {
         baseUrl: String? = null,
     ): AdcioSuggestionRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
-        val response = service.getSuggestion(
-            sessionId = sessionId,
-            deviceId = deviceId,
-            customerId = customerId,
-            placementId = placementId,
-            placementPosX = placementPosX,
-            placementPosY = placementPosY,
-            fromAgent = fromAgent,
-            age = age,
-            gender = gender,
-            area = area,
+        val response = service.getSuggestions(
+            suggestionsRequest = SuggestionsRequest(
+                sessionId = sessionId,
+                deviceId = deviceId,
+                customerId = customerId,
+                placementId = placementId,
+                placementPosX = placementPosX,
+                placementPosY = placementPosY,
+                fromAgent = fromAgent,
+                age = age,
+                gender = gender,
+                area = area,
+            )
         ).execute()
 
         checkError(response)?.let { throw it }

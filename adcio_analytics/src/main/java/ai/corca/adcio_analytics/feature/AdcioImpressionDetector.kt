@@ -1,6 +1,7 @@
 package ai.corca.adcio_analytics.feature
 
 import ai.corca.adcio_analytics.R
+import ai.corca.adcio_analytics.model.AdcioLogOption
 import android.content.Context
 import android.graphics.Rect
 import android.util.AttributeSet
@@ -15,44 +16,54 @@ class AdcioImpressionDetector @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ) : FrameLayout(context, attrs, defStyleAttr) {
 
-    private val myViewTreeObserver: ViewTreeObserver = this.viewTreeObserver
-    private var isVisible: Boolean = false
+    private var isImpression: Boolean = false
     private val rect = Rect()
     var useImpression: Boolean = true
-    lateinit var manager: AdcioImpressionDetectorManager
+    lateinit var option: AdcioLogOption
 
     init {
         context.withStyledAttributes(attrs, R.styleable.AdcioImpressionDetector, defStyleAttr) {
             useImpression = getBoolean(R.styleable.AdcioImpressionDetector_use_impression, true)
         }
+    }
 
-        myViewTreeObserver.addOnDrawListener {
-            if (useImpression && this::manager.isInitialized) {
-                getGlobalVisibleRect(rect).let {
-                    if (isVisible != it) {
-                        isVisible = it
-                        if (isVisible && AdcioAnalytics.adcioAnalyticsHistory.getImpressionHistories().contains(manager.adsetId).not()) {
-                            onImpression()
-                        }
-                    }
+    private val onScrollChangedListener = ViewTreeObserver.OnScrollChangedListener {
+        if (isMoreThanHalfVisible()) {
+            if (!isImpression && useImpression) {
+                isImpression = true
+                if (AdcioAnalytics.hasImpression(option.adsetId).not()) {
+                    onImpression()
                 }
             }
         }
     }
 
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        viewTreeObserver.addOnScrollChangedListener(onScrollChangedListener)
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        viewTreeObserver.removeOnScrollChangedListener(onScrollChangedListener)
+    }
+
+    private fun isMoreThanHalfVisible(): Boolean {
+        val height = height.toFloat()
+        val width = width.toFloat()
+
+        getGlobalVisibleRect(rect)
+
+        return rect.height() > height / 2 && rect.width() > width / 2 &&
+            rect.top >= 0 && rect.bottom <= rootView.height &&
+            rect.left >= 0 && rect.right <= rootView.width
+    }
+
     private fun onImpression() {
         thread(start = true) {
             AdcioAnalytics.onImpression(
-                requestId = manager.requestId,
-                adsetId = manager.adsetId,
-                baseUrl = manager.baseUrl
+                option = option,
             )
         }
     }
 }
-
-data class AdcioImpressionDetectorManager(
-    val requestId: String,
-    val adsetId: String,
-    val baseUrl: String? = null,
-)
