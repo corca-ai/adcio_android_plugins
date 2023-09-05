@@ -35,27 +35,18 @@ import androidx.compose.ui.unit.sp
 
 class ComposeActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            agentScreen()
-        }
-    }
-
     @Composable
     fun agentScreen() {
-        /**
-         * Super simple get productId: Import productId and create a variable that remembers it.*
-         * if the value of productId changes, the value of “id” will also be updated
-         */
-        var id by remember { productId }
-        val context = LocalContext.current
-        val adcioAgentCompose = AdcioAgentCompose()
 
-        /**
-         * Returns whether the current page is the first page of the agent's page.
-         */
+        // Super simple get productId: Import productId and create a variable that remembers it.
+        // if the value of productId changes, the value of “id” will also be updated
+        var id by remember { productId }
+
+        val adcioAgentCompose = AdcioAgentCompose()
+        // Returns whether the current page is the first page of the agent's page.
         val isPageStart: Boolean = adcioAgentCompose.isAgentStartPage()
+
+        val context = LocalContext.current
 
         if (id != "") {
             Toast.makeText(context, id, Toast.LENGTH_SHORT).show()
@@ -64,40 +55,62 @@ class ComposeActivity : AppCompatActivity() {
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            Row(
-                modifier = Modifier
-                    .background(color = Color.Green)
-                    .fillMaxWidth()
-                    .height(60.dp)
-                    .padding(start = 20.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Start
-            ) {
-                Image(
-                    painter = painterResource(
-                        id = R.drawable.ic_back
-                    ),
-                    contentDescription = "",
-                    modifier = Modifier.clickable {
-                        /**
-                         * Important: If you use the app's own AppBar to enable POP of the AppBar's WebView,
-                         * You must enable the following settings: onBackPressedDispatcher.onBackPressed()
-                         */
-                        adcioAgentCompose.agentGoBack() // Agent move back page
-                        onBackPressedDispatcher.onBackPressed() // IMPORTANT THING TO DO
-                    }
-                )
-                Spacer(modifier = Modifier.width(20.dp))
-                Text(
-                    fontSize = 18.sp,
-                    text = "adcio_agent example",
-                    color = Color.Black
-                )
-            }
+            AgentAppBar(
+                title = "adcio_agent example",
+                onClickBack = {
+                    // Important: If you use the app's own AppBar to enable POP of the AppBar's WebView,
+                    // You must enable the following settings: onBackPressedDispatcher.onBackPressed()
+                    adcioAgentCompose.agentGoBack() // Agent move back page
+                    onBackPressedDispatcher.onBackPressed() // IMPORTANT THING TO DO
+                }
+            )
+
+            // Call adcio agent like this!
+            // You can resize agent using modifier.
+            // and set visibility of appbar in agent web page, too.
             callAdcioAgent(
                 modifier = Modifier.fillMaxSize(),
                 clientId = "YOUR_CLIENT_ID",
                 showAppBar = false
+            )
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            agentScreen()
+        }
+    }
+
+    @Composable
+    private fun AgentAppBar(
+        title: String,
+        onClickBack: () -> Unit,
+    ) {
+        Row(
+            modifier = Modifier
+                .background(color = Color.Green)
+                .fillMaxWidth()
+                .height(60.dp)
+                .padding(start = 20.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Start
+        ) {
+            Image(
+                painter = painterResource(
+                    id = R.drawable.ic_back
+                ),
+                contentDescription = "",
+                modifier = Modifier.clickable {
+                    onClickBack()
+                }
+            )
+            Spacer(modifier = Modifier.width(20.dp))
+            Text(
+                fontSize = 18.sp,
+                text = title,
+                color = Color.Black
             )
         }
     }

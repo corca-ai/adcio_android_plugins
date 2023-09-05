@@ -6,27 +6,24 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlin.properties.Delegates
 
 interface AdcioAgentListener {
-    fun onClickProductId(productId: String)
+    fun onClickProduct(productId: String)
 }
 
 var adcioAgentListener: AdcioAgentListener? = null
 
 private var _productId: String by Delegates.observable("") { _, _, new ->
-    adcioAgentListener?.onClickProductId(new)
+    adcioAgentListener?.onClickProduct(new)
 }
 
 class AdcioAgent(
     val context: Context?,
     val clientId: String,
-    /**
-     *  A URL configuration parameter for library developers.
-     *  It has nothing to do with the clients, so please don't reveal it.
-     */
+
+    // A URL configuration parameter for library developers.
+    // It has nothing to do with the clients, so please don't reveal it.
     val baseUrl: String = "https://agent.adcio.ai",
 
-    /**
-     * Your FrameLayout Resource ID But, We Recommand our AdcioAgentLayout
-     */
+    // Your FrameLayout Resource ID But, We Recommand our AdcioAgentLayout
     val fragmentContainer: Int,
     private val showAppBar: Boolean = false,
 ) {

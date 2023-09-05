@@ -33,7 +33,6 @@ internal class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        // Detect back button on screen
         callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 if (pageManager?.agentGoBack() == true) {

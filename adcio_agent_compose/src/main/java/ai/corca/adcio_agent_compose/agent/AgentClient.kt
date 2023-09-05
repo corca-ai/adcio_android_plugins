@@ -13,17 +13,23 @@ import com.google.accompanist.web.rememberWebViewState
 @SuppressLint("StaticFieldLeak")
 private lateinit var webViewState: WebView
 
+/**
+ * composable function for agent.
+ *
+ * @param modifier to resize.
+ * @param clientId your client id.
+ * @param showAppBar you can change visibility of appbar in web.
+ */
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun callAdcioAgent(
     modifier: Modifier = Modifier.fillMaxSize(),
     clientId: String,
-    /**
-     *  A URL configuration parameter for library developers.
-     *  It has nothing to do with the clients, so please don't reveal it.
-     */
-    baseUrl: String = "https://agent.adcio.ai",
+
+    // A URL configuration parameter for library developers.
+    // It has nothing to do with the clients, so please don't reveal it.
     showAppBar: Boolean = false,
+    baseUrl: String = "https://agent.adcio.ai",
 ) {
     val startPage = "start/"
     val agentUrl = "$baseUrl/$clientId/$startPage?platform=android&show_appbar=$showAppBar"
@@ -46,9 +52,6 @@ fun callAdcioAgent(
     )
 }
 
-/**
- * Implementation of Agent management functions
- */
 internal class WebViewStateManager {
     val isAgentStartPage: Boolean
         get() = if (::webViewState.isInitialized) webViewState.url?.contains("start/") ?: true else false

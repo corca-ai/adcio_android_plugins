@@ -9,12 +9,20 @@ object AdcioPlacement {
     private val adcioInfo = AdcioSuggestionInfo()
     private val placementRemote = PlacementRemote()
 
+    /**
+     * You can obtain the deviceId registered.
+     * @param otherInfo register other device info.
+     */
     fun getDeviceId(
         otherInfo: AdcioSuggestionInfo? = null
     ): String {
         return otherInfo?.getDeviceId() ?: adcioInfo.getDeviceId()
     }
 
+    /**
+     * You can obtain the sessionId registered.
+     * @param otherInfo register other device info.
+     */
     fun getSessionId(
         otherInfo: AdcioSuggestionInfo? = null
     ): String {
