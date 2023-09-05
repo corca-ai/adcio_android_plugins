@@ -54,7 +54,7 @@ dependencies {
 ```kotlin
 dependencies {
   implementation("io.github.corca-ai:adcio_placement:{VERSION-PLACEMENT}")
-  implementation("io.github.corca-ai:adcio_agent:{VERSION-AGENT-XML}")
+  implementation("io.github.corca-ai:adcio_agent:{VERSION-AGENT}")
   implementation("io.github.corca-ai:adcio_agent_compose:{VERSION-AGENT-COMPOSE}")
   implementation("io.github.corca-ai:adcio_analytics:{VERSION-ANALYTICS}")
 }
