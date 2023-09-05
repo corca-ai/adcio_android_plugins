@@ -3,6 +3,14 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+rootProject.extra.apply {
+    set("PUBLISH_GROUP_ID", "io.github.corca-ai")
+    set("PUBLISH_ARTIFACT_ID", "adcio_agent_compose")
+    set("PUBLISH_VERSION", "0.0.1")
+    set("PUBLISH_SCM_URL", "https://github.com/corca-ai/adcio_android_plugins")
+    set("PUBLISH_DESCRIPTION", "ADCIO_Agent_Compose")
+}
+
 android {
     namespace = "com.corcaai.adcio_agent_compose"
     compileSdk = 33
@@ -33,6 +41,8 @@ android {
         jvmTarget = "1.8"
     }
 }
+
+apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
 
 dependencies {
 

@@ -5,19 +5,19 @@ import ai.corca.adcio_agent.provider.AdcioAgent
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.webkit.JavascriptInterface
-import android.webkit.WebChromeClient
 import android.webkit.WebView
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 
-class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
+internal class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
 
-    private lateinit var webView: WebView
+    internal var pageManager: AgentPageManager? = null
     private lateinit var callback: OnBackPressedCallback
 
-    companion object {
+    internal companion object {
         private const val ARG_AGENT_URL = "agentUrl"
 
         fun newInstance(agentUrl: String): AgentClient {
@@ -30,38 +30,37 @@ class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
         }
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        // Detect back button on screen
+        callback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                if (pageManager?.agentGoBack() == true) {
+                    Log.d("goBack", "WebView goes back.")
+                } else {
+                    isEnabled = false
+                    requireActivity().finish()
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback) // register callback
+    }
+
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val agentUrl = arguments?.getString("agentUrl") ?: ""
-        webView = view.findViewById(R.id.webView)
+        val agentUrl = arguments?.getString(ARG_AGENT_URL) ?: ""
+        val webView = view.findViewById<WebView>(R.id.webView)
 
-        webView.apply {
-            settings.apply {
-                javaScriptEnabled = true
-                domStorageEnabled = true
-                javaScriptCanOpenWindowsAutomatically = false
-            }
-            addJavascriptInterface(ProductRouterJavascriptInterface(), "ProductRouter")
-            webChromeClient = object : WebChromeClient() {
-                override fun onJsAlert(view: WebView?, url: String?, message: String?, result: android.webkit.JsResult?): Boolean {
-                    ProductRouterJavascriptInterface().postMessage(message!!)
-                    return super.onJsAlert(view, url, message, result)
-                }
-            }
-            loadUrl(agentUrl)
-        }
+        pageManager = WebViewManager(webView, agentUrl)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        callback = object : OnBackPressedCallback(true) {
-            override fun handleOnBackPressed() {
-                requireActivity().finish()
-            }
-        }
-        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    interface AgentPageManager {
+        fun isAgentStartPage(): Boolean
+
+        fun agentGoBack(): Boolean
     }
 
     private inner class ProductRouterJavascriptInterface {
@@ -76,15 +75,36 @@ class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
         }
     }
 
-    val isAgentStartPage: Boolean
-        get() = webView.url?.contains("start/") ?: false
+    /**
+     * Implementation of Agent management functions
+     */
+    @SuppressLint("SetJavaScriptEnabled")
+    inner class WebViewManager(private val webView: WebView, agentUrl: String) : AgentPageManager {
 
-    fun agentBackManager(): Boolean {
-        return if (webView.canGoBack()) {
-            webView.goBack()
-            false
-        } else {
-            true
+        init {
+            webView.apply {
+                settings.apply {
+                    // Webview permission settings
+                    javaScriptEnabled = true
+                    domStorageEnabled = true
+                    javaScriptCanOpenWindowsAutomatically = false
+                }
+                loadUrl(agentUrl)
+            }
+            webView.addJavascriptInterface(ProductRouterJavascriptInterface(), "ProductRouter")
+        }
+
+        override fun isAgentStartPage(): Boolean {
+            return webView.url?.contains("start/") ?: false
+        }
+
+        override fun agentGoBack(): Boolean {
+            return if (webView.canGoBack()) {
+                webView.goBack()
+                true
+            } else {
+                false
+            }
         }
     }
 }

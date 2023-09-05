@@ -1,9 +1,10 @@
 package ai.corca.adcio_agent_compose.agent
 
-import ai.corca.adcio_agent_compose.provider.ComposeWebViewManager
+import ai.corca.adcio_agent_compose.provider.AdcioAgentCompose
 import android.annotation.SuppressLint
 import android.webkit.JavascriptInterface
 import android.webkit.WebView
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.google.accompanist.web.WebView
@@ -15,9 +16,13 @@ private lateinit var webViewState: WebView
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun callAdcioAgent(
-    modifier: Modifier = Modifier,
+    modifier: Modifier = Modifier.fillMaxSize(),
     clientId: String,
-    baseUrl: String = "https://agent-dev.adcio.ai",
+    /**
+     *  A URL configuration parameter for library developers.
+     *  It has nothing to do with the clients, so please don't reveal it.
+     */
+    baseUrl: String = "https://agent.adcio.ai",
     showAppBar: Boolean = false,
 ) {
     val startPage = "start/"
@@ -25,13 +30,14 @@ fun callAdcioAgent(
 
     WebView(
         modifier = modifier,
-        state = rememberWebViewState(url=agentUrl),
+        state = rememberWebViewState(url = agentUrl),
         onCreated={ webView ->
             with(webView){
+                // Webview permission settings
                 settings.run{
-                    javaScriptEnabled=true
-                    domStorageEnabled=true
-                    javaScriptCanOpenWindowsAutomatically=false
+                    javaScriptEnabled = true
+                    domStorageEnabled = true
+                    javaScriptCanOpenWindowsAutomatically = false
                 }
                 addJavascriptInterface(ProductRouterJavascriptInterface(), "ProductRouter")
             }
@@ -40,12 +46,15 @@ fun callAdcioAgent(
     )
 }
 
-class WebViewStateManager {
+/**
+ * Implementation of Agent management functions
+ */
+internal class WebViewStateManager {
     val isAgentStartPage: Boolean
-        get() = webViewState.url?.contains("start/") ?: false
+        get() = if (::webViewState.isInitialized) webViewState.url?.contains("start/") ?: true else false
 
     fun agentBackManager(): Boolean {
-        return if (webViewState.canGoBack()) {
+        return if (::webViewState.isInitialized && webViewState.canGoBack()) {
             webViewState.goBack()
             false
         } else {
@@ -54,12 +63,12 @@ class WebViewStateManager {
     }
 }
 
-class ProductRouterJavascriptInterface() {
+internal class ProductRouterJavascriptInterface {
 
-    private val composeWebViewManager = ComposeWebViewManager()
+    private val adcioAgentCompose = AdcioAgentCompose()
 
     @JavascriptInterface
     fun postMessage(message: String){
-        composeWebViewManager.setProductId(message)
+        adcioAgentCompose.setProductId(message)
     }
 }

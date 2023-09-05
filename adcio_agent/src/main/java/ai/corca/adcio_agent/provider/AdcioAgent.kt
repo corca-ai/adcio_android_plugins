@@ -15,10 +15,15 @@ private var _productId: String by Delegates.observable("") { _, _, new ->
     adcioAgentListener?.onClickProductId(new)
 }
 
-open class AdcioAgent(
+class AdcioAgent(
     val context: Context?,
     val clientId: String,
-    val baseUrl: String = "https://agent-dev.adcio.ai",
+    /**
+     *  A URL configuration parameter for library developers.
+     *  It has nothing to do with the clients, so please don't reveal it.
+     */
+    val baseUrl: String = "https://agent.adcio.ai",
+
     /**
      * Your FrameLayout Resource ID But, We Recommand our AdcioAgentLayout
      */
@@ -28,7 +33,7 @@ open class AdcioAgent(
     /**
      * Call ADCIO Agent Webview in FrameLayout by your fragmentId Param
      *
-     * 💡 If it happen product click event the Agent will be destroy
+     * 💡 If it happen product clicked event the Agent will update productId
      */
     fun callAdcioAgent() {
         val startPage = "start/"
@@ -42,9 +47,17 @@ open class AdcioAgent(
         fragmentTransaction.commit()
     }
 
-    fun isAgentStartPage(): Boolean = AgentClient().isAgentStartPage
+    /**
+     * Returns whether the current page is the first page of the agent's page.
+     */
+    fun isAgentStartPage(): Boolean {
+        return AgentClient().pageManager?.agentGoBack() != true
+    }
 
-    fun agentGoBack(): Boolean = AgentClient().agentBackManager()
+    /**
+     * An action to navigate back to the previous page in the agent's page.
+     */
+    fun agentGoBack(): Boolean = AgentClient().pageManager?.agentGoBack() == true
 
     internal fun setProductId(newProductId: String) {
         _productId = newProductId
