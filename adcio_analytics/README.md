@@ -9,12 +9,12 @@ Android plugin that collects logs for event analysis of ADCIO projects.
 
 **groovy**
 ```groovy
-implementation 'io.github.corca-ai:adcio_analytics:{VERSION-PLACEMENT}'
+implementation 'io.github.corca-ai:adcio_analytics:{VERSION-ANALYTICS}'
 ```
 
 **kotlin**
 ```kotlin
-implementation("io.github.corca-ai:adcio_analytics:{VERSION-PLACEMENT}")
+implementation("io.github.corca-ai:adcio_analytics:{VERSION-ANALYTICS}")
 ```
 </br>
 
