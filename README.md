@@ -17,7 +17,7 @@ The plugins can be divided into three main categories.
 </br>
 
 # Installing
-**SDK 21+ support**  
+### 1. SDK 21+ support
 adcio_android_plugins requires a minSdkVersion of 21 or higher to use Androidx:
 
 ```groovy
@@ -27,9 +27,12 @@ android {
     }
 }
 ```
-You can download [adcio_android_plugins](https://search.maven.org/search?q=adcio) through MavenCentral.
 
-**settings.gradle**
+</br>
+
+### 2. add [adcio_android_plugins through MavenCentral](https://central.sonatype.com/namespace/io.github.corca-ai).
+
+**1\) Add the code below within `settings.gradle`**
 
 ```groovy
 repositories {
@@ -38,8 +41,9 @@ repositories {
 }
 ```
 
-**build.gradle (:app) - Groovy**
+**2\) Add the following to app-level `build.gradle`**
 
+Groovy
 ```groovy
 dependencies {
   implementation 'io.github.corca-ai:adcio_placement:{VERSION-PLACEMENT}'
@@ -49,8 +53,7 @@ dependencies {
 }
 ```
 
-**build.gradle (:app) - kotlin**
-
+Kotlin
 ```kotlin
 dependencies {
   implementation("io.github.corca-ai:adcio_placement:{VERSION-PLACEMENT}")
