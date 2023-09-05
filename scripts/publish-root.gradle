@@ -1,0 +1,32 @@
+ext["signing.keyId"] = ''
+ext["signing.password"] = ''
+ext["signing.secretKeyRingFile"] = ''
+ext["ossrhUsername"] = ''
+ext["ossrhPassword"] = ''
+ext["sonatypeStagingProfileId"] = ''
+
+File secretPropsFile = project.rootProject.file('local.properties')
+if (secretPropsFile.exists()) {
+    Properties p = new Properties()
+    new FileInputStream(secretPropsFile).withCloseable { is -> p.load(is) }
+    p.each { name, value -> ext[name] = value }
+} else {
+    ext["ossrhUsername"] = System.getenv('ossrhUsername')
+    ext["ossrhPassword"] = System.getenv('ossrhPassword')
+    ext["sonatypeStagingProfileId"] = System.getenv('sonatypeStagingProfileId')
+    ext["signing.keyId"] = System.getenv('signing.keyId')
+    ext["signing.password"] = System.getenv('signing.password')
+    ext["signing.secretKeyRingFile"] = System.getenv('signing.secretKeyRingFile')
+}
+
+nexusPublishing {
+    repositories {
+        sonatype {
+            stagingProfileId = sonatypeStagingProfileId
+            username = ossrhUsername
+            password = ossrhPassword
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+        }
+    }
+}
