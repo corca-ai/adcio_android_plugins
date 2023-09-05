@@ -3,6 +3,20 @@ Provides an **AI assistant** that allows users to talk directly.
 
 This is an artificial intelligence chatbot used in `Jetpack Compose` view operation method.
 
+## Installing
+
+**groovy**
+```groovy
+implementation 'io.github.corca-ai:adcio_agent_compose:{VERSION-AGENT-COMPOSE}'
+```
+
+**kotlin**
+```kotlin
+implementation("io.github.corca-ai:adcio_agent_compose:{VERSION-AGENT-COMPOSE}")
+```
+
+</br>
+
 ## Sample Usage
 **Super simple usage: call `callAdcioAgent` in composable function and specify modifier**
 
