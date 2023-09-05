@@ -60,11 +60,7 @@ dependencies {
 }
 ```
 
-</br>
 
-
-# Sample Code
-You can see an app that uses three modules in combination: [`adcio_analytics`, `adcio_placement`, and `adcio_agent`](https://github.com/corca-ai/adcio_demo_app_android)
   
     
    
