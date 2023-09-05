@@ -6,6 +6,8 @@ The plugins can be divided into three main categories.
 - `adcio_agent`: Provides an **AI assistant** that allows users to talk directly.
 - `adcio_analytics`: **Collects logs** for event analysis of ADCIO projects.
 
+</br>
+
 # Installing
 **SDK 21+ support**  
 adcio_android_plugins requires a minSdkVersion of 21 or higher to use Androidx:
@@ -49,6 +51,8 @@ dependencies {
   implementation("io.github.corca-ai:adcio_analytics:{VERSION-ANALYTICS}")
 }
 ```
+
+</br>
 
 # adcio_placement
 Android plugins that provides a ADCIO placement service.
@@ -101,6 +105,8 @@ val sessionId: String = AdcioPlacement.getSessionId()
 ```
 
 You can obtain the `sessionId` registered through `otherInfo: AdcioSuggestionInfo`.
+
+</br>
 
 # adcio_agent
 Android plugin that provides a ADCIO Agent widget.
@@ -194,6 +200,8 @@ binding.btnBack.setOnClickListener {
 }
 ```
 
+</br>
+
 # adcio_agent_compose
 Android plugin that provides a ADCIO Agent for Jetpack Compose.
 
@@ -267,6 +275,8 @@ Button(
 )
 ...
 ```
+
+</br>
 
 # adcio_analytics
 
@@ -356,6 +366,8 @@ It mainly collects three events: impression, click, and purchase.
 | impression | 광고 노출 | AdcioAnalytics.onImpression(option) |
 | click | 광고 클릭 | AdcioAnalytics.onClick(option) |
 | purchase | 광고 구매 | AdcioAnalytics.onPurchase(option, amount) |
+
+</br>
 
 # Sample Code
 - Example of the `adcio_analytics` plugin used independently
