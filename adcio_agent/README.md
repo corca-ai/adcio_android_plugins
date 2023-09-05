@@ -8,12 +8,12 @@ This is an artificial intelligence chatbot used in `XML` view operation method.
 
 **groovy**
 ```groovy
-implementation 'io.github.corca-ai:adcio_agent:{VERSION-PLACEMENT}'
+implementation 'io.github.corca-ai:adcio_agent:{VERSION-AGENT}'
 ```
 
 **kotlin**
 ```kotlin
-implementation("io.github.corca-ai:adcio_agent:{VERSION-PLACEMENT}")
+implementation("io.github.corca-ai:adcio_agent:{VERSION-AGENT}")
 ```
 </br>
 
