@@ -1,8 +1,8 @@
 # adcio_android_plugins
-'adcio_android_plugins' is a library that helps develop 'adcio' Android services.  
-The library can be divided into three main categories.
+'adcio_android_plugins' is a plugins that help develop 'adcio' Android services.  
+The plugins can be divided into three main categories.
 
-- `adcio_placement`: It is a library where you can receive **products recommended by AI** based on user information.
+- `adcio_placement`: It is a plugin where you can receive **products recommended by AI** based on user information.
 - `adcio_agent`: Provides an **AI assistant** that allows users to talk directly.
 - `adcio_analytics`: **Collects logs** for event analysis of ADCIO projects.
 
@@ -17,7 +17,7 @@ android {
     }
 }
 ```
-You can download [adcio_android_plugins](https://github.com/corca-ai/adcio_android_plugins) through MavenCentral.
+You can download [adcio_android_plugins](https://search.maven.org/search?q=adcio) through MavenCentral.
 
 **settings.gradle**
 
@@ -51,13 +51,13 @@ dependencies {
 ```
 
 # adcio_placement
-Android library that provides a ADCIO placement service.
+Android plugins that provides a ADCIO placement service.
 
 It smartly predicts products with high click or purchase probabilities from the client's products and returns the product information.
 
 ## Sample Usage
 
-Usually, it’s associated with the `adcio_analytics` library.
+Usually, it’s associated with the `adcio_analytics` plugin.
 
 **get** `adcioSuggest()` **result:**
 
@@ -103,7 +103,7 @@ val sessionId: String = AdcioPlacement.getSessionId()
 You can obtain the `sessionId` registered through `otherInfo: AdcioSuggestionInfo`.
 
 # adcio_agent
-Android library that provides a ADCIO Agent widget.
+Android plugin that provides a ADCIO Agent widget.
 
 ## Sample Usage
 You should make `<ai.corca.adcio_agent.layout.AdcioAgentLayout>` the space where Agent will be placed
@@ -195,7 +195,7 @@ binding.btnBack.setOnClickListener {
 ```
 
 # adcio_agent_compose
-Android library that provides a ADCIO Agent for Jetpack Compose.
+Android plugin that provides a ADCIO Agent for Jetpack Compose.
 
 ## Sample Usage
 **Super simple usage: call `callAdcioAgent` in composable function and specify modifier**
@@ -270,13 +270,13 @@ Button(
 
 # adcio_analytics
 
-Android library that collects logs for event analysis of ADCIO projects.
+Android plugin that collects logs for event analysis of ADCIO projects.
 
 `adcio_analytics` is an app measurement solution that provides app usage and user engagement statistics.
 
 ## Sample Usage
 
-Usually, it's associated with the `adcio_placement` library.
+Usually, it's associated with the `adcio_placement` plugin.
 
 You call `adcioSuggest()` from the adcio_placement package and gather the recommended product.  
 With this, you collect three types of logging events: `onClick`, `onImpression`, and `onPurchase`.
@@ -358,20 +358,17 @@ It mainly collects three events: impression, click, and purchase.
 | purchase | 광고 구매 | AdcioAnalytics.onPurchase(option, amount) |
 
 # Sample Code
-
-**TODO : 주소 main branch에 맞춰서 수정.**
-
-- Example of the `adcio_analytics` library used independently
+- Example of the `adcio_analytics` plugin used independently
     
-    https://github.com/corca-ai/adcio_android_plugins/blob/develop/app/src/main/java/ai/corca/adcio_android_plugins/analytics/AnalyticsActivity.kt
+    https://github.com/corca-ai/adcio_android_plugins/blob/main/app/src/main/java/ai/corca/adcio_android_plugins/analytics/AnalyticsActivity.kt
     
-- Example of the `adcio_placement` library used independently
+- Example of the `adcio_placement` plugin used independently
     
-    https://github.com/corca-ai/adcio_android_plugins/blob/develop/app/src/main/java/ai/corca/adcio_android_plugins/placement/PlacementActivity.kt
+    https://github.com/corca-ai/adcio_android_plugins/blob/main/app/src/main/java/ai/corca/adcio_android_plugins/placement/PlacementActivity.kt
     
-- Example of the `adcio_agent` library used independently
+- Example of the `adcio_agent` plugin used independently
     
-    https://github.com/corca-ai/adcio_android_plugins/tree/develop/app/src/main/java/ai/corca/adcio_android_plugins/agent
+    https://github.com/corca-ai/adcio_android_plugins/tree/main/app/src/main/java/ai/corca/adcio_android_plugins/agent
     
 - You can see an app that uses three modules in combination: `adcio_analytics`, `adcio_placement`, and `adcio_agent`.
     
