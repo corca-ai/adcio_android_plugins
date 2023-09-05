@@ -5,7 +5,6 @@ import ai.corca.adcio_analytics.model.AdcioLogOption
 import ai.corca.adcio_android_plugins.analytics.utils.MockProductListAdapter
 import ai.corca.adcio_android_plugins.analytics.utils.getMockProducts
 import ai.corca.adcio_android_plugins.databinding.ActivityAnalyticsBinding
-import ai.corca.adcio_android_plugins.placement.utils.Production
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
@@ -13,7 +12,6 @@ class AnalyticsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAnalyticsBinding
     private lateinit var adapter: MockProductListAdapter
-    private var productions: MutableList<Production> = emptyList<Production>().toMutableList()
 
     // Background Thread for Purchase Analytics.
     inner class OnPurchaseThread(

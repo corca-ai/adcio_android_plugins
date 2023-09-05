@@ -2,7 +2,7 @@ package ai.corca.adcio_analytics.network
 
 internal object AnalyticsUrl {
 
-    internal var baseUrl = "https://receiver-dev.adcio.ai/"
+    internal var baseUrl = "https://receiver.adcio.ai/"
 
     private const val PERFORMANCE = "performance"
 
