@@ -22,7 +22,7 @@ private lateinit var webViewState: WebView
  */
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
-fun callAdcioAgent(
+fun AdcioAgent(
     modifier: Modifier = Modifier.fillMaxSize(),
     clientId: String,
 
