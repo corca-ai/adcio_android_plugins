@@ -1,6 +1,6 @@
 package ai.corca.adcio_android_plugins.agent.ui
 
-import ai.corca.adcio_agent_compose.agent.callAdcioAgent
+import ai.corca.adcio_agent_compose.agent.AdcioAgent
 import ai.corca.adcio_agent_compose.provider.AdcioAgentCompose
 import ai.corca.adcio_agent_compose.provider.productId
 import ai.corca.adcio_android_plugins.R
@@ -68,7 +68,7 @@ class ComposeActivity : AppCompatActivity() {
             // Call adcio agent like this!
             // You can resize agent using modifier.
             // and set visibility of appbar in agent web page, too.
-            callAdcioAgent(
+            AdcioAgent(
                 modifier = Modifier.fillMaxSize(),
                 clientId = "YOUR_CLIENT_ID",
                 showAppBar = false
