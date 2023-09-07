@@ -70,6 +70,6 @@ dependencies {
 
     implementation(project(path = ":adcio_agent"))
     implementation(project(path = ":adcio_agent_compose"))
-    implementation("io.github.corca-ai:adcio_placement:0.1.0")
+    implementation(project(path = ":adcio_placement"))
     implementation(project(path = ":adcio_analytics"))
 }
