@@ -21,45 +21,44 @@ class PlacementActivity : AppCompatActivity() {
 
     inner class GetSuggestionThread : Thread() {
         override fun run() {
-            // You can obtain recommended data through the AdcioPlacement.adcioSuggest() function.
-            // You can put only one placementId.
-            // However, if you hand over additional data such as customerId, placementPosX,
-            // placementPosY, age, gender, and area, you can get a better recommendation.
+            // adcioSuggest function allows you to receive products recommended by ADCIO’s AI.
+            // You can get the placementId on the ADCIO Dashboard web page.
+            // In addition, if you have user information such as customerId(like.userId),
+            // age, gender, area, or information such as placement position related to the page,
+            // the recommended prediction accuracy is higher.
             val adcioSuggestionRaw = AdcioPlacement.adcioSuggest(
-                placementId = "9f9f9b00-dc16-41c7-a5cd-f9a788d3d481",
+                placementId = "67592c00-a230-4c31-902e-82ae4fe71866",
             )
             // You can receive an AdcioSuggestonRaw object as a result,
-            // which contains recommended items.
-            // Take advantage of this object!
 
             handleResultData(adcioSuggestionRaw)
         }
     }
 
+    // You can get your registered device ID.
+    // ex) TP1A.220612.012
+    // You can also change the registered DeviceID value through the otherInfo parameter.
+    private val deviceId = AdcioPlacement.getDeviceId()
+
+    // You can get your registered session ID!
+    // ex) 70828121-1234-47d71-fh71-fy71j47s83jd
+    // You can also change the registered SessionID value through the info parameter.
+    private val sessionId = AdcioPlacement.getSessionId()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlacementBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // From the bottom, this is the basic view setting.
 
         binding.tvDeviceId.setOnClickListener {
-            // You can get your registered device ID!
-            // ex) TP1A.220612.012
-            val deviceId = AdcioPlacement.getDeviceId()
-            // You can also change the registered DeviceID value through the info parameter.
-
             Toast.makeText(this, "Device Id: $deviceId", Toast.LENGTH_SHORT).show()
         }
 
         binding.tvSessionId.setOnClickListener {
-            // You can get your registered session ID!
-            // ex) 70828121-1234-47d71-fh71-fy71j47s83jd
-            val sessionId = AdcioPlacement.getSessionId()
-            // You can also change the registered SessionID value through the info parameter.
-
             Toast.makeText(this, "Session Id: $sessionId", Toast.LENGTH_SHORT).show()
         }
 
-        // From the bottom, this is the basic view setting.
         setOtherViews()
     }
 
