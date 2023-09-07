@@ -62,6 +62,22 @@ class PlacementActivity : AppCompatActivity() {
         setOtherViews()
     }
 
+    private fun handleResultData(adcioSuggestionRaw: AdcioSuggestionRaw) {
+        productions.clear()
+        adcioSuggestionRaw.suggestions.forEach {
+            productions.add(
+                Production(
+                    productId = it.product.code, // product.code = product id of client service
+                    name = it.product.name,
+                    image = it.product.image,
+                    price = it.product.price.toString(),
+                    logOption = AdcioLogOption(requestId = it.logOptions.requestId, adsetId = it.logOptions.adsetId),
+                )
+            )
+        }
+        handler.sendEmptyMessage(0)
+    }
+
     private fun setOtherViews() {
         suggestionListAdapter = SuggestionListAdapter()
         binding.rvSuggestions.adapter = suggestionListAdapter
@@ -73,23 +89,6 @@ class PlacementActivity : AppCompatActivity() {
 
         val getSuggestionThread = GetSuggestionThread()
         getSuggestionThread.start()
-    }
-
-    private fun handleResultData(adcioSuggestionRaw: AdcioSuggestionRaw) {
-        productions.clear()
-        adcioSuggestionRaw.suggestions.forEach {
-            productions.add(
-                Production(
-                    productId = it.product.id,
-                    name = it.product.name,
-                    image = it.product.image,
-                    price = it.product.price.toString(),
-                    logOption = AdcioLogOption(requestId = it.logOptions.requestId, adsetId = it.logOptions.adsetId),
-                )
-            )
-        }
-
-        handler.sendEmptyMessage(0)
     }
 
     private val handler = object : Handler(Looper.getMainLooper()) {
