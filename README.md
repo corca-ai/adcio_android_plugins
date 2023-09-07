@@ -10,60 +10,6 @@ The plugins can be divided into three main categories.
 
 | Name                   | MavenCentral                                                                                                                                                                                                                                                                                                      | Documentation                                                     | View Source  
 |------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------:|:-------------------------------------------------------------------:|:---------------------------------------------------------------------------------------------------------------------------------:|
-| adcio_analytics              | [![Analytics mavencentral badge](https://img.shields.io/maven-central/v/io.github.corca-ai/adcio_analytics.svg)](https://central.sonatype.com/artifact/io.github.corca-ai/adcio_analytics/0.0.1)    | [📖](https://github.com/corca-ai/adcio_android_plugins/blob/develop/adcio_analytics/README.md)| [`adcio_analytics`](https://github.com/corca-ai/adcio_android_plugins/tree/develop/adcio_analytics)
-| adcio_placement              | [![Analytics mavencentral badge](https://img.shields.io/maven-central/v/io.github.corca-ai/adcio_placement.svg)](https://central.sonatype.com/artifact/io.github.corca-ai/adcio_placement/0.0.1)     | [📖](https://github.com/corca-ai/adcio_android_plugins/blob/develop/adcio_placement/README.md)| [`adcio_placement`](https://github.com/corca-ai/adcio_android_plugins/tree/develop/adcio_placement)
-| adcio_agent              | [![Analytics mavencentral badge](https://img.shields.io/maven-central/v/io.github.corca-ai/adcio_agent.svg)](https://central.sonatype.com/artifact/io.github.corca-ai/adcio_agent/0.0.1)| [📖](https://github.com/corca-ai/adcio_android_plugins/blob/develop/adcio_agent/README.md)| [`adcio_agent`](https://github.com/corca-ai/adcio_android_plugins/tree/develop/adcio_agent)       
-| adcio_agent_compose| [![Analytics mavencentral badge](https://img.shields.io/maven-central/v/io.github.corca-ai/adcio_agent_compose.svg)](https://central.sonatype.com/artifact/io.github.corca-ai/adcio_agent_compose/0.0.1)       | [📖](https://github.com/corca-ai/adcio_android_plugins/blob/develop/adcio_agent_compose/README.md)| [`adcio_agent_compose`](https://github.com/corca-ai/adcio_android_plugins/tree/develop/adcio_agent_compose)           
-</br>
-
-# Installing
-### 1. SDK 21+ support
-adcio_android_plugins requires a minSdkVersion of 21 or higher to use Androidx:
-
-```groovy
-android {
-    defaultConfig {
-        minSdkVersion 21
-    }
-}
-```
-
-</br>
-
-### 2. add [adcio_android_plugins through MavenCentral](https://central.sonatype.com/namespace/io.github.corca-ai).
-
-**1\) Add the code below within `settings.gradle`**
-
-```groovy
-repositories {
-  ...
-  mavenCentral()
-}
-```
-
-**2\) Add the following to app-level `build.gradle`**
-
-Groovy
-```groovy
-dependencies {
-  implementation 'io.github.corca-ai:adcio_placement:{VERSION-PLACEMENT}'
-  implementation 'io.github.corca-ai:adcio_agent:{VERSION-AGENT}'
-  implementation 'io.github.corca-ai:adcio_agent_compose:{VERSION-AGENT-COMPOSE}'
-  implementation 'io.github.corca-ai:adcio_analytics:{VERSION-ANALYTICS}'
-}
-```
-
-Kotlin
-```kotlin
-dependencies {
-  implementation("io.github.corca-ai:adcio_placement:{VERSION-PLACEMENT}")
-  implementation("io.github.corca-ai:adcio_agent:{VERSION-AGENT}")
-  implementation("io.github.corca-ai:adcio_agent_compose:{VERSION-AGENT-COMPOSE}")
-  implementation("io.github.corca-ai:adcio_analytics:{VERSION-ANALYTICS}")
-}
-```
-
-
-  
-    
-   
+| adcio_analytics              | [![Analytics mavencentral badge](https://img.shields.io/maven-central/v/io.github.corca-ai/adcio_analytics.svg)](https://central.sonatype.com/artifact/io.github.corca-ai/adcio_analytics/0.0.1)    | [📖](https://docs.adcio.ai/en/sdk/log-collection/android)| [`adcio_analytics`](https://github.com/corca-ai/adcio_android_plugins/tree/main/adcio_analytics)
+| adcio_placement              | [![Analytics mavencentral badge](https://img.shields.io/maven-central/v/io.github.corca-ai/adcio_placement.svg)](https://central.sonatype.com/artifact/io.github.corca-ai/adcio_placement/0.0.1)     | [📖](https://docs.adcio.ai/en/sdk/suggestions/android)| [`adcio_placement`](https://github.com/corca-ai/adcio_android_plugins/tree/main/adcio_placement)
+| adcio_agent              | [![Analytics mavencentral badge](https://img.shields.io/maven-central/v/io.github.corca-ai/adcio_agent.svg)](https://central.sonatype.com/artifact/io.github.corca-ai/adcio_agent/0.0.1)| [📖](https://docs.adcio.ai/en/sdk/agent/android)| [`adcio_agent`](https://github.com/corca-ai/adcio_android_plugins/tree/main/adcio_agent)       
