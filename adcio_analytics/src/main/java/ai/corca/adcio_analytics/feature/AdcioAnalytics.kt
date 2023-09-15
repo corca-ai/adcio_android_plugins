@@ -61,4 +61,18 @@ object AdcioAnalytics {
             baseUrl = baseUrl,
         )
     }
+
+    /**
+     * pageView event log
+     * This event is called when a new screen is shown to the user.
+     */
+    fun onPageView(
+        path: String,
+        baseUrl: String? = null,
+    ) {
+        analyticsRemote.onPageView(
+            path = path,
+            baseUrl = baseUrl,
+        )
+    }
 }
