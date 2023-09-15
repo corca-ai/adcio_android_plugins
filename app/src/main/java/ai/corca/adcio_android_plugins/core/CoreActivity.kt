@@ -13,12 +13,12 @@ class CoreActivity : AppCompatActivity() {
     // You can get your registered device ID.
     // ex) TP1A.220612.012
     // You can also change the registered DeviceID value through the otherInfo parameter.
-    private val deviceId = AdcioInfo.getDeviceId()
+    private val deviceId = AdcioInfo.deviceId
 
     // You can get your registered session ID!
     // ex) 70828121-1234-47d71-fh71-fy71j47s83jd
     // You can also change the registered SessionID value through the info parameter.
-    private val sessionId = AdcioInfo.getSessionId()
+    private val sessionId = AdcioInfo.sessionId
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

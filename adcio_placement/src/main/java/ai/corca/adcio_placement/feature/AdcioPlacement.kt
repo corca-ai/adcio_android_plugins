@@ -26,8 +26,8 @@ object AdcioPlacement {
 
         return placementRemote.getSuggestion(
             placementId = placementId,
-            sessionId = AdcioInfo.getSessionId(),
-            deviceId = AdcioInfo.getDeviceId(),
+            sessionId = AdcioInfo.sessionId!!,
+            deviceId = AdcioInfo.deviceId!!,
             customerId = customerId,
             placementPosX = placementPosX,
             placementPosY = placementPosY,
