@@ -1,6 +1,7 @@
 package ai.corca.adcio_analytics.feature
 
 import ai.corca.adcio_analytics.model.AdcioLogOption
+import ai.corca.adcio_analytics.model.AnalyticsPageViewOption
 import ai.corca.adcio_analytics.network.remote.AnalyticsRemote
 
 object AdcioAnalytics {
@@ -58,6 +59,20 @@ object AdcioAnalytics {
         analyticsRemote.onPurchase(
             adcioLogOption = option,
             amount = amount,
+            baseUrl = baseUrl,
+        )
+    }
+
+    /**
+     * pageView event log
+     * This event is called when a new screen is shown to the user.
+     */
+    fun onPageView(
+        pageViewOption: AnalyticsPageViewOption,
+        baseUrl: String? = null,
+    ) {
+        analyticsRemote.onPageView(
+            pageViewOption = pageViewOption,
             baseUrl = baseUrl,
         )
     }

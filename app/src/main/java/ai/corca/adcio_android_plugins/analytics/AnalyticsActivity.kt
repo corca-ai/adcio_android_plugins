@@ -2,11 +2,13 @@ package ai.corca.adcio_android_plugins.analytics
 
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_analytics.model.AdcioLogOption
+import ai.corca.adcio_analytics.model.AnalyticsPageViewOption
 import ai.corca.adcio_android_plugins.analytics.utils.MockProductListAdapter
 import ai.corca.adcio_android_plugins.analytics.utils.getMockProducts
 import ai.corca.adcio_android_plugins.databinding.ActivityAnalyticsBinding
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.corcaai.adcio_core.feature.AdcioInfo
 
 class AnalyticsActivity : AppCompatActivity() {
 
@@ -39,6 +41,20 @@ class AnalyticsActivity : AppCompatActivity() {
         }
     }
 
+    // Called when a new screen is displayed
+    inner class OnPageViewThread(
+        private val pageViewOption: AnalyticsPageViewOption,
+        private val baseUrl: String? = null
+    ) : Thread() {
+        override fun run() {
+            // This function is called when a new page is created!
+            AdcioAnalytics.onPageView(
+                pageViewOption = pageViewOption,
+                baseUrl = baseUrl,
+            )
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAnalyticsBinding.inflate(layoutInflater)
@@ -59,7 +75,17 @@ class AnalyticsActivity : AppCompatActivity() {
             }
         )
 
+        // Save the clientId to the ADCIO module through the init function.
+        AdcioInfo.init("30cb6fd0-17a5-4c56-b144-fef67de81bef")
+
         binding.rvSuggestions.adapter = adapter
         adapter.submitList(getMockProducts())
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        // Called every time a new screen is created
+        OnPageViewThread(AnalyticsPageViewOption(path = "main")).start()
     }
 }

@@ -55,4 +55,5 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
     implementation(project(path = ":adcio_analytics"))
+    implementation(project(path = ":adcio_core"))
 }
