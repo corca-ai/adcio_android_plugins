@@ -7,6 +7,7 @@ import android.webkit.WebView
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.corcaai.adcio_core.feature.AdcioInfo
 import com.google.accompanist.web.WebView
 import com.google.accompanist.web.rememberWebViewState
 
@@ -24,7 +25,6 @@ private lateinit var webViewState: WebView
 @Composable
 fun AdcioAgent(
     modifier: Modifier = Modifier.fillMaxSize(),
-    clientId: String,
 
     // A URL configuration parameter for library developers.
     // It has nothing to do with the clients, so please don't reveal it.
@@ -32,7 +32,7 @@ fun AdcioAgent(
     baseUrl: String = "https://agent.adcio.ai",
 ) {
     val startPage = "start/"
-    val agentUrl = "$baseUrl/$clientId/$startPage?platform=android&show_appbar=$showAppBar"
+    val agentUrl = "$baseUrl/${AdcioInfo.clientId}/$startPage?platform=android&show_appbar=$showAppBar"
 
     WebView(
         modifier = modifier,

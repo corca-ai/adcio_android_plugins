@@ -70,7 +70,6 @@ class ComposeActivity : AppCompatActivity() {
             // and set visibility of appbar in agent web page, too.
             AdcioAgent(
                 modifier = Modifier.fillMaxSize(),
-                clientId = "YOUR_CLIENT_ID",
                 showAppBar = false
             )
         }
