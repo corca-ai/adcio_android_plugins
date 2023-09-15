@@ -32,3 +32,6 @@ android {
         jvmTarget = "1.8"
     }
 }
+dependencies {
+    implementation("androidx.test.ext:junit-ktx:1.1.5")
+}
