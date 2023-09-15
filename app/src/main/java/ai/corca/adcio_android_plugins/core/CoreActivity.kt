@@ -1,11 +1,9 @@
 package ai.corca.adcio_android_plugins.core
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import ai.corca.adcio_android_plugins.R
 import ai.corca.adcio_android_plugins.databinding.ActivityCoreBinding
-import ai.corca.adcio_placement.feature.AdcioPlacement
+import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.corcaai.adcio_core.feature.AdcioInfo
 
 class CoreActivity : AppCompatActivity() {
