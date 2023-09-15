@@ -30,7 +30,6 @@ object AdcioInfo {
             return sessionIdValue!!
         }
 
-
     /**
      * You can obtain the deviceId registered.
      */
