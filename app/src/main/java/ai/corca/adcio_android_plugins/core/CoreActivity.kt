@@ -32,7 +32,8 @@ class CoreActivity : AppCompatActivity() {
         AdcioInfo.init("67592c00-a230-4c31-902e-82ae4fe71866")
 
         binding.tvClientId.setOnClickListener {
-            Toast.makeText(this, "Client Id: ${AdcioInfo.getClientId()}", Toast.LENGTH_SHORT).show()
+            val clientId = AdcioInfo.getClientId()
+            Toast.makeText(this, "Client Id: $clientId", Toast.LENGTH_SHORT).show()
         }
 
         binding.tvDeviceId.setOnClickListener {

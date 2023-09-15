@@ -7,7 +7,6 @@ import com.corcaai.adcio_core.feature.AdcioInfo
 
 object AdcioPlacement {
 
-    private val adcioInfo = AdcioInfo
     private val placementRemote = PlacementRemote()
 
     /**
@@ -27,8 +26,8 @@ object AdcioPlacement {
 
         return placementRemote.getSuggestion(
             placementId = placementId,
-            sessionId = adcioInfo.getSessionId(),
-            deviceId = adcioInfo.getDeviceId(),
+            sessionId = AdcioInfo.getSessionId(),
+            deviceId = AdcioInfo.getDeviceId(),
             customerId = customerId,
             placementPosX = placementPosX,
             placementPosY = placementPosY,
