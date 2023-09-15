@@ -1,9 +1,7 @@
 package com.corcaai.adcio_core.feature
 
 import android.os.Build
-import android.util.Log
 import com.corcaai.adcio_core.error.IsNeedClientIdException
-import java.lang.RuntimeException
 import java.util.UUID
 
 object AdcioInfo {
