@@ -3,18 +3,20 @@ package ai.corca.adcio_placement.feature
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import ai.corca.adcio_placement.network.remote.PlacementRemote
+import com.corcaai.adcio_core.feature.AdcioInfo
 
 object AdcioPlacement {
 
-    private val adcioInfo = AdcioSuggestionInfo()
+    private val adcioInfo = AdcioInfo
     private val placementRemote = PlacementRemote()
 
     /**
      * You can obtain the deviceId registered.
      * @param otherInfo register other device info.
      */
+
     fun getDeviceId(
-        otherInfo: AdcioSuggestionInfo? = null
+        otherInfo: AdcioInfo? = null
     ): String {
         return otherInfo?.getDeviceId() ?: adcioInfo.getDeviceId()
     }
@@ -24,7 +26,7 @@ object AdcioPlacement {
      * @param otherInfo register other device info.
      */
     fun getSessionId(
-        otherInfo: AdcioSuggestionInfo? = null
+        otherInfo: AdcioInfo? = null
     ): String {
         return otherInfo?.getSessionId() ?: adcioInfo.getSessionId()
     }
@@ -34,7 +36,7 @@ object AdcioPlacement {
      */
     fun adcioSuggest(
         placementId: String,
-        otherInfo: AdcioSuggestionInfo? = null,
+        otherInfo: AdcioInfo? = null,
         customerId: String? = null,
         placementPosX: Int? = null,
         placementPosY: Int? = null,

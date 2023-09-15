@@ -72,4 +72,5 @@ dependencies {
     implementation(project(path = ":adcio_agent_compose"))
     implementation(project(path = ":adcio_placement"))
     implementation(project(path = ":adcio_analytics"))
+    implementation(project(path = ":adcio_core"))
 }
