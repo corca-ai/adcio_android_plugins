@@ -10,8 +10,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-
-class TestSessionIdManage {
+class SessionManagerInstrumentedTest {
     private lateinit var appContext: Context
 
     @Before
@@ -20,15 +19,13 @@ class TestSessionIdManage {
     }
 
     @Test
-    fun testSessionIdPersistence() {
-
+    fun testIsSessionIdMatch() {
         val sessionId1 = AdcioInfo.sessionId
 
-        // 잠시 대기하여 시간이 경과하도록 함 (예: 1초)
         Thread.sleep(1000)
 
         val sessionId2 = AdcioInfo.sessionId
 
-        assertEquals(sessionId1, sessionId2)
+        assertEquals("Session ID values do not match", sessionId1, sessionId2)
     }
 }
