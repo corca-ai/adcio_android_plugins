@@ -35,29 +35,10 @@ class PlacementActivity : AppCompatActivity() {
         }
     }
 
-    // You can get your registered device ID.
-    // ex) TP1A.220612.012
-    // You can also change the registered DeviceID value through the otherInfo parameter.
-    private val deviceId = AdcioPlacement.getDeviceId()
-
-    // You can get your registered session ID!
-    // ex) 70828121-1234-47d71-fh71-fy71j47s83jd
-    // You can also change the registered SessionID value through the info parameter.
-    private val sessionId = AdcioPlacement.getSessionId()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPlacementBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        // From the bottom, this is the basic view setting.
-
-        binding.tvDeviceId.setOnClickListener {
-            Toast.makeText(this, "Device Id: $deviceId", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.tvSessionId.setOnClickListener {
-            Toast.makeText(this, "Session Id: $sessionId", Toast.LENGTH_SHORT).show()
-        }
 
         setOtherViews()
     }

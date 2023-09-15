@@ -11,32 +11,10 @@ object AdcioPlacement {
     private val placementRemote = PlacementRemote()
 
     /**
-     * You can obtain the deviceId registered.
-     * @param otherInfo register other device info.
-     */
-
-    fun getDeviceId(
-        otherInfo: AdcioInfo? = null
-    ): String {
-        return otherInfo?.getDeviceId() ?: adcioInfo.getDeviceId()
-    }
-
-    /**
-     * You can obtain the sessionId registered.
-     * @param otherInfo register other device info.
-     */
-    fun getSessionId(
-        otherInfo: AdcioInfo? = null
-    ): String {
-        return otherInfo?.getSessionId() ?: adcioInfo.getSessionId()
-    }
-
-    /**
      * It smartly predicts products with high click or purchase probabilities from the client's products and returns the product information.
      */
     fun adcioSuggest(
         placementId: String,
-        otherInfo: AdcioInfo? = null,
         customerId: String? = null,
         placementPosX: Int? = null,
         placementPosY: Int? = null,
@@ -49,8 +27,8 @@ object AdcioPlacement {
 
         return placementRemote.getSuggestion(
             placementId = placementId,
-            sessionId = getSessionId(otherInfo),
-            deviceId = getDeviceId(otherInfo),
+            sessionId = adcioInfo.getSessionId(),
+            deviceId = adcioInfo.getDeviceId(),
             customerId = customerId,
             placementPosX = placementPosX,
             placementPosY = placementPosY,
