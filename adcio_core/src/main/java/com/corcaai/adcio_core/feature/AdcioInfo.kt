@@ -6,6 +6,7 @@ import java.util.UUID
 
 object AdcioInfo {
     private var isInitialized: Boolean = false
+    private var sessionIdValue: String? = null
 
     fun init(id: String) {
         clientId = id
@@ -21,10 +22,14 @@ object AdcioInfo {
     /**
      * You can obtain the sessionId registered.
      */
-    var sessionId: String? = null
+    var sessionId: String = ""
         get() {
-            return field ?: UUID.randomUUID().toString()
+            if (sessionIdValue == null) {
+                sessionIdValue = UUID.randomUUID().toString()
+            }
+            return sessionIdValue!!
         }
+
 
     /**
      * You can obtain the deviceId registered.
