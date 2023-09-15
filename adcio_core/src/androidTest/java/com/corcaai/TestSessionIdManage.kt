@@ -10,7 +10,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class SessionManagerInstrumentedTest {
+class TestSessionIdManage {
     private lateinit var appContext: Context
 
     @Before
