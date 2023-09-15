@@ -2,6 +2,7 @@ package ai.corca.adcio_android_plugins.analytics
 
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_analytics.model.AdcioLogOption
+import ai.corca.adcio_analytics.model.AnalyticsPageViewOption
 import ai.corca.adcio_android_plugins.analytics.utils.MockProductListAdapter
 import ai.corca.adcio_android_plugins.analytics.utils.getMockProducts
 import ai.corca.adcio_android_plugins.databinding.ActivityAnalyticsBinding
@@ -42,13 +43,13 @@ class AnalyticsActivity : AppCompatActivity() {
 
     // Called when a new screen is displayed
     inner class OnPageViewThread(
-        val path: String,
+        private val pageViewOption: AnalyticsPageViewOption,
         private val baseUrl: String? = null
     ) : Thread() {
         override fun run() {
             // This function is called when a new page is created!
             AdcioAnalytics.onPageView(
-                path = path,
+                option = pageViewOption,
                 baseUrl = baseUrl,
             )
         }
@@ -85,6 +86,6 @@ class AnalyticsActivity : AppCompatActivity() {
         super.onStart()
 
         // Called every time a new screen is created
-        OnPageViewThread(path = "main").start()
+        OnPageViewThread(AnalyticsPageViewOption(path = "main")).start()
     }
 }

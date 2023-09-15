@@ -5,7 +5,6 @@ import com.corcaai.adcio_core.error.IsNeedClientIdException
 import java.util.UUID
 
 object AdcioInfo {
-    private var clientId: String = ""
     private var isInitialized: Boolean = false
 
     fun init(id: String) {
@@ -13,15 +12,11 @@ object AdcioInfo {
         this.isInitialized = true
     }
 
-    /**
-     * You can obtain the client registered.
-     * You can get back the clientId you passed when first initing.
-     */
-    fun getClientId(): String {
-        if (isInitialized) {
-            return clientId
-        } else throw IsNeedClientIdException("This function requests the init task to use the clientId or storeId.")
-    }
+    var clientId: String = ""
+        get() {
+            if (isInitialized) return field
+            else throw IsNeedClientIdException("This function requests the init task to use the clientId or storeId.")
+        }
 
     /**
      * You can obtain the sessionId registered.
@@ -44,6 +39,6 @@ object AdcioInfo {
      */
     var storeId: String? = null
         get() {
-            return field ?: getClientId()
+            return field ?: clientId
         }
 }
