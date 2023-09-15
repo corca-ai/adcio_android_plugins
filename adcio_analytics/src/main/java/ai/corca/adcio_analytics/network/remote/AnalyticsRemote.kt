@@ -54,12 +54,12 @@ internal class AnalyticsRemote {
     }
 
     fun onPageView(
-        option: AnalyticsPageViewOption,
+        pageViewOption: AnalyticsPageViewOption,
         baseUrl: String?
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
         val response = service.onPageView(
-            analyticsPageViewRequest = option.toAnalyticsPageViewRequest()
+            analyticsPageViewRequest = pageViewOption.toAnalyticsPageViewRequest()
         ).execute()
 
         checkError(response)?.let { throw it }

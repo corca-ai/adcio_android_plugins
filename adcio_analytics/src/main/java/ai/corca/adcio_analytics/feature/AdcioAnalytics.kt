@@ -68,11 +68,11 @@ object AdcioAnalytics {
      * This event is called when a new screen is shown to the user.
      */
     fun onPageView(
-        option: AnalyticsPageViewOption,
+        pageViewOption: AnalyticsPageViewOption,
         baseUrl: String? = null,
     ) {
         analyticsRemote.onPageView(
-            option = option,
+            pageViewOption = pageViewOption,
             baseUrl = baseUrl,
         )
     }
