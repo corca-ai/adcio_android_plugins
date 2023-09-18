@@ -15,8 +15,8 @@ object AdcioCore {
 
     var clientId: String = ""
         get() {
-            if (isInitialized) return field
-            else throw NotInitializedException(notInitializedComment)
+            if (!isInitialized) throw NotInitializedException(notInitializedComment)
+            else return field
         }
 
     /**
