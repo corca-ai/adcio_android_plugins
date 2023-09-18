@@ -7,11 +7,12 @@ import org.jetbrains.annotations.TestOnly
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertThrows
+import org.junit.Before
 import org.junit.Test
 
 class AdcioCoreTest {
 
-    @Test
+    @Before
     fun testIdNotInitialized() {
         testClientIdNotInitialized()
         testSessionIdNotInitialized()

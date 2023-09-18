@@ -55,6 +55,6 @@ object AdcioCore {
         get() {
             if (!isInitialized) throw NotInitializedException()
             // If empty, returns clientId
-            else return field ?: clientId
+            return field ?: clientId
         }
 }
