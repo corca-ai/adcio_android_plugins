@@ -3,7 +3,7 @@ package ai.corca.adcio_agent.provider
 import ai.corca.adcio_agent.agent.AgentClient
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
-import com.corcaai.adcio_core.feature.AdcioInfo
+import com.corcaai.adcio_core.feature.AdcioCore
 import kotlin.properties.Delegates
 
 interface AdcioAgentListener {
@@ -23,6 +23,9 @@ class AdcioAgent(
     // It has nothing to do with the clients, so please don't reveal it.
     val baseUrl: String = "https://agent.adcio.ai",
 
+    // Your Adcio ClientId, If you do not enter it, the ID value entered during init will be entered.
+    val clientId: String? = null,
+
     // Your FrameLayout Resource ID But, We Recommand our AdcioAgentLayout
     val fragmentContainer: Int,
     private val showAppBar: Boolean = false,
@@ -34,7 +37,7 @@ class AdcioAgent(
      */
     fun callAdcioAgent() {
         val startPage = "start/"
-        val agentUrl = "$baseUrl/${AdcioInfo.clientId}/$startPage?platform=android&show_appbar=$showAppBar"
+        val agentUrl = "$baseUrl/${clientId ?: AdcioCore.clientId}/$startPage?platform=android&show_appbar=$showAppBar"
         val fragmentManager = (context as AppCompatActivity).supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 
