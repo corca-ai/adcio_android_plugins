@@ -25,7 +25,7 @@ private lateinit var webViewState: WebView
 @Composable
 fun AdcioAgent(
     modifier: Modifier = Modifier.fillMaxSize(),
-    
+
     // Your Adcio ClientId, If you do not enter it, the ID value entered during init will be entered.
     clientId: String? = null,
 
