@@ -13,14 +13,22 @@ object AdcioCore {
         isInitialized = true
     }
 
+    /**
+     * You can obtain the clientId registered.
+     */
     var clientId: String = ""
         get() {
             if (!isInitialized) throw NotInitializedException()
+
+            // Returns the clientId you entered during init
             return field
         }
 
     private var sessionIdValue: String? = null
 
+    /**
+     * You can obtain the sessionId registered.
+     */
     var sessionId: String = ""
         get() {
             if (!isInitialized) throw NotInitializedException()
@@ -30,9 +38,13 @@ object AdcioCore {
             return sessionIdValue!!
         }
 
+    /**
+     * You can obtain the deviceId registered.
+     */
     var deviceId: String = ""
         get() {
             if (!isInitialized) throw NotInitializedException()
+            // Generate and return device id
             return field.takeIf { it.isNotBlank() } ?: Build.ID
         }
 
@@ -42,6 +54,7 @@ object AdcioCore {
     var storeId: String? = null
         get() {
             if (!isInitialized) throw NotInitializedException()
+            // If empty, returns clientId
             else return field ?: clientId
         }
 }

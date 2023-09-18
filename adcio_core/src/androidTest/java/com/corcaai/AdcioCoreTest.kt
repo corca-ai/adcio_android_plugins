@@ -20,7 +20,7 @@ class AdcioCoreTest {
     }
 
     /**
-     * A test that raises a NotInitalizedException by accessing the clientId before init.
+     * A test that raises a NotInitializedException by accessing the clientId before init.
      */
     @TestOnly
     fun testClientIdNotInitialized() {
@@ -31,7 +31,7 @@ class AdcioCoreTest {
     }
 
     /**
-     * A test that raises a NotInitalizedException by accessing the sessionId before init.
+     * A test that raises a NotInitializedException by accessing the sessionId before init.
      */
     @TestOnly
     fun testSessionIdNotInitialized() {
@@ -42,7 +42,7 @@ class AdcioCoreTest {
     }
 
     /**
-     * A test that raises a NotInitalizedException by accessing the deviceId before init.
+     * A test that raises a NotInitializedException by accessing the deviceId before init.
      */
     @TestOnly
     fun testDeviceIdNotInitialized() {
@@ -53,7 +53,7 @@ class AdcioCoreTest {
     }
 
     /**
-     * A test that raises a NotInitalizedException by accessing the storeId before init.
+     * A test that raises a NotInitializedException by accessing the storeId before init.
      */
     @TestOnly
     fun testStoreIdNotInitialized() {
