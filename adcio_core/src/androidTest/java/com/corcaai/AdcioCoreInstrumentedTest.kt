@@ -10,6 +10,9 @@ import org.junit.Test
 
 class AdcioCoreInstrumentedTest {
 
+    /**
+     * A test that raises a NotInitalizedException by accessing the clientId before init.
+     */
     @Test
     fun testNotInitialized() {
         val exception = assertThrows(NotInitializedException::class.java) {
@@ -18,6 +21,9 @@ class AdcioCoreInstrumentedTest {
         assertEquals("You must call init before using the core.", exception.message)
     }
 
+    /**
+     * Test to see whether the id is properly created when calling the value after init and whether it is maintained during the life cycle of the app.
+     */
     @After
     fun testInitialization() {
         AdcioCore.init("clientId")
