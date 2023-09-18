@@ -47,7 +47,7 @@ object AdcioCore {
      */
     var storeId: String? = null
         get() {
-            if(isInitialized) {
+            if (isInitialized) {
                 return field ?: clientId
             } else throw NotInitializedException(notInitializedComment)
         }
