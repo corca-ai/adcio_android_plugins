@@ -64,7 +64,7 @@ class AdcioCoreTest {
     }
 
     @Test
-    fun testCoreInit() {
+    fun testCoreIdCreation() {
         AdcioCore.init("clientId")
 
         testClientIdCreation()
