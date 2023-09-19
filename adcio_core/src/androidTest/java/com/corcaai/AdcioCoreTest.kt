@@ -70,7 +70,7 @@ class AdcioCoreTest {
 
     @Test
     fun testCoreIdCreation() {
-        AdcioCore.init("clientId")
+        AdcioCore.initializeApp("clientId")
 
         testClientIdCreation()
         testSessionIdCreation()
@@ -100,7 +100,7 @@ class AdcioCoreTest {
 
     @After
     fun testIdValuePreservation() {
-        AdcioCore.init("")
+        AdcioCore.initializeApp("")
 
         testDeviceIdValuePreservation()
         testSessionIdValuePreservation()

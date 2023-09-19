@@ -8,7 +8,7 @@ object AdcioCore {
 
     private var isInitialized: Boolean = false
 
-    fun init(id: String) {
+    fun initializeApp(id: String) {
         clientId = id
         isInitialized = true
     }

@@ -9,7 +9,7 @@ rootProject.extra.apply {
     set("PUBLISH_ARTIFACT_ID", "adcio_core")
     set("PUBLISH_VERSION", "0.1.0")
     set("PUBLISH_SCM_URL", "https://github.com/corca-ai/adcio_android_plugins")
-    set("PUBLISH_DESCRIPTION", "ADCIO_Core")
+    set("PUBLISH_DESCRIPTION", "adcio_core is adcio service library")
 }
 
 android {
@@ -44,10 +44,10 @@ android {
 apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
 
 dependencies {
+
+    androidTestImplementation("androidx.test:runner:1.5.2")
     androidTestImplementation("androidx.test:core-ktx:1.5.0")
     androidTestImplementation("androidx.test.ext:junit-ktx:1.1.5")
 
     implementation("androidx.test.ext:junit-ktx:1.1.5")
-
-    androidTestImplementation("androidx.test:runner:1.5.2")
 }
