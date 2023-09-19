@@ -3,7 +3,7 @@ package ai.corca.adcio_placement.feature
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import ai.corca.adcio_placement.network.remote.PlacementRemote
-import com.corcaai.adcio_core.feature.AdcioCore
+import com.corcaai.adcio_core.feature.AdcioInfo
 
 object AdcioPlacement {
 
@@ -26,8 +26,8 @@ object AdcioPlacement {
 
         return placementRemote.getSuggestion(
             placementId = placementId,
-            sessionId = AdcioCore.sessionId,
-            deviceId = AdcioCore.deviceId!!,
+            sessionId = AdcioInfo.sessionId!!,
+            deviceId = AdcioInfo.deviceId!!,
             customerId = customerId,
             placementPosX = placementPosX,
             placementPosY = placementPosY,

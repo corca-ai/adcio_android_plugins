@@ -67,8 +67,9 @@ internal class AgentClient : Fragment(R.layout.fragment_adcio_agent) {
         fun postMessage(productId: String) {
             AdcioAgent(
                 context = requireContext().applicationContext,
-                baseUrl = "",
-                fragmentContainer = 0
+                clientId = "",
+                "",
+                0
             ).setProductId(productId)
         }
     }

@@ -8,7 +8,7 @@ import ai.corca.adcio_android_plugins.analytics.utils.getMockProducts
 import ai.corca.adcio_android_plugins.databinding.ActivityAnalyticsBinding
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.corcaai.adcio_core.feature.AdcioCore
+import com.corcaai.adcio_core.feature.AdcioInfo
 
 class AnalyticsActivity : AppCompatActivity() {
 
@@ -76,7 +76,7 @@ class AnalyticsActivity : AppCompatActivity() {
         )
 
         // Save the clientId to the ADCIO module through the init function.
-        AdcioCore.init("30cb6fd0-17a5-4c56-b144-fef67de81bef")
+        AdcioInfo.init("30cb6fd0-17a5-4c56-b144-fef67de81bef")
 
         binding.rvSuggestions.adapter = adapter
         adapter.submitList(getMockProducts())

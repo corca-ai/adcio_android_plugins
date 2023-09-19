@@ -18,6 +18,7 @@ class XmlActivity : AppCompatActivity() {
     // input context, client, fragmentContainer (<ai.corca.adcio_agent.layout.AdcioAgentLayout>)
     private val agent = AdcioAgent(
         context = this,
+        clientId = "YOUR_CLIENT_ID",
         fragmentContainer = R.id.adcio_agent_frame,
     )
 
