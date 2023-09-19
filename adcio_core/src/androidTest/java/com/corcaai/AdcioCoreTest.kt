@@ -13,8 +13,9 @@ import org.junit.Test
 class AdcioCoreTest {
 
     companion object {
-        const val EXCEPTION_MESSAGE =  "You must call init before using the core."
+        const val EXCEPTION_MESSAGE = "You must call init before using the core."
     }
+
     @Before
     fun testIdNotInitialized() {
         testClientIdNotInitialized()
