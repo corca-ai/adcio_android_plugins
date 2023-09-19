@@ -12,6 +12,9 @@ import org.junit.Test
 
 class AdcioCoreTest {
 
+    companion object {
+        const val EXCEPTION_MESSAGE =  "You must call init before using the core."
+    }
     @Before
     fun testIdNotInitialized() {
         testClientIdNotInitialized()
@@ -28,7 +31,7 @@ class AdcioCoreTest {
         val exception = assertThrows(NotInitializedException::class.java) {
             AdcioCore.clientId
         }
-        assertEquals("You must call init before using the core.", exception.message)
+        assertEquals(EXCEPTION_MESSAGE, exception.message)
     }
 
     /**
@@ -39,7 +42,7 @@ class AdcioCoreTest {
         val exception = assertThrows(NotInitializedException::class.java) {
             AdcioCore.sessionId
         }
-        assertEquals("You must call init before using the core.", exception.message)
+        assertEquals(EXCEPTION_MESSAGE, exception.message)
     }
 
     /**
@@ -50,7 +53,7 @@ class AdcioCoreTest {
         val exception = assertThrows(NotInitializedException::class.java) {
             AdcioCore.deviceId
         }
-        assertEquals("You must call init before using the core.", exception.message)
+        assertEquals(EXCEPTION_MESSAGE, exception.message)
     }
 
     /**
@@ -61,7 +64,7 @@ class AdcioCoreTest {
         val exception = assertThrows(NotInitializedException::class.java) {
             AdcioCore.storeId
         }
-        assertEquals("You must call init before using the core.", exception.message)
+        assertEquals(EXCEPTION_MESSAGE, exception.message)
     }
 
     @Test
