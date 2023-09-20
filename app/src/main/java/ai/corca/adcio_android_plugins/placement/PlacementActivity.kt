@@ -6,11 +6,13 @@ import ai.corca.adcio_android_plugins.placement.utils.Production
 import ai.corca.adcio_android_plugins.placement.utils.SuggestionListAdapter
 import ai.corca.adcio_placement.feature.AdcioPlacement
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import androidx.appcompat.app.AppCompatActivity
+import com.corcaai.adcio_core.feature.AdcioCore
 
 class PlacementActivity : AppCompatActivity() {
 
@@ -39,13 +41,14 @@ class PlacementActivity : AppCompatActivity() {
         binding = ActivityPlacementBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        AdcioCore.init("67592c00-a230-4c31-902e-82ae4fe71866")
         setOtherViews()
     }
 
     private fun handleResultData(adcioSuggestionRaw: AdcioSuggestionRaw) {
-        productions.clear()
+        val newProductions = mutableListOf<Production>()
         adcioSuggestionRaw.suggestions.forEach {
-            productions.add(
+            newProductions.add(
                 Production(
                     productId = it.product.code, // product.code = product id of client service
                     name = it.product.name,
@@ -55,6 +58,8 @@ class PlacementActivity : AppCompatActivity() {
                 )
             )
         }
+        productions.clear()
+        productions.addAll(newProductions)
         handler.sendEmptyMessage(0)
     }
 
@@ -71,10 +76,11 @@ class PlacementActivity : AppCompatActivity() {
         getSuggestionThread.start()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private val handler = object : Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             if (productions.isNotEmpty()) {
-                suggestionListAdapter.submitList(productions)
+                suggestionListAdapter.submitList(ArrayList(productions))
                 suggestionListAdapter.notifyDataSetChanged()
             }
         }

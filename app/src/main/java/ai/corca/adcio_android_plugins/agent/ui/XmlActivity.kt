@@ -9,6 +9,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.corcaai.adcio_core.feature.AdcioCore
 
 class XmlActivity : AppCompatActivity() {
 
@@ -18,7 +19,6 @@ class XmlActivity : AppCompatActivity() {
     // input context, client, fragmentContainer (<ai.corca.adcio_agent.layout.AdcioAgentLayout>)
     private val agent = AdcioAgent(
         context = this,
-        clientId = "YOUR_CLIENT_ID",
         fragmentContainer = R.id.adcio_agent_frame,
     )
 
@@ -26,6 +26,9 @@ class XmlActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityXmlBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        AdcioCore.init("30cb6fd0-17a5-4c56-b144-fef67de81bef")
+
         agent.callAdcioAgent()
 
         adcioAgentListener = object : AdcioAgentListener {
