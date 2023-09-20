@@ -55,6 +55,5 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
     implementation("io.github.corca-ai:adcio_core:0.1.0")
-
-    implementation(project(path = ":adcio_analytics"))
+    implementation("io.github.corca-ai:adcio_analytics:0.1.0")
 }
