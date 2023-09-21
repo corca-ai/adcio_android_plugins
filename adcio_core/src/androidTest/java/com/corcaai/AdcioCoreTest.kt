@@ -29,10 +29,13 @@ class AdcioCoreTest {
      */
     @TestOnly
     fun testClientIdNotInitialized() {
-        val exception = assertThrows(NotInitializedException::class.java) {
+        val setterException = assertThrows(NotInitializedException::class.java) {
+            AdcioCore.clientId = ""
+        }
+        val getterException = assertThrows(NotInitializedException::class.java) {
             AdcioCore.clientId
         }
-        assertEquals(EXCEPTION_MESSAGE, exception.message)
+        assertEquals(setterException.message, getterException.message)
     }
 
     /**
@@ -40,10 +43,13 @@ class AdcioCoreTest {
      */
     @TestOnly
     fun testSessionIdNotInitialized() {
-        val exception = assertThrows(NotInitializedException::class.java) {
+        val setterException = assertThrows(NotInitializedException::class.java) {
+            AdcioCore.sessionId = ""
+        }
+        val getterException = assertThrows(NotInitializedException::class.java) {
             AdcioCore.sessionId
         }
-        assertEquals(EXCEPTION_MESSAGE, exception.message)
+        assertEquals(setterException.message, getterException.message)
     }
 
     /**
@@ -51,10 +57,13 @@ class AdcioCoreTest {
      */
     @TestOnly
     fun testDeviceIdNotInitialized() {
-        val exception = assertThrows(NotInitializedException::class.java) {
+        val setterException = assertThrows(NotInitializedException::class.java) {
+            AdcioCore.deviceId = ""
+        }
+        val getterException = assertThrows(NotInitializedException::class.java) {
             AdcioCore.deviceId
         }
-        assertEquals(EXCEPTION_MESSAGE, exception.message)
+        assertEquals(setterException.message, getterException.message)
     }
 
     /**
@@ -62,10 +71,13 @@ class AdcioCoreTest {
      */
     @TestOnly
     fun testStoreIdNotInitialized() {
-        val exception = assertThrows(NotInitializedException::class.java) {
+        val setterException = assertThrows(NotInitializedException::class.java) {
+            AdcioCore.storeId = ""
+        }
+        val getterException = assertThrows(NotInitializedException::class.java) {
             AdcioCore.storeId
         }
-        assertEquals(EXCEPTION_MESSAGE, exception.message)
+        assertEquals(setterException.message, getterException.message)
     }
 
     @Test
