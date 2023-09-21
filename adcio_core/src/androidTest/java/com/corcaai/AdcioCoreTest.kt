@@ -112,6 +112,7 @@ class AdcioCoreTest {
 
         testDeviceIdValuePreservation()
         testSessionIdValuePreservation()
+        testAfterAgainInitSessionIdValuePreservation()
     }
 
     @TestOnly
@@ -127,6 +128,14 @@ class AdcioCoreTest {
     fun testSessionIdValuePreservation() {
         val sessionId1 = AdcioCore.sessionId
         Thread.sleep(1000)
+        val sessionId2 = AdcioCore.sessionId
+
+        assertEquals(sessionId1, sessionId2)
+    }
+
+    @TestOnly
+    fun testAfterAgainInitSessionIdValuePreservation() {
+        val sessionId1 = AdcioCore.sessionId
         AdcioCore.initializeApp("")
         val sessionId2 = AdcioCore.sessionId
 
