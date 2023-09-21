@@ -36,28 +36,6 @@ class AdcioCoreTest {
     }
 
     /**
-     * A test that raises a NotInitializedException by accessing the sessionId before init.
-     */
-    @TestOnly
-    fun testSessionIdNotInitialized() {
-        val exception = assertThrows(NotInitializedException::class.java) {
-            AdcioCore.sessionId
-        }
-        assertEquals(EXCEPTION_MESSAGE, exception.message)
-    }
-
-    /**
-     * A test that raises a NotInitializedException by accessing the deviceId before init.
-     */
-    @TestOnly
-    fun testDeviceIdNotInitialized() {
-        val exception = assertThrows(NotInitializedException::class.java) {
-            AdcioCore.deviceId
-        }
-        assertEquals(EXCEPTION_MESSAGE, exception.message)
-    }
-
-    /**
      * A test that raises a NotInitializedException by accessing the storeId before init.
      */
     @TestOnly
@@ -66,6 +44,34 @@ class AdcioCoreTest {
             AdcioCore.storeId
         }
         assertEquals(EXCEPTION_MESSAGE, exception.message)
+    }
+
+    /**
+     * A test that raises a NotInitializedException by accessing the sessionId before init.
+     */
+    @TestOnly
+    fun testSessionIdNotInitialized() {
+        val setterException = assertThrows(NotInitializedException::class.java) {
+            AdcioCore.sessionId = ""
+        }
+        val getterException = assertThrows(NotInitializedException::class.java) {
+            AdcioCore.sessionId
+        }
+        assertEquals(setterException.message, getterException.message)
+    }
+
+    /**
+     * A test that raises a NotInitializedException by accessing the deviceId before init.
+     */
+    @TestOnly
+    fun testDeviceIdNotInitialized() {
+        val setterException = assertThrows(NotInitializedException::class.java) {
+            AdcioCore.deviceId = ""
+        }
+        val getterException = assertThrows(NotInitializedException::class.java) {
+            AdcioCore.deviceId
+        }
+        assertEquals(setterException.message, getterException.message)
     }
 
     @Test
@@ -84,6 +90,11 @@ class AdcioCoreTest {
     }
 
     @TestOnly
+    fun testStoreIdCreation() {
+        assertEquals(AdcioCore.clientId, AdcioCore.storeId)
+    }
+
+    @TestOnly
     fun testSessionIdCreation() {
         assert(AdcioCore.sessionId != "")
     }
@@ -93,34 +104,39 @@ class AdcioCoreTest {
         assertEquals(Build.ID, AdcioCore.deviceId)
     }
 
-    @TestOnly
-    fun testStoreIdCreation() {
-        assertEquals(AdcioCore.clientId, AdcioCore.storeId)
-    }
-
     @After
     fun testIdValuePreservation() {
         AdcioCore.initializeApp("")
 
         testDeviceIdValuePreservation()
         testSessionIdValuePreservation()
+        testAfterAgainInitSessionIdValuePreservation()
     }
 
     @TestOnly
     fun testDeviceIdValuePreservation() {
-        val deviceId1 = AdcioCore.deviceId
+        val oldDeviceId = AdcioCore.deviceId
         Thread.sleep(1000)
-        val deviceId2 = AdcioCore.deviceId
+        val newDeviceId = AdcioCore.deviceId
 
-        assertEquals(deviceId1, deviceId2)
+        assertEquals(oldDeviceId, newDeviceId)
     }
 
     @TestOnly
     fun testSessionIdValuePreservation() {
-        val sessionId1 = AdcioCore.sessionId
+        val oldSessionId = AdcioCore.sessionId
         Thread.sleep(1000)
-        val sessionId2 = AdcioCore.sessionId
+        val newSessionId = AdcioCore.sessionId
 
-        assertEquals(sessionId1, sessionId2)
+        assertEquals(oldSessionId, newSessionId)
+    }
+
+    @TestOnly
+    fun testAfterAgainInitSessionIdValuePreservation() {
+        val oldSessionId = AdcioCore.sessionId
+        AdcioCore.initializeApp("")
+        val newSessionId = AdcioCore.sessionId
+
+        assertEquals(oldSessionId, newSessionId)
     }
 }
