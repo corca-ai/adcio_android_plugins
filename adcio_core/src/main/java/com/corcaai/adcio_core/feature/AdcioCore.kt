@@ -10,29 +10,34 @@ object AdcioCore {
     private var sessionIdValue: String? = null
 
     fun initializeApp(id: String) {
-        clientId = id
         isInitialized = true
+        clientId = id
     }
 
     /**
      * You can obtain the clientId registered.
      */
-    private var clientId: String = ""
+    var clientId: String = ""
+        private set
+        get() {
+            if (!isInitialized) throw NotInitializedException()
+            return field
+        }
 
-    fun getClientId(): String {
-        if (!isInitialized) throw NotInitializedException()
-        return clientId
-    }
-
-    fun getStoreId(): String {
-        if (!isInitialized) throw NotInitializedException()
-        return clientId
-    }
+    /**
+     * You can obtain the storeId registered.
+     */
+    var storeId: String? = null
+        private set
+        get() {
+            if (!isInitialized) throw NotInitializedException()
+            return clientId
+        }
 
     /**
      * You can obtain the sessionId registered.
      */
-    var sessionId: String
+     var sessionId: String
         set(value) {
             if (!isInitialized) throw NotInitializedException()
             sessionIdValue = value

@@ -30,7 +30,7 @@ class AdcioCoreTest {
     @TestOnly
     fun testClientIdNotInitialized() {
         val exception = assertThrows(NotInitializedException::class.java) {
-            AdcioCore.getClientId()
+            AdcioCore.clientId
         }
         assertEquals(EXCEPTION_MESSAGE, exception.message)
 
@@ -42,7 +42,7 @@ class AdcioCoreTest {
     @TestOnly
     fun testStoreIdNotInitialized() {
         val exception = assertThrows(NotInitializedException::class.java) {
-            AdcioCore.getStoreId()
+            AdcioCore.storeId
         }
         assertEquals(EXCEPTION_MESSAGE, exception.message)
     }
@@ -87,12 +87,12 @@ class AdcioCoreTest {
 
     @TestOnly
     fun testClientIdCreation() {
-        assertEquals("clientId", AdcioCore.getClientId())
+        assertEquals("clientId", AdcioCore.clientId)
     }
 
     @TestOnly
     fun testStoreIdCreation() {
-        assertEquals(AdcioCore.getClientId(), AdcioCore.getStoreId())
+        assertEquals(AdcioCore.clientId, AdcioCore.storeId)
     }
 
     @TestOnly
