@@ -37,7 +37,7 @@ object AdcioCore {
     /**
      * You can obtain the sessionId registered.
      */
-     var sessionId: String
+    var sessionId: String
         set(value) {
             if (!isInitialized) throw NotInitializedException()
             sessionIdValue = value

@@ -33,7 +33,6 @@ class AdcioCoreTest {
             AdcioCore.clientId
         }
         assertEquals(EXCEPTION_MESSAGE, exception.message)
-
     }
 
     /**
