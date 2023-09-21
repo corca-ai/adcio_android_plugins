@@ -127,6 +127,7 @@ class AdcioCoreTest {
     fun testSessionIdValuePreservation() {
         val sessionId1 = AdcioCore.sessionId
         Thread.sleep(1000)
+        AdcioCore.initializeApp("")
         val sessionId2 = AdcioCore.sessionId
 
         assertEquals(sessionId1, sessionId2)
