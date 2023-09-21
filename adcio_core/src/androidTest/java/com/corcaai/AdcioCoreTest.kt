@@ -12,6 +12,10 @@ import org.junit.Test
 
 class AdcioCoreTest {
 
+    companion object {
+        const val EXCEPTION_MESSAGE = "You must call init before using the core."
+    }
+
     @Before
     fun testIdNotInitialized() {
         testClientIdNotInitialized()
@@ -25,13 +29,22 @@ class AdcioCoreTest {
      */
     @TestOnly
     fun testClientIdNotInitialized() {
-        val setterException = assertThrows(NotInitializedException::class.java) {
-            AdcioCore.clientId = ""
+        val exception = assertThrows(NotInitializedException::class.java) {
+            AdcioCore.getClientId()
         }
-        val getterException = assertThrows(NotInitializedException::class.java) {
-            AdcioCore.clientId
+        assertEquals(EXCEPTION_MESSAGE, exception.message)
+
+    }
+
+    /**
+     * A test that raises a NotInitializedException by accessing the storeId before init.
+     */
+    @TestOnly
+    fun testStoreIdNotInitialized() {
+        val exception = assertThrows(NotInitializedException::class.java) {
+            AdcioCore.getStoreId()
         }
-        assertEquals(setterException.message, getterException.message)
+        assertEquals(EXCEPTION_MESSAGE, exception.message)
     }
 
     /**
@@ -62,20 +75,6 @@ class AdcioCoreTest {
         assertEquals(setterException.message, getterException.message)
     }
 
-    /**
-     * A test that raises a NotInitializedException by accessing the storeId before init.
-     */
-    @TestOnly
-    fun testStoreIdNotInitialized() {
-        val setterException = assertThrows(NotInitializedException::class.java) {
-            AdcioCore.storeId = ""
-        }
-        val getterException = assertThrows(NotInitializedException::class.java) {
-            AdcioCore.storeId
-        }
-        assertEquals(setterException.message, getterException.message)
-    }
-
     @Test
     fun testCoreIdCreation() {
         AdcioCore.initializeApp("clientId")
@@ -88,7 +87,12 @@ class AdcioCoreTest {
 
     @TestOnly
     fun testClientIdCreation() {
-        assertEquals("clientId", AdcioCore.clientId)
+        assertEquals("clientId", AdcioCore.getClientId())
+    }
+
+    @TestOnly
+    fun testStoreIdCreation() {
+        assertEquals(AdcioCore.getClientId(), AdcioCore.getStoreId())
     }
 
     @TestOnly
@@ -99,11 +103,6 @@ class AdcioCoreTest {
     @TestOnly
     fun testDeviceIdCreation() {
         assertEquals(Build.ID, AdcioCore.deviceId)
-    }
-
-    @TestOnly
-    fun testStoreIdCreation() {
-        assertEquals(AdcioCore.clientId, AdcioCore.storeId)
     }
 
     @After
