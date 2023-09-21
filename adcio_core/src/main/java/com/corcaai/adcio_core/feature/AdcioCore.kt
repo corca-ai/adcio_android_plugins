@@ -7,16 +7,21 @@ import java.util.UUID
 object AdcioCore {
 
     private var isInitialized: Boolean = false
+    private var sessionIdValue: String? = null
 
     fun initializeApp(id: String) {
-        clientId = id
         isInitialized = true
+        clientId = id
     }
 
     /**
      * You can obtain the clientId registered.
      */
     var clientId: String = ""
+        set(value) {
+            if (!isInitialized) throw NotInitializedException()
+            field = value
+        }
         get() {
             if (!isInitialized) throw NotInitializedException()
 
@@ -24,13 +29,12 @@ object AdcioCore {
             return field
         }
 
-    private var sessionIdValue: String? = null
-
     /**
      * You can obtain the sessionId registered.
      */
     var sessionId: String
         set(value) {
+            if (!isInitialized) throw NotInitializedException()
             sessionIdValue = value
         }
         get() {
@@ -45,6 +49,10 @@ object AdcioCore {
      * You can obtain the deviceId registered.
      */
     var deviceId: String = ""
+        set(value) {
+            if (!isInitialized) throw NotInitializedException()
+            field = value
+        }
         get() {
             if (!isInitialized) throw NotInitializedException()
             // Generate and return device id
@@ -55,6 +63,10 @@ object AdcioCore {
      * You can obtain the storeId registered.
      */
     var storeId: String? = null
+        set(value) {
+            if (!isInitialized) throw NotInitializedException()
+            field = value
+        }
         get() {
             if (!isInitialized) throw NotInitializedException()
             // If empty, returns clientId
