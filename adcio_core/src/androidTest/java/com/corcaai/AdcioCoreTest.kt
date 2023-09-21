@@ -115,28 +115,28 @@ class AdcioCoreTest {
 
     @TestOnly
     fun testDeviceIdValuePreservation() {
-        val deviceId1 = AdcioCore.deviceId
+        val oldDeviceId = AdcioCore.deviceId
         Thread.sleep(1000)
-        val deviceId2 = AdcioCore.deviceId
+        val newDeviceId = AdcioCore.deviceId
 
-        assertEquals(deviceId1, deviceId2)
+        assertEquals(oldDeviceId, newDeviceId)
     }
 
     @TestOnly
     fun testSessionIdValuePreservation() {
-        val sessionId1 = AdcioCore.sessionId
+        val oldSessionId = AdcioCore.sessionId
         Thread.sleep(1000)
-        val sessionId2 = AdcioCore.sessionId
+        val newSessionId = AdcioCore.sessionId
 
-        assertEquals(sessionId1, sessionId2)
+        assertEquals(oldSessionId, newSessionId)
     }
 
     @TestOnly
     fun testAfterAgainInitSessionIdValuePreservation() {
-        val sessionId1 = AdcioCore.sessionId
+        val oldSessionId = AdcioCore.sessionId
         AdcioCore.initializeApp("")
-        val sessionId2 = AdcioCore.sessionId
+        val newSessionId = AdcioCore.sessionId
 
-        assertEquals(sessionId1, sessionId2)
+        assertEquals(oldSessionId, newSessionId)
     }
 }
