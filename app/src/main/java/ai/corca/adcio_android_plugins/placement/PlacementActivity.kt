@@ -38,6 +38,7 @@ class PlacementActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPlacementBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        // From the bottom, this is the basic view setting.
 
         setOtherViews()
     }
