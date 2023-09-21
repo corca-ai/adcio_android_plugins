@@ -6,14 +6,14 @@ plugins {
 
 rootProject.extra.apply {
     set("PUBLISH_GROUP_ID", "io.github.corca-ai")
-    set("PUBLISH_ARTIFACT_ID", "adcio_analytics")
-    set("PUBLISH_VERSION", "0.1.1")
+    set("PUBLISH_ARTIFACT_ID", "adcio_core")
+    set("PUBLISH_VERSION", "0.1.0")
     set("PUBLISH_SCM_URL", "https://github.com/corca-ai/adcio_android_plugins")
-    set("PUBLISH_DESCRIPTION", "adcio_analytics is log event collection")
+    set("PUBLISH_DESCRIPTION", "adcio_core is adcio service library")
 }
 
 android {
-    namespace = "ai.corca.adcio_analytics"
+    namespace = "com.corcaai.adcio_core"
     compileSdk = 33
 
     defaultConfig {
@@ -45,14 +45,9 @@ apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:core-ktx:1.5.0")
+    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.5")
 
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
-
-    implementation("io.github.corca-ai:adcio_core:0.1.0")
+    implementation("androidx.test.ext:junit-ktx:1.1.5")
 }

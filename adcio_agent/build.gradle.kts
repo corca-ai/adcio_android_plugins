@@ -5,11 +5,11 @@ plugins {
 }
 
 rootProject.extra.apply {
-    set("PUBLISH_GROUP_ID", "adcio.ai")
+    set("PUBLISH_GROUP_ID", "io.github.corca-ai")
     set("PUBLISH_ARTIFACT_ID", "adcio_agent")
     set("PUBLISH_VERSION", "0.1.1")
     set("PUBLISH_SCM_URL", "https://github.com/corca-ai/adcio_android_plugins")
-    set("PUBLISH_DESCRIPTION", "ADCIO_Agent")
+    set("PUBLISH_DESCRIPTION", "agent is adcio chatbot based on LLM(GPT)")
 }
 
 android {
@@ -52,4 +52,6 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    implementation("io.github.corca-ai:adcio_core:0.1.0")
 }
