@@ -57,7 +57,7 @@ internal class AnalyticsRemote {
         sessionId: String,
         deviceId: String,
         customerId: String?,
-        storeId: String?,
+        storeId: String,
         productCode: String?,
         title: String,
         referrer: String?,
@@ -70,7 +70,7 @@ internal class AnalyticsRemote {
                 sessionId = sessionId,
                 deviceId = deviceId,
                 customerId = customerId,
-                storeId = storeId.orEmpty(),
+                storeId = storeId,
                 productCode = productCode,
                 title = title,
                 referrer = referrer
