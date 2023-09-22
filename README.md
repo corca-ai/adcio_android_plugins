@@ -2,7 +2,8 @@
 'adcio_android_plugins' is a plugins that help develop 'adcio' Android services.  
 The plugins can be divided into three main categories.
 
-- `adcio_core` : General-purpose library that manages IDs used in AdcioPlugin.
+- `adcio_core` : General-purpose library that manages resources used by adcio_plugins. <br/>
+Therefore, the adcio_core function **must be called** first before using the adcio_plugins.
 - `adcio_analytics`: **Collects logs** for event analysis of ADCIO projects.
 - `adcio_placement`: It is a plugin where you can receive **products recommended by AI** based on user information.
 - `adcio_agent`: Provides an **AI assistant** that allows users to talk directly.
