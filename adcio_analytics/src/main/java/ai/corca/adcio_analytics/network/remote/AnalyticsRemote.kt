@@ -56,11 +56,11 @@ internal class AnalyticsRemote {
         path: String,
         sessionId: String,
         deviceId: String,
-        customerId: String? = null,
+        customerId: String?,
         storeId: String?,
-        productCode: String? = null,
+        productCode: String?,
         title: String,
-        referrer: String? = null,
+        referrer: String?,
         baseUrl: String?
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
