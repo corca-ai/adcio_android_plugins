@@ -1,11 +1,10 @@
 package ai.corca.adcio_analytics.network.remote
 
 import ai.corca.adcio_analytics.exception.PlatformException
-import ai.corca.adcio_analytics.mapper.toAnalyticsPageViewRequest
 import ai.corca.adcio_analytics.mapper.toAnalyticsRequest
 import ai.corca.adcio_analytics.model.AdcioLogOption
-import ai.corca.adcio_analytics.model.AnalyticsPageViewOption
 import ai.corca.adcio_analytics.network.RetrofitClient
+import ai.corca.adcio_analytics.network.data.pageview.AnalyticsPageViewRequest
 import ai.corca.adcio_analytics.network.data.toException
 import ai.corca.adcio_analytics.utils.TRACE_EXCEPTION_TAG
 import ai.corca.adcio_analytics.utils.toNetworkErrorLog
@@ -54,12 +53,28 @@ internal class AnalyticsRemote {
     }
 
     fun onPageView(
-        pageViewOption: AnalyticsPageViewOption,
+        path: String,
+        sessionId: String,
+        deviceId: String,
+        customerId: String?,
+        storeId: String,
+        productCode: String?,
+        title: String,
+        referrer: String?,
         baseUrl: String?
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
         val response = service.onPageView(
-            analyticsPageViewRequest = pageViewOption.toAnalyticsPageViewRequest()
+            analyticsPageViewRequest = AnalyticsPageViewRequest(
+                path = path,
+                sessionId = sessionId,
+                deviceId = deviceId,
+                customerId = customerId,
+                storeId = storeId,
+                productCode = productCode,
+                title = title,
+                referrer = referrer
+            )
         ).execute()
 
         checkError(response)?.let { throw it }

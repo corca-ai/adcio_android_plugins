@@ -1,8 +1,8 @@
 package ai.corca.adcio_analytics.feature
 
 import ai.corca.adcio_analytics.model.AdcioLogOption
-import ai.corca.adcio_analytics.model.AnalyticsPageViewOption
 import ai.corca.adcio_analytics.network.remote.AnalyticsRemote
+import com.corcaai.adcio_core.feature.AdcioCore
 
 object AdcioAnalytics {
 
@@ -68,11 +68,25 @@ object AdcioAnalytics {
      * This event is called when a new screen is shown to the user.
      */
     fun onPageView(
-        pageViewOption: AnalyticsPageViewOption,
+        path: String,
+        sessionId: String? = null,
+        deviceId: String? = null,
+        customerId: String? = null,
+        storeId: String? = null,
+        productCode: String? = null,
+        title: String? = null,
+        referrer: String? = null,
         baseUrl: String? = null,
     ) {
         analyticsRemote.onPageView(
-            pageViewOption = pageViewOption,
+            path = path,
+            sessionId = sessionId ?: AdcioCore.sessionId,
+            deviceId = deviceId ?: AdcioCore.deviceId,
+            customerId = customerId,
+            storeId = storeId ?: AdcioCore.storeId.orEmpty(),
+            productCode = productCode,
+            title = title ?: path,
+            referrer = referrer,
             baseUrl = baseUrl,
         )
     }
