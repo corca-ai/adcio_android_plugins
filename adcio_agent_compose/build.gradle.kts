@@ -62,5 +62,5 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.7.2")
     implementation("androidx.navigation:navigation-compose:2.7.1")
 
-    implementation("io.github.corca-ai:adcio_core:0.1.0")
+    implementation("io.github.corca-ai:adcio_core:0.1.1")
 }
