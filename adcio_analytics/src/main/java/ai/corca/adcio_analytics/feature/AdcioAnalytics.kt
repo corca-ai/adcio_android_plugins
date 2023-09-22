@@ -69,10 +69,10 @@ object AdcioAnalytics {
      */
     fun onPageView(
         path: String,
-        sessionId: String = AdcioCore.sessionId,
-        deviceId: String = AdcioCore.deviceId,
+        sessionId: String? = null,
+        deviceId: String? = null,
         customerId: String? = null,
-        storeId: String = AdcioCore.storeId!!,
+        storeId: String? = null,
         productCode: String? = null,
         title: String? = null,
         referrer: String? = null,
@@ -80,10 +80,10 @@ object AdcioAnalytics {
     ) {
         analyticsRemote.onPageView(
             path = path,
-            sessionId = sessionId,
-            deviceId = deviceId,
+            sessionId = sessionId ?: AdcioCore.sessionId,
+            deviceId = deviceId ?: AdcioCore.deviceId,
             customerId = customerId,
-            storeId = storeId,
+            storeId = storeId ?: AdcioCore.storeId.orEmpty(),
             productCode = productCode,
             title = title ?: path,
             referrer = referrer,

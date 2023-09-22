@@ -9,7 +9,6 @@ import ai.corca.adcio_analytics.network.data.toException
 import ai.corca.adcio_analytics.utils.TRACE_EXCEPTION_TAG
 import ai.corca.adcio_analytics.utils.toNetworkErrorLog
 import android.util.Log
-import com.corcaai.adcio_core.feature.AdcioCore
 import retrofit2.Response
 
 internal class AnalyticsRemote {
@@ -55,10 +54,10 @@ internal class AnalyticsRemote {
 
     fun onPageView(
         path: String,
-        sessionId: String = AdcioCore.sessionId,
-        deviceId: String = AdcioCore.deviceId,
+        sessionId: String,
+        deviceId: String,
         customerId: String? = null,
-        storeId: String = AdcioCore.storeId!!,
+        storeId: String?,
         productCode: String? = null,
         title: String,
         referrer: String? = null,
@@ -71,7 +70,7 @@ internal class AnalyticsRemote {
                 sessionId = sessionId,
                 deviceId = deviceId,
                 customerId = customerId,
-                storeId = storeId,
+                storeId = storeId.orEmpty(),
                 productCode = productCode,
                 title = title,
                 referrer = referrer
