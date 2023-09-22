@@ -76,7 +76,7 @@ class AnalyticsActivity : AppCompatActivity() {
         )
 
         // Save the clientId to the ADCIO module through the init function.
-        AdcioCore.init("30cb6fd0-17a5-4c56-b144-fef67de81bef")
+        AdcioCore.initializeApp("30cb6fd0-17a5-4c56-b144-fef67de81bef")
 
         binding.rvSuggestions.adapter = adapter
         adapter.submitList(getMockProducts())
