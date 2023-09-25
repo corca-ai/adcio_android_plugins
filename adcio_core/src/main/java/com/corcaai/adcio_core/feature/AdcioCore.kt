@@ -27,7 +27,7 @@ object AdcioCore {
     /**
      * You can obtain the storeId registered.
      */
-    var storeId: String? = null
+    var storeId: String = ""
         private set
         get() {
             if (!isInitialized) throw NotInitializedException()
