@@ -9,7 +9,7 @@ internal object AnalyticsUrl {
     object EndPoint {
         const val impression = "$PERFORMANCE/impression"
         const val click = "$PERFORMANCE/click"
-        const val purchase = "$PERFORMANCE/purchase"
+        const val purchase = "$EVENTS/purchase"
         const val pageView = "$EVENTS/view"
     }
 }
