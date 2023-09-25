@@ -2,7 +2,7 @@ package ai.corca.adcio_placement.model
 
 data class Product(
     val id: String,
-    val code: String,
+    val idOnStore: String,
     val storeId: String,
     val sellerId: String,
     val name: String,
