@@ -18,15 +18,15 @@ class AnalyticsTest {
 
     @Before
     fun initBeforeTest() {
-        AdcioCore.initializeApp("")
+        AdcioCore.initializeApp("CLIENT_ID")
     }
 
     @Test
     fun testOnImpression() {
         AdcioAnalytics.onImpression(
             option = AdcioLogOption(
-                requestId = "",
-                adsetId = ""
+                requestId = "REQUEST_ID",
+                adsetId = "ADSET_ID"
             ),
             baseUrl = "https://receiver-dev.adcio.ai/"
         )
@@ -36,8 +36,8 @@ class AnalyticsTest {
     fun testOnClick() {
         AdcioAnalytics.onClick(
             option = AdcioLogOption(
-                requestId = "",
-                adsetId = "",
+                requestId = "REQUEST_ID",
+                adsetId = "ADSET_ID",
             ),
             baseUrl = "https://receiver-dev.adcio.ai/"
         )
@@ -46,8 +46,8 @@ class AnalyticsTest {
     @Test
     fun testOnPurchase() {
         AdcioAnalytics.onPurchase(
-            orderId = "",
-            productIdOnStore = "",
+            orderId = "ORDER_ID",
+            productIdOnStore = "PRODUCT_ID",
             amount = 0,
             baseUrl = "https://receiver-dev.adcio.ai/"
         )
@@ -56,7 +56,7 @@ class AnalyticsTest {
     @Test
     fun testOnPageView() {
         AdcioAnalytics.onPageView(
-            path = "",
+            path = "PATH",
             baseUrl = "https://receiver-dev.adcio.ai/"
         )
     }
@@ -64,8 +64,8 @@ class AnalyticsTest {
     @Test
     fun testOnAddToCart() {
         AdcioAnalytics.onAddToCart(
-            cartId = "",
-            productIdOnStore = "",
+            cartId = "CART_ID",
+            productIdOnStore = "PRODUCT_ID",
             baseUrl = "https://receiver-dev.adcio.ai/"
         )
     }
