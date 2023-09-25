@@ -4,9 +4,11 @@
 Android plugin that collects logs for event analysis of ADCIO projects.
 
 To learn more about ADCIO, please visit the [ADCIO website](https://www.adcio.ai/)
+</br>
 
 ## Getting Started
 To get started with ADCIO account, please register [ADCIO account](https://app.adcio.ai/en/)
+</br>
 
 ## Usage
 
@@ -34,7 +36,6 @@ AdcioAnalytics.onClick(
   option = logOption
 )
 ```
-</br>
 
 **onPurchase example:**
 
@@ -46,7 +47,6 @@ AdcioAnalytics.onPurchase(
 ```
 
 For the `onPurchase` event, you input the actual purchase price that the customer paid into price and call the event when the customer clicks the button at the purchase point.
-</br>
 
 **onPageView example:**
 
@@ -56,7 +56,6 @@ AdcioAnalytics.onPageView(
 )
 ```
 Called every time a screen is created
-
 </br>
 
 ## Features
@@ -72,6 +71,7 @@ It mainly collects three events: impression, click, and purchase.
 
 
 To learn more about usage of plugin, please visit the [AdcioAnalytics Usage documentation.](https://docs.adcio.ai/en/sdk/log-collection/android)
+</br>
 
 ## Issues and feedback
 If the plugin has issues, bugs, feedback, Please contact <dev@corca.ai>.
