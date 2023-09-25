@@ -1,10 +1,12 @@
 package ai.corca.adcio_analytics.network.remote
 
 import ai.corca.adcio_analytics.exception.PlatformException
-import ai.corca.adcio_analytics.mapper.toAnalyticsRequest
 import ai.corca.adcio_analytics.model.AdcioLogOption
 import ai.corca.adcio_analytics.network.RetrofitClient
-import ai.corca.adcio_analytics.network.data.pageview.AnalyticsPageViewRequest
+import ai.corca.adcio_analytics.network.data.AnalyticsPerformanceRequest
+import ai.corca.adcio_analytics.network.data.event.AnalyticsAddToCartRequest
+import ai.corca.adcio_analytics.network.data.event.AnalyticsPageViewRequest
+import ai.corca.adcio_analytics.network.data.event.AnalyticsPurchaseRequest
 import ai.corca.adcio_analytics.network.data.toException
 import ai.corca.adcio_analytics.utils.TRACE_EXCEPTION_TAG
 import ai.corca.adcio_analytics.utils.toNetworkErrorLog
@@ -21,7 +23,10 @@ internal class AnalyticsRemote {
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
         val response = service.onImpression(
-            analyticsRequest = adcioLogOption.toAnalyticsRequest()
+            analyticsPerformanceRequest = AnalyticsPerformanceRequest(
+                requestId = adcioLogOption.requestId,
+                adsetId = adcioLogOption.adsetId
+            )
         ).execute()
 
         checkError(response)?.let { throw it }
@@ -33,20 +38,36 @@ internal class AnalyticsRemote {
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
         val response = service.onClick(
-            analyticsRequest = adcioLogOption.toAnalyticsRequest()
+            analyticsPerformanceRequest = AnalyticsPerformanceRequest(
+                requestId = adcioLogOption.requestId,
+                adsetId = adcioLogOption.adsetId
+            )
         ).execute()
 
         checkError(response)?.let { throw it }
     }
 
     fun onPurchase(
-        adcioLogOption: AdcioLogOption,
+        sessionId: String,
+        deviceId: String,
+        customerId: String?,
+        orderId: String,
+        storeId: String,
+        productIdOnStore: String,
         amount: Int,
         baseUrl: String?,
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
         val response = service.onPurchase(
-            analyticsRequest = adcioLogOption.toAnalyticsRequest(amount)
+            analyticsPurchaseRequest = AnalyticsPurchaseRequest(
+                sessionId = sessionId,
+                deviceId = deviceId,
+                customerId = customerId,
+                orderId = orderId,
+                storeId = storeId,
+                productIdOnStore = productIdOnStore,
+                amount = amount,
+            )
         ).execute()
 
         checkError(response)?.let { throw it }
@@ -58,7 +79,7 @@ internal class AnalyticsRemote {
         deviceId: String,
         customerId: String?,
         storeId: String,
-        productCode: String?,
+        productIdOnStore: String?,
         title: String,
         referrer: String?,
         baseUrl: String?
@@ -66,26 +87,51 @@ internal class AnalyticsRemote {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
         val response = service.onPageView(
             analyticsPageViewRequest = AnalyticsPageViewRequest(
-                path = path,
                 sessionId = sessionId,
                 deviceId = deviceId,
                 customerId = customerId,
                 storeId = storeId,
-                productCode = productCode,
+                productIdOnStore = productIdOnStore,
+                path = path,
                 title = title,
-                referrer = referrer
+                referrer = referrer,
             )
         ).execute()
 
         checkError(response)?.let { throw it }
     }
 
-    private fun checkError(response: Response<Unit>): PlatformException? = if (response.code() !in networkSuccessRange) {
-        val platformException = RetrofitClient.exceptionHandling(response).toException()
-        Log.e(
-            TRACE_EXCEPTION_TAG,
-            platformException.toNetworkErrorLog()
-        )
-        platformException
-    } else null
+    fun onAddToCart(
+        sessionId: String,
+        deviceId: String,
+        customerId: String?,
+        cartId: String,
+        storeId: String,
+        productIdOnStore: String,
+        baseUrl: String?
+    ) {
+        val service = RetrofitClient.getAnalyticsService(baseUrl)
+        val response = service.onAddToCart(
+            analyticsAddToCartRequest = AnalyticsAddToCartRequest(
+                sessionId = sessionId,
+                deviceId = deviceId,
+                customerId = customerId,
+                cartId = cartId,
+                storeId = storeId,
+                productIdOnStore = productIdOnStore,
+            )
+        ).execute()
+
+        checkError(response)?.let { throw it }
+    }
+
+    private fun checkError(response: Response<Unit>): PlatformException? =
+        if (response.code() !in networkSuccessRange) {
+            val platformException = RetrofitClient.exceptionHandling(response).toException()
+            Log.e(
+                TRACE_EXCEPTION_TAG,
+                platformException.toNetworkErrorLog()
+            )
+            platformException
+        } else null
 }

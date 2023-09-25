@@ -11,5 +11,6 @@ internal object AnalyticsUrl {
         const val click = "$PERFORMANCE/click"
         const val purchase = "$EVENTS/purchase"
         const val pageView = "$EVENTS/view"
+        const val addToCart = "$EVENTS/add-to-cart"
     }
 }
