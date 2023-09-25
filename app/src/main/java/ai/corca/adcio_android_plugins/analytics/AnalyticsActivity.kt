@@ -8,7 +8,6 @@ import ai.corca.adcio_android_plugins.analytics.utils.getMockProducts
 import ai.corca.adcio_android_plugins.databinding.ActivityAnalyticsBinding
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.corcaai.adcio_core.feature.AdcioCore
 
 class AnalyticsActivity : AppCompatActivity() {
 
