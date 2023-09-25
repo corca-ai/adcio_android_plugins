@@ -22,7 +22,7 @@ class CoreActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         // this is important to call `AdcioCore.init(clientId: 'ADCIO_STORE_ID')` function.
-        AdcioCore.init("67592c00-a230-4c31-902e-82ae4fe71866")
+        AdcioCore.initializeApp("67592c00-a230-4c31-902e-82ae4fe71866")
     }
 }
 ```
