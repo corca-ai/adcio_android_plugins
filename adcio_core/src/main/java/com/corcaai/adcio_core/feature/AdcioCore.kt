@@ -9,9 +9,9 @@ object AdcioCore {
     private var isInitialized: Boolean = false
     private var sessionIdValue: String? = null
 
-    fun initializeApp(id: String) {
+    fun initializeApp(clientId: String) {
         isInitialized = true
-        clientId = id
+        this.clientId = clientId
     }
 
     /**
