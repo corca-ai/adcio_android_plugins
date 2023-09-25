@@ -15,10 +15,6 @@ class CoreActivity : AppCompatActivity() {
         binding = ActivityCoreBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // You should init to use getClientId
-        // Also you must init any parts that use ClientId in the placement or analytics module.
-        AdcioCore.initializeApp("67592c00-a230-4c31-902e-82ae4fe71866")
-
         // You can get your registered device ID.
         // ex) TP1A.220612.012
         // You can also change the registered DeviceID value through the otherInfo parameter.
