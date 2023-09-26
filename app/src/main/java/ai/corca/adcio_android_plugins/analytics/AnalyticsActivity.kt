@@ -2,7 +2,6 @@ package ai.corca.adcio_android_plugins.analytics
 
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_analytics.model.AdcioLogOption
-import ai.corca.adcio_analytics.model.AnalyticsPageViewOption
 import ai.corca.adcio_android_plugins.analytics.utils.MockProductListAdapter
 import ai.corca.adcio_android_plugins.analytics.utils.getMockProducts
 import ai.corca.adcio_android_plugins.databinding.ActivityAnalyticsBinding
