@@ -26,6 +26,8 @@ You should make `<ai.corca.adcio_agent.layout.AdcioAgentLayout>` the space where
 
 You can call the `callAdcioAgent` function of the `AdcioAgent` object to expose the Agent to the screen.
 ```kotlin
+import ai.corca.adcio_agent.provider.AdcioAgent
+
 class XmlActivity: AppCompatActivity() {
 
   ...
