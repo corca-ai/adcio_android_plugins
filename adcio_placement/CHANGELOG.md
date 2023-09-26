@@ -11,7 +11,7 @@
 ## 0.1.0
 
 * Initial Release
-* Updates documentation on README.md. 
+* Update documentation on README.md. 
 
 ## 0.0.1
 
