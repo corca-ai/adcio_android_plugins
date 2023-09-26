@@ -17,14 +17,16 @@ class AnalyticsActivity : AppCompatActivity() {
     // Background Thread for Purchase Analytics.
     inner class OnPurchaseThread(
         private val orderId: String,
+        private val productIdOnStore: String,
+        private val amount: Int,
     ) : Thread() {
         override fun run() {
             // Please call this function if the user purchases a specific product.
             // Please also enter the number of products, amount.
             AdcioAnalytics.onPurchase(
                 orderId = orderId,
-                productIdOnStore = "20",
-                amount = 2,
+                productIdOnStore = productIdOnStore,
+                amount = amount,
             )
         }
     }
@@ -68,7 +70,11 @@ class AnalyticsActivity : AppCompatActivity() {
 
         adapter = MockProductListAdapter(
             onClickPurchase = { logOption ->
-                OnPurchaseThread(orderId = "ORDER_ID").start()
+                OnPurchaseThread(
+                    orderId = "ORDER_ID",
+                    productIdOnStore = "PRODUCT_ID",
+                    amount = 0
+                ).start()
             },
             onClickItem = { logOption ->
                 OnClickThread(logOption = logOption).start()
