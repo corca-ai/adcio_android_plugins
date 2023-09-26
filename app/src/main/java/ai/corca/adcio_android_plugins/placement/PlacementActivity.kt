@@ -47,7 +47,7 @@ class PlacementActivity : AppCompatActivity() {
         adcioSuggestionRaw.suggestions.forEach {
             productions.add(
                 Production(
-                    productId = it.product.code, // product.code = product id of client service
+                    productId = it.product.idOnStore, // product.code = product id of client service
                     name = it.product.name,
                     image = it.product.image,
                     price = it.product.price.toString(),
