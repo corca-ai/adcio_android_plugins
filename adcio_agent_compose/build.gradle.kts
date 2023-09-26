@@ -6,7 +6,7 @@ plugins {
 rootProject.extra.apply {
     set("PUBLISH_GROUP_ID", "io.github.corca-ai")
     set("PUBLISH_ARTIFACT_ID", "adcio_agent_compose")
-    set("PUBLISH_VERSION", "0.1.2")
+    set("PUBLISH_VERSION", "0.1.3")
     set("PUBLISH_SCM_URL", "https://github.com/corca-ai/adcio_android_plugins")
     set("PUBLISH_DESCRIPTION", "agent_compose is adcio chatbot based on LLM(GPT) for compose ui")
 }
@@ -62,5 +62,5 @@ dependencies {
     implementation("androidx.activity:activity-compose:1.7.2")
     implementation("androidx.navigation:navigation-compose:2.7.1")
 
-    implementation("io.github.corca-ai:adcio_core:0.1.0")
+    implementation("io.github.corca-ai:adcio_core:0.1.3")
 }

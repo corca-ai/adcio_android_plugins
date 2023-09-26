@@ -5,7 +5,7 @@ import ai.corca.adcio_placement.network.data.ProductData
 
 internal fun ProductData.toProduct(): Product = Product(
     id = this.id,
-    code = this.code,
+    idOnStore = this.idOnStore,
     storeId = this.storeId,
     sellerId = this.sellerId,
     name = this.name,
@@ -22,7 +22,7 @@ internal fun ProductData.toProduct(): Product = Product(
 
 internal fun Product.toProductData(): ProductData = ProductData(
     id = this.id,
-    code = this.code,
+    idOnStore = this.idOnStore,
     storeId = this.storeId,
     sellerId = this.sellerId,
     name = this.name,

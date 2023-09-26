@@ -52,12 +52,22 @@ object AdcioAnalytics {
      * This event is called when a user purchases a recommended product.
      */
     fun onPurchase(
-        option: AdcioLogOption,
+        sessionId: String? = null,
+        deviceId: String? = null,
+        customerId: String? = null,
+        orderId: String,
+        storeId: String? = null,
+        productIdOnStore: String,
         amount: Int,
         baseUrl: String? = null,
     ) {
         analyticsRemote.onPurchase(
-            adcioLogOption = option,
+            sessionId = sessionId ?: AdcioCore.sessionId,
+            deviceId = deviceId ?: AdcioCore.deviceId,
+            customerId = customerId,
+            orderId = orderId,
+            storeId = storeId ?: AdcioCore.storeId,
+            productIdOnStore = productIdOnStore,
             amount = amount,
             baseUrl = baseUrl,
         )
@@ -73,7 +83,7 @@ object AdcioAnalytics {
         deviceId: String? = null,
         customerId: String? = null,
         storeId: String? = null,
-        productCode: String? = null,
+        productIdOnStore: String? = null,
         title: String? = null,
         referrer: String? = null,
         baseUrl: String? = null,
@@ -83,11 +93,31 @@ object AdcioAnalytics {
             sessionId = sessionId ?: AdcioCore.sessionId,
             deviceId = deviceId ?: AdcioCore.deviceId,
             customerId = customerId,
-            storeId = storeId ?: AdcioCore.storeId.orEmpty(),
-            productCode = productCode,
+            storeId = storeId ?: AdcioCore.storeId,
+            productIdOnStore = productIdOnStore,
             title = title ?: path,
             referrer = referrer,
             baseUrl = baseUrl,
+        )
+    }
+
+    fun onAddToCart(
+        sessionId: String? = null,
+        deviceId: String? = null,
+        customerId: String? = null,
+        storeId: String? = null,
+        productIdOnStore: String,
+        cartId: String,
+        baseUrl: String? = null,
+    ) {
+        analyticsRemote.onAddToCart(
+            sessionId = sessionId ?: AdcioCore.sessionId,
+            deviceId = deviceId ?: AdcioCore.deviceId,
+            customerId = customerId,
+            storeId = storeId ?: AdcioCore.storeId,
+            productIdOnStore = productIdOnStore,
+            cartId = cartId,
+            baseUrl = baseUrl
         )
     }
 }
