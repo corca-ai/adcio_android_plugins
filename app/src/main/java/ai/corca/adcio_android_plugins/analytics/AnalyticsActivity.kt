@@ -16,13 +16,14 @@ class AnalyticsActivity : AppCompatActivity() {
 
     // Background Thread for Purchase Analytics.
     inner class OnPurchaseThread(
-        val logOption: AdcioLogOption
+        private val orderId: String,
     ) : Thread() {
         override fun run() {
             // Please call this function if the user purchases a specific product.
             // Please also enter the number of products, amount.
             AdcioAnalytics.onPurchase(
-                option = logOption,
+                orderId = orderId,
+                productIdOnStore = "20",
                 amount = 2,
             )
         }
@@ -42,13 +43,13 @@ class AnalyticsActivity : AppCompatActivity() {
 
     // Called when a new screen is displayed
     inner class OnPageViewThread(
-        private val pageViewOption: AnalyticsPageViewOption,
+        val path: String,
         private val baseUrl: String? = null
     ) : Thread() {
         override fun run() {
             // This function is called when a new page is created!
             AdcioAnalytics.onPageView(
-                pageViewOption = pageViewOption,
+                path = path,
                 baseUrl = baseUrl,
             )
         }
@@ -67,7 +68,7 @@ class AnalyticsActivity : AppCompatActivity() {
 
         adapter = MockProductListAdapter(
             onClickPurchase = { logOption ->
-                OnPurchaseThread(logOption = logOption).start()
+                OnPurchaseThread(orderId = "ORDER_ID").start()
             },
             onClickItem = { logOption ->
                 OnClickThread(logOption = logOption).start()
@@ -82,6 +83,6 @@ class AnalyticsActivity : AppCompatActivity() {
         super.onStart()
 
         // Called every time a new screen is created
-        OnPageViewThread(AnalyticsPageViewOption(path = "main")).start()
+        OnPageViewThread(path = "MAIN").start()
     }
 }
