@@ -2,7 +2,6 @@ package ai.corca.adcio_android_plugins.analytics
 
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_analytics.model.AdcioLogOption
-import ai.corca.adcio_analytics.model.AnalyticsPageViewOption
 import ai.corca.adcio_android_plugins.analytics.utils.MockProductListAdapter
 import ai.corca.adcio_android_plugins.analytics.utils.getMockProducts
 import ai.corca.adcio_android_plugins.databinding.ActivityAnalyticsBinding
@@ -16,14 +15,17 @@ class AnalyticsActivity : AppCompatActivity() {
 
     // Background Thread for Purchase Analytics.
     inner class OnPurchaseThread(
-        val logOption: AdcioLogOption
+        private val orderId: String,
+        private val productIdOnStore: String,
+        private val amount: Int,
     ) : Thread() {
         override fun run() {
             // Please call this function if the user purchases a specific product.
             // Please also enter the number of products, amount.
             AdcioAnalytics.onPurchase(
-                option = logOption,
-                amount = 2,
+                orderId = orderId,
+                productIdOnStore = productIdOnStore,
+                amount = amount,
             )
         }
     }
@@ -42,13 +44,13 @@ class AnalyticsActivity : AppCompatActivity() {
 
     // Called when a new screen is displayed
     inner class OnPageViewThread(
-        private val pageViewOption: AnalyticsPageViewOption,
+        val path: String,
         private val baseUrl: String? = null
     ) : Thread() {
         override fun run() {
             // This function is called when a new page is created!
             AdcioAnalytics.onPageView(
-                pageViewOption = pageViewOption,
+                path = path,
                 baseUrl = baseUrl,
             )
         }
@@ -67,7 +69,11 @@ class AnalyticsActivity : AppCompatActivity() {
 
         adapter = MockProductListAdapter(
             onClickPurchase = { logOption ->
-                OnPurchaseThread(logOption = logOption).start()
+                OnPurchaseThread(
+                    orderId = "ORDER_ID",
+                    productIdOnStore = "PRODUCT_ID",
+                    amount = 0
+                ).start()
             },
             onClickItem = { logOption ->
                 OnClickThread(logOption = logOption).start()
@@ -82,6 +88,6 @@ class AnalyticsActivity : AppCompatActivity() {
         super.onStart()
 
         // Called every time a new screen is created
-        OnPageViewThread(AnalyticsPageViewOption(path = "main")).start()
+        OnPageViewThread(path = "MAIN").start()
     }
 }
