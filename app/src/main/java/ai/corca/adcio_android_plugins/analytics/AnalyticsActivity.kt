@@ -76,6 +76,9 @@ class AnalyticsActivity : AppCompatActivity() {
         binding = ActivityAnalyticsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // initialize the core
+        AdcioCore.initializeApp("67592c00-a230-4c31-902e-82ae4fe71866")
+
         // set AdcioDetectorAnalytics
         // If you don't add an option, an error will occur.
         // 'AdcioLogOption(requestId = "", adsetId = "")' is just sample AdcioLogOption!
