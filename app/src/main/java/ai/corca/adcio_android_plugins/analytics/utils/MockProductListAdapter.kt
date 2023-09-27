@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 class MockProductListAdapter(
     val onClickPurchase: (logOption: AdcioLogOption) -> Unit,
     val onClickItem: (logOption: AdcioLogOption) -> Unit,
+    val onAddToCart: () -> Unit
 ) : ListAdapter<MockProduct, MockProductListAdapter.MockProductViewHolder>(
     MockProductDiffUtilCallback
 ) {
