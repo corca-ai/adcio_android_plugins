@@ -7,6 +7,7 @@ import ai.corca.adcio_android_plugins.analytics.utils.getMockProducts
 import ai.corca.adcio_android_plugins.databinding.ActivityAnalyticsBinding
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.corcaai.adcio_core.feature.AdcioCore
 
 class AnalyticsActivity : AppCompatActivity() {
 
@@ -38,6 +39,20 @@ class AnalyticsActivity : AppCompatActivity() {
             // If the user clicks on a particular product, call this function.
             AdcioAnalytics.onClick(
                 option = logOption,
+            )
+        }
+    }
+
+    // Called when a new screen is displayed
+    inner class OnAddToCartThread (
+        val cartId: String,
+        val productIdOnStore: String,
+    ) : Thread() {
+        override fun run() {
+            // This function is called when a new page is created!
+            AdcioAnalytics.onAddToCart(
+                cartId = cartId,
+                productIdOnStore = productIdOnStore,
             )
         }
     }
@@ -77,7 +92,13 @@ class AnalyticsActivity : AppCompatActivity() {
             },
             onClickItem = { logOption ->
                 OnClickThread(logOption = logOption).start()
-            }
+            },
+            onAddToCart = {
+                OnAddToCartThread(
+                    cartId = "CART_ID",
+                    productIdOnStore = "PRODUCT_ID"
+                )
+            },
         )
 
         binding.rvSuggestions.adapter = adapter
