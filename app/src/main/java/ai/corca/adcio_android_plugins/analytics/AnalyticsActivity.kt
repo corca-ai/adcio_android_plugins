@@ -7,6 +7,7 @@ import ai.corca.adcio_android_plugins.analytics.utils.getMockProducts
 import ai.corca.adcio_android_plugins.databinding.ActivityAnalyticsBinding
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.corcaai.adcio_core.feature.AdcioCore
 
 class AnalyticsActivity : AppCompatActivity() {
 
@@ -43,6 +44,20 @@ class AnalyticsActivity : AppCompatActivity() {
     }
 
     // Called when a new screen is displayed
+    inner class OnAddToCartThread(
+        val cartId: String,
+        val productIdOnStore: String,
+    ) : Thread() {
+        override fun run() {
+            // This function is called when a new page is created!
+            AdcioAnalytics.onAddToCart(
+                cartId = cartId,
+                productIdOnStore = productIdOnStore,
+            )
+        }
+    }
+
+    // Called when a new screen is displayed
     inner class OnPageViewThread(
         val path: String,
         private val baseUrl: String? = null
@@ -61,6 +76,9 @@ class AnalyticsActivity : AppCompatActivity() {
         binding = ActivityAnalyticsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // initialize the core
+        AdcioCore.initializeApp("67592c00-a230-4c31-902e-82ae4fe71866")
+
         // set AdcioDetectorAnalytics
         // If you don't add an option, an error will occur.
         // 'AdcioLogOption(requestId = "", adsetId = "")' is just sample AdcioLogOption!
@@ -68,7 +86,7 @@ class AnalyticsActivity : AppCompatActivity() {
         binding.adcioDetectorFixedView.option = AdcioLogOption(requestId = "", adsetId = "")
 
         adapter = MockProductListAdapter(
-            onClickPurchase = { logOption ->
+            onClickPurchase = {
                 OnPurchaseThread(
                     orderId = "ORDER_ID",
                     productIdOnStore = "PRODUCT_ID",
@@ -77,7 +95,13 @@ class AnalyticsActivity : AppCompatActivity() {
             },
             onClickItem = { logOption ->
                 OnClickThread(logOption = logOption).start()
-            }
+            },
+            onAddToCart = {
+                OnAddToCartThread(
+                    cartId = "CART_ID",
+                    productIdOnStore = "PRODUCT_ID"
+                )
+            },
         )
 
         binding.rvSuggestions.adapter = adapter

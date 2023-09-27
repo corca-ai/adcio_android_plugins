@@ -11,6 +11,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.Message
 import androidx.appcompat.app.AppCompatActivity
+import com.corcaai.adcio_core.feature.AdcioCore
 
 class PlacementActivity : AppCompatActivity() {
 
@@ -38,6 +39,10 @@ class PlacementActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPlacementBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // initialize the core
+        AdcioCore.initializeApp("67592c00-a230-4c31-902e-82ae4fe71866")
+
         // From the bottom, this is the basic view setting.
         setOtherViews()
     }
