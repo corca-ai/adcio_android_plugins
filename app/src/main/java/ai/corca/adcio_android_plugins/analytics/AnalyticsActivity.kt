@@ -44,7 +44,7 @@ class AnalyticsActivity : AppCompatActivity() {
     }
 
     // Called when a new screen is displayed
-    inner class OnAddToCartThread (
+    inner class OnAddToCartThread(
         val cartId: String,
         val productIdOnStore: String,
     ) : Thread() {
@@ -86,7 +86,7 @@ class AnalyticsActivity : AppCompatActivity() {
         binding.adcioDetectorFixedView.option = AdcioLogOption(requestId = "", adsetId = "")
 
         adapter = MockProductListAdapter(
-            onClickPurchase = { logOption ->
+            onClickPurchase = {
                 OnPurchaseThread(
                     orderId = "ORDER_ID",
                     productIdOnStore = "PRODUCT_ID",
