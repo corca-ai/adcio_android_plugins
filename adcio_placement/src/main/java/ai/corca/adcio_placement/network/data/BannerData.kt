@@ -7,9 +7,12 @@ data class BannerData(
     @SerializedName("clientId") val clientId: String,
     @SerializedName("imageUrl") val imageUrl: String,
     @SerializedName("url") val url: String,
+    @SerializedName("name") val name: String,
+    @SerializedName("categoryId") val categoryId: String?,
+    @SerializedName("productId") val productId: String?,
     @SerializedName("activated") val activated: Boolean,
     @SerializedName("startsAt") val startsAt: String,
     @SerializedName("endsAt") val endsAt: String?,
     @SerializedName("createdAt") val createdAt: String,
-    @SerializedName("deletedAt") val deletedAt: String
+    @SerializedName("deletedAt") val deletedAt: String?,
 )
