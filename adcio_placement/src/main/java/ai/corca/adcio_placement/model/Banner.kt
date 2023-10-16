@@ -5,9 +5,12 @@ data class Banner(
     val clientId: String,
     val imageUrl: String,
     val url: String,
+    val name: String,
+    val categoryId: String?,
+    val productId: String?,
     val activated: Boolean,
     val startsAt: String,
     val endsAt: String?,
     val createdAt: String,
-    val deletedAt: String,
+    val deletedAt: String?,
 )
