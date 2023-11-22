@@ -18,12 +18,20 @@ internal class AnalyticsRemote {
     private val networkSuccessRange = 200 until 300
 
     fun onImpression(
+        sessionId: String,
+        deviceId: String,
+        customerId: String?,
+        storeId: String,
         adcioLogOption: AdcioLogOption,
         baseUrl: String?,
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
         val response = service.onImpression(
             analyticsPerformanceRequest = AnalyticsPerformanceRequest(
+                sessionId = sessionId,
+                deviceId = deviceId,
+                customerId = customerId,
+                storeId = storeId,
                 requestId = adcioLogOption.requestId,
                 adsetId = adcioLogOption.adsetId
             )
@@ -33,14 +41,22 @@ internal class AnalyticsRemote {
     }
 
     fun onClick(
+        sessionId: String,
+        deviceId: String,
+        customerId: String?,
+        storeId: String,
         adcioLogOption: AdcioLogOption,
         baseUrl: String?,
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
         val response = service.onClick(
             analyticsPerformanceRequest = AnalyticsPerformanceRequest(
+                sessionId = sessionId,
+                deviceId = deviceId,
+                customerId = customerId,
+                storeId = storeId,
                 requestId = adcioLogOption.requestId,
-                adsetId = adcioLogOption.adsetId
+                adsetId = adcioLogOption.adsetId,
             )
         ).execute()
 
