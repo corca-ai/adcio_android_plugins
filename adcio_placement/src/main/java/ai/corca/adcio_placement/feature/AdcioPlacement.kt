@@ -1,6 +1,7 @@
 package ai.corca.adcio_placement.feature
 
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
+import ai.corca.adcio_placement.enum.GenderType
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import ai.corca.adcio_placement.network.remote.PlacementRemote
 import com.corcaai.adcio_core.feature.AdcioCore
@@ -18,7 +19,7 @@ object AdcioPlacement {
         placementPosX: Int? = null,
         placementPosY: Int? = null,
         age: String? = null,
-        gender: String? = null,
+        gender: GenderType? = null,
         area: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionRaw {
