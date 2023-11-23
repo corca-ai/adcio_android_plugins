@@ -1,3 +1,6 @@
+## 0.1.3
+* Fix: Update Analytics performance endpoints request schema
+
 ## 0.1.2
 
 * Feature: New log collection features have been added: `onAddToCart()`
