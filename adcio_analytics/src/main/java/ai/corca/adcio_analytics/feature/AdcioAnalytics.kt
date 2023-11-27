@@ -24,8 +24,16 @@ object AdcioAnalytics {
     fun onClick(
         option: AdcioLogOption,
         baseUrl: String? = null,
+        sessionId: String? = null,
+        deviceId: String? = null,
+        customerId: String? = null,
+        storeId: String? = null,
     ) {
         analyticsRemote.onClick(
+            sessionId = sessionId ?: AdcioCore.sessionId,
+            deviceId = deviceId ?: AdcioCore.deviceId,
+            customerId = customerId,
+            storeId = storeId ?: AdcioCore.storeId,
             adcioLogOption = option,
             baseUrl = baseUrl,
         )
@@ -36,12 +44,20 @@ object AdcioAnalytics {
      * This event is called when a suggestion placement is displayed on the screen during the ad lifecycle (e.g., page lifecycle). This call occurs only once when the suggestion placement is revealed.
      */
     fun onImpression(
+        sessionId: String? = null,
+        deviceId: String? = null,
+        customerId: String? = null,
+        storeId: String? = null,
         option: AdcioLogOption,
         baseUrl: String? = null,
     ) {
         impressionHistory.add(option.adsetId)
 
         analyticsRemote.onImpression(
+            sessionId = sessionId ?: AdcioCore.sessionId,
+            deviceId = deviceId ?: AdcioCore.deviceId,
+            customerId = customerId,
+            storeId = storeId ?: AdcioCore.storeId,
             adcioLogOption = option,
             baseUrl = baseUrl,
         )
