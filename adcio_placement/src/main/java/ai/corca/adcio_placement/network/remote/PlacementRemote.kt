@@ -26,7 +26,7 @@ internal class PlacementRemote {
         placementPositionX: Int? = null,
         placementPositionY: Int? = null,
         fromAgent: Boolean = false,
-        age: String? = null,
+        birthYear: Int? = null,
         gender: GenderType? = null,
         area: String? = null,
         baseUrl: String? = null,
@@ -41,7 +41,7 @@ internal class PlacementRemote {
                 placementPositionX = placementPositionX,
                 placementPositionY = placementPositionY,
                 fromAgent = fromAgent,
-                age = age,
+                birthYear = birthYear,
                 gender = gender,
                 area = area,
             )
