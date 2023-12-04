@@ -1,9 +1,9 @@
 package ai.corca.adcio_placement.feature
 
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
-import ai.corca.adcio_placement.enum.GenderType
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import ai.corca.adcio_placement.network.remote.PlacementRemote
+import ai.corca.adcio_placement.utils.convertGender
 import com.corcaai.adcio_core.feature.AdcioCore
 
 object AdcioPlacement {
@@ -19,7 +19,7 @@ object AdcioPlacement {
         placementPositionX: Int? = null,
         placementPositionY: Int? = null,
         birthYear: Int? = null,
-        gender: GenderType? = null,
+        gender: String? = null,
         area: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionRaw {
@@ -34,7 +34,7 @@ object AdcioPlacement {
             placementPositionY = placementPositionY,
             fromAgent = false,
             birthYear = birthYear,
-            gender = gender,
+            gender = convertGender(gender),
             area = area,
             baseUrl = baseUrl,
         )

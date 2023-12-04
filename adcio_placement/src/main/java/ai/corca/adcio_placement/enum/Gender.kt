@@ -1,6 +1,6 @@
 package ai.corca.adcio_placement.enum
 
-enum class GenderType {
+internal enum class Gender {
     male,
     female,
 }

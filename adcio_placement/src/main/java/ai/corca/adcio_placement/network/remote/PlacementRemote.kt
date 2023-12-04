@@ -1,6 +1,6 @@
 package ai.corca.adcio_placement.network.remote
 
-import ai.corca.adcio_placement.enum.GenderType
+import ai.corca.adcio_placement.enum.Gender
 import ai.corca.adcio_placement.exception.PlatformException
 import ai.corca.adcio_placement.mapper.toAdcioSuggestionRaw
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
@@ -27,7 +27,7 @@ internal class PlacementRemote {
         placementPositionY: Int? = null,
         fromAgent: Boolean = false,
         birthYear: Int? = null,
-        gender: GenderType? = null,
+        gender: Gender? = null,
         area: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionRaw {

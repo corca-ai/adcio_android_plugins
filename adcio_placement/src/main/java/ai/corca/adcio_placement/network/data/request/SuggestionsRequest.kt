@@ -1,9 +1,9 @@
 package ai.corca.adcio_placement.network.data.request
 
-import ai.corca.adcio_placement.enum.GenderType
+import ai.corca.adcio_placement.enum.Gender
 import com.google.gson.annotations.SerializedName
 
-data class SuggestionsRequest(
+internal data class SuggestionsRequest(
     @SerializedName("sessionId") val sessionId: String,
     @SerializedName("deviceId") val deviceId: String,
     @SerializedName("placementId") val placementId: String,
@@ -12,6 +12,6 @@ data class SuggestionsRequest(
     @SerializedName("placementPositionY") val placementPositionY: Int? = null,
     @SerializedName("fromAgent") val fromAgent: Boolean = false,
     @SerializedName("birthYear") val birthYear: Int? = null,
-    @SerializedName("gender") val gender: GenderType? = null,
+    @SerializedName("gender") val gender: Gender? = null,
     @SerializedName("area") val area: String? = null,
 )
