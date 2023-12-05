@@ -69,7 +69,6 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.1")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
 
-
     implementation(project(path = ":adcio_core"))
     implementation(project(path = ":adcio_analytics"))
     implementation(project(path = ":adcio_placement"))

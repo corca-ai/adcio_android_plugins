@@ -1,6 +1,5 @@
 package ai.corca.adcio_placement.network
 
-import ai.corca.adcio_placement.exception.UNKNOWN_EXCEPTION_MESSAGE
 import ai.corca.adcio_placement.network.data.AdcioSuggestionRawData
 import ai.corca.adcio_placement.network.data.ErrorResponse
 import ai.corca.adcio_placement.network.service.PlacementService

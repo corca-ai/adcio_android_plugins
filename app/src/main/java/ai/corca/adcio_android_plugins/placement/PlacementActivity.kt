@@ -68,7 +68,7 @@ class PlacementActivity : AppCompatActivity() {
         currentUser = User(
             id = UUID.randomUUID().toString(),
             name = "adcio",
-            birthDate = LocalDate.of(2000,1,31),
+            birthDate = LocalDate.of(2000, 1, 31),
             gender = Gender.female
         )
 
