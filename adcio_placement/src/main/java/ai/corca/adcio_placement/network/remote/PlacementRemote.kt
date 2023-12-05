@@ -1,7 +1,10 @@
 package ai.corca.adcio_placement.network.remote
 
 import ai.corca.adcio_placement.enum.Gender
+import ai.corca.adcio_placement.exception.BadRequestException
+import ai.corca.adcio_placement.exception.DisabledPlacementException
 import ai.corca.adcio_placement.exception.PlatformException
+import ai.corca.adcio_placement.exception.UnregisteredIdException
 import ai.corca.adcio_placement.mapper.toAdcioSuggestionRaw
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import ai.corca.adcio_placement.network.RetrofitClient
@@ -52,11 +55,28 @@ internal class PlacementRemote {
     }
 
     private fun checkError(response: Response<AdcioSuggestionRawData>): PlatformException? = if (response.code() !in networkSuccessRange) {
-        val platformException = RetrofitClient.exceptionHandling(response).toException()
+        val exception = RetrofitClient.exceptionHandling(response)
+
         Log.e(
             TRACE_EXCEPTION_TAG,
-            platformException.toNetworkErrorLog()
+            exception.toException().toNetworkErrorLog()
         )
-        platformException
+
+        when (exception.statusCode) {
+            400 -> BadRequestException(
+                errorMessage = "placementId must be a UUID"
+            )
+            404 -> {
+                if (exception.message == 12001) {
+                    UnregisteredIdException()
+                } else {
+                    DisabledPlacementException()
+                }
+            }
+            else -> PlatformException(
+                code = exception.statusCode.toString(),
+                errorMessage = "Unknown error occurred"
+            )
+        }
     } else null
 }
