@@ -69,9 +69,10 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.1")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
 
-    implementation("io.github.corca-ai:adcio_core:0.1.3")
-    implementation("io.github.corca-ai:adcio_analytics:0.1.2")
-    implementation("io.github.corca-ai:adcio_placement:0.1.2")
-    implementation("io.github.corca-ai:adcio_agent:0.1.2")
-    implementation("io.github.corca-ai:adcio_agent_compose:0.1.3")
+
+    implementation(project(path = ":adcio_core"))
+    implementation(project(path = ":adcio_analytics"))
+    implementation(project(path = ":adcio_placement"))
+    implementation(project(path = ":adcio_agent"))
+    implementation(project(path = ":adcio_agent_compose"))
 }
