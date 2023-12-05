@@ -6,11 +6,11 @@ import com.google.gson.annotations.SerializedName
 
 data class ErrorResponse(
     @SerializedName("statusCode") val statusCode: Int,
-    @SerializedName("message") val message: List<String>? = listOf(""),
+    @SerializedName("message") val message: Int,
 )
 
 fun ErrorResponse.toException(): PlatformException =
     PlatformException(
-        code = statusCode,
-        errorMessage = message?.get(0) ?: UNKNOWN_EXCEPTION_MESSAGE,
+        code = statusCode.toString(),
+        errorMessage = message.toString(),
     )
