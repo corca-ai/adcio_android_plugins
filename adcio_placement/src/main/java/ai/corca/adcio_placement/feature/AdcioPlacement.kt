@@ -21,14 +21,16 @@ object AdcioPlacement {
         birthYear: Int? = null,
         gender: String? = null,
         area: String? = null,
+        deviceId: String? = null,
+        sessionId: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionRaw {
         AdcioAnalytics.clearImpressionHistory()
 
         return placementRemote.getSuggestion(
             placementId = placementId,
-            sessionId = AdcioCore.sessionId,
-            deviceId = AdcioCore.deviceId,
+            sessionId = deviceId ?: AdcioCore.sessionId,
+            deviceId = sessionId ?: AdcioCore.deviceId,
             customerId = customerId,
             placementPositionX = placementPositionX,
             placementPositionY = placementPositionY,
