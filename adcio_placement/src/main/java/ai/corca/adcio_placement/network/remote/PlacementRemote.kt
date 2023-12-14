@@ -51,12 +51,12 @@ internal class PlacementRemote {
 
     private fun checkError(response: Response<AdcioSuggestionRawData>): RuntimeException? = if (response.code() !in networkSuccessRange) {
 
-        val exception = RetrofitClient.exceptionHandling(response)
+        val errorResponse = RetrofitClient.exceptionHandling(response)
 
-        when (exception.statusCode) {
+        when (errorResponse.statusCode) {
             400 -> BadRequestException()
             404 -> {
-                if (exception.message == 12001) {
+                if (errorResponse.message == 12001) {
                     UnregisteredIdException()
                 } else {
                     DisabledPlacementException()
@@ -65,7 +65,7 @@ internal class PlacementRemote {
         }
 
         UnKnownException(
-            code = exception.statusCode.toString(),
+            code = errorResponse.statusCode.toString(),
             errorMessage = "Unknown error occurred"
         )
     } else null
