@@ -45,23 +45,17 @@ internal object RetrofitClient {
     }
 
     fun exceptionHandling(response: Response<AdcioSuggestionRawData>): ErrorResponse {
-        if (response.code() != 400) {
-            val errorResponse = response.errorBody()?.let {
-                retrofit.responseBodyConverter<ErrorResponse>(
-                    ErrorResponse::class.java,
-                    ErrorResponse::class.java.annotations
-                ).convert(it)
-            }?.message
-            return ErrorResponse(
-                statusCode = response.code(),
-                message = errorResponse ?: 0
-            )
-        } else {
-            return ErrorResponse(
-                statusCode = response.code(),
-                message = 0
-            )
-        }
+        val errorResponse = response.errorBody()?.let {
+            retrofit.responseBodyConverter<ErrorResponse>(
+                ErrorResponse::class.java,
+                ErrorResponse::class.java.annotations
+            ).convert(it)
+        }?.message
+
+        return ErrorResponse(
+            statusCode = response.code(),
+            message = errorResponse!!
+        )
     }
 
     private fun createRetrofit() {
