@@ -46,8 +46,11 @@ apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
 dependencies {
 
     implementation("androidx.core:core-ktx:1.9.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    androidTestImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
+    androidTestImplementation("io.mockk:mockk-android:1.13.8")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
