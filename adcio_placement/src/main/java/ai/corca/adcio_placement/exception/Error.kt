@@ -10,7 +10,7 @@ data class DisabledPlacementException(
     val errorMessage: String = "The placement is not active",
 ) : RuntimeException()
 
-data class BadRequestException (
+data class BadRequestException(
     val code: String = "BAD_REQUEST",
     val errorMessage: String = "placementId must be a UUID",
 ) : RuntimeException()
