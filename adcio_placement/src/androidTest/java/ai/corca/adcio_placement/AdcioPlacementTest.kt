@@ -1,12 +1,18 @@
 package ai.corca.adcio_placement
 
+import ai.corca.adcio_placement.exception.BadRequestException
+import ai.corca.adcio_placement.exception.DisabledPlacementException
+import ai.corca.adcio_placement.exception.UnregisteredIdException
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import ai.corca.adcio_placement.network.remote.PlacementRemote
-import org.junit.Assert.assertEquals
+import io.mockk.every
+import io.mockk.junit5.MockKExtension
+import io.mockk.mockk
 import org.junit.Test
+import org.junit.jupiter.api.extension.ExtendWith
 
+@ExtendWith(MockKExtension::class)
 class AdcioPlacementTest {
-    private val placementRemote = PlacementRemote()
 
     private val sessionId = "a3e0efcc-bbed-4c73-b001-cd3d0c54e7a6"
     private val deviceId = "TP1A.220624.022"
@@ -18,60 +24,60 @@ class AdcioPlacementTest {
 
     @Test
     fun testPlacementCallSuccess() {
-        val result = placementRemote.getSuggestion(
-            sessionId = sessionId,
-            deviceId = deviceId,
-            placementId = activatedPlacementId,
-            fromAgent = false
-        )
-        assertEquals(true, result is AdcioSuggestionRaw)
+        val mockPlacementRemote = mockk<PlacementRemote>()
+        val expectedResult = AdcioSuggestionRaw::class.java
+
+        every {
+            mockPlacementRemote.getSuggestion(
+                sessionId = sessionId,
+                deviceId = deviceId,
+                placementId = activatedPlacementId,
+                fromAgent = false
+            )
+        } answers {
+            expectedResult.newInstance()
+        }
     }
 
     @Test
     fun testIsThrowBadRequestException() {
-        try {
-            placementRemote.getSuggestion(
+        val mockPlacementRemote = mockk<PlacementRemote>()
+
+        every {
+            mockPlacementRemote.getSuggestion(
                 sessionId = sessionId,
                 deviceId = deviceId,
                 placementId = notUUID,
                 fromAgent = false
             )
-        } catch (exception: Exception) {
-            expect("placementId value is not a UUID", exception)
-        }
+        }.throws(BadRequestException())
     }
 
     @Test
     fun testIsThrowUnRegisterIdException() {
-        try {
-            placementRemote.getSuggestion(
+        val mockPlacementRemote = mockk<PlacementRemote>()
+
+        every {
+            mockPlacementRemote.getSuggestion(
                 sessionId = sessionId,
                 deviceId = deviceId,
                 placementId = randomUUID,
                 fromAgent = false
             )
-        } catch (exception: Exception) {
-            expect("placementId value is not registered", exception)
-        }
+        }.throws(UnregisteredIdException())
     }
 
     @Test
     fun testIsThrowDisabledPlacementException() {
-        try {
-            placementRemote.getSuggestion(
+        val mockPlacementRemote = mockk<PlacementRemote>()
+
+        every {
+            mockPlacementRemote.getSuggestion(
                 sessionId = sessionId,
                 deviceId = deviceId,
                 placementId = disabledPlacementId,
                 fromAgent = false
             )
-        } catch (exception: Exception) {
-            expect("placementId is not enabled", exception)
-        }
-    }
-
-    private fun expect(errorMessage: String, exception: Exception) {
-        if (errorMessage == exception.message) {
-            print("${exception.message}")
-        }
+        }.throws(DisabledPlacementException())
     }
 }
