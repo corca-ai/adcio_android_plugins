@@ -12,7 +12,7 @@ data class DisabledPlacementException(
 
 data class BadRequestException(
     val code: String = "BAD_REQUEST",
-    val errorMessage: String = "placementId must be a UUID",
+    val errorMessage: String = "request argument type is miss match",
 ) : RuntimeException()
 
 data class UnKnownException(
