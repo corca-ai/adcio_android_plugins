@@ -50,7 +50,7 @@ class AdcioPlacementTest {
                 deviceId = deviceId,
                 placementId = notUUID,
             )
-        } throws BadRequestException()
+        } throws BadRequestException(errorMessage = "")
     }
 
     @TestOnly
