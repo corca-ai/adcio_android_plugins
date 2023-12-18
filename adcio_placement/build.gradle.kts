@@ -7,7 +7,7 @@ plugins {
 rootProject.extra.apply {
     set("PUBLISH_GROUP_ID", "io.github.corca-ai")
     set("PUBLISH_ARTIFACT_ID", "adcio_placement")
-    set("PUBLISH_VERSION", "0.1.3")
+    set("PUBLISH_VERSION", "0.2.0")
     set("PUBLISH_SCM_URL", "https://github.com/corca-ai/adcio_android_plugins")
     set("PUBLISH_DESCRIPTION", "adcio_placement is adcio suggestion library")
 }
@@ -33,11 +33,27 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
+    }
+    packagingOptions.setExcludes(
+        setOf(
+            "META-INF/LICENSE.md",
+            "META-INF/DEPENDENCIES",
+            "META-INF/LICENSE",
+            "LICENSE.txt",
+            "META-INF/NOTICE",
+            "META-INF/MANIFEST.MF",
+            "META-INF/LICENSE-notice.md"
+        )
+    )
+    testOptions {
+        packagingOptions.jniLibs {
+            useLegacyPackaging = true
+        }
     }
 }
 
@@ -46,8 +62,11 @@ apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
 dependencies {
 
     implementation("androidx.core:core-ktx:1.9.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+
+    implementation("org.jetbrains.kotlin:kotlin-reflect")
+
+    androidTestImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
+    androidTestImplementation("io.mockk:mockk-android:1.13.8")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -55,5 +74,5 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
     implementation("io.github.corca-ai:adcio_core:0.1.3")
-    implementation("io.github.corca-ai:adcio_analytics:0.1.2")
+    implementation("io.github.corca-ai:adcio_analytics:0.1.3")
 }

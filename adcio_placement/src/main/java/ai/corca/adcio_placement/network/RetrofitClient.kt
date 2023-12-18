@@ -1,6 +1,5 @@
 package ai.corca.adcio_placement.network
 
-import ai.corca.adcio_placement.exception.UNKNOWN_EXCEPTION_MESSAGE
 import ai.corca.adcio_placement.network.data.AdcioSuggestionRawData
 import ai.corca.adcio_placement.network.data.ErrorResponse
 import ai.corca.adcio_placement.network.service.PlacementService
@@ -51,10 +50,11 @@ internal object RetrofitClient {
                 ErrorResponse::class.java,
                 ErrorResponse::class.java.annotations
             ).convert(it)
-        }?.message ?: listOf(UNKNOWN_EXCEPTION_MESSAGE)
+        }?.message
+
         return ErrorResponse(
             statusCode = response.code(),
-            message = errorResponse
+            message = errorResponse!!
         )
     }
 
