@@ -2,7 +2,7 @@ package ai.corca.adcio_placement.exception
 
 data class UnregisteredIdException(
     val code: String = "PLACEMENT_NOT_FOUND",
-    val errorMessage: String = "placementID is not registered",
+    val errorMessage: String = "PlacementID is not registered",
 ) : RuntimeException()
 
 data class DisabledPlacementException(
@@ -12,7 +12,7 @@ data class DisabledPlacementException(
 
 data class BadRequestException(
     val code: String = "BAD_REQUEST",
-    val errorMessage: String = "request argument type is miss match",
+    val errorMessage: String = "Request argument type is miss match",
 ) : RuntimeException()
 
 data class UnKnownException(
