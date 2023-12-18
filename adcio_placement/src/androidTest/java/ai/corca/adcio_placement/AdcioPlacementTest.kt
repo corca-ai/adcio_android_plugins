@@ -10,6 +10,7 @@ import io.mockk.every
 import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
 import org.jetbrains.annotations.TestOnly
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
@@ -27,20 +28,16 @@ class AdcioPlacementTest {
 
     @TestOnly
     fun testPlacementCallSuccess(
-        adcioPlacement: AdcioPlacement
+        adcioPlacement: AdcioPlacement,
+        expectedResult: AdcioSuggestionRaw
     ) {
-
-        val expectedResult = AdcioSuggestionRaw::class.java
-
         every {
             adcioPlacement.adcioCreateSuggestion(
-                sessionId = sessionId,
-                deviceId = deviceId,
+                sessionId = AdcioCore.sessionId,
+                deviceId = AdcioCore.deviceId,
                 placementId = activatedPlacementId,
             )
-        } answers {
-            expectedResult.newInstance()
-        }
+        } returns expectedResult
     }
 
     @TestOnly
@@ -84,22 +81,20 @@ class AdcioPlacementTest {
 
     @Test
     fun verifyPlacementCallSuccess() {
-        val mockAdcioPlacement = mockk<AdcioPlacement>()
-        val expectedResult = AdcioSuggestionRaw::class.java
-
-        testPlacementCallSuccess(mockAdcioPlacement)
+        val mockAdcioPlacement = mockk<AdcioPlacement>(relaxed = true)
+        val mockResult = mockk<AdcioSuggestionRaw>()
 
         AdcioCore.initializeApp("f8f2e298-c168-4412-b82d-98fc5b4a114a")
-        
-        every {
-            mockAdcioPlacement.adcioCreateSuggestion(
-                sessionId = AdcioCore.sessionId,
-                deviceId = AdcioCore.deviceId,
-                placementId = activatedPlacementId,
-            )
-        } answers {
-            expectedResult.newInstance()
-        }
+
+        testPlacementCallSuccess(mockAdcioPlacement, mockResult)
+
+        val result = mockAdcioPlacement.adcioCreateSuggestion(
+            sessionId = AdcioCore.sessionId,
+            deviceId = AdcioCore.deviceId,
+            placementId = activatedPlacementId,
+        )
+
+        assertEquals(mockResult, result)
     }
 
     @Test
