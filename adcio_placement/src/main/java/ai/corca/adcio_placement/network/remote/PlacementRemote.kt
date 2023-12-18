@@ -64,11 +64,12 @@ internal class PlacementRemote {
                     DisabledPlacementException()
                 }
             }
+            else -> {
+                UnKnownException(
+                    code = errorResponse.statusCode.toString(),
+                    errorMessage = "Unknown error occurred"
+                )
+            }
         }
-
-        UnKnownException(
-            code = errorResponse.statusCode.toString(),
-            errorMessage = "Unknown error occurred"
-        )
     } else null
 }
