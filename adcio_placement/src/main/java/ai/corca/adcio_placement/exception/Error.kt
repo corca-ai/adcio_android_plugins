@@ -12,7 +12,7 @@ data class DisabledPlacementException(
 
 data class BadRequestException(
     val code: String = "BAD_REQUEST",
-    val errorMessage: String = "Request argument type is miss match",
+    val errorMessage: String,
 ) : RuntimeException()
 
 data class UnKnownException(
