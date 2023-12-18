@@ -54,7 +54,9 @@ internal class PlacementRemote {
         val errorResponse = RetrofitClient.exceptionHandling(response)
 
         when (errorResponse.statusCode) {
-            400 -> BadRequestException()
+            400 -> BadRequestException(
+                errorMessage = errorResponse.message.toString()
+            )
             404 -> {
                 if (errorResponse.message == 12001) {
                     UnregisteredIdException()
