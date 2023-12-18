@@ -3,12 +3,15 @@ package ai.corca.adcio_placement
 import ai.corca.adcio_placement.exception.BadRequestException
 import ai.corca.adcio_placement.exception.DisabledPlacementException
 import ai.corca.adcio_placement.exception.UnregisteredIdException
+import ai.corca.adcio_placement.feature.AdcioPlacement
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
-import ai.corca.adcio_placement.network.remote.PlacementRemote
+import com.corcaai.adcio_core.feature.AdcioCore
 import io.mockk.every
 import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
+import org.jetbrains.annotations.TestOnly
 import org.junit.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(MockKExtension::class)
@@ -22,17 +25,77 @@ class AdcioPlacementTest {
     private val randomUUID = "34afc940-3801-45f6-b558-2365b26c8196"
     private val notUUID = "test-uuid"
 
-    @Test
-    fun testPlacementCallSuccess() {
-        val mockPlacementRemote = mockk<PlacementRemote>()
+    @TestOnly
+    fun testPlacementCallSuccess(
+        adcioPlacement: AdcioPlacement
+    ) {
+
         val expectedResult = AdcioSuggestionRaw::class.java
 
         every {
-            mockPlacementRemote.getSuggestion(
+            adcioPlacement.adcioCreateSuggestion(
                 sessionId = sessionId,
                 deviceId = deviceId,
                 placementId = activatedPlacementId,
-                fromAgent = false
+            )
+        } answers {
+            expectedResult.newInstance()
+        }
+    }
+
+    @TestOnly
+    fun testIsThrowBadRequestException(
+        adcioPlacement: AdcioPlacement
+    ) {
+        every {
+            adcioPlacement.adcioCreateSuggestion(
+                sessionId = sessionId,
+                deviceId = deviceId,
+                placementId = notUUID,
+            )
+        } throws BadRequestException()
+    }
+
+    @TestOnly
+    fun testIsThrowUnRegisterIdException(
+        adcioPlacement: AdcioPlacement
+    ) {
+        every {
+            adcioPlacement.adcioCreateSuggestion(
+                sessionId = sessionId,
+                deviceId = deviceId,
+                placementId = randomUUID,
+            )
+        } throws UnregisteredIdException()
+    }
+
+    @TestOnly
+    fun testIsThrowDisabledPlacementException(
+        adcioPlacement: AdcioPlacement
+    ) {
+        every {
+            adcioPlacement.adcioCreateSuggestion(
+                sessionId = sessionId,
+                deviceId = deviceId,
+                placementId = disabledPlacementId,
+            )
+        } throws DisabledPlacementException()
+    }
+
+    @Test
+    fun verifyPlacementCallSuccess() {
+        val mockAdcioPlacement = mockk<AdcioPlacement>()
+        val expectedResult = AdcioSuggestionRaw::class.java
+
+        testPlacementCallSuccess(mockAdcioPlacement)
+
+        AdcioCore.initializeApp("f8f2e298-c168-4412-b82d-98fc5b4a114a")
+        
+        every {
+            mockAdcioPlacement.adcioCreateSuggestion(
+                sessionId = AdcioCore.sessionId,
+                deviceId = AdcioCore.deviceId,
+                placementId = activatedPlacementId,
             )
         } answers {
             expectedResult.newInstance()
@@ -40,44 +103,47 @@ class AdcioPlacementTest {
     }
 
     @Test
-    fun testIsThrowBadRequestException() {
-        val mockPlacementRemote = mockk<PlacementRemote>()
+    fun verifyIsThrowBadRequestException() {
+        val mockAdcioPlacement = mockk<AdcioPlacement>()
 
-        every {
-            mockPlacementRemote.getSuggestion(
+        testIsThrowBadRequestException(mockAdcioPlacement)
+
+        assertThrows<BadRequestException> {
+            mockAdcioPlacement.adcioCreateSuggestion(
                 sessionId = sessionId,
                 deviceId = deviceId,
                 placementId = notUUID,
-                fromAgent = false
             )
-        }.throws(BadRequestException())
+        }
     }
 
     @Test
-    fun testIsThrowUnRegisterIdException() {
-        val mockPlacementRemote = mockk<PlacementRemote>()
+    fun verifyIsThrowUnRegisterIdException() {
+        val mockAdcioPlacement = mockk<AdcioPlacement>()
 
-        every {
-            mockPlacementRemote.getSuggestion(
+        testIsThrowUnRegisterIdException(mockAdcioPlacement)
+
+        assertThrows<UnregisteredIdException> {
+            mockAdcioPlacement.adcioCreateSuggestion(
                 sessionId = sessionId,
                 deviceId = deviceId,
                 placementId = randomUUID,
-                fromAgent = false
             )
-        }.throws(UnregisteredIdException())
+        }
     }
 
     @Test
-    fun testIsThrowDisabledPlacementException() {
-        val mockPlacementRemote = mockk<PlacementRemote>()
+    fun verifyIsThrowDisabledPlacementException() {
+        val mockAdcioPlacement = mockk<AdcioPlacement>()
 
-        every {
-            mockPlacementRemote.getSuggestion(
+        testIsThrowDisabledPlacementException(mockAdcioPlacement)
+
+        assertThrows<DisabledPlacementException> {
+            mockAdcioPlacement.adcioCreateSuggestion(
                 sessionId = sessionId,
                 deviceId = deviceId,
                 placementId = disabledPlacementId,
-                fromAgent = false
             )
-        }.throws(DisabledPlacementException())
+        }
     }
 }
