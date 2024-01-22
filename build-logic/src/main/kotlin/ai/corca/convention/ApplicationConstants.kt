@@ -7,6 +7,6 @@ internal object ApplicationConstants {
     const val targetSdk = 33
     const val compileSdk = 33
     const val versionCode = 32
-    const val versionName = "1.4.0"
+    const val versionName = "1.0"
     val javaVersion = JavaVersion.VERSION_17
 }
