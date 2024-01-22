@@ -1,6 +1,7 @@
 package ai.corca.convention
 
 import org.gradle.api.JavaVersion
+
 internal object ApplicationConstants {
     const val minSdk = 24
     const val targetSdk = 33
