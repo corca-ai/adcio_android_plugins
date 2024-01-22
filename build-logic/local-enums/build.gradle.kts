@@ -8,6 +8,19 @@ plugins {
 group = "ai.corca.local"
 version = "master"
 
+gradlePlugin {
+    plugins {
+        create("conventionEnumPlugin") {
+            id = "ai.corca.local.convention.enum"
+            implementationClass = "ConventionEnum"
+        }
+        create("pluginEnumPlugin") {
+            id = "ai.corca.local.plugin.enum"
+            implementationClass = "PluginEnum"
+        }
+    }
+}
+
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         jvmTarget = "17"
