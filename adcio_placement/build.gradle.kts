@@ -1,7 +1,5 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+    id(ConventionEnum.AndroidLibrary)
 }
 
 rootProject.extra.apply {
@@ -14,31 +12,7 @@ rootProject.extra.apply {
 
 android {
     namespace = "ai.corca.adcio_placement"
-    compileSdk = 33
 
-    defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
     packagingOptions.setExcludes(
         setOf(
             "META-INF/LICENSE.md",
@@ -50,14 +24,9 @@ android {
             "META-INF/LICENSE-notice.md"
         )
     )
-    testOptions {
-        packagingOptions.jniLibs {
-            useLegacyPackaging = true
-        }
-    }
 }
 
-apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
+apply(from = "$rootDir/scripts/publish-module.gradle")
 
 dependencies {
 
