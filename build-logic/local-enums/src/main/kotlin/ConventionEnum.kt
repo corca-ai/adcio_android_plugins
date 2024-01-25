@@ -5,7 +5,7 @@ class ConventionEnum: Plugin<Project> {
     override fun apply(target: Project) = Unit
 
     companion object {
-        private const val prefix = "corcaai"
+        private const val prefix = "ai.corca"
 
         const val AppVersionNameProvider = "$prefix.app.version.name.provider"
 
