@@ -1,22 +1,21 @@
 @file:Suppress("UnstableApiUsage")
 
-rootProject.name = "adcio_android_plugins"
-
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+rootProject.name = "adcio_android_plugins"
 
 pluginManagement {
     pluginManagement {
         repositories {
             google()
+            mavenLocal()
             mavenCentral()
             gradlePluginPortal()
         }
     }
 
     includeBuild("build-logic")
-    includeBuild("build-logic/local-enums")
 }
-
 
 include(
     ":app",
