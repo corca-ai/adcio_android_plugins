@@ -13,6 +13,7 @@ class ConventionEnum: Plugin<Project> {
         const val AndroidApplicationCompose = "$prefix.android.application.compose"
 
         const val AndroidLibrary = "$prefix.android.library"
+        const val AndroidLibraryViewBinding = "$prefix.android.library.viewbinding"
         const val AndroidLibraryCompose = "$prefix.android.library.compose"
         const val AndroidLibraryComposeUiTest = "$prefix.android.library.compose.uitest"
 
