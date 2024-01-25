@@ -22,3 +22,28 @@ dependencies {
     )
     compileOnly(libs.ksp.gradlePlugin)
 }
+
+gradlePlugin {
+    plugins {
+        register("androidApplicationPlugin") {
+            id = ConventionEnum.AndroidApplication
+            implementationClass = "AndroidApplicationPlugin"
+        }
+        register("androidLibraryPlugin") {
+            id = ConventionEnum.AndroidLibrary
+            implementationClass = "AndroidLibraryPlugin"
+        }
+        register("jvmJunit4Plugin") {
+            id = ConventionEnum.JvmJUnit4
+            implementationClass = "JvmJUnit4Plugin"
+        }
+        register("androidLibraryComposePlugin") {
+            id = ConventionEnum.AndroidLibraryCompose
+            implementationClass = "AndroidLibraryComposePlugin"
+        }
+        register("androidLibraryViewBindingPlugin") {
+            id = ConventionEnum.AndroidLibraryViewBinding
+            implementationClass = "AndroidLibraryViewBindingPlugin"
+        }
+    }
+}
