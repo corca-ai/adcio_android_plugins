@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import ai.corca.convention.ApplicationConstants
+import ai.corca.convention.configureViewBinding
 import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -16,6 +17,8 @@ internal class AndroidApplicationPlugin : Plugin<Project> {
 
             extensions.configure<BaseAppModuleExtension> {
                 configureApplication(this)
+                configureCompose(this)
+                configureViewBinding(this)
 
                 defaultConfig {
                     targetSdk = ApplicationConstants.targetSdk
