@@ -18,9 +18,5 @@ apply(from = "$rootDir/scripts/publish-module.gradle")
 
 dependencies {
 
-    androidTestImplementation("androidx.test:runner:1.5.2")
-    androidTestImplementation("androidx.test:core-ktx:1.5.0")
-    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.5")
-
-    implementation("androidx.test.ext:junit-ktx:1.1.5")
+    androidTestImplementation(libs.junit)
 }
