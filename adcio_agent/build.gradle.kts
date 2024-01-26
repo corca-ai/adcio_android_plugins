@@ -1,9 +1,5 @@
-@file:Suppress("DSL_SCOPE_VIOLATION", "UnstableApiUsage")
-
 plugins {
     id(ConventionEnum.AndroidLibrary)
-    id(ConventionEnum.JvmJUnit4)
-    id("maven-publish")
 }
 
 rootProject.extra.apply {
