@@ -58,8 +58,6 @@ code-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "plugin-code-d
 
 kotlin-ksp = { id = "com.google.devtools.ksp", version.ref = "plugin-kotlin-ksp" }
 
-kotlin-dokka = { id = "org.jetbrains.dokka", version.ref = "kotlin-dokka" }
-
 util-dependency-handler-extensions = { id = "land.sungbin.dependency.handler.extensions", version.ref = "plugin-util-dependency-handler-extensions" }
 
 local-convention-enum = { id = "ai.corca.local.convention.enum", version.ref = "plugin-local-master" }
@@ -84,8 +82,6 @@ build-dependency-handler-extensions = { module = "land.sungbin.dependency.handle
 
 junit = { module = "junit:junit", version.ref = "junit" }
 kotlin-core = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin-core" }
-kotlin-dokka-base = { module = "org.jetbrains.dokka:dokka-base", version.ref = "kotlin-dokka" }
-kotlin-dokka-plugin = { module = "org.jetbrains.dokka:dokka-gradle-plugin", version.ref = "kotlin-dokka" }
 
 publish-plugin = { module = "io.github.gradle-nexus:publish-plugin", version.ref = "publishPlugin" }
 test-ext-junit = { module = "androidx.test.ext:junit", version.ref = "test-extJunit" }

@@ -5,7 +5,6 @@
 plugins {
     alias(libs.plugins.code.ktlint)
     alias(libs.plugins.code.detekt)
-    alias(libs.plugins.kotlin.dokka)
     alias(libs.plugins.local.convention.enum)
     alias(libs.plugins.local.plugin.enum)
     alias(libs.plugins.util.dependency.handler.extensions)
@@ -22,7 +21,6 @@ buildscript {
 
     dependencies {
         classpath(libs.kotlin.core)
-        classpath(libs.kotlin.dokka.base)
         classpath(libs.build.gradle.agp)
     }
 }
