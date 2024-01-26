@@ -3,7 +3,6 @@
 plugins {
     id(ConventionEnum.AndroidLibrary)
     id(ConventionEnum.JvmJUnit4)
-    id(libs.plugins.code.ktlint.get().pluginId)
     id("maven-publish")
 }
 
