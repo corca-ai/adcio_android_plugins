@@ -1,3 +1,6 @@
+import DependencyHandler.Extensions.androidTestImplementations
+import DependencyHandler.Extensions.implementations
+
 plugins {
     id(ConventionEnum.AndroidLibrary)
 }
@@ -30,18 +33,18 @@ apply(from = "$rootDir/scripts/publish-module.gradle")
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    androidTestImplementations(
+        libs.junit,
+        libs.test.mock,
+        libs.test.espresso
+    )
 
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
+    implementations(
+        libs.retrofit,
+        libs.retrofit.json,
+        libs.okhttp,
 
-    androidTestImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
-    androidTestImplementation("io.mockk:mockk-android:1.13.8")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
-
-    implementation("io.github.corca-ai:adcio_core:0.1.3")
-    implementation("io.github.corca-ai:adcio_analytics:0.1.3")
+        libs.adcio.core,
+        libs.adcio.analytics
+    )
 }
