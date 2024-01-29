@@ -14,7 +14,6 @@ pluginManagement {
         }
     }
 
-    includeBuild("local-enums")
     includeBuild("build-logic")
 }
 
@@ -26,3 +25,6 @@ include(
     ":adcio_agent_compose",
     ":adcio_core"
 )
+
+include(":local-enums")
+project(":local-enums").projectDir = file("build-logic/local-enums")
