@@ -15,7 +15,7 @@ pluginManagement {
     }
 
     includeBuild("build-logic")
-    includeBuild("local-enums")
+    includeBuild("build-logic/local-enums")
 }
 
 include(
@@ -24,5 +24,5 @@ include(
     ":adcio_agent",
     ":adcio_analytics",
     ":adcio_agent_compose",
-    ":adcio_core",
+    ":adcio_core"
 )
