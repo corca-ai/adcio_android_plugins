@@ -34,7 +34,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven(url = uri("$rootDir/local-enums"))
     }
 }
 
