@@ -8,6 +8,8 @@ plugins {
     alias(libs.plugins.local.convention.enum)
 }
 
+group = "ai.corca.local"
+
 dependencies {
     implementations(
         libs.kotlin.core,
