@@ -12,10 +12,12 @@ gradlePlugin {
     plugins {
         create("conventionEnumPlugin") {
             id = "ai.corca.local.convention.enum"
+            version = "master"
             implementationClass = "ConventionEnum"
         }
         create("pluginEnumPlugin") {
             id = "ai.corca.local.plugin.enum"
+            version = "master"
             implementationClass = "PluginEnum"
         }
     }
