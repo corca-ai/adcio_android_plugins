@@ -37,7 +37,7 @@ allprojects {
     }
 }
 
-apply(from = "${rootDir}/scripts/publish-root.gradle")
+apply(from = "$rootDir/scripts/publish-root.gradle")
 
 subprojects {
     @Suppress("UnstableApiUsage")

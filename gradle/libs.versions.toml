@@ -46,7 +46,6 @@ adcio-analytics = "0.1.3"
 
 # Plugin
 kotlin-core = "1.8.10"
-kotlin-dokka = "1.9.10"
 
 plugin-util-dependency-handler-extensions = "1.0.3"
 plugin-local-master = "master"

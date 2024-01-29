@@ -24,5 +24,5 @@ include(
     ":adcio_agent",
     ":adcio_analytics",
     ":adcio_agent_compose",
-    ":adcio_core",
+    ":adcio_core"
 )
