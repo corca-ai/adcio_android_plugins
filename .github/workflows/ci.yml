@@ -5,35 +5,16 @@ on:
   pull_request:
     branches: [ main, develop ]
 jobs:
-  publish-local-enums:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK 17
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'zulu'
-          cache: 'gradle'
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Publish local-enums to MavenLocal
-        run: ./gradlew :local-enums:publishToMavenLocal
-      - name: Upload Maven local repository
-        uses: actions/upload-artifact@v2
-        with:
-          name: maven-repo
-          path: ~/.m2/repository
   build:
-    needs: publish-local-enums
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Download Maven local repository
-        uses: actions/download-artifact@v2
+      - name: Cache Maven dependencies
+        uses: actions/cache@v2
         with:
-          name: maven-repo
-          path: ~/.m2/repository
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
