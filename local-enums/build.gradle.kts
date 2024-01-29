@@ -5,8 +5,15 @@ plugins {
     `maven-publish`
 }
 
-group = "ai.corca.local"
-version = "master"
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            group = "ai.corca.local"
+            artifactId = "library"
+            version = "master"
+        }
+    }
+}
 
 gradlePlugin {
     plugins {

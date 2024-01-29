@@ -15,7 +15,7 @@ pluginManagement {
     }
 
     includeBuild("build-logic")
-    includeBuild("build-logic/local-enums")
+    includeBuild("local-enums")
 }
 
 include(
