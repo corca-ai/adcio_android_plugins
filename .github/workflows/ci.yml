@@ -23,3 +23,6 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
+
+      - name: Setup MavenLocal
+        run: ./gradlew :local-enums:publishToMavenLocal
