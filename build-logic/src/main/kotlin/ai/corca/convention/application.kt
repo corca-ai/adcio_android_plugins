@@ -20,5 +20,15 @@ internal fun Project.configureApplication(extension: CommonExtension<*, *, *, *>
             sourceCompatibility = ApplicationConstants.javaVersion
             targetCompatibility = ApplicationConstants.javaVersion
         }
+
+        buildTypes {
+            getByName("release") {
+                isMinifyEnabled = true
+                proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+                )
+            }
+        }
     }
 }
