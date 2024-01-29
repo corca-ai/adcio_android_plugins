@@ -15,17 +15,27 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
           cache: 'gradle'
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+            gradle-home-cache-cleanup: true
+            
       - name: Setup MavenLocal and build local-enums
         run: ./gradlew :local-enums:publishToMavenLocal
+
       - name: Upload local-enums artifact
         uses: actions/upload-artifact@v2
         with:
           name: local-enums
           path: path/to/local-enums/build/output
+
       - name: Build with Gradle
         run: ./gradlew build
+
       - name: Download local-enums artifact
         uses: actions/download-artifact@v2
         with:
