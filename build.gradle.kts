@@ -27,7 +27,6 @@ buildscript {
 
 allprojects {
     apply {
-        plugin(rootProject.libs.plugins.code.ktlint.get().pluginId)
         plugin(rootProject.libs.plugins.local.convention.enum.get().pluginId)
         plugin(rootProject.libs.plugins.util.dependency.handler.extensions.get().pluginId)
     }
@@ -54,15 +53,6 @@ subprojects {
         }.forEach { project ->
             evaluationDependsOn(project.path)
         }
-    }
-
-    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
-        version.set(rootProject.libs.versions.plugin.code.ktlint.core.get())
-        android.set(true)
-        outputToConsole.set(true)
-
-        @Suppress("DEPRECATION")
-        additionalEditorconfigFile.set(file("$rootDir/.editorconfig"))
     }
 }
 
