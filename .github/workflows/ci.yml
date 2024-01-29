@@ -18,7 +18,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Publish local-enums to MavenLocal
-        run: ./gradlew :local-enums:publishToMavenLocal
+        run: ./gradlew :build-logic:local-enums:publishToMavenLocal
       - name: Upload Maven local repository
         uses: actions/upload-artifact@v2
         with:
@@ -27,7 +27,7 @@ jobs:
   build:
     needs: publish-local-enums
     runs-on: ubuntu-latest
-    steps:
+    steps:./gradlew :build-logic:local-enums:publishToMavenLocal
       - uses: actions/checkout@v3
       - name: Download Maven local repository
         uses: actions/download-artifact@v2
