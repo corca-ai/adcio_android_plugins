@@ -6,7 +6,7 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  build:
+  publishToLocal:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,12 +17,24 @@ jobs:
           java-version: '17'
           distribution: 'zulu'
           cache: 'gradle'
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-
       - name: Setup MavenLocal
         run: ./gradlew :local-enums:publishToMavenLocal
 
+  build:
+    needs: publishToLocal
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'zulu'
+          cache: 'gradle'
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
       - name: Build with Gradle
         run: ./gradlew build
