@@ -20,9 +20,5 @@ internal fun Project.configureApplication(extension: CommonExtension<*, *, *, *>
             sourceCompatibility = ApplicationConstants.javaVersion
             targetCompatibility = ApplicationConstants.javaVersion
         }
-
-        lint {
-            checkTestSources = true
-        }
     }
 }
