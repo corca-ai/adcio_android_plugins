@@ -6,18 +6,18 @@ plugins {
 }
 
 group = "ai.corca.local"
-version = "master"
+version = "0.1.0"
 
 gradlePlugin {
     plugins {
         create("conventionEnumPlugin") {
             id = "ai.corca.local.convention.enum"
-            version = "master"
+            version = "0.1.0"
             implementationClass = "ConventionEnum"
         }
         create("pluginEnumPlugin") {
             id = "ai.corca.local.plugin.enum"
-            version = "master"
+            version = "0.1.0"
             implementationClass = "PluginEnum"
         }
     }
