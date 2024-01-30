@@ -19,11 +19,6 @@ jobs:
           cache: 'gradle'
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-      - name: Clear Gradle Cache
-        run: |
-          rm -rf $HOME/.gradle/caches/
-          rm -rf $HOME/.gradle/wrapper/
-          ./gradlew clean
       - name: Publish local-enums to MavenLocal
         run: ./gradlew :build-logic:local-enums:publishToMavenLocal --stacktrace --info
       - name: List published artifacts
