@@ -1,7 +1,6 @@
 name: ADCIO Android Plugins CI
 env:
-  GRADLE_OPTS: "-Xmx4g -XX:MaxPermSize=1g -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.daemon=false"
-  JAVA_OPTS: "-Xmx4g -XX:MaxPermSize=1g"
+  GRADLE_OPTS: "-Xmx4g -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.daemon=false"
 
 on:
   push:
