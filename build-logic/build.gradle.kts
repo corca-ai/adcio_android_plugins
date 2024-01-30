@@ -5,7 +5,7 @@ import DependencyHandler.Extensions.implementations
 plugins {
     `kotlin-dsl`
     alias(libs.plugins.util.dependency.handler.extensions)
-    alias(libs.plugins.local.convention.enum)
+    id("ai.corca.local.convention.enum") version "0.1.0"
 }
 
 group = "ai.corca.local"

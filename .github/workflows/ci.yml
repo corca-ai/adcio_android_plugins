@@ -22,7 +22,7 @@ jobs:
         run: ./gradlew --refresh-dependencies
       - name: Publish local-enums to MavenLocal
         run: |
-          ./gradlew :build-logic:local-enums:publishToMavenLocal --info --stacktrace
+          ./gradlew :build-logic:local-enums:publishToMavenLocal
       - name: List published artifacts
         run: |
             ls -l /home/runner/.m2/repository/ai/corca/local
