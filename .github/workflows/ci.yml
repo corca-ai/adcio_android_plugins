@@ -1,6 +1,8 @@
 name: ADCIO Android Plugins CI
 env:
-  GRADLE_OPTS: "-Dorg.gradle.jvmargs=-Xmx4g -Dorg.gradle.daemon=false"
+  GRADLE_OPTS: "-Xmx4g -XX:MaxPermSize=1g -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.daemon=false"
+  JAVA_OPTS: "-Xmx4g -XX:MaxPermSize=1g"
+
 on:
   push:
     branches: [ main, develop ]
@@ -9,7 +11,9 @@ on:
 
 jobs:
   publish-local-enums:
-    runs-on: ubuntu-latest
+    env:
+      GRADLE_OPTS: "-build.gradle.kts.parallel=false"
+      runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
