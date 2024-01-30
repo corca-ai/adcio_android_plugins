@@ -1,11 +1,12 @@
 @file:Suppress("DSL_SCOPE_VIOLATION")
 
 import DependencyHandler.Extensions.implementations
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `kotlin-dsl`
     alias(libs.plugins.util.dependency.handler.extensions)
-    id("ai.corca.local.convention.enum") version "0.1.0"
+    alias(libs.plugins.local.convention.enum)
 }
 
 group = "ai.corca.local"
@@ -43,4 +44,15 @@ gradlePlugin {
             implementationClass = "AndroidLibraryViewBindingPlugin"
         }
     }
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
+
+tasks.withType<JavaCompile> {
+    sourceCompatibility = JavaVersion.VERSION_17.toString()
+    targetCompatibility = JavaVersion.VERSION_17.toString()
 }
