@@ -5,8 +5,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     `kotlin-dsl`
+    id(libs.plugins.local.convention.enum.get().pluginId) version "0.1.0"
     alias(libs.plugins.util.dependency.handler.extensions)
-    alias(libs.plugins.local.convention.enum)
 }
 
 group = "ai.corca.local"
