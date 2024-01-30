@@ -5,20 +5,8 @@ plugins {
     `maven-publish`
 }
 
-publishing {
-    publications {
-        create<MavenPublication>("release") {
-            group = "ai.corca.local"
-            artifactId = "local-enums"
-            version = "0.1.0"
-        }
-    }
-    repositories {
-        maven {
-            url = uri("${project.rootDir}")
-        }
-    }
-}
+group = "ai.corca.local"
+version = "0.1.0"
 
 gradlePlugin {
     plugins {
