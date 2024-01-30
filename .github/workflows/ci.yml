@@ -1,9 +1,11 @@
 name: ADCIO Android Plugins CI
+
 on:
   push:
     branches: [ main, develop ]
   pull_request:
     branches: [ main, develop ]
+
 jobs:
   publish-local-enums:
     runs-on: ubuntu-latest
@@ -19,17 +21,19 @@ jobs:
         run: chmod +x gradlew
       - name: Clear Gradle Cache
         run: |
-         rm -rf $HOME/.gradle/caches/
-         rm -rf $HOME/.gradle/wrapper/
-         ./gradlew clean
+          rm -rf $HOME/.gradle/caches/
+          rm -rf $HOME/.gradle/wrapper/
+          ./gradlew clean
       - name: Publish local-enums to MavenLocal
-        run: ./gradlew :build-logic:local-enums:publishToMavenLocal
+        run: ./gradlew :build-logic:local-enums:publishToMavenLocal --stacktrace --info
+      - name: List published artifacts
+        run: ls -l ~/.m2/repository/ai/corca/local/local-enums
       - name: Upload Maven local repository
         uses: actions/upload-artifact@v2
         with:
           name: maven-repo
           path: ~/.m2/repository
-          
+
   build:
     needs: publish-local-enums
     runs-on: ubuntu-latest
