@@ -18,6 +18,12 @@ pluginManagement {
     includeBuild("build-logic/local-enums")
 }
 
+buildCache {
+    local {
+        removeUnusedEntriesAfterDays = 7
+    }
+}
+
 include(
     ":app",
     ":adcio_placement",
