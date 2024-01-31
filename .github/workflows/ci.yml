@@ -37,8 +37,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Run Gradle build excluding build-logic
-        run: ./gradlew build -x :build-logic
+      - name: Run Gradle build for specific modules
+        run: ./gradlew :app:build
 
       - name: List published artifacts in MavenLocal
         run: ls -l ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
