@@ -19,45 +19,50 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-
       - name: Clear Gradle Cache
         run: ./gradlew build --refresh-dependencies --no-daemon
-
       - name: Publish local-enums to MavenLocal
-        run: ./gradlew :build-logic:local-enums:publishToMavenLocal --info
-
+        run: |
+          ./gradlew :build-logic:local-enums:publishToMavenLocal --info
+          echo "Published local-enums to MavenLocal"
       - name: List published artifacts
-        run: ls -l ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
-
+        run: |
+          echo "Listing published artifacts..."
+          ls -l ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
       - name: Upload Maven local repository (specific module)
         uses: actions/upload-artifact@v2
         with:
           name: maven-repo-local-enums
           path: ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
 
-  build:
+  verify-local-enums:
     needs: publish-local-enums
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - name: Download Maven local repository (specific module)
         uses: actions/download-artifact@v2
         with:
           name: maven-repo-local-enums
           path: ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
+      - name: Verify published artifacts
+        run: |
+          echo "Verifying published artifacts in MavenLocal..."
+          ls -l ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
 
+  build:
+    needs: verify-local-enums
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'zulu'
           cache: 'gradle'
-
       - name: Set Maven local repo path for Gradle
         run: echo "MAVEN_LOCAL_REPO_PATH=${{ env.MAVEN_LOCAL_REPO_PATH }}" >> $GITHUB_ENV
-
       - name: Build with Gradle
         run: ./gradlew build -Dmaven.repo.local=${{ env.MAVEN_LOCAL_REPO_PATH }} --info
