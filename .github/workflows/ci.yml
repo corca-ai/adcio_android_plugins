@@ -37,11 +37,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-
 
-      - name: Run Gradle build
-        run: ./gradlew build --no-daemon --info
-
       - name: Publish local-enums to MavenLocal
-        run: ./gradlew :build-logic:local-enums:publishToMavenLocal --info
+        run: ./gradlew :build-logic:local-enums:publishToMavenLocal
+
+      - name: Run Gradle build
+        run: ./gradlew build
 
       - name: List published artifacts in MavenLocal
         run: ls -l ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
