@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "ai.corca.local"
-version = "0.1.2"
+version = "0.1.0"
 
 gradlePlugin {
     plugins {
