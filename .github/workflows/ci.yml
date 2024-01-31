@@ -21,10 +21,16 @@ jobs:
           distribution: 'zulu'
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+
+      - name: Clear Gradle Cache
+        run: ./gradlew build --refresh-dependencies
+
       - name: Publish local-enums to MavenLocal
-        run: ./gradlew :build-logic:local-enums:publishToMavenLocal --debug
+        run: ./gradlew :build-logic:local-enums:publishToMavenLocal --info
+
       - name: List published artifacts
         run: ls -l ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
+
       - name: Upload Maven local repository (specific module)
         uses: actions/upload-artifact@v2
         with:
