@@ -22,7 +22,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Publish local-enums to MavenLocal
-        run: ./gradlew :build-logic:local-enums:publishToMavenLocal
+        run: ./gradlew :build-logic:local-enums:publishToMavenLocal --debug
       - name: List published artifacts
         run: ls -l ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
       - name: Upload Maven local repository (specific module)
