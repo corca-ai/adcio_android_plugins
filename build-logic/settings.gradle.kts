@@ -2,18 +2,19 @@
 
 rootProject.name = "build-logic"
 
-pluginManagement {
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-
 dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        gradlePluginPortal()
+        mavenLocal()
+    }
+
+    pluginManagement {
+        repositories {
+            mavenLocal()
+            mavenCentral()
+            gradlePluginPortal()
+        }
     }
 
     versionCatalogs {

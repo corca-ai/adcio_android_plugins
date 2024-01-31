@@ -23,29 +23,27 @@ jobs:
         run: chmod +x gradlew
 
       - name: Publish local-enums to MavenLocal
-        run: |
-          ./gradlew :build-logic:local-enums:publishToMavenLocal
+        run: ./gradlew :build-logic:local-enums:publishToMavenLocal
 
       - name: List published artifacts
-        run: |
-            ls -l /home/runner/.m2/repository/ai/corca/local
+        run: ls -l /home/runner/.m2/repository/ai/corca/local
 
-      - name: Upload Maven local repository
+      - name: Upload Maven local repository (specific module)
         uses: actions/upload-artifact@v2
         with:
-          name: maven-repo
-          path: /home/runner/.m2/repository
+          name: maven-repo-local-enums
+          path: /home/runner/.m2/repository/ai/corca/local
 
   build:
     needs: publish-local-enums
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Download Maven local repository
+      - name: Download Maven local repository (specific module)
         uses: actions/download-artifact@v2
         with:
-          name: maven-repo
-          path: ~/.m2/repository
+          name: maven-repo-local-enums
+          path: /home/runner/.m2/repository/ai/corca/local
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -54,3 +52,4 @@ jobs:
           cache: 'gradle'
       - name: Build with Gradle
         run: ./gradlew build
+
