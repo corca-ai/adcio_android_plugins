@@ -17,6 +17,8 @@ dependencies {
 
     implementation(libs.glide)
 
+
+    implementation(files("../build-logic/local-enums/build/libs/local-enums.jar"))
     implementation(project(path = ":adcio_core"))
     implementation(project(path = ":adcio_analytics"))
     implementation(project(path = ":adcio_placement"))

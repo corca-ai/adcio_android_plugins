@@ -39,12 +39,3 @@ jobs:
 
       - name: Run Gradle build for specific modules
         run: ./gradlew :app:build
-
-      - name: List published artifacts in MavenLocal
-        run: ls -l ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
-
-      - name: Archive Maven local repository (specific module)
-        uses: actions/upload-artifact@v2
-        with:
-          name: maven-repo-local-enums
-          path: ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
