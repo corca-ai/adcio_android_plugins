@@ -19,11 +19,12 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
+
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
       - name: Clear Gradle Cache
-        run: ./gradlew build --refresh-dependencies
+        run: ./gradlew build --refresh-dependencies --no-daemon
 
       - name: Publish local-enums to MavenLocal
         run: ./gradlew :build-logic:local-enums:publishToMavenLocal --info
@@ -47,13 +48,16 @@ jobs:
         with:
           name: maven-repo-local-enums
           path: ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
+
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'zulu'
           cache: 'gradle'
+
       - name: Set Maven local repo path for Gradle
         run: echo "MAVEN_LOCAL_REPO_PATH=${{ env.MAVEN_LOCAL_REPO_PATH }}" >> $GITHUB_ENV
+
       - name: Build with Gradle
-        run: ./gradlew build -Dmaven.repo.local=${{ env.MAVEN_LOCAL_REPO_PATH }}
+        run: ./gradlew build -Dmaven.repo.local=${{ env.MAVEN_LOCAL_REPO_PATH }} --info
