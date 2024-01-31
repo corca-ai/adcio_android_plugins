@@ -1,6 +1,7 @@
 name: ADCIO Android Plugins CI
 env:
   GRADLE_OPTS: "-Xmx4g -XX:+HeapDumpOnOutOfMemoryError -Dorg.gradle.daemon=false"
+  MAVEN_LOCAL_REPO_PATH: /home/runner/.m2/repository
 
 on:
   push:
@@ -18,21 +19,17 @@ jobs:
         with:
           java-version: '17'
           distribution: 'zulu'
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
-
       - name: Publish local-enums to MavenLocal
         run: ./gradlew :build-logic:local-enums:publishToMavenLocal
-
       - name: List published artifacts
-        run: ls -l /home/runner/.m2/repository/ai/corca/local
-
+        run: ls -l ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
       - name: Upload Maven local repository (specific module)
         uses: actions/upload-artifact@v2
         with:
           name: maven-repo-local-enums
-          path: /home/runner/.m2/repository/ai/corca/local
+          path: ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
 
   build:
     needs: publish-local-enums
@@ -43,13 +40,14 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: maven-repo-local-enums
-          path: /home/runner/.m2/repository/ai/corca/local
+          path: ${{ env.MAVEN_LOCAL_REPO_PATH }}/ai/corca/local
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'zulu'
           cache: 'gradle'
+      - name: Set Maven local repo path for Gradle
+        run: echo "MAVEN_LOCAL_REPO_PATH=${{ env.MAVEN_LOCAL_REPO_PATH }}" >> $GITHUB_ENV
       - name: Build with Gradle
-        run: ./gradlew build
-
+        run: ./gradlew build -Dmaven.repo.local=${{ env.MAVEN_LOCAL_REPO_PATH }}

@@ -4,9 +4,9 @@ rootProject.name = "build-logic"
 
 dependencyResolutionManagement {
     repositories {
-        google()
-        mavenCentral()
         mavenLocal()
+        mavenCentral()
+        google()
     }
 
     pluginManagement {
