@@ -1,22 +1,34 @@
+@file:Suppress("UnstableApiUsage")
+
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+rootProject.name = "adcio_android_plugins"
+
 pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
+    pluginManagement {
+        repositories {
+            google()
+            mavenLocal()
+            mavenCentral()
+            gradlePluginPortal()
+        }
     }
+
+    includeBuild("build-logic")
+    includeBuild("build-logic/local-enums")
 }
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
+
+buildCache {
+    local {
+        removeUnusedEntriesAfterDays = 7
     }
 }
 
-rootProject.name = "adcio_android_plugins"
-include(":app")
-include(":adcio_placement")
-include(":adcio_agent")
-include(":adcio_analytics")
-include(":adcio_agent_compose")
-include(":adcio_core")
+include(
+    ":app",
+    ":adcio_placement",
+    ":adcio_agent",
+    ":adcio_analytics",
+    ":adcio_agent_compose",
+    ":adcio_core"
+)
