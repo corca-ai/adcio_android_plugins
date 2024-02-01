@@ -36,7 +36,8 @@ dependencies {
     androidTestImplementations(
         libs.junit,
         libs.test.mock,
-        libs.test.espresso
+        libs.test.espresso,
+        libs.test.jupiter
     )
 
     implementations(
