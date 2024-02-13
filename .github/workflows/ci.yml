@@ -1,8 +1,4 @@
 name: ADCIO Android Plugins CI
-env:
-  GRADLE_OPTS: "-Xmx4g -XX:+HeapDumpOnOutOfMemoryError"
-  MAVEN_LOCAL_REPO_PATH: /home/runner/.m2/repository
-
 on:
   push:
     branches: [ main, develop ]
@@ -10,29 +6,23 @@ on:
     branches: [ main, develop ]
 
 jobs:
-  setup-and-build:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
-
-      - name: Set up JDK 17
+      - name: set up JDK 17
         uses: actions/setup-java@v3
         with:
           java-version: '17'
           distribution: 'zulu'
-
-      - name: Display settings.gradle.kts content
-        run: cat settings.gradle.kts || echo "settings.gradle.kts does not exist."
+          cache: 'gradle'
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Cache Gradle Wrapper and dependencies
-        uses: actions/cache@v2
-        with:
-          path: |
-            ~/.gradle/wrapper
-            ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+      - name: Build with Gradle
+        run: ./gradlew build
+
+      - name: Run ktlint
+        run: ./gradlew ktlintCheck
