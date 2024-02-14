@@ -3,7 +3,6 @@ package ai.corca.adcio_agent.provider
 import ai.corca.adcio_agent.agent.AgentClient
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
-import com.corcaai.adcio_core.feature.AdcioCore
 import kotlin.properties.Delegates
 
 interface AdcioAgentListener {
@@ -20,8 +19,7 @@ class AdcioAgent(
     val context: Context?,
 
     // Your Adcio Client ID
-    // If not entered, the client entered at init will be set as the default value.
-    val clientId: String? = null,
+    val clientId: String,
 
     // A URL configuration parameter for library developers.
     // It has nothing to do with the clients, so please don't reveal it.
@@ -38,7 +36,7 @@ class AdcioAgent(
      */
     fun callAdcioAgent() {
         val startPage = "start/"
-        val agentUrl = "$baseUrl/${clientId ?: AdcioCore.clientId}/$startPage?platform=android&show_appbar=$showAppBar"
+        val agentUrl = "$baseUrl/$clientId/$startPage?platform=android&show_appbar=$showAppBar"
         val fragmentManager = (context as AppCompatActivity).supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
 
