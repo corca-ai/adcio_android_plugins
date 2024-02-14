@@ -60,7 +60,4 @@ dependencies {
     implementation("androidx.compose.ui:ui-tooling-preview:1.5.0")
     implementation("androidx.compose.ui:ui:1.5.0")
     implementation("androidx.activity:activity-compose:1.7.2")
-    implementation("androidx.navigation:navigation-compose:2.7.1")
-
-    implementation("io.github.corca-ai:adcio_core:0.1.3")
 }
