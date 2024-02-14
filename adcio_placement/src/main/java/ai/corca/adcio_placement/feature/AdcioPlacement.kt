@@ -4,7 +4,8 @@ import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
 import ai.corca.adcio_placement.network.remote.PlacementRemote
 import ai.corca.adcio_placement.utils.convertGender
-import com.corcaai.adcio_core.feature.AdcioCore
+import com.corcaai.core.ids.SessionClient
+import com.corcaai.core.ids.loadDeviceId
 
 object AdcioPlacement {
 
@@ -29,8 +30,8 @@ object AdcioPlacement {
 
         return placementRemote.getSuggestion(
             placementId = placementId,
-            sessionId = deviceId ?: AdcioCore.sessionId,
-            deviceId = sessionId ?: AdcioCore.deviceId,
+            sessionId = deviceId ?: SessionClient.loadSessionId(),
+            deviceId = sessionId ?: loadDeviceId(),
             customerId = customerId,
             placementPositionX = placementPositionX,
             placementPositionY = placementPositionY,
