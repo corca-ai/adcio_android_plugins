@@ -1,12 +1,13 @@
 package ai.corca.adcio_analytics.model
 
-import com.corcaai.adcio_core.feature.AdcioCore
+import com.corcaai.core.ids.SessionClient
+import com.corcaai.core.ids.loadDeviceId
 
 data class AnalyticsPageViewOption(
-    val sessionId: String = AdcioCore.sessionId,
-    val deviceId: String = AdcioCore.deviceId,
+    val sessionId: String = SessionClient.loadSessionId(),
+    val deviceId: String = loadDeviceId(),
     val customerId: String? = null,
-    val storeId: String = AdcioCore.storeId,
+    val storeId: String? = null,
     val productCode: String? = null,
     val path: String,
     val title: String? = null,

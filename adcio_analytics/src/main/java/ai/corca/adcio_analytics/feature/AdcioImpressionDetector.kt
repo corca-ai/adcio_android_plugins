@@ -31,7 +31,7 @@ class AdcioImpressionDetector @JvmOverloads constructor(
         if (isMoreThanHalfVisible()) {
             if (!isImpression && useImpression) {
                 isImpression = true
-                if (AdcioAnalytics.hasImpression(option.adsetId).not()) {
+                if (AdcioAnalytics(clientId = "").hasImpression(option.adsetId).not()) {
                     onImpression()
                 }
             }
@@ -61,7 +61,7 @@ class AdcioImpressionDetector @JvmOverloads constructor(
 
     private fun onImpression() {
         thread(start = true) {
-            AdcioAnalytics.onImpression(
+            AdcioAnalytics(clientId = "").onImpression(
                 option = option,
             )
         }
