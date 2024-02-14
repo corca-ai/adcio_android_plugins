@@ -1,3 +1,6 @@
+## 1.0.0
+* Update: Removed dependency on adcio core module, change ID to be managed by plugin itself
+
 ## 0.1.2
 
 * Update according to [adcio_core](https://central.sonatype.com/artifact/io.github.corca-ai/adcio_core) version up

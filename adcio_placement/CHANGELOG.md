@@ -1,3 +1,6 @@
+## 1.0.0
+* Update: Removed dependency on adcio core module, change ID to be managed by plugin itself
+
 ## 0.1.3
 
 * Feature: update suggest API call
