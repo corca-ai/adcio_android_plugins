@@ -7,7 +7,6 @@ import ai.corca.adcio_android_plugins.analytics.utils.getMockProducts
 import ai.corca.adcio_android_plugins.databinding.ActivityAnalyticsBinding
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.corcaai.adcio_core.feature.AdcioCore
 
 class AnalyticsActivity : AppCompatActivity() {
 
@@ -23,7 +22,7 @@ class AnalyticsActivity : AppCompatActivity() {
         override fun run() {
             // Please call this function if the user purchases a specific product.
             // Please also enter the number of products, amount.
-            AdcioAnalytics.onPurchase(
+            AdcioAnalytics("67592c00-a230-4c31-902e-82ae4fe71866").onPurchase(
                 orderId = orderId,
                 productIdOnStore = productIdOnStore,
                 amount = amount,
@@ -37,7 +36,7 @@ class AnalyticsActivity : AppCompatActivity() {
     ) : Thread() {
         override fun run() {
             // If the user clicks on a particular product, call this function.
-            AdcioAnalytics.onClick(
+            AdcioAnalytics("67592c00-a230-4c31-902e-82ae4fe71866").onClick(
                 option = logOption,
             )
         }
@@ -50,7 +49,7 @@ class AnalyticsActivity : AppCompatActivity() {
     ) : Thread() {
         override fun run() {
             // This function is called when a new page is created!
-            AdcioAnalytics.onAddToCart(
+            AdcioAnalytics("67592c00-a230-4c31-902e-82ae4fe71866").onAddToCart(
                 cartId = cartId,
                 productIdOnStore = productIdOnStore,
             )
@@ -64,7 +63,7 @@ class AnalyticsActivity : AppCompatActivity() {
     ) : Thread() {
         override fun run() {
             // This function is called when a new page is created!
-            AdcioAnalytics.onPageView(
+            AdcioAnalytics("67592c00-a230-4c31-902e-82ae4fe71866").onPageView(
                 path = path,
                 baseUrl = baseUrl,
             )
@@ -75,9 +74,6 @@ class AnalyticsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAnalyticsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // initialize the core
-        AdcioCore.initializeApp("67592c00-a230-4c31-902e-82ae4fe71866")
 
         // set AdcioDetectorAnalytics
         // If you don't add an option, an error will occur.

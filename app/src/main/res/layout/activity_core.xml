@@ -7,28 +7,16 @@
     tools:context=".core.CoreActivity">
 
     <TextView
-        android:id="@+id/tv_client_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="show Client ID"
-        android:textColor="@color/material_dynamic_primary60"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tv_device_id"/>
-
-    <TextView
         android:id="@+id/tv_device_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="show Device ID"
         android:textColor="@color/material_dynamic_primary60"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tv_session_id"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_client_id"
-        app:layout_constraintBottom_toTopOf="@id/tv_session_id"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/tv_session_id"
