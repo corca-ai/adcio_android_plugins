@@ -15,7 +15,6 @@ import android.os.Looper
 import android.os.Message
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import com.corcaai.adcio_core.feature.AdcioCore
 import java.time.LocalDate
 import java.util.Calendar
 import java.util.UUID
@@ -55,9 +54,6 @@ class PlacementActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPlacementBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // initialize the core
-        AdcioCore.initializeApp("67592c00-a230-4c31-902e-82ae4fe71866")
 
         val sampleBirthDate = Calendar.getInstance()
         sampleBirthDate.set(Calendar.YEAR, 2000)

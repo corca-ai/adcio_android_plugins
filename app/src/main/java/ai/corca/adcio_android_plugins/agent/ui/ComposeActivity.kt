@@ -32,7 +32,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.corcaai.adcio_core.feature.AdcioCore
 
 class ComposeActivity : AppCompatActivity() {
 
@@ -71,6 +70,7 @@ class ComposeActivity : AppCompatActivity() {
             // and set visibility of appbar in agent web page, too.
             AdcioAgent(
                 modifier = Modifier.fillMaxSize(),
+                clientId = "67592c00-a230-4c31-902e-82ae4fe71866",
                 showAppBar = false
             )
         }
@@ -78,9 +78,6 @@ class ComposeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // initialize the core
-        AdcioCore.initializeApp("67592c00-a230-4c31-902e-82ae4fe71866")
 
         setContent {
             agentScreen()

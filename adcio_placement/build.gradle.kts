@@ -7,7 +7,7 @@ plugins {
 rootProject.extra.apply {
     set("PUBLISH_GROUP_ID", "io.github.corca-ai")
     set("PUBLISH_ARTIFACT_ID", "adcio_placement")
-    set("PUBLISH_VERSION", "0.2.0")
+    set("PUBLISH_VERSION", "1.0.0")
     set("PUBLISH_SCM_URL", "https://github.com/corca-ai/adcio_android_plugins")
     set("PUBLISH_DESCRIPTION", "adcio_placement is adcio suggestion library")
 }
@@ -73,6 +73,6 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
-    implementation("io.github.corca-ai:adcio_core:0.1.3")
+    implementation("io.github.corca-ai:core:1.0.2")
     implementation("io.github.corca-ai:adcio_analytics:0.1.3")
 }

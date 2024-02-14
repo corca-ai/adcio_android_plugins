@@ -5,7 +5,6 @@ import ai.corca.adcio_placement.exception.DisabledPlacementException
 import ai.corca.adcio_placement.exception.UnregisteredIdException
 import ai.corca.adcio_placement.feature.AdcioPlacement
 import ai.corca.adcio_placement.model.AdcioSuggestionRaw
-import com.corcaai.adcio_core.feature.AdcioCore
 import io.mockk.every
 import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
@@ -33,8 +32,6 @@ class AdcioPlacementTest {
     ) {
         every {
             adcioPlacement.adcioCreateSuggestion(
-                sessionId = AdcioCore.sessionId,
-                deviceId = AdcioCore.deviceId,
                 placementId = activatedPlacementId,
             )
         } returns expectedResult
@@ -84,13 +81,9 @@ class AdcioPlacementTest {
         val mockAdcioPlacement = mockk<AdcioPlacement>(relaxed = true)
         val mockResult = mockk<AdcioSuggestionRaw>()
 
-        AdcioCore.initializeApp("f8f2e298-c168-4412-b82d-98fc5b4a114a")
-
         testPlacementCallSuccess(mockAdcioPlacement, mockResult)
 
         val result = mockAdcioPlacement.adcioCreateSuggestion(
-            sessionId = AdcioCore.sessionId,
-            deviceId = AdcioCore.deviceId,
             placementId = activatedPlacementId,
         )
 
