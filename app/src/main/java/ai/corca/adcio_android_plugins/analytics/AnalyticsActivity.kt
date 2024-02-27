@@ -12,7 +12,8 @@ class AnalyticsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAnalyticsBinding
     private lateinit var adapter: MockProductListAdapter
-
+    val adcioAnalytics = AdcioAnalytics("67592c00-a230-4c31-902e-82ae4fe71866")
+    
     // Background Thread for Purchase Analytics.
     inner class OnPurchaseThread(
         private val orderId: String,
@@ -22,7 +23,7 @@ class AnalyticsActivity : AppCompatActivity() {
         override fun run() {
             // Please call this function if the user purchases a specific product.
             // Please also enter the number of products, amount.
-            AdcioAnalytics("67592c00-a230-4c31-902e-82ae4fe71866").onPurchase(
+            adcioAnalytics.onPurchase(
                 orderId = orderId,
                 productIdOnStore = productIdOnStore,
                 amount = amount,
@@ -36,7 +37,7 @@ class AnalyticsActivity : AppCompatActivity() {
     ) : Thread() {
         override fun run() {
             // If the user clicks on a particular product, call this function.
-            AdcioAnalytics("67592c00-a230-4c31-902e-82ae4fe71866").onClick(
+            adcioAnalytics.onClick(
                 option = logOption,
             )
         }
@@ -49,7 +50,7 @@ class AnalyticsActivity : AppCompatActivity() {
     ) : Thread() {
         override fun run() {
             // This function is called when a new page is created!
-            AdcioAnalytics("67592c00-a230-4c31-902e-82ae4fe71866").onAddToCart(
+            adcioAnalytics.onAddToCart(
                 cartId = cartId,
                 productIdOnStore = productIdOnStore,
             )
@@ -63,7 +64,7 @@ class AnalyticsActivity : AppCompatActivity() {
     ) : Thread() {
         override fun run() {
             // This function is called when a new page is created!
-            AdcioAnalytics("67592c00-a230-4c31-902e-82ae4fe71866").onPageView(
+            adcioAnalytics.onPageView(
                 path = path,
                 baseUrl = baseUrl,
             )
