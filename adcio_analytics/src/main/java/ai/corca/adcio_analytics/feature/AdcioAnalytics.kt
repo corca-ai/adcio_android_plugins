@@ -10,8 +10,11 @@ class AdcioAnalytics(
 ) {
 
     private val storeID: String by lazy {
-        clientId.ifEmpty { storeID }
+        clientId.ifEmpty {
+            throw IllegalArgumentException("clientId cannot be empty")
+        }
     }
+
 
     private val analyticsRemote: AnalyticsRemote = AnalyticsRemote()
 

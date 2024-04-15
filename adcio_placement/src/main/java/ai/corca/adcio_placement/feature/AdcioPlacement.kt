@@ -26,7 +26,8 @@ object AdcioPlacement {
         sessionId: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionRaw {
-        AdcioAnalytics.clearImpressionHistory()
+        val adcioAnalytics = AdcioAnalytics("CLIENT_ ID")
+        adcioAnalytics.clearImpressionHistory()
 
         return placementRemote.getSuggestion(
             placementId = placementId,

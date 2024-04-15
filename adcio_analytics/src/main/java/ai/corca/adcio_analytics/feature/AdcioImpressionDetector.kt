@@ -61,7 +61,7 @@ class AdcioImpressionDetector @JvmOverloads constructor(
 
     private fun onImpression() {
         thread(start = true) {
-            AdcioAnalytics(clientId = "").onImpression(
+            AdcioAnalytics(clientId = "CLIENT-ID").onImpression(
                 option = option,
             )
         }
