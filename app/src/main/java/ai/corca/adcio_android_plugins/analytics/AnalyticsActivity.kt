@@ -12,6 +12,7 @@ class AnalyticsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAnalyticsBinding
     private lateinit var adapter: MockProductListAdapter
+
     val adcioAnalytics = AdcioAnalytics("67592c00-a230-4c31-902e-82ae4fe71866")
     
     // Background Thread for Purchase Analytics.

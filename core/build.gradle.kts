@@ -10,7 +10,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 21
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -30,7 +30,7 @@ android {
 rootProject.extra.apply {
     set("PUBLISH_GROUP_ID", "io.github.corca-ai")
     set("PUBLISH_ARTIFACT_ID", "core")
-    set("PUBLISH_VERSION", "1.0.2")
+    set("PUBLISH_VERSION", "1.0.3")
     set("PUBLISH_SCM_URL", "https://github.com/corca-ai/adcio_android_plugins")
     set("PUBLISH_DESCRIPTION", "core is service library")
 }

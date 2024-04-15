@@ -7,7 +7,7 @@ plugins {
 rootProject.extra.apply {
     set("PUBLISH_GROUP_ID", "io.github.corca-ai")
     set("PUBLISH_ARTIFACT_ID", "adcio_analytics")
-    set("PUBLISH_VERSION", "1.0.0")
+    set("PUBLISH_VERSION", "1.1.1")
     set("PUBLISH_SCM_URL", "https://github.com/corca-ai/adcio_android_plugins")
     set("PUBLISH_DESCRIPTION", "adcio_analytics is log event collection")
 }
@@ -17,7 +17,7 @@ android {
     compileSdk = 33
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 21
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -54,5 +54,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
-    implementation("io.github.corca-ai:core:1.0.2")
+    implementation("io.github.corca-ai:core:1.0.3")
 }

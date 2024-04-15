@@ -7,7 +7,7 @@ data class Product(
     val sellerId: String,
     val name: String,
     val price: Int,
-    val description: String,
+    val description: String?,
     val image: String,
     val includeInRecommendation: Boolean,
     val url: String?,

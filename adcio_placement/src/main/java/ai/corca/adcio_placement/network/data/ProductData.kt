@@ -9,7 +9,7 @@ data class ProductData(
     @SerializedName("sellerId") val sellerId: String,
     @SerializedName("name") val name: String,
     @SerializedName("price") val price: Int,
-    @SerializedName("description") val description: String,
+    @SerializedName("description") val description: String?,
     @SerializedName("image") val image: String,
     @SerializedName("includeInRecommendation") val includeInRecommendation: Boolean,
     @SerializedName("url") val url: String?,

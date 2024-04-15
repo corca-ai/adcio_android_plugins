@@ -7,8 +7,8 @@ internal object AnalyticsUrl {
     private const val PERFORMANCE = "performance"
     private const val EVENTS = "events"
     object EndPoint {
-        const val impression = "$PERFORMANCE/impression"
-        const val click = "$PERFORMANCE/click"
+        const val impression = "$EVENTS/impression"
+        const val click = "$EVENTS/click"
         const val purchase = "$EVENTS/purchase"
         const val pageView = "$EVENTS/view"
         const val addToCart = "$EVENTS/add-to-cart"
