@@ -1,3 +1,12 @@
+## 1.1.2
+* Feature: Change Analytics Request Scheme
+
+## 1.1.1
+* Feature: Update Api Endpoint 
+
+## 1.1.0
+* Build: Downgrade android minSDK Version
+
 ## 0.1.3
 * Fix: Update Analytics performance endpoints request schema
 

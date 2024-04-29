@@ -1,3 +1,9 @@
+## 1.1.1
+* Feature: Update Api Endpoint
+
+## 1.1.0
+* Build: Downgrade android minSDK Version
+
 ## 0.1.3
 
 * Feature: update suggest API call

@@ -1,3 +1,6 @@
+## 1.1.0
+* Build: Downgrade android minSDK Version
+
 ## 0.1.3
 
 * Update according to [adcio_core](https://central.sonatype.com/artifact/io.github.corca-ai/adcio_core) version up
