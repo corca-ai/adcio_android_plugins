@@ -90,13 +90,12 @@ internal class AnalyticsRemote {
     }
 
     fun onPageView(
-        path: String,
         sessionId: String,
         deviceId: String,
         customerId: String?,
         storeId: String,
         productIdOnStore: String?,
-        title: String,
+        title: String?,
         referrer: String?,
         baseUrl: String?
     ) {
@@ -108,7 +107,6 @@ internal class AnalyticsRemote {
                 customerId = customerId,
                 storeId = storeId,
                 productIdOnStore = productIdOnStore,
-                path = path,
                 title = title,
                 referrer = referrer,
             )

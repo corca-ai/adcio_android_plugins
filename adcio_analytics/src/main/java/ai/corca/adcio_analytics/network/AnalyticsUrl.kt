@@ -4,7 +4,6 @@ internal object AnalyticsUrl {
 
     internal var baseUrl = "https://receiver.adcio.ai/"
 
-    private const val PERFORMANCE = "performance"
     private const val EVENTS = "events"
     object EndPoint {
         const val impression = "$EVENTS/impression"

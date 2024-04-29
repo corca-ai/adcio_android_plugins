@@ -8,7 +8,6 @@ data class AnalyticsPageViewRequest(
     @SerializedName("customerId") val customerId: String?,
     @SerializedName("storeId") val storeId: String,
     @SerializedName("productIdOnStore") val productIdOnStore: String?,
-    @SerializedName("path") val path: String,
     @SerializedName("title") val title: String?,
     @SerializedName("referrer") val referrer: String?,
 )

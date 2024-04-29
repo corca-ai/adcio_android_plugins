@@ -66,7 +66,6 @@ class AnalyticsActivity : AppCompatActivity() {
         override fun run() {
             // This function is called when a new page is created!
             adcioAnalytics.onPageView(
-                path = path,
                 baseUrl = baseUrl,
             )
         }
