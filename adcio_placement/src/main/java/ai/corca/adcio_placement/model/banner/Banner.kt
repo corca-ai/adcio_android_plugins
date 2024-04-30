@@ -1,4 +1,4 @@
-package ai.corca.adcio_placement.model
+package ai.corca.adcio_placement.model.banner
 
 data class Banner(
     val id: String,

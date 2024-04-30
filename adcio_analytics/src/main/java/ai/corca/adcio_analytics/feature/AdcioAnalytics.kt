@@ -105,11 +105,11 @@ class AdcioAnalytics(
      * If this is a specific product/category page, please add your productId to the productIdOnStore parameter.
      */
     fun onPageView(
+        productIdOnStore: String,
         sessionId: String? = null,
         deviceId: String? = null,
         customerId: String? = null,
         storeId: String? = null,
-        productIdOnStore: String? = null,
         title: String? = null,
         referrer: String? = null,
         baseUrl: String? = null,

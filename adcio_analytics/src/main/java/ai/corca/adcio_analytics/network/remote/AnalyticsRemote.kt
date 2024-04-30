@@ -94,7 +94,7 @@ internal class AnalyticsRemote {
         deviceId: String,
         customerId: String?,
         storeId: String,
-        productIdOnStore: String?,
+        productIdOnStore: String,
         title: String?,
         referrer: String?,
         baseUrl: String?

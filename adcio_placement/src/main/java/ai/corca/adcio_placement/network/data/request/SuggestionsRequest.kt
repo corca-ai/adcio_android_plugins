@@ -7,6 +7,7 @@ internal data class SuggestionsRequest(
     @SerializedName("sessionId") val sessionId: String,
     @SerializedName("deviceId") val deviceId: String,
     @SerializedName("placementId") val placementId: String,
+    @SerializedName("clientId") val clientId: String,
     @SerializedName("customerId") val customerId: String? = null,
     @SerializedName("placementPositionX") val placementPositionX: Int? = null,
     @SerializedName("placementPositionY") val placementPositionY: Int? = null,

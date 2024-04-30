@@ -1,4 +1,4 @@
-package ai.corca.adcio_placement.model
+package ai.corca.adcio_placement.model.product
 
 data class Product(
     val id: String,

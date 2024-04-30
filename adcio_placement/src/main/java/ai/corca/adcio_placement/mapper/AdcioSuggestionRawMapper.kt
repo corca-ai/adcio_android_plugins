@@ -1,15 +1,15 @@
 package ai.corca.adcio_placement.mapper
 
-import ai.corca.adcio_placement.model.AdcioSuggestionRaw
-import ai.corca.adcio_placement.network.data.AdcioSuggestionRawData
+import ai.corca.adcio_placement.model.banner.AdcioSuggestionBannerRaw
+import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
+import ai.corca.adcio_placement.network.data.response.banner.AdcioSuggestionBannerRawData
+import ai.corca.adcio_placement.network.data.response.product.AdcioSuggestionProductRawData
 
-internal fun AdcioSuggestionRawData.toAdcioSuggestionRaw(): AdcioSuggestionRaw = AdcioSuggestionRaw(
-    placement = this.placementData.toPlacement(),
-    suggestions = this.suggestionDataList.map { it.toAdcioSuggestion() }
+internal fun AdcioSuggestionBannerRawData.toAdcioSuggestionBannerRaw(): AdcioSuggestionBannerRaw = AdcioSuggestionBannerRaw(
+    suggestions = this.suggestionDataList.map { it.toAdcioSuggestionBanner() }
 )
 
-internal fun AdcioSuggestionRaw.toAdcioSuggestionRawData(): AdcioSuggestionRawData =
-    AdcioSuggestionRawData(
-        placementData = this.placement.toPlacementData(),
-        suggestionDataList = this.suggestions.map { it.toAdcioSuggestionData() }
+internal fun AdcioSuggestionProductRawData.toAdcioSuggestionRawData(): AdcioSuggestionProductRaw =
+    AdcioSuggestionProductRaw(
+        suggestions = this.suggestionDataList.map { it.toAdcioSuggestionProduct() }
     )

@@ -1,7 +1,8 @@
 package ai.corca.adcio_placement.network
 
-import ai.corca.adcio_placement.network.data.AdcioSuggestionRawData
-import ai.corca.adcio_placement.network.data.ErrorResponse
+import ai.corca.adcio_placement.network.data.response.banner.AdcioSuggestionBannerRawData
+import ai.corca.adcio_placement.network.data.response.banner.ErrorResponse
+import ai.corca.adcio_placement.network.data.response.product.AdcioSuggestionProductRawData
 import ai.corca.adcio_placement.network.service.PlacementService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -44,7 +45,21 @@ internal object RetrofitClient {
         }
     }
 
-    fun exceptionHandling(response: Response<AdcioSuggestionRawData>): ErrorResponse {
+    fun exceptionBannerHandling(response: Response<AdcioSuggestionBannerRawData>): ErrorResponse {
+        val errorResponse = response.errorBody()?.let {
+            retrofit.responseBodyConverter<ErrorResponse>(
+                ErrorResponse::class.java,
+                ErrorResponse::class.java.annotations
+            ).convert(it)
+        }?.message
+
+        return ErrorResponse(
+            statusCode = response.code(),
+            message = errorResponse!!
+        )
+    }
+
+    fun exceptionProductHandling(response: Response<AdcioSuggestionProductRawData>): ErrorResponse {
         val errorResponse = response.errorBody()?.let {
             retrofit.responseBodyConverter<ErrorResponse>(
                 ErrorResponse::class.java,

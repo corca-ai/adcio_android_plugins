@@ -7,7 +7,7 @@ import ai.corca.adcio_android_plugins.placement.model.User
 import ai.corca.adcio_android_plugins.placement.utils.Production
 import ai.corca.adcio_android_plugins.placement.utils.SuggestionListAdapter
 import ai.corca.adcio_placement.feature.AdcioPlacement
-import ai.corca.adcio_placement.model.AdcioSuggestionRaw
+import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -41,7 +41,8 @@ class PlacementActivity : AppCompatActivity() {
                 customerId = currentUser.id,
                 birthYear = currentUser.birthDate.year,
                 gender = currentUser.gender.name,
-                area = currentLocation
+                area = currentLocation,
+                clientId = "67592c00-a230-4c31-902e-82ae4fe71866"
             )
             // You can receive an AdcioSuggestonRaw object as a result,
 
@@ -74,7 +75,7 @@ class PlacementActivity : AppCompatActivity() {
         setOtherViews()
     }
 
-    private fun handleResultData(adcioSuggestionRaw: AdcioSuggestionRaw) {
+    private fun handleResultData(adcioSuggestionRaw: AdcioSuggestionProductRaw) {
         productions.clear()
         adcioSuggestionRaw.suggestions.forEach {
             productions.add(
