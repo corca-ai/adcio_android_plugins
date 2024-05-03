@@ -14,8 +14,7 @@ class AdcioAnalytics(
             throw IllegalArgumentException("clientId cannot be empty")
         }
     }
-
-
+    
     private val analyticsRemote: AnalyticsRemote = AnalyticsRemote()
 
     private val impressionHistory: MutableSet<String> = mutableSetOf()
