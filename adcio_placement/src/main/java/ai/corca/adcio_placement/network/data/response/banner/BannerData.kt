@@ -1,11 +1,12 @@
 package ai.corca.adcio_placement.network.data.response.banner
 
+import ai.corca.adcio_placement.model.banner.Creative
 import com.google.gson.annotations.SerializedName
 
 data class BannerData(
     @SerializedName("id") val id: String,
     @SerializedName("clientId") val clientId: String,
-    @SerializedName("imageUrl") val imageUrl: String,
+    @SerializedName("creative") val creative: Creative,
     @SerializedName("url") val url: String,
     @SerializedName("name") val name: String,
     @SerializedName("categoryId") val categoryId: String?,
@@ -15,4 +16,8 @@ data class BannerData(
     @SerializedName("endsAt") val endsAt: String?,
     @SerializedName("createdAt") val createdAt: String,
     @SerializedName("deletedAt") val deletedAt: String?,
+)
+
+data class Creative(
+    @SerializedName("mediaUrl") val mediaUrl: String
 )

@@ -6,7 +6,7 @@ import ai.corca.adcio_placement.network.data.response.banner.BannerData
 internal fun BannerData.toBanner(): Banner = Banner(
     id = this.id,
     clientId = this.clientId,
-    imageUrl = this.imageUrl,
+    creative = this.creative,
     name = this.name,
     url = this.url,
     categoryId = this.categoryId,
@@ -21,7 +21,7 @@ internal fun BannerData.toBanner(): Banner = Banner(
 internal fun Banner.toBannerData(): BannerData = BannerData(
     id = this.id,
     clientId = this.clientId,
-    imageUrl = this.imageUrl,
+    creative = this.creative,
     name = this.name,
     url = this.url,
     categoryId = this.categoryId,
