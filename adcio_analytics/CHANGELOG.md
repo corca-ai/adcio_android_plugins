@@ -1,3 +1,6 @@
+## 1.1.4
+* Fix: Fix Plugin Bug
+
 ## 1.1.2
 * Feature: Change Analytics Request Scheme
 
