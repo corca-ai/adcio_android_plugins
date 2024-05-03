@@ -1,4 +1,4 @@
-package ai.corca.adcio_android_plugins.placement.model
+package ai.corca.adcio_android_plugins.suggestion.user
 
 import java.time.LocalDate
 

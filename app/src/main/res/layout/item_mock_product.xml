@@ -90,8 +90,9 @@
                         app:tint="@color/material_dynamic_primary60" />
 
                     <TextView
+                        android:id="@+id/tv_buy"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="25dp"
                         android:layout_marginStart="5dp"
                         android:text="Buy"
                         android:textColor="@color/material_dynamic_primary60"
