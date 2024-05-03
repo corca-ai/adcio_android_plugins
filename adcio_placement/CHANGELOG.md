@@ -1,3 +1,7 @@
+### 1.1.4
+* Fix: Fix Plugin Bug
+* Feature: Deprecate impression detector
+
 ## 1.1.1
 * Feature: Update Api Endpoint
 
