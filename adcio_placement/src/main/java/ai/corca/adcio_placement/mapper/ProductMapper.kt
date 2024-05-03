@@ -1,7 +1,7 @@
 package ai.corca.adcio_placement.mapper
 
-import ai.corca.adcio_placement.model.Product
-import ai.corca.adcio_placement.network.data.ProductData
+import ai.corca.adcio_placement.model.product.Product
+import ai.corca.adcio_placement.network.data.response.product.ProductData
 
 internal fun ProductData.toProduct(): Product = Product(
     id = this.id,

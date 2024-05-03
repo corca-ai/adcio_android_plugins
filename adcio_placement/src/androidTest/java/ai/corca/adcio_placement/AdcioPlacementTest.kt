@@ -4,7 +4,7 @@ import ai.corca.adcio_placement.exception.BadRequestException
 import ai.corca.adcio_placement.exception.DisabledPlacementException
 import ai.corca.adcio_placement.exception.UnregisteredIdException
 import ai.corca.adcio_placement.feature.AdcioPlacement
-import ai.corca.adcio_placement.model.AdcioSuggestionRaw
+import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
 import io.mockk.every
 import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
@@ -28,7 +28,7 @@ class AdcioPlacementTest {
     @TestOnly
     fun testPlacementCallSuccess(
         adcioPlacement: AdcioPlacement,
-        expectedResult: AdcioSuggestionRaw
+        expectedResult: AdcioSuggestionProductRaw
     ) {
         every {
             adcioPlacement.adcioCreateSuggestion(
@@ -79,7 +79,7 @@ class AdcioPlacementTest {
     @Test
     fun verifyPlacementCallSuccess() {
         val mockAdcioPlacement = mockk<AdcioPlacement>(relaxed = true)
-        val mockResult = mockk<AdcioSuggestionRaw>()
+        val mockResult = mockk<AdcioSuggestionProductRaw>()
 
         testPlacementCallSuccess(mockAdcioPlacement, mockResult)
 

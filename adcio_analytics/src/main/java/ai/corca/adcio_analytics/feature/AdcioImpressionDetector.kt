@@ -10,6 +10,7 @@ import android.widget.FrameLayout
 import androidx.core.content.withStyledAttributes
 import kotlin.concurrent.thread
 
+@Deprecated("This Impression Detector Logic is not available")
 class AdcioImpressionDetector @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,

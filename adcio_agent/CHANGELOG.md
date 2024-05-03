@@ -1,3 +1,6 @@
+## 1.1.0
+* Build: Downgrade android minSDK Version
+
 ## 1.0.0
 * Update: Removed dependency on adcio core module, change ID to be managed by plugin itself
 

@@ -101,27 +101,26 @@ class AdcioAnalytics(
 
     /**
      * pageView event log
-     * This event is called when a new screen is shown to the user.
+     * Log when the customer views a specific product / category page.
+     * If this is a specific product/category page, please add your productId to the productIdOnStore parameter.
      */
     fun onPageView(
-        path: String,
+        productIdOnStore: String,
         sessionId: String? = null,
         deviceId: String? = null,
         customerId: String? = null,
         storeId: String? = null,
-        productIdOnStore: String? = null,
         title: String? = null,
         referrer: String? = null,
         baseUrl: String? = null,
     ) {
         analyticsRemote.onPageView(
-            path = path,
             sessionId = sessionId ?: SessionClient.loadSessionId(),
             deviceId = deviceId ?: loadDeviceId(),
             customerId = customerId,
             storeId = storeId ?: storeID,
             productIdOnStore = productIdOnStore,
-            title = title ?: path,
+            title = title,
             referrer = referrer,
             baseUrl = baseUrl,
         )

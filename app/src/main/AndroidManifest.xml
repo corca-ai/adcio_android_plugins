@@ -35,9 +35,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".placement.PlacementActivity" />
+        <activity android:name=".suggestion.PlacementActivity" />
         <activity android:name=".agent.AgentActivity" />
-        <activity android:name=".analytics.AnalyticsActivity" />
+        <activity android:name=".suggestion.AnalyticsActivity" />
     </application>
 
 </manifest>
