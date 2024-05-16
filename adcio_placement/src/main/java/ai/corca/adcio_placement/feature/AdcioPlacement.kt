@@ -33,8 +33,8 @@ object AdcioPlacement {
 
         return placementRemote.fetchAdvertisementProducts(
             placementId = placementId,
-            sessionId = deviceId ?: SessionClient.loadSessionId(),
-            deviceId = sessionId ?: loadDeviceId(),
+            deviceId = deviceId ?: SessionClient.loadSessionId(),
+            sessionId = sessionId ?: loadDeviceId(),
             clientId = clientId,
             customerId = customerId,
             placementPositionX = placementPositionX,
@@ -65,8 +65,8 @@ object AdcioPlacement {
 
         return placementRemote.fetchAdvertisementBanners(
             placementId = placementId,
-            sessionId = deviceId ?: SessionClient.loadSessionId(),
-            deviceId = sessionId ?: loadDeviceId(),
+            deviceId = deviceId ?: SessionClient.loadSessionId(),
+            sessionId = sessionId ?: loadDeviceId(),
             clientId = clientId,
             customerId = customerId,
             placementPositionX = placementPositionX,
