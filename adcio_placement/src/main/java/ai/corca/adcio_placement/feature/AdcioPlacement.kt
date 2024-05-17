@@ -24,8 +24,6 @@ object AdcioPlacement {
         birthYear: Int? = null,
         gender: String? = null,
         area: String? = null,
-        deviceId: String? = null,
-        sessionId: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
         val adcioAnalytics = AdcioAnalytics(clientId)
@@ -33,8 +31,8 @@ object AdcioPlacement {
 
         return placementRemote.fetchAdvertisementProducts(
             placementId = placementId,
-            deviceId = deviceId ?: SessionClient.loadSessionId(),
-            sessionId = sessionId ?: loadDeviceId(),
+            deviceId = loadDeviceId(),
+            sessionId = SessionClient.loadSessionId(),
             clientId = clientId,
             customerId = customerId,
             placementPositionX = placementPositionX,
@@ -56,8 +54,6 @@ object AdcioPlacement {
         birthYear: Int? = null,
         gender: String? = null,
         area: String? = null,
-        deviceId: String? = null,
-        sessionId: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionBannerRaw {
         val adcioAnalytics = AdcioAnalytics(clientId)
@@ -65,8 +61,8 @@ object AdcioPlacement {
 
         return placementRemote.fetchAdvertisementBanners(
             placementId = placementId,
-            deviceId = deviceId ?: SessionClient.loadSessionId(),
-            sessionId = sessionId ?: loadDeviceId(),
+            deviceId = loadDeviceId(),
+            sessionId = SessionClient.loadSessionId(),
             clientId = clientId,
             customerId = customerId,
             placementPositionX = placementPositionX,

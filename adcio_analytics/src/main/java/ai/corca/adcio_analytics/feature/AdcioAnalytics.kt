@@ -33,14 +33,12 @@ class AdcioAnalytics(
     fun onClick(
         option: AdcioLogOption,
         baseUrl: String? = null,
-        sessionId: String? = null,
-        deviceId: String? = null,
         customerId: String? = null,
         storeId: String? = null,
     ) {
         analyticsRemote.onClick(
-            sessionId = sessionId ?: SessionClient.loadSessionId(),
-            deviceId = deviceId ?: loadDeviceId(),
+            sessionId = SessionClient.loadSessionId(),
+            deviceId = loadDeviceId(),
             customerId = customerId,
             storeId = storeId ?: storeID,
             adcioLogOption = option,
@@ -53,8 +51,6 @@ class AdcioAnalytics(
      * This event is called when a suggestion placement is displayed on the screen during the ad lifecycle (e.g., page lifecycle). This call occurs only once when the suggestion placement is revealed.
      */
     fun onImpression(
-        sessionId: String? = null,
-        deviceId: String? = null,
         customerId: String? = null,
         storeId: String? = null,
         option: AdcioLogOption,
@@ -63,8 +59,8 @@ class AdcioAnalytics(
         impressionHistory.add(option.adsetId)
 
         analyticsRemote.onImpression(
-            sessionId = sessionId ?: SessionClient.loadSessionId(),
-            deviceId = deviceId ?: loadDeviceId(),
+            sessionId = SessionClient.loadSessionId(),
+            deviceId = loadDeviceId(),
             customerId = customerId,
             storeId = storeId ?: storeID,
             adcioLogOption = option,
@@ -77,8 +73,6 @@ class AdcioAnalytics(
      * This event is called when a user purchases a recommended product.
      */
     fun onPurchase(
-        sessionId: String? = null,
-        deviceId: String? = null,
         customerId: String? = null,
         orderId: String,
         storeId: String? = null,
@@ -87,8 +81,8 @@ class AdcioAnalytics(
         baseUrl: String? = null,
     ) {
         analyticsRemote.onPurchase(
-            sessionId = sessionId ?: SessionClient.loadSessionId(),
-            deviceId = deviceId ?: loadDeviceId(),
+            sessionId = SessionClient.loadSessionId(),
+            deviceId = loadDeviceId(),
             customerId = customerId,
             orderId = orderId,
             storeId = storeId ?: storeID,
@@ -105,8 +99,6 @@ class AdcioAnalytics(
      */
     fun onPageView(
         productIdOnStore: String,
-        sessionId: String? = null,
-        deviceId: String? = null,
         customerId: String? = null,
         storeId: String? = null,
         title: String? = null,
@@ -114,8 +106,8 @@ class AdcioAnalytics(
         baseUrl: String? = null,
     ) {
         analyticsRemote.onPageView(
-            sessionId = sessionId ?: SessionClient.loadSessionId(),
-            deviceId = deviceId ?: loadDeviceId(),
+            sessionId = SessionClient.loadSessionId(),
+            deviceId = loadDeviceId(),
             customerId = customerId,
             storeId = storeId ?: storeID,
             productIdOnStore = productIdOnStore,
@@ -126,8 +118,6 @@ class AdcioAnalytics(
     }
 
     fun onAddToCart(
-        sessionId: String? = null,
-        deviceId: String? = null,
         customerId: String? = null,
         storeId: String? = null,
         productIdOnStore: String,
@@ -135,8 +125,8 @@ class AdcioAnalytics(
         baseUrl: String? = null,
     ) {
         analyticsRemote.onAddToCart(
-            sessionId = sessionId ?: SessionClient.loadSessionId(),
-            deviceId = deviceId ?: loadDeviceId(),
+            sessionId = SessionClient.loadSessionId(),
+            deviceId = loadDeviceId(),
             customerId = customerId,
             storeId = storeId ?: storeID,
             productIdOnStore = productIdOnStore,
