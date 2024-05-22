@@ -12,6 +12,12 @@ object AdcioPlacement {
 
     private val placementRemote = PlacementRemote()
 
+    /*
+    This is a function that provides the same value as getSessionId in Analytics.
+     */
+    fun getSessionId(): String =
+        SessionClient.loadSessionId()
+
     /**
      * It smartly predicts products with high click or purchase probabilities from the client's products and returns the product information.
      */
@@ -24,8 +30,6 @@ object AdcioPlacement {
         birthYear: Int? = null,
         gender: String? = null,
         area: String? = null,
-        deviceId: String? = null,
-        sessionId: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
         val adcioAnalytics = AdcioAnalytics(clientId)
@@ -33,8 +37,8 @@ object AdcioPlacement {
 
         return placementRemote.fetchAdvertisementProducts(
             placementId = placementId,
-            sessionId = deviceId ?: SessionClient.loadSessionId(),
-            deviceId = sessionId ?: loadDeviceId(),
+            deviceId = loadDeviceId(),
+            sessionId = SessionClient.loadSessionId(),
             clientId = clientId,
             customerId = customerId,
             placementPositionX = placementPositionX,
@@ -56,8 +60,6 @@ object AdcioPlacement {
         birthYear: Int? = null,
         gender: String? = null,
         area: String? = null,
-        deviceId: String? = null,
-        sessionId: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionBannerRaw {
         val adcioAnalytics = AdcioAnalytics(clientId)
@@ -65,8 +67,8 @@ object AdcioPlacement {
 
         return placementRemote.fetchAdvertisementBanners(
             placementId = placementId,
-            sessionId = deviceId ?: SessionClient.loadSessionId(),
-            deviceId = sessionId ?: loadDeviceId(),
+            deviceId = loadDeviceId(),
+            sessionId = SessionClient.loadSessionId(),
             clientId = clientId,
             customerId = customerId,
             placementPositionX = placementPositionX,
