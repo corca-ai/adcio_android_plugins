@@ -2,6 +2,7 @@ package ai.corca.adcio_analytics.feature
 
 import ai.corca.adcio_analytics.model.AdcioLogOption
 import ai.corca.adcio_analytics.network.remote.AnalyticsRemote
+import android.se.omapi.Session
 import com.corcaai.core.ids.SessionClient
 import com.corcaai.core.ids.loadDeviceId
 
@@ -25,6 +26,12 @@ class AdcioAnalytics(
      * [Warning] Do not call this event. This event is only used internally in 'adcio_placement'. If called, the necessary logs for analysis may not be collected correctly.
      */
     fun clearImpressionHistory() = impressionHistory.clear()
+
+    /*
+    This is a function that provides the same value as getSessionId in Analytics.
+     */
+    fun getSessionId(): String =
+        SessionClient.loadSessionId()
 
     /**
      * click event log

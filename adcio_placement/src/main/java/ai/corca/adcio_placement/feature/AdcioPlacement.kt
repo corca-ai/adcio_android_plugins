@@ -12,6 +12,12 @@ object AdcioPlacement {
 
     private val placementRemote = PlacementRemote()
 
+    /*
+    This is a function that provides the same value as getSessionId in Analytics.
+     */
+    fun getSessionId(): String =
+        SessionClient.loadSessionId()
+
     /**
      * It smartly predicts products with high click or purchase probabilities from the client's products and returns the product information.
      */
