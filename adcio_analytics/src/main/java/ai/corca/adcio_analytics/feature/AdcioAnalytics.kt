@@ -2,6 +2,7 @@ package ai.corca.adcio_analytics.feature
 
 import ai.corca.adcio_analytics.model.AdcioLogOption
 import ai.corca.adcio_analytics.network.remote.AnalyticsRemote
+import android.os.Build
 import android.se.omapi.Session
 import com.corcaai.core.ids.SessionClient
 import com.corcaai.core.ids.loadDeviceId
@@ -27,11 +28,16 @@ class AdcioAnalytics(
      */
     fun clearImpressionHistory() = impressionHistory.clear()
 
-    /*
-    This is a function that provides the same value as getSessionId in Analytics.
+    /**
+     * This is a function that provides the same value as getSessionId in ADCIO Placement.
      */
     fun getSessionId(): String =
         SessionClient.loadSessionId()
+
+    /**
+     * This is a function that provides the same value as getDeviceId in ADCIO Placement.
+     */
+    fun getDeviceId(): String = loadDeviceId()
 
     /**
      * click event log
@@ -128,7 +134,7 @@ class AdcioAnalytics(
         customerId: String? = null,
         storeId: String? = null,
         productIdOnStore: String,
-        cartId: String,
+        cartId: String? = null,
         baseUrl: String? = null,
     ) {
         analyticsRemote.onAddToCart(

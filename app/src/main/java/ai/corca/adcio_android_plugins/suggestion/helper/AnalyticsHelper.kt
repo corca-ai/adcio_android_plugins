@@ -48,13 +48,11 @@ internal class OnPurchaseThread(
 
 // Called when a new screen is displayed
 internal class OnAddToCartThread(
-    val cartId: String,
     val productIdOnStore: String,
 ) : Thread() {
     override fun run() {
         // This function is called when a new page is created!
         adcioAnalytics.onAddToCart(
-            cartId = cartId,
             productIdOnStore = productIdOnStore,
         )
     }

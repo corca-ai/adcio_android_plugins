@@ -73,7 +73,6 @@ class PlacementActivity : AppCompatActivity() {
 
             onAddToCart = { productId ->
                 OnAddToCartThread(
-                    cartId = "SAMPLE_CART_ID",
                     productIdOnStore = productId
                 ).start()
             },
