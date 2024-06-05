@@ -69,16 +69,18 @@ class AdcioAnalytics(
         option: AdcioLogOption,
         baseUrl: String? = null,
     ) {
-        impressionHistory.add(option.adsetId)
+        if (!hasImpression(option.adsetId)) {
+            analyticsRemote.onImpression(
+                sessionId = SessionClient.loadSessionId(),
+                deviceId = loadDeviceId(),
+                customerId = customerId,
+                storeId = storeId ?: storeID,
+                adcioLogOption = option,
+                baseUrl = baseUrl,
+            )
 
-        analyticsRemote.onImpression(
-            sessionId = SessionClient.loadSessionId(),
-            deviceId = loadDeviceId(),
-            customerId = customerId,
-            storeId = storeId ?: storeID,
-            adcioLogOption = option,
-            baseUrl = baseUrl,
-        )
+            impressionHistory.add(option.adsetId)
+        }
     }
 
     /**

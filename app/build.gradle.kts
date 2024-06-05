@@ -70,7 +70,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.7.1")
 
     implementation(project(path = ":adcio_analytics"))
-    implementation("io.github.corca-ai:adcio_placement:1.1.9")
+
+    implementation(project(path = ":adcio_placement"))
     implementation(project(path = ":adcio_agent"))
     implementation(project(path = ":adcio_agent_compose"))
 }
