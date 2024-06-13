@@ -15,9 +15,6 @@
         android:theme="@style/Theme.Adcio_android_plugins"
         tools:targetApi="31">
         <activity
-            android:name=".core.CoreActivity"
-            android:exported="false" />
-        <activity
             android:name=".agent.ui.SecondActivity"
             android:exported="false" />
         <activity
@@ -35,9 +32,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".suggestion.PlacementActivity" />
+        <activity android:name=".suggestion.SuggestionActivity" />
         <activity android:name=".agent.AgentActivity" />
-        <activity android:name=".suggestion.AnalyticsActivity" />
     </application>
 
 </manifest>

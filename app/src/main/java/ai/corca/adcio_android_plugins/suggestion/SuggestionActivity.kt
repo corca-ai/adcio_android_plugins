@@ -28,7 +28,7 @@ lateinit var currentLocation: String
 
 lateinit var mockProductListAdapter: MockProductListAdapter
 
-class PlacementActivity : AppCompatActivity() {
+class SuggestionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlacementBinding
 
