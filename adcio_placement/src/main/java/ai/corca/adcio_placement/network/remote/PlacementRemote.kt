@@ -10,43 +10,67 @@ import ai.corca.adcio_placement.mapper.toAdcioSuggestionRawData
 import ai.corca.adcio_placement.model.banner.AdcioSuggestionBannerRaw
 import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
 import ai.corca.adcio_placement.network.RetrofitClient
+import ai.corca.adcio_placement.network.data.request.Filters
 import ai.corca.adcio_placement.network.data.response.banner.AdcioSuggestionBannerRawData
 import ai.corca.adcio_placement.network.data.request.SuggestionsRequest
 import ai.corca.adcio_placement.network.data.response.product.AdcioSuggestionProductRawData
 import retrofit2.Response
+import java.util.logging.Filter
 
 internal class PlacementRemote {
 
     private val networkSuccessRange = 200..300
 
-    fun fetchAdvertisementProducts(
+    fun createRecommendationProducts(
+        clientId: String,
         sessionId: String,
         deviceId: String,
         customerId: String? = null,
         placementId: String,
-        clientId: String,
+        categoryId: String? = null,
         placementPositionX: Int? = null,
         placementPositionY: Int? = null,
+        excludingProductIds: List<String>? = null,
         fromAgent: Boolean = false,
         birthYear: Int? = null,
         gender: Gender? = null,
-        area: String? = null,
+        filters: Map<String, Filters>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
-        val response = service.fetchAdvertisementProduct(
+
+        lateinit var _filters: MutableList<Map<String, Filters>>
+
+        if (filters != null) {
+            val filtersArray = mutableListOf<Map<String, Filters>>()
+            for ((key, condition) in filters) {
+                val filter = Filters(
+                    equalTo = condition.equalTo,
+                    not = condition.not,
+                    contains = condition.contains
+                )
+                filtersArray.add(mapOf(key to filter))
+            }
+            if (filtersArray.isNotEmpty()) {
+                _filters = filtersArray
+            }
+        }
+
+        val response = service.fetchRecommendationsProduct(
             suggestionsRequest = SuggestionsRequest(
+                clientId = clientId,
                 sessionId = sessionId,
                 deviceId = deviceId,
-                clientId = clientId,
                 customerId = customerId,
                 placementId = placementId,
+                categoryId = categoryId,
+                excludingProductIds = excludingProductIds,
                 placementPositionX = placementPositionX,
                 placementPositionY = placementPositionY,
                 fromAgent = fromAgent,
                 birthYear = birthYear,
+                filters = _filters,
                 gender = gender,
-                area = area,
             )
         ).execute()
 
@@ -54,26 +78,23 @@ internal class PlacementRemote {
         return response.body()?.toAdcioSuggestionRawData() ?: throw RuntimeException()
     }
 
-    fun fetchAdvertisementBanners(
+    fun createRecommendationBanners(
         sessionId: String,
         deviceId: String,
         customerId: String? = null,
         placementId: String,
-        clientId: String,
         placementPositionX: Int? = null,
         placementPositionY: Int? = null,
         fromAgent: Boolean = false,
         birthYear: Int? = null,
         gender: Gender? = null,
-        area: String? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionBannerRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
-        val response = service.fetchAdvertisementBanner(
+        val response = service.fetchRecommendationsBanner(
             suggestionsRequest = SuggestionsRequest(
                 sessionId = sessionId,
                 deviceId = deviceId,
-                clientId = clientId,
                 customerId = customerId,
                 placementId = placementId,
                 placementPositionX = placementPositionX,
@@ -81,7 +102,6 @@ internal class PlacementRemote {
                 fromAgent = fromAgent,
                 birthYear = birthYear,
                 gender = gender,
-                area = area,
             )
         ).execute()
 
@@ -89,51 +109,145 @@ internal class PlacementRemote {
         return response.body()?.toAdcioSuggestionBannerRaw() ?: throw RuntimeException()
     }
 
-    private fun checkBannerError(response: Response<AdcioSuggestionBannerRawData>): RuntimeException? = if (response.code() !in networkSuccessRange) {
+    fun createAdvertisementProducts(
+        clientId: String,
+        sessionId: String,
+        deviceId: String,
+        customerId: String? = null,
+        placementId: String,
+        categoryId: String? = null,
+        placementPositionX: Int? = null,
+        placementPositionY: Int? = null,
+        excludingProductIds: List<String>? = null,
+        fromAgent: Boolean = false,
+        birthYear: Int? = null,
+        gender: Gender? = null,
+        filters: Map<String, Filters>? = null,
+        baseUrl: String? = null,
+    ): AdcioSuggestionProductRaw {
+        val service = RetrofitClient.getPlacementService(baseUrl)
 
-        val errorResponse = RetrofitClient.exceptionBannerHandling(response)
+        lateinit var _filters: MutableList<Map<String, Filters>>
 
-        when (errorResponse.statusCode) {
-            400 -> BadRequestException(
-                errorMessage = errorResponse.message.toString()
-            )
-            404 -> {
-                if (errorResponse.message == 12001) {
-                    UnregisteredIdException()
-                } else {
-                    DisabledPlacementException()
-                }
-            }
-            else -> {
-                UnKnownException(
-                    code = errorResponse.statusCode.toString(),
-                    errorMessage = "Unknown error occurred"
+        if (filters != null) {
+            val filtersArray = mutableListOf<Map<String, Filters>>()
+            for ((key, condition) in filters) {
+                val filter = Filters(
+                    equalTo = condition.equalTo,
+                    not = condition.not,
+                    contains = condition.contains
                 )
+                filtersArray.add(mapOf(key to filter))
+            }
+            if (filtersArray.isNotEmpty()) {
+                _filters = filtersArray
             }
         }
-    } else null
 
-    private fun checkProductError(response: Response<AdcioSuggestionProductRawData>): RuntimeException? = if (response.code() !in networkSuccessRange) {
-
-        val errorResponse = RetrofitClient.exceptionProductHandling(response)
-
-        when (errorResponse.statusCode) {
-            400 -> BadRequestException(
-                errorMessage = errorResponse.message.toString()
+        val response = service.fetchAdvertisementProduct(
+            suggestionsRequest = SuggestionsRequest(
+                sessionId = sessionId,
+                deviceId = deviceId,
+                clientId = clientId,
+                customerId = customerId,
+                placementId = placementId,
+                categoryId = categoryId,
+                excludingProductIds = excludingProductIds,
+                placementPositionX = placementPositionX,
+                placementPositionY = placementPositionY,
+                fromAgent = fromAgent,
+                birthYear = birthYear,
+                gender = gender,
+                filters = _filters
             )
-            404 -> {
-                if (errorResponse.message == 12001) {
-                    UnregisteredIdException()
-                } else {
-                    DisabledPlacementException()
+        ).execute()
+
+        checkProductError(response)?.let { throw it }
+        return response.body()?.toAdcioSuggestionRawData() ?: throw RuntimeException()
+    }
+
+    fun createAdvertisementBanners(
+        sessionId: String,
+        deviceId: String,
+        customerId: String? = null,
+        placementId: String,
+        placementPositionX: Int? = null,
+        placementPositionY: Int? = null,
+        fromAgent: Boolean = false,
+        birthYear: Int? = null,
+        gender: Gender? = null,
+        baseUrl: String? = null,
+    ): AdcioSuggestionBannerRaw {
+        val service = RetrofitClient.getPlacementService(baseUrl)
+        val response = service.fetchAdvertisementBanner(
+            suggestionsRequest = SuggestionsRequest(
+                sessionId = sessionId,
+                deviceId = deviceId,
+                customerId = customerId,
+                placementId = placementId,
+                placementPositionX = placementPositionX,
+                placementPositionY = placementPositionY,
+                fromAgent = fromAgent,
+                birthYear = birthYear,
+                gender = gender,
+            )
+        ).execute()
+
+        checkBannerError(response)?.let { throw it }
+        return response.body()?.toAdcioSuggestionBannerRaw() ?: throw RuntimeException()
+    }
+
+    private fun checkBannerError(response: Response<AdcioSuggestionBannerRawData>): RuntimeException? =
+        if (response.code() !in networkSuccessRange) {
+
+            val errorResponse = RetrofitClient.exceptionBannerHandling(response)
+
+            when (errorResponse.statusCode) {
+                400 -> BadRequestException(
+                    errorMessage = errorResponse.message.toString()
+                )
+
+                404 -> {
+                    if (errorResponse.message == 12001) {
+                        UnregisteredIdException()
+                    } else {
+                        DisabledPlacementException()
+                    }
+                }
+
+                else -> {
+                    UnKnownException(
+                        code = errorResponse.statusCode.toString(),
+                        errorMessage = "Unknown error occurred"
+                    )
                 }
             }
-            else -> {
-                UnKnownException(
-                    code = errorResponse.statusCode.toString(),
-                    errorMessage = "Unknown error occurred"
+        } else null
+
+    private fun checkProductError(response: Response<AdcioSuggestionProductRawData>): RuntimeException? =
+        if (response.code() !in networkSuccessRange) {
+
+            val errorResponse = RetrofitClient.exceptionProductHandling(response)
+
+            when (errorResponse.statusCode) {
+                400 -> BadRequestException(
+                    errorMessage = errorResponse.message.toString()
                 )
+
+                404 -> {
+                    if (errorResponse.message == 12001) {
+                        UnregisteredIdException()
+                    } else {
+                        DisabledPlacementException()
+                    }
+                }
+
+                else -> {
+                    UnKnownException(
+                        code = errorResponse.statusCode.toString(),
+                        errorMessage = "Unknown error occurred"
+                    )
+                }
             }
-        }
-    } else null
+        } else null
 }

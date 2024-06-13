@@ -1,3 +1,7 @@
+## 1.3.0
+* Update: Improved SDK stability
+* Feat: Add Filtering parameters in products API
+
 ## 1.1.4
 * Fix: Fix Plugin Bug
 

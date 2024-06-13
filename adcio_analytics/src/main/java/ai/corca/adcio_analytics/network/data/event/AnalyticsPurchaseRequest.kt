@@ -8,6 +8,10 @@ data class AnalyticsPurchaseRequest(
     @SerializedName("customerId") val customerId: String?,
     @SerializedName("orderId") val orderId: String,
     @SerializedName("storeId") val storeId: String,
-    @SerializedName("productIdOnStore") val productIdOnStore: String,
+    @SerializedName("requestId") val requestId: String?,
+    @SerializedName("adsetId") val adsetId: String?,
+    @SerializedName("categoryIdOnStore") val categoryIdOnStore: String?,
+    @SerializedName("productIdOnStore") val productIdOnStore: String?,
+    @SerializedName("quantity") val quantity: Int?,
     @SerializedName("amount") val amount: Int,
 )

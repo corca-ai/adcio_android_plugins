@@ -3,16 +3,18 @@ package ai.corca.adcio_android_plugins.suggestion.helper
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_analytics.model.AdcioLogOption
 
-val adcioAnalytics = AdcioAnalytics("67592c00-a230-4c31-902e-82ae4fe71866")
+val adcioAnalytics = AdcioAnalytics("76dc12fa-5a73-4c90-bea5-d6578f9bc606")
 
 // Background Thread for Impression Analytics
 internal class OnImpressionThread(
     private val logOption: AdcioLogOption
 ): Thread() {
     override fun run() {
-        // Called when the item's view is more than 50% exposed
+        // Called when a product recommended as a suggestion has at least 50% exposure on the screen for at least 1 second.
         adcioAnalytics.onImpression(
-            option = logOption
+            option = logOption,
+            customerId = null,
+            productIdOnStore = null
         )
     }
 }
@@ -25,6 +27,8 @@ internal class OnClickThread(
         // If the user clicks on a particular product, call this function.
         adcioAnalytics.onClick(
             option = logOption,
+            customerId = null,
+            productIdOnStore = null
         )
     }
 }
@@ -41,7 +45,11 @@ internal class OnPurchaseThread(
         adcioAnalytics.onPurchase(
             orderId = orderId,
             productIdOnStore = productIdOnStore,
+            categoryIdOnStore = null,
             amount = amount,
+            customerId = null,
+            option = null,
+            quantity = null,
         )
     }
 }
@@ -54,6 +62,11 @@ internal class OnAddToCartThread(
         // This function is called when a new page is created!
         adcioAnalytics.onAddToCart(
             productIdOnStore = productIdOnStore,
+            customerId = null,
+            categoryIdOnStore = null,
+            cartId = null,
+            option = null,
+            quantity = null,
         )
     }
 }
@@ -65,7 +78,10 @@ internal class OnPageViewThread(
     override fun run() {
         // This function is called when a new page is created!
         adcioAnalytics.onPageView(
-            productIdOnStore = productId
+            productIdOnStore = productId,
+            categoryIdOnStore = null,
+            option = null,
+            customerId = null,
         )
     }
 }

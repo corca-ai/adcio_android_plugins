@@ -1,10 +1,11 @@
 package ai.corca.adcio_placement.feature
 
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
+import ai.corca.adcio_placement.enum.Gender
 import ai.corca.adcio_placement.model.banner.AdcioSuggestionBannerRaw
 import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
+import ai.corca.adcio_placement.network.data.request.Filters
 import ai.corca.adcio_placement.network.remote.PlacementRemote
-import ai.corca.adcio_placement.utils.convertGender
 import com.corcaai.core.ids.SessionClient
 import com.corcaai.core.ids.loadDeviceId
 
@@ -27,62 +28,111 @@ object AdcioPlacement {
     /**
      * It smartly predicts products with high click or purchase probabilities from the client's products and returns the product information.
      */
-    fun adcioCreateSuggestionProducts(
+
+    fun createRecommendationProducts(
         clientId: String,
         placementId: String,
+        excludingProductIds: List<String>? = null,
+        categoryId: String? = null,
         customerId: String? = null,
-        placementPositionX: Int? = null,
-        placementPositionY: Int? = null,
+        fromAgent: Boolean = false,
         birthYear: Int? = null,
-        gender: String? = null,
-        area: String? = null,
+        gender: Gender? = null,
+        filters: Map<String, Filters>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
         val adcioAnalytics = AdcioAnalytics(clientId)
         adcioAnalytics.clearImpressionHistory()
 
-        return placementRemote.fetchAdvertisementProducts(
+        return placementRemote.createRecommendationProducts(
+            clientId = clientId,
             placementId = placementId,
             deviceId = loadDeviceId(),
             sessionId = SessionClient.loadSessionId(),
-            clientId = clientId,
             customerId = customerId,
-            placementPositionX = placementPositionX,
-            placementPositionY = placementPositionY,
-            fromAgent = false,
+            excludingProductIds = excludingProductIds,
+            categoryId = categoryId,
+            fromAgent = fromAgent,
             birthYear = birthYear,
-            gender = convertGender(gender),
-            area = area,
+            gender = gender,
+            filters = filters,
             baseUrl = baseUrl,
         )
     }
 
-    fun adcioCreateSuggestionBanner(
+    fun createRecommendationBanners(
         clientId: String,
         placementId: String,
         customerId: String? = null,
-        placementPositionX: Int? = null,
-        placementPositionY: Int? = null,
         birthYear: Int? = null,
-        gender: String? = null,
-        area: String? = null,
+        gender: Gender? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionBannerRaw {
         val adcioAnalytics = AdcioAnalytics(clientId)
         adcioAnalytics.clearImpressionHistory()
 
-        return placementRemote.fetchAdvertisementBanners(
+        return placementRemote.createRecommendationBanners(
             placementId = placementId,
             deviceId = loadDeviceId(),
             sessionId = SessionClient.loadSessionId(),
-            clientId = clientId,
             customerId = customerId,
-            placementPositionX = placementPositionX,
-            placementPositionY = placementPositionY,
             fromAgent = false,
             birthYear = birthYear,
-            gender = convertGender(gender),
-            area = area,
+            gender = gender,
+            baseUrl = baseUrl,
+        )
+    }
+
+    fun createAdvertisementProducts(
+        clientId: String,
+        placementId: String,
+        excludingProductIds: List<String>? = null,
+        categoryId: String? = null,
+        customerId: String? = null,
+        fromAgent: Boolean = false,
+        birthYear: Int? = null,
+        gender: Gender? = null,
+        filters: Map<String, Filters>? = null,
+        baseUrl: String? = null,
+    ): AdcioSuggestionProductRaw {
+        val adcioAnalytics = AdcioAnalytics(clientId)
+        adcioAnalytics.clearImpressionHistory()
+
+        return placementRemote.createAdvertisementProducts(
+            clientId = clientId,
+            placementId = placementId,
+            deviceId = loadDeviceId(),
+            sessionId = SessionClient.loadSessionId(),
+            excludingProductIds = excludingProductIds,
+            categoryId = categoryId,
+            customerId = customerId,
+            fromAgent = fromAgent,
+            birthYear = birthYear,
+            gender = gender,
+            filters = filters,
+            baseUrl = baseUrl,
+        )
+    }
+
+    fun createAdvertisementBanners(
+        clientId: String,
+        placementId: String,
+        customerId: String? = null,
+        birthYear: Int? = null,
+        gender: Gender? = null,
+        baseUrl: String? = null,
+    ): AdcioSuggestionBannerRaw {
+        val adcioAnalytics = AdcioAnalytics(clientId)
+        adcioAnalytics.clearImpressionHistory()
+
+        return placementRemote.createAdvertisementBanners(
+            placementId = placementId,
+            deviceId = loadDeviceId(),
+            sessionId = SessionClient.loadSessionId(),
+            customerId = customerId,
+            fromAgent = false,
+            birthYear = birthYear,
+            gender = gender,
             baseUrl = baseUrl,
         )
     }

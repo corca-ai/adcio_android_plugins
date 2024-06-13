@@ -5,8 +5,10 @@ import ai.corca.adcio_android_plugins.suggestion.currentLocation
 import ai.corca.adcio_android_plugins.suggestion.currentUser
 import ai.corca.adcio_android_plugins.suggestion.model.Production
 import ai.corca.adcio_android_plugins.suggestion.utils.getMockProducts
+import ai.corca.adcio_placement.enum.Gender
 import ai.corca.adcio_placement.feature.AdcioPlacement
 import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
+import ai.corca.adcio_placement.network.data.request.Filters
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -24,13 +26,18 @@ internal class GetSuggestionThread : Thread() {
         // In addition, if you have user information such as customerId(like.userId),
         // age, gender, area, or information such as placement position related to the page,
         // the recommended prediction accuracy is higher.
-        val adcioSuggestionRaw = AdcioPlacement.adcioCreateSuggestionProducts(
-            clientId = "f8f2e298-c168-4412-b82d-98fc5b4a114a",
-            placementId = "67592c00-a230-4c31-902e-82ae4fe71866",
+        val adcioSuggestionRaw = AdcioPlacement.createAdvertisementProducts(
+            clientId = "76dc12fa-5a73-4c90-bea5-d6578f9bc606",
+            placementId = "5ae9907f-3cc2-4ed4-aaa4-4b20ac97f9f4",
+            categoryId = "2179",
+            excludingProductIds = listOf("1001"),
             customerId = currentUser.id,
             birthYear = currentUser.birthDate.year,
-            gender = currentUser.gender.name,
-            area = currentLocation
+            gender = Gender.male,
+            filters = mapOf(
+                "price_excluding_tax" to Filters(not = 53636),
+                "product_code" to Filters(contains = "KY")
+            ),
         )
         // You can receive an AdcioSuggestonRaw object as a result,
 
@@ -48,7 +55,10 @@ private fun handleResultData(adcioSuggestionRaw: AdcioSuggestionProductRaw) {
                 name = it.product.name,
                 image = it.product.image,
                 price = it.product.price.toString(),
-                logOption = AdcioLogOption(requestId = it.logOptions.requestId, adsetId = it.logOptions.adsetId),
+                logOption = AdcioLogOption(
+                    requestId = it.logOptions.requestId,
+                    adsetId = it.logOptions.adsetId
+                ),
                 isSuggested = true
             )
         )
