@@ -2,6 +2,7 @@ package ai.corca.adcio_analytics.feature
 
 import ai.corca.adcio_analytics.model.AdcioLogOption
 import ai.corca.adcio_analytics.network.remote.AnalyticsRemote
+import android.os.Build
 import android.se.omapi.Session
 import com.corcaai.core.ids.SessionClient
 import com.corcaai.core.ids.loadDeviceId
@@ -27,11 +28,16 @@ class AdcioAnalytics(
      */
     fun clearImpressionHistory() = impressionHistory.clear()
 
-    /*
-    This is a function that provides the same value as getSessionId in Analytics.
+    /**
+     * This is a function that provides the same value as getSessionId in ADCIO Placement.
      */
     fun getSessionId(): String =
         SessionClient.loadSessionId()
+
+    /**
+     * This is a function that provides the same value as getDeviceId in ADCIO Placement.
+     */
+    fun getDeviceId(): String = loadDeviceId()
 
     /**
      * click event log
@@ -41,6 +47,7 @@ class AdcioAnalytics(
         option: AdcioLogOption,
         baseUrl: String? = null,
         customerId: String? = null,
+        productIdOnStore: String? = null,
         storeId: String? = null,
     ) {
         analyticsRemote.onClick(
@@ -48,6 +55,7 @@ class AdcioAnalytics(
             deviceId = loadDeviceId(),
             customerId = customerId,
             storeId = storeId ?: storeID,
+            productIdOnStore = productIdOnStore,
             adcioLogOption = option,
             baseUrl = baseUrl,
         )
@@ -61,18 +69,22 @@ class AdcioAnalytics(
         customerId: String? = null,
         storeId: String? = null,
         option: AdcioLogOption,
+        productIdOnStore: String? = null,
         baseUrl: String? = null,
     ) {
-        impressionHistory.add(option.adsetId)
+        if (!hasImpression(option.adsetId)) {
+            analyticsRemote.onImpression(
+                sessionId = SessionClient.loadSessionId(),
+                deviceId = loadDeviceId(),
+                customerId = customerId,
+                storeId = storeId ?: storeID,
+                adcioLogOption = option,
+                productIdOnStore = productIdOnStore,
+                baseUrl = baseUrl,
+            )
 
-        analyticsRemote.onImpression(
-            sessionId = SessionClient.loadSessionId(),
-            deviceId = loadDeviceId(),
-            customerId = customerId,
-            storeId = storeId ?: storeID,
-            adcioLogOption = option,
-            baseUrl = baseUrl,
-        )
+            impressionHistory.add(option.adsetId)
+        }
     }
 
     /**
@@ -83,7 +95,10 @@ class AdcioAnalytics(
         customerId: String? = null,
         orderId: String,
         storeId: String? = null,
-        productIdOnStore: String,
+        option: AdcioLogOption? = null,
+        categoryIdOnStore: String? = null,
+        productIdOnStore: String? = null,
+        quantity: Int? = null,
         amount: Int,
         baseUrl: String? = null,
     ) {
@@ -93,7 +108,11 @@ class AdcioAnalytics(
             customerId = customerId,
             orderId = orderId,
             storeId = storeId ?: storeID,
+            requestId = option?.requestId,
+            adsetId = option?.adsetId,
+            categoryIdOnStore = categoryIdOnStore,
             productIdOnStore = productIdOnStore,
+            quantity = quantity,
             amount = amount,
             baseUrl = baseUrl,
         )
@@ -108,8 +127,8 @@ class AdcioAnalytics(
         productIdOnStore: String,
         customerId: String? = null,
         storeId: String? = null,
-        title: String? = null,
-        referrer: String? = null,
+        option: AdcioLogOption? = null,
+        categoryIdOnStore: String? = null,
         baseUrl: String? = null,
     ) {
         analyticsRemote.onPageView(
@@ -117,9 +136,10 @@ class AdcioAnalytics(
             deviceId = loadDeviceId(),
             customerId = customerId,
             storeId = storeId ?: storeID,
+            requestId = option?.requestId,
+            adsetId = option?.adsetId,
             productIdOnStore = productIdOnStore,
-            title = title,
-            referrer = referrer,
+            categoryIdOnStore = categoryIdOnStore,
             baseUrl = baseUrl,
         )
     }
@@ -127,8 +147,11 @@ class AdcioAnalytics(
     fun onAddToCart(
         customerId: String? = null,
         storeId: String? = null,
-        productIdOnStore: String,
-        cartId: String,
+        productIdOnStore: String? = null,
+        categoryIdOnStore: String? = null,
+        option: AdcioLogOption? = null,
+        quantity: Int? = null,
+        cartId: String? = null,
         baseUrl: String? = null,
     ) {
         analyticsRemote.onAddToCart(
@@ -137,7 +160,11 @@ class AdcioAnalytics(
             customerId = customerId,
             storeId = storeId ?: storeID,
             productIdOnStore = productIdOnStore,
+            categoryIdOnStore = categoryIdOnStore,
             cartId = cartId,
+            requestId = option?.requestId,
+            adsetId = option?.adsetId,
+            quantity = quantity,
             baseUrl = baseUrl
         )
     }

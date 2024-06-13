@@ -23,7 +23,7 @@ internal interface PlacementService {
     @POST(PlacementUrl.EndPoint.recProducts)
     fun fetchRecommendationsProduct(
         @Body suggestionsRequest: SuggestionsRequest
-    ): Call<AdcioSuggestionBannerRawData>
+    ): Call<AdcioSuggestionProductRawData>
 
     @POST(PlacementUrl.EndPoint.recBanners)
     fun fetchRecommendationsBanner(

@@ -44,9 +44,8 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_suggestions"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="300dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        app:layout_constraintTop_toBottomOf="@id/layout_id"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/layout_id" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

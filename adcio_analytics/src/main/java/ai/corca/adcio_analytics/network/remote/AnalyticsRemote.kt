@@ -23,6 +23,7 @@ internal class AnalyticsRemote {
         customerId: String?,
         storeId: String,
         adcioLogOption: AdcioLogOption,
+        productIdOnStore: String?,
         baseUrl: String?,
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
@@ -32,6 +33,7 @@ internal class AnalyticsRemote {
                 deviceId = deviceId,
                 customerId = customerId,
                 storeId = storeId,
+                productIdOnStore = productIdOnStore,
                 requestId = adcioLogOption.requestId,
                 adsetId = adcioLogOption.adsetId
             )
@@ -46,6 +48,7 @@ internal class AnalyticsRemote {
         customerId: String?,
         storeId: String,
         adcioLogOption: AdcioLogOption,
+        productIdOnStore: String?,
         baseUrl: String?,
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
@@ -55,6 +58,7 @@ internal class AnalyticsRemote {
                 deviceId = deviceId,
                 customerId = customerId,
                 storeId = storeId,
+                productIdOnStore = productIdOnStore,
                 requestId = adcioLogOption.requestId,
                 adsetId = adcioLogOption.adsetId,
             )
@@ -69,8 +73,12 @@ internal class AnalyticsRemote {
         customerId: String?,
         orderId: String,
         storeId: String,
-        productIdOnStore: String,
+        requestId: String?,
+        adsetId: String?,
+        categoryIdOnStore: String?,
+        productIdOnStore: String?,
         amount: Int,
+        quantity: Int?,
         baseUrl: String?,
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
@@ -81,7 +89,11 @@ internal class AnalyticsRemote {
                 customerId = customerId,
                 orderId = orderId,
                 storeId = storeId,
+                requestId = requestId,
+                adsetId = adsetId,
+                categoryIdOnStore = categoryIdOnStore,
                 productIdOnStore = productIdOnStore,
+                quantity = quantity,
                 amount = amount,
             )
         ).execute()
@@ -94,9 +106,10 @@ internal class AnalyticsRemote {
         deviceId: String,
         customerId: String?,
         storeId: String,
+        requestId: String?,
+        adsetId: String?,
+        categoryIdOnStore: String?,
         productIdOnStore: String,
-        title: String?,
-        referrer: String?,
         baseUrl: String?
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
@@ -106,9 +119,10 @@ internal class AnalyticsRemote {
                 deviceId = deviceId,
                 customerId = customerId,
                 storeId = storeId,
+                requestId = requestId,
+                adsetId = adsetId,
+                categoryIdOnStore = categoryIdOnStore,
                 productIdOnStore = productIdOnStore,
-                title = title,
-                referrer = referrer,
             )
         ).execute()
 
@@ -119,9 +133,13 @@ internal class AnalyticsRemote {
         sessionId: String,
         deviceId: String,
         customerId: String?,
-        cartId: String,
+        cartId: String?,
         storeId: String,
-        productIdOnStore: String,
+        productIdOnStore: String?,
+        categoryIdOnStore: String?,
+        requestId: String?,
+        adsetId: String?,
+        quantity: Int?,
         baseUrl: String?
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
@@ -133,6 +151,10 @@ internal class AnalyticsRemote {
                 cartId = cartId,
                 storeId = storeId,
                 productIdOnStore = productIdOnStore,
+                categoryIdOnStore = categoryIdOnStore,
+                requestId = requestId,
+                adsetId = adsetId,
+                quantity = quantity,
             )
         ).execute()
 

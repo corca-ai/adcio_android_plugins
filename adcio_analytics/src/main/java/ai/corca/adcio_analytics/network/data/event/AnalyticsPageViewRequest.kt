@@ -7,7 +7,8 @@ data class AnalyticsPageViewRequest(
     @SerializedName("deviceId") val deviceId: String,
     @SerializedName("customerId") val customerId: String?,
     @SerializedName("storeId") val storeId: String,
+    @SerializedName("requestId") val requestId: String?,
+    @SerializedName("adsetId") val adsetId: String?,
     @SerializedName("productIdOnStore") val productIdOnStore: String?,
-    @SerializedName("title") val title: String?,
-    @SerializedName("referrer") val referrer: String?,
+    @SerializedName("categoryIdOnStore") val categoryIdOnStore: String?,
 )
