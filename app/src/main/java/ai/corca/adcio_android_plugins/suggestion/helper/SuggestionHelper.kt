@@ -36,7 +36,8 @@ internal class GetSuggestionThread : Thread() {
             gender = Gender.male,
             filters = mapOf(
                 "price_excluding_tax" to Filters(not = 53636),
-                "product_code" to Filters(contains = "KY")
+                "product_code" to Filters(contains = "KY"), 
+                "province_id" to Filters(equalTo = 1)
             ),
         )
         // You can receive an AdcioSuggestonRaw object as a result,

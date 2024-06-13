@@ -23,10 +23,6 @@ class MockProductListAdapter(
     MockProductDiffUtilCallback
 ) {
 
-    private val handler = Handler(Looper.getMainLooper())
-    private val visibleItemsMap = mutableMapOf<Int, Runnable>()
-    private val startTimeMap = mutableMapOf<Int, Long>()
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MockProductViewHolder {
         return MockProductViewHolder(
             ItemMockProductBinding.inflate(
@@ -41,7 +37,11 @@ class MockProductListAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class MockProductViewHolder(private var binding: ItemMockProductBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MockProductViewHolder(val binding: ItemMockProductBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        private val handler = Handler(Looper.getMainLooper())
+        private val startTimeMap = mutableMapOf<Int, Long>()
+        private val visibleItemsMap = mutableMapOf<Int, Runnable>()
 
         fun bind(item: Production) = with(binding) {
             setOtherViews(item)
@@ -52,17 +52,23 @@ class MockProductListAdapter(
             }
         }
 
-        //MARK: - Code that detects that a product as a suggestion is on the screen 50% of the time for more than 1 second
         fun startVisibilityCheck() {
             if (isViewVisibleForAtLeast50Percent(binding.root)) {
                 if (!startTimeMap.containsKey(adapterPosition)) {
                     startTimeMap[adapterPosition] = System.currentTimeMillis()
-                    val runnable = Runnable {
-                        val currentTime = System.currentTimeMillis()
-                        if (isViewVisibleForAtLeast50Percent(binding.root) && currentTime - startTimeMap[adapterPosition]!! >= 1000) {
-                            impression(adapterPosition)
-                            startTimeMap.remove(adapterPosition)
-                            visibleItemsMap.remove(adapterPosition)
+                    val runnable = object : Runnable {
+                        override fun run() {
+                            val currentTime = System.currentTimeMillis()
+                            val startTime = startTimeMap[adapterPosition]
+                            if (startTime != null && isViewVisibleForAtLeast50Percent(binding.root) && currentTime - startTime >= 1000) {
+                                impression(adapterPosition)
+                                startTimeMap.remove(adapterPosition)
+                                visibleItemsMap.remove(adapterPosition)
+                            }
+                            // Check again in 1000 milliseconds if not yet triggered
+                            else if (isViewVisibleForAtLeast50Percent(binding.root)) {
+                                handler.postDelayed(this, 1000)
+                            }
                         }
                     }
                     handler.postDelayed(runnable, 1000)
@@ -73,7 +79,7 @@ class MockProductListAdapter(
             }
         }
 
-        private fun stopVisibilityCheck() {
+        fun stopVisibilityCheck() {
             startTimeMap.remove(adapterPosition)
             visibleItemsMap[adapterPosition]?.let { handler.removeCallbacks(it) }
             visibleItemsMap.remove(adapterPosition)
@@ -89,9 +95,11 @@ class MockProductListAdapter(
         }
 
         private fun impression(position: Int) {
-            val item = getItem(position)
-            if (item.isSuggested) {
-                onImpressionItem(item.logOption)
+            if (position in 0 until itemCount) {
+                val item = getItem(position)
+                if (item.isSuggested) {
+                    onImpressionItem(item.logOption)
+                }
             }
         }
 
