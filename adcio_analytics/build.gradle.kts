@@ -7,7 +7,7 @@ plugins {
 rootProject.extra.apply {
     set("PUBLISH_GROUP_ID", "io.github.corca-ai")
     set("PUBLISH_ARTIFACT_ID", "adcio_analytics")
-    set("PUBLISH_VERSION", "1.3.0")
+    set("PUBLISH_VERSION", "1.3.1")
     set("PUBLISH_SCM_URL", "https://github.com/corca-ai/adcio_android_plugins")
     set("PUBLISH_DESCRIPTION", "adcio_analytics is log event collection")
 }

@@ -32,9 +32,6 @@ class AdcioImpressionDetector @JvmOverloads constructor(
         if (isMoreThanHalfVisible()) {
             if (!isImpression && useImpression) {
                 isImpression = true
-                if (AdcioAnalytics(clientId = "").hasImpression(option.adsetId).not()) {
-                    onImpression()
-                }
             }
         }
     }

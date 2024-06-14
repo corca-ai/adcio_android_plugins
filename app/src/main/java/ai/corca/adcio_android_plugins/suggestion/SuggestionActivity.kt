@@ -34,7 +34,6 @@ class SuggestionActivity : AppCompatActivity() {
 
     private val getSuggestionThread = GetSuggestionThread()
 
-
     @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
