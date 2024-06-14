@@ -14,6 +14,15 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 
+private val impressionHistory: MutableSet<String> = mutableSetOf()
+
+internal fun hasImpression(adsetId: String): Boolean = impressionHistory.contains(adsetId)
+
+/**
+ * [Warning] Do not call this event. This event is only used internally in 'adcio_placement'. If called, the necessary logs for analysis may not be collected correctly.
+ */
+fun clearImpressionHistory() = impressionHistory.clear()
+
 class MockProductListAdapter(
     val onImpressionItem: (logOption: AdcioLogOption) -> Unit,
     val onPurchaseItem: (logOption: AdcioLogOption) -> Unit,
@@ -37,7 +46,8 @@ class MockProductListAdapter(
         holder.bind(getItem(position))
     }
 
-    inner class MockProductViewHolder(val binding: ItemMockProductBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class MockProductViewHolder(val binding: ItemMockProductBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         private val handler = Handler(Looper.getMainLooper())
         private val startTimeMap = mutableMapOf<Int, Long>()
@@ -98,7 +108,12 @@ class MockProductListAdapter(
             if (position in 0 until itemCount) {
                 val item = getItem(position)
                 if (item.isSuggested) {
-                    onImpressionItem(item.logOption)
+                    // Impression should only run once after the screen is launched.
+                    // This logic prevents Impression from being called multiple times.
+                    if (!hasImpression(item.logOption.adsetId)) {
+                        onImpressionItem(item.logOption)
+                        impressionHistory.add(item.logOption.adsetId)
+                    }
                 }
             }
         }
@@ -143,7 +158,8 @@ class MockProductListAdapter(
         val lastVisiblePosition = layoutManager.findLastVisibleItemPosition()
 
         for (position in firstVisiblePosition..lastVisiblePosition) {
-            val viewHolder = recyclerView.findViewHolderForAdapterPosition(position) as? MockProductViewHolder
+            val viewHolder =
+                recyclerView.findViewHolderForAdapterPosition(position) as? MockProductViewHolder
             viewHolder?.startVisibilityCheck()
         }
     }

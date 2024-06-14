@@ -1,6 +1,5 @@
 package ai.corca.adcio_placement.feature
 
-import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_placement.enum.Gender
 import ai.corca.adcio_placement.model.banner.AdcioSuggestionBannerRaw
 import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
@@ -41,9 +40,6 @@ object AdcioPlacement {
         filters: Map<String, Filters>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
-        val adcioAnalytics = AdcioAnalytics(clientId)
-        adcioAnalytics.clearImpressionHistory()
-
         return placementRemote.createRecommendationProducts(
             clientId = clientId,
             placementId = placementId,
@@ -61,16 +57,12 @@ object AdcioPlacement {
     }
 
     fun createRecommendationBanners(
-        clientId: String,
         placementId: String,
         customerId: String? = null,
         birthYear: Int? = null,
         gender: Gender? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionBannerRaw {
-        val adcioAnalytics = AdcioAnalytics(clientId)
-        adcioAnalytics.clearImpressionHistory()
-
         return placementRemote.createRecommendationBanners(
             placementId = placementId,
             deviceId = loadDeviceId(),
@@ -95,9 +87,6 @@ object AdcioPlacement {
         filters: Map<String, Filters>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
-        val adcioAnalytics = AdcioAnalytics(clientId)
-        adcioAnalytics.clearImpressionHistory()
-
         return placementRemote.createAdvertisementProducts(
             clientId = clientId,
             placementId = placementId,
@@ -115,16 +104,12 @@ object AdcioPlacement {
     }
 
     fun createAdvertisementBanners(
-        clientId: String,
         placementId: String,
         customerId: String? = null,
         birthYear: Int? = null,
         gender: Gender? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionBannerRaw {
-        val adcioAnalytics = AdcioAnalytics(clientId)
-        adcioAnalytics.clearImpressionHistory()
-
         return placementRemote.createAdvertisementBanners(
             placementId = placementId,
             deviceId = loadDeviceId(),

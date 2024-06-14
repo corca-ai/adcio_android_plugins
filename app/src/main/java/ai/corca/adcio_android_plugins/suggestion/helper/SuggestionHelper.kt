@@ -4,6 +4,7 @@ import ai.corca.adcio_analytics.model.AdcioLogOption
 import ai.corca.adcio_android_plugins.suggestion.currentLocation
 import ai.corca.adcio_android_plugins.suggestion.currentUser
 import ai.corca.adcio_android_plugins.suggestion.model.Production
+import ai.corca.adcio_android_plugins.suggestion.utils.clearImpressionHistory
 import ai.corca.adcio_android_plugins.suggestion.utils.getMockProducts
 import ai.corca.adcio_placement.enum.Gender
 import ai.corca.adcio_placement.feature.AdcioPlacement
@@ -40,7 +41,9 @@ internal class GetSuggestionThread : Thread() {
                 "province_id" to Filters(equalTo = 1)
             ),
         )
-        // You can receive an AdcioSuggestonRaw object as a result,
+
+        // Clear impression history when suggestion api called
+        clearImpressionHistory()
 
         handleResultData(adcioSuggestionRaw)
     }
