@@ -11,7 +11,7 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun testGreet() {
+    suspend fun testGreet() {
         val myClass = Dacs()
         val greeting = myClass.greet("World")
         assertEquals("Hello, World!", greeting)
