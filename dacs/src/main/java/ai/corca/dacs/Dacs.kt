@@ -10,7 +10,7 @@ import week1.domain.key.openAiKey
 
 class Dacs {
     @Suppress("UNREACHABLE_CODE")
-    suspend fun greet(name: String) {
+    suspend fun greet(name: String): String {
         val openAI = OpenAI(
             token = openAiKey
         )
@@ -33,7 +33,8 @@ class Dacs {
             )
         )
 
+        Log.d("timetogotobed", response.toString())
 
-        println(response.choices)
+        return response.toString()
     }
 }
