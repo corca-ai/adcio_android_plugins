@@ -28,6 +28,8 @@ jobs:
         run: kotlinc dacs/src/main/java/ai/corca/dacs/DacsProvider.kt -include-runtime -d DacsProvider.jar
 
       - name: Run Kotlin script
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: java -jar DacsProvider.jar
 
       - name: Commit and Push changes
