@@ -1,7 +1,6 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
 }
 
 android {
