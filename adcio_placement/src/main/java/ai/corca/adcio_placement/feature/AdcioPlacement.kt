@@ -30,11 +30,9 @@ object AdcioPlacement {
 
     fun createRecommendationProducts(
         clientId: String,
-        placementId: String,
+        placementId: String?= null,
         excludingProductIds: List<String>? = null,
         categoryId: String? = null,
-        customerId: String? = null,
-        fromAgent: Boolean = false,
         birthYear: Int? = null,
         gender: Gender? = null,
         filters: Map<String, Filters>? = null,
@@ -42,13 +40,13 @@ object AdcioPlacement {
     ): AdcioSuggestionProductRaw {
         return placementRemote.createRecommendationProducts(
             clientId = clientId,
-            placementId = placementId,
+            placementId = placementId ?: "",
             deviceId = loadDeviceId(),
             sessionId = SessionClient.loadSessionId(),
-            customerId = customerId,
+            customerId = "customerId",
             excludingProductIds = excludingProductIds,
             categoryId = categoryId,
-            fromAgent = fromAgent,
+            fromAgent = false,
             birthYear = birthYear,
             gender = gender,
             filters = filters,
