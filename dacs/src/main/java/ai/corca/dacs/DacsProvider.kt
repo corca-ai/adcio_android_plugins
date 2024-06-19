@@ -84,8 +84,9 @@ class DacsProvider {
     // 메인 함수
     fun greet() {
         val repoUrl = "https://github.com/corca-ai/adcio_android_plugins.git" // 원격 저장소 URL
+        val branch = "dacs_test" // 원하는 브랜치 이름으로 변경
 
-        val (oldCommitId, newCommitId) = getRemoteLatestCommitIds(repoUrl)
+        val (oldCommitId, newCommitId) = getRemoteLatestCommitIds(repoUrl, branch)
         val tempRepoPath = "/Users/yuhyeonmyeong/github/adcio_android_plugins" // 로컬에 임시 저장소 경로
 
         val diff = getDiffBetweenCommits(tempRepoPath, oldCommitId, newCommitId)
