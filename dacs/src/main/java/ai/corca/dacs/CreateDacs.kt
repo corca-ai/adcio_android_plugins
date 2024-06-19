@@ -62,8 +62,7 @@ class CreateDacs {
     }
 
     suspend fun greet(diff: String): String {
-        val apiKey = System.getenv("OPENAI_API_KEY")
-            ?: throw IllegalStateException("OPENAI_API_KEY not found in environment variables")
+        val apiKey = openaiApiKey
 
         val readmeFilePath = "dacs/README.md"
         val existingDoc = readReadmeFile(readmeFilePath)
