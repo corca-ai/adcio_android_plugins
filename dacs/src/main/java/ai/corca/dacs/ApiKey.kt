@@ -1,14 +1,18 @@
-package week1.domain.key
+package ai.corca.dacs
 
+import java.io.File
+import java.io.FileInputStream
 import java.io.FileNotFoundException
 import java.util.*
 
-val openAiKey: String = loadApiKey("OPENAI_API_KEY")
+val openaiApiKey: String = loadApiKey()
 
-fun loadApiKey(key: String): String {
+private fun loadApiKey(): String {
     val properties = Properties()
-    val inputStream = Thread.currentThread().contextClassLoader?.getResourceAsStream("local.properties")
-        ?: throw FileNotFoundException("Property file 'local.properties' not found in the classpath")
-    properties.load(inputStream)
-    return properties.getProperty(key) ?: throw IllegalArgumentException("API Key not found")
+    val localPropertiesFile = File("local.properties")
+    if (localPropertiesFile.exists()) {
+        localPropertiesFile.inputStream().use { properties.load(it) }
+    }
+    return properties.getProperty("OPENAI_API_KEY")
+        ?: throw IllegalStateException("OPENAI_API_KEY not found in local.properties")
 }

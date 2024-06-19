@@ -42,4 +42,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.aallam.openai:openai-client:3.7.2")
     runtimeOnly("io.ktor:ktor-client-okhttp:2.0.1")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
+
+    implementation ("org.eclipse.jgit:org.eclipse.jgit:5.13.0.202109080827-r")
 }
