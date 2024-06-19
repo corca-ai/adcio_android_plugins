@@ -25,13 +25,11 @@ jobs:
           sudo apt-get install -y kotlin
 
       - name: Compile Kotlin code
-        run: kotlin dacs/src/main/java/ai/corca/dacs/DacsProvider.kt
+        run: kotlinc dacs/src/main/java/ai/corca/dacs/DacsProvider.kt -include-runtime -d DacsProvider.jar
 
       - name: Run Kotlin script
-        run: |
-          kotlin dacs/src/main/java/ai/corca/dacs/DacsProvider.kt -include-runtime -d DacsProvider.jar
-          java -jar DacsProvider.jar
-          
+        run: java -jar DacsProvider.jar
+
       - name: Commit and Push changes
         run: |
           git config --global user.name "aahspringaa4"
