@@ -25,11 +25,11 @@ jobs:
           sudo apt-get install -y kotlin
 
       - name: Compile Kotlin code
-        run: kotlin -script dacs/src/main/java/ai/corca/dacs/DacsProvider.kt
+        run: kotlin dacs/src/main/java/ai/corca/dacs/DacsProvider.kt
 
       - name: Run Kotlin script
         run: |
-          kotlinc src/main/kotlin/ai/corca/dacs/DacsProvider.kt -include-runtime -d DacsProvider.jar
+          kotlin dacs/src/main/java/ai/corca/dacs/DacsProvider.kt -include-runtime -d DacsProvider.jar
           java -jar DacsProvider.jar
           
       - name: Commit and Push changes
