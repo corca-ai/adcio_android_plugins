@@ -32,7 +32,6 @@ internal class GetSuggestionThread : Thread() {
             placementId = "5ae9907f-3cc2-4ed4-aaa4-4b20ac97f9f4",
             categoryId = "2179",
             excludingProductIds = listOf("1001"),
-            customerId = currentUser.id,
             birthYear = currentUser.birthDate.year,
             gender = Gender.male,
             filters = mapOf(
