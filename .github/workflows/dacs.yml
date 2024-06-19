@@ -27,9 +27,6 @@ jobs:
       - name: Compile Kotlin code
         run: ./gradlew build
 
-      - name: Run Kotlin code
-        run: ./gradlew run
-
       - name: Compile Kotlin code
         run: kotlinc dacs/src/main/java/ai/corca/dacs/DacsProvider.kt -include-runtime -d DacsProvider.jar
 
