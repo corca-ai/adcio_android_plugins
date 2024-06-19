@@ -12,6 +12,7 @@ import java.io.File
 import kotlin.time.Duration.Companion.seconds
 
 class CreateDacs {
+
     private fun prepareInput(existingDoc: String, sdkDiff: String): String {
         return """
             existing Docs:
@@ -22,19 +23,21 @@ class CreateDacs {
             
             Please update the documentation according to the provided SDK diff. 
             Note that lines starting with '+' indicate additions and lines starting with '-' indicate deletions.
+            
+            Since all parts of Docs are mostly contained in ADCIOAnalytics and ADCIOPlacement, changes in these parts need to be detected and reflected.
         """.trimIndent()
     }
 
     private suspend fun getUpdatedDocument(apiKey: String, input: String): String {
         val openAI = OpenAI(
             apiKey,
-            timeout = Timeout(socket = 60.seconds)
+            timeout = Timeout(socket = 60.seconds),
         )
 
         val messages = listOf(
             ChatMessage(
                 role = ChatRole.System,
-                content = "You are a helpful assistant who updates documentation based on SDK changes."+
+                content = "You are a helpful assistant who updates documentation based on SDK changes." +
                         "Detect the diff, apply the changes to the existing docs, and return the new full docs."
             ),
             ChatMessage(
