@@ -6,7 +6,7 @@ on:
       - dacs_test
 
 jobs:
-  build-and-run:
+  Dacs:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,7 +25,7 @@ jobs:
           sudo apt-get install -y kotlin
 
       - name: Compile Kotlin code
-        run: kotlinc -script src/main/kotlin/ai/corca/dacs/DacsProvider.kt
+        run: kotlin -script dacs/src/main/java/ai/corca/dacs/DacsProvider.kt
 
       - name: Run Kotlin script
         run: |
