@@ -96,9 +96,8 @@ class DacsProvider {
         val diff = getDiffBetweenCommits(tempRepoPath, oldCommitId, newCommitId)
         val createDacs = CreateDacs()
 
-        GlobalScope.launch {
+        runBlocking {
             createDacs.greet(diff)
-        }.invokeOnCompletion {
             updateReadmeWithDiff(tempRepoPath, diff)
         }
     }
