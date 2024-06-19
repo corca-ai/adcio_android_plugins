@@ -11,20 +11,10 @@ import org.junit.Test
 
 class ExampleUnitTest {
 
-    private fun testGreet2(): String {
-        val myClass = DacsProvider()
-        var result = ""
-        runTest {
-            result = myClass.greet()
-        }
-        return result
-    }
-
     @Test
     fun testGreet() {
-        val myClass = CreateDacs()
-        val response = testGreet2()
-        val greeting = runTest { myClass.greet(response) }
-        print(greeting)
+
+        val dacsProvider = DacsProvider()
+        dacsProvider.greet()
     }
 }
