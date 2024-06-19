@@ -1,5 +1,3 @@
-### Example Function
-
 # Install
 
 ### Add Dependency on [adcio_analytics](https://central.sonatype.com/artifact/io.github.corca-ai/adcio_analytics), [adcio_placemenet](https://central.sonatype.com/artifact/io.github.corca-ai/adcio_placement)
@@ -46,12 +44,12 @@ import ai.corca.adcio_analytics.feature.AdcioAnalytics
 val adcioAnalytics = AdcioAnalytics(clientId: "SAMPLE_CLIENT_ID") // Create instance
 
 fun exampleAction() {
-	adcioAnalytics.onPurchase(
-		...
-	)
-	adcioAnalytics.onClick(
-		...
-	)
+    adcioAnalytics.onPurchase(
+        ...
+    )
+    adcioAnalytics.onClick(
+        ...
+    )
 }
 ```
 
@@ -61,9 +59,9 @@ ADCIO Placement is an Object class, so you don't need to initialise it, just use
 
 ```kotlin
 fun exampleAction() {
-	val adcioSuggestionRaw = AdcioPlacement.createRecommendationProducts(
-    ...
-  )
+    val adcioSuggestionRaw = AdcioPlacement.createRecommendationProducts(
+        ...
+    )
 }
 ```
 
@@ -105,6 +103,7 @@ val adcioSuggestionRaw = AdcioPlacement.createRecommendationProducts(
         "product_code" to Filters(contains = "KY"),
         "province_id" to Filters(equalTo = 1)
     ),
+    sibalID: String
 )
 ```
 
@@ -131,13 +130,13 @@ val adcioSuggestionRaw = AdcioPlacement.createAdvertisementProducts(
     excludingProductIds = listOf("1001"),
     customerId = currentUser.id,
     fromAgent: false,
-    birthYear = currentUser.birthDate.year,
-    gender = Gender.male,
-    filters = mapOf(
-        "price_excluding_tax" to Filters(not = 53636),
-        "product_code" to Filters(contains = "KY"),
-        "province_id" to Filters(equalTo = 1)
-    ),
+birthYear = currentUser.birthDate.year,
+gender = Gender.male,
+filters = mapOf(
+    "price_excluding_tax" to Filters(not = 53636),
+    "product_code" to Filters(contains = "KY"),
+    "province_id" to Filters(equalTo = 1)
+),
 )
 ```
 
@@ -153,9 +152,9 @@ Called when a product recommended as a `suggestion` has at least 50% exposure 
 val adcioAnalytics = AdcioAnalytics("CLIENT_ID")
 
 adcioAnalytics.onImpression(
-  option = logOption,
-  customerID: null,
-  productIDOnStore: null
+    option = logOption,
+    customerID: null,
+productIDOnStore: null
 )
 ```
 

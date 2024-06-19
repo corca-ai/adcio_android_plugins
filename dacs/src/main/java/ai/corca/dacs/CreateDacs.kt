@@ -25,7 +25,38 @@ class CreateDacs {
             Note that lines starting with '+' indicate additions and lines starting with '-' indicate deletions.
             
             Since all parts of Docs are mostly contained in ADCIOAnalytics and ADCIOPlacement, changes in these parts need to be detected and reflected.
+            Simply replace the content in the original article and return it so that it can be updated directly in PROD without any further explanation.
         """.trimIndent()
+    }
+
+    private suspend fun cleanDiff(apiKey: String, diff: String): String {
+        val openAI = OpenAI(
+            apiKey,
+            timeout = Timeout(socket = 60.seconds),
+        )
+
+        val messages = listOf(
+            ChatMessage(
+                role = ChatRole.System,
+                content = "Below is my diff of changes, please remove all of them except " +
+                        "the adcio_placement/src/main/java/ai/corca/adcio_placement/feature/AdcioPlacement.kt diff and the adcio_analytics/src/main/java/ai/corca/adcio_analytics/feature/AdcioAnalytics.kt diff."
+            ),
+            ChatMessage(
+                role = ChatRole.User,
+                content = diff
+            )
+        )
+
+        val response = openAI.chatCompletion(
+            request = ChatCompletionRequest(
+                model = ModelId("gpt-4"),
+                messages = messages
+            )
+        )
+
+        print(response.choices[0].message.content!!.trim().toString())
+
+        return response.choices[0].message.content!!.trim()
     }
 
     private suspend fun getUpdatedDocument(apiKey: String, input: String): String {
@@ -72,7 +103,8 @@ class CreateDacs {
         val existingDoc = readReadmeFile(readmeFilePath)
 
         return withContext(Dispatchers.IO) {
-            val input = prepareInput(existingDoc, diff.trimIndent())
+            val newDiff = cleanDiff(apiKey, diff)
+            val input = prepareInput(existingDoc, newDiff.trimIndent())
             val updatedDoc = getUpdatedDocument(apiKey, input)
 
             print("업데이트된 문서: $updatedDoc")
