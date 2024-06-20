@@ -12,14 +12,13 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 import org.eclipse.jgit.treewalk.CanonicalTreeParser
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.nio.file.Files
 import kotlin.io.path.createTempDirectory
 
 class DacsProvider {
+    @RequiresApi(Build.VERSION_CODES.O)
     fun getRemoteLatestCommitIds(repoUrl: String, branch: String = "main"): Pair<String, String> {
-        val tempDir = File.createTempFile("TempGitRepo", "")
-        if (!tempDir.delete()) {
-            throw RuntimeException("Could not delete temp file ${tempDir.absolutePath}")
-        }
+        val tempDir = createTempDirectory("TempGitRepo").toFile()
 
         val repo = Git.cloneRepository()
             .setURI(repoUrl)
@@ -29,6 +28,8 @@ class DacsProvider {
 
         val latestCommit = repo.repository.resolve("refs/remotes/origin/$branch")
         val previousCommit = repo.repository.resolve("refs/remotes/origin/$branch^")
+
+        repo.close()
 
         return Pair(previousCommit.name, latestCommit.name)
     }
@@ -84,16 +85,14 @@ class DacsProvider {
         return treeParser
     }
 
-    // 메인 함수
     @RequiresApi(Build.VERSION_CODES.O)
     fun greet() {
-        val repoUrl = "https://github.com/corca-ai/adcio_android_plugins.git" // 원격 저장소 URL
-        val branch = "main" // 원하는 브랜치 이름으로 변경
+        val repoUrl = "https://github.com/corca-ai/adcio_android_plugins.git"
+        val branch = "main"
 
         val (oldCommitId, newCommitId) = getRemoteLatestCommitIds(repoUrl, branch)
 
         val tempRepoPath = createTempDirectory("TempGitRepo").toAbsolutePath().toString()
-
         val repo = Git.cloneRepository()
             .setURI(repoUrl)
             .setBranch(branch)
@@ -103,8 +102,8 @@ class DacsProvider {
         val diff = getDiffBetweenCommits(tempRepoPath, oldCommitId, newCommitId)
         val createDacs = CreateDacs()
 
-        print("diff")
-        print(diff)
+        println("diff")
+        println(diff)
 
         runBlocking {
             createDacs.greet(diff)
