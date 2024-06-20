@@ -12,7 +12,6 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 import org.eclipse.jgit.treewalk.CanonicalTreeParser
 import java.io.ByteArrayOutputStream
 import java.io.File
-import java.nio.file.Files
 import kotlin.io.path.createTempDirectory
 
 
@@ -55,27 +54,23 @@ class DacsProvider {
         val output = ByteArrayOutputStream()
         val diffFormatter = DiffFormatter(output)
         diffFormatter.setRepository(repository)
-        val entries = diffFormatter.scan(oldTreeParser, newTreeParser)
+        diffFormatter.format(oldTreeParser, newTreeParser)
 
         val result = StringBuilder()
-        for (entry in entries) {
-            val fileDiffOutput = ByteArrayOutputStream()
-            val fileDiffFormatter = DiffFormatter(fileDiffOutput)
-            fileDiffFormatter.setRepository(repository)
-            fileDiffFormatter.format(entry)
+        val diffLines = output.toString().lines()
+        var currentFile: String? = null
 
-            val diffLines = fileDiffOutput.toString().lines()
-            result.append(entry.newPath).append("\n\n")
-            for (line in diffLines) {
-                if (line.startsWith("+") && !line.startsWith("+++")) {
-                    result.append(line).append("\n")
-                } else if (line.startsWith("-") && !line.startsWith("---")) {
-                    result.append(line).append("\n")
-                }
+        for (line in diffLines) {
+            if (line.startsWith("diff --git")) {
+                currentFile = line.split(" ").last()
+                result.append(currentFile).append("\n\n")
             }
-            result.append("\n")
+            if (line.startsWith("+") && !line.startsWith("+++")) {
+                result.append(line).append("\n")
+            } else if (line.startsWith("-") && !line.startsWith("---")) {
+                result.append(line).append("\n")
+            }
         }
-
         return result.toString()
     }
 
