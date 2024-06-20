@@ -127,6 +127,7 @@ class DacsProvider {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 fun main() {
     val dacsProvider = DacsProvider()
     dacsProvider.greet()
