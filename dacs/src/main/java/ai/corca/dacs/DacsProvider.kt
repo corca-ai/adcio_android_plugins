@@ -1,8 +1,7 @@
 package ai.corca.dacs
 
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import android.os.Build
+import androidx.annotation.RequiresApi
 import kotlinx.coroutines.runBlocking
 import org.eclipse.jgit.api.Git
 import org.eclipse.jgit.diff.DiffFormatter
@@ -13,6 +12,7 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder
 import org.eclipse.jgit.treewalk.CanonicalTreeParser
 import java.io.ByteArrayOutputStream
 import java.io.File
+import kotlin.io.path.createTempDirectory
 
 class DacsProvider {
     fun getRemoteLatestCommitIds(repoUrl: String, branch: String = "main"): Pair<String, String> {
@@ -85,15 +85,21 @@ class DacsProvider {
     }
 
     // 메인 함수
+    @RequiresApi(Build.VERSION_CODES.O)
     fun greet() {
         val repoUrl = "https://github.com/corca-ai/adcio_android_plugins.git" // 원격 저장소 URL
-        val branch = "dacs_test" // 원하는 브랜치 이름으로 변경
+        val branch = "main" // 원하는 브랜치 이름으로 변경
 
         val (oldCommitId, newCommitId) = getRemoteLatestCommitIds(repoUrl, branch)
-        val tempRepoPath = "/Users/yuhyeonmyeong/github/adcio_android_plugins" // 로컬에 임시 저장소 경로
+
+        // CI 환경에서 사용할 수 있는 임시 디렉토리 생성
+        val tempRepoPath = createTempDirectory("TempGitRepo").toAbsolutePath().toString()
 
         val diff = getDiffBetweenCommits(tempRepoPath, oldCommitId, newCommitId)
         val createDacs = CreateDacs()
+
+        print("diff")
+        print(diff)
 
         runBlocking {
             createDacs.greet(diff)
