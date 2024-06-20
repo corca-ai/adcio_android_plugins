@@ -93,7 +93,7 @@ class DacsProvider {
         val (oldCommitId, newCommitId) = getRemoteLatestCommitIds(repoUrl, branch)
 
         // CI 환경에서 사용할 수 있는 임시 디렉토리 생성
-        val tempRepoPath = createTempDirectory("TempGitRepo").toAbsolutePath().toString()
+        val tempRepoPath = createTempDirectory("https://github.com/corca-ai/adcio_android_plugins").toAbsolutePath().toString()
 
         val diff = getDiffBetweenCommits(tempRepoPath, oldCommitId, newCommitId)
         val createDacs = CreateDacs()
