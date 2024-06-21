@@ -1,5 +1,6 @@
 package ai.corca.adcio_placement.network.data.response.product
 
+import ai.corca.adcio_placement.network.data.response.RemoteMetaData
 import com.google.gson.annotations.SerializedName
 
 data class AdcioSuggestionProductData(
