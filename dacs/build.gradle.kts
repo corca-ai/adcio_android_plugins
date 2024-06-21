@@ -32,7 +32,10 @@ android {
     }
 }
 
-tasks.withType<Jar> {
+tasks.register<Jar>("customJar") {
+    dependsOn("build")
+    archiveBaseName.set("DacsProvider")
+    from(sourceSets["main"].output)
     manifest {
         attributes["Main-Class"] = "ai.corca.dacs.DacsProviderKt"
     }
