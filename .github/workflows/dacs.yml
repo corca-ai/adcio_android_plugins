@@ -19,27 +19,16 @@ jobs:
           distribution: 'adopt'
           java-version: '17'
 
-      - name: Install Kotlin
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y kotlin
-
       - name: Clear Gradle cache
         run: ./gradlew clean
 
-      - name: Build Kotlin code
+      - name: Build all modules
         run: ./gradlew build
 
-      - name: Build Dacs Code
-        run: ./gradlew :dacs:build
-
-      - name: Create JAR
-        run: ./gradlew :dacs:customJar
-
-      - name: Run Kotlin script
+      - name: Run Dacs Main
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: java -jar dacs/build/libs/DacsProvider.jar
+        run: ./gradlew :dacs:run
 
       - name: Commit and Push changes
         run: |

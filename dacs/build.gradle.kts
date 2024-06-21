@@ -32,15 +32,6 @@ android {
     }
 }
 
-tasks.register<Jar>("customJar") {
-    dependsOn("build")
-    archiveBaseName.set("DacsProvider")
-    from(sourceSets["Main-Class"].output)
-    manifest {
-        attributes["Main-Class"] = "ai.corca.dacs.DacsProviderKt"
-    }
-}
-
 dependencies {
 
     implementation ("org.jetbrains.kotlin:kotlin-stdlib")
