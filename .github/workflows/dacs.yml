@@ -22,17 +22,14 @@ jobs:
       - name: Clear Gradle cache
         run: ./gradlew clean
 
-      - name: Build all modules
-        run: ./gradlew build
+      - name: Install Kotlin compiler
+        run: sudo apt-get install -y kotlin
 
-      - name: Run Dacs Main
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y kotlin
-          kotlinc dacs/src/main/kotlin/ai/corca/dacs/Main.kt -include-runtime -d main.jar
-          java -jar main.jar
+      - name: Compile Kotlin code
+        run: kotlinc dacs/src/main/kotlin/ai/corca/dacs/Main.kt -include-runtime -d main.jar
+
+      - name: Run Kotlin program
+        run: java -jar main.jar
 
       - name: Commit and Push changes
         run: |

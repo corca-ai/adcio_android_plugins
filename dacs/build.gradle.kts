@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.cli.jvm.compiler.findMainClass
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -31,6 +33,7 @@ android {
         jvmTarget = "17"
     }
 }
+
 
 dependencies {
 
