@@ -30,13 +30,16 @@ jobs:
       - name: Build Kotlin code with detailed logs
         run: ./gradlew build
 
+      - name: Build Kotlin code with detailed logs
+        run: ./gradlew :dacs:build
+
       - name: Create JAR
-        run: ./gradlew customJar
+        run: ./gradlew :dacs:customJar
 
       - name: Run Kotlin script
         env:
-            OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: java -jar build/libs/DacsProvider.jar
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: java -jar dacs/build/libs/DacsProvider.jar
 
       - name: Commit and Push changes
         run: |
