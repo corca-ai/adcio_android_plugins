@@ -28,7 +28,10 @@ jobs:
       - name: Run Dacs Main
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: ./gradlew :dacs:run
+        run: |
+          brew install kotlin
+          kotlinc main.kt -include-runtime -d main.jar
+          $ java -jar main.jar
 
       - name: Commit and Push changes
         run: |
