@@ -24,9 +24,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y kotlin
 
-      - name: Build and Run Kotlin code
-        run: |
-          ./gradlew build
+      - name: Clear Gradle cache
+        run: ./gradlew clean
+
+      - name: Build Kotlin code with detailed logs
+        run: ./gradlew build --warning-mode all --info --stacktrace
 
       - name: Run Kotlin script
         env:

@@ -19,7 +19,7 @@ class DacsProvider {
     fun getRemoteLatestCommitIds(repoUrl: String, branch: String = "main"): Pair<String, String> {
         val tempDir = createTempDirectory("TempGitRepo").toFile()
 
-1        val repo = Git.cloneRepository()
+        val repo = Git.cloneRepository()
             .setURI(repoUrl)
             .setBranch(branch)
             .setDirectory(tempDir)

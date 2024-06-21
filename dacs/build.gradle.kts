@@ -34,7 +34,7 @@ android {
 
 dependencies {
 
-    implementation(kotlin("stdlib"))
+    implementation ("org.jetbrains.kotlin:kotlin-stdlib")
     implementation("com.aallam.openai:openai-client:3.7.2")
     implementation("io.ktor:ktor-client-core:2.3.2")
     implementation("io.ktor:ktor-client-okhttp:2.3.2")
@@ -43,7 +43,7 @@ dependencies {
     implementation("io.ktor:ktor-client-content-negotiation:2.3.2")
     implementation("io.ktor:ktor-client-logging:2.3.2")
     implementation("io.ktor:ktor-client-auth:2.3.2")
-    implementation("org.eclipse.jgit:org.eclipse.jgit:5.13.0.202109080827-r") // JGit 추가
+    implementation("org.eclipse.jgit:org.eclipse.jgit:5.13.0.202109080827-r")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
     
     implementation("androidx.core:core-ktx:1.13.1")
