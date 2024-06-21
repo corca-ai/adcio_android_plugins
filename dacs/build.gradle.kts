@@ -32,6 +32,12 @@ android {
     }
 }
 
+tasks.withType<Jar> {
+    manifest {
+        attributes["Main-Class"] = "ai.corca.dacs.DacsProviderKt"
+    }
+}
+
 dependencies {
 
     implementation ("org.jetbrains.kotlin:kotlin-stdlib")

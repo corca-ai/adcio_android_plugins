@@ -33,14 +33,14 @@ jobs:
       - name: Run Kotlin script
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: java -cp build/libs/DacsProvider.jar ai.corca.dacs.DacsProvider.kt
+        run: java -cp build/libs/DacsProvider.jar ai.corca.dacs.DacsProviderKt
 
       - name: Commit and Push changes
         run: |
           git config --global user.name "aahspringaa4"
           git config --global user.email "hyun@corca.ai"
           git add dacs/README.md
-          git commit -m "docs: document auto update by dacs"
+          git commit -m "[DACS] docs: document auto update by dacs"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
