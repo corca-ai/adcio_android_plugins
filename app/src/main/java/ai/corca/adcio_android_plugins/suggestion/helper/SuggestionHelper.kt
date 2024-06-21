@@ -12,6 +12,7 @@ import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
 import ai.corca.adcio_placement.network.data.request.Filters
 import android.annotation.SuppressLint
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -52,6 +53,9 @@ internal class GetSuggestionThread : Thread() {
 @SuppressLint("NotifyDataSetChanged")
 private fun handleResultData(adcioSuggestionRaw: AdcioSuggestionProductRaw) {
     val products: MutableList<Production> = getMockProducts().toMutableList()
+
+    Log.d("isBaseline", adcioSuggestionRaw.metaData.isBaseline.toString())
+
     adcioSuggestionRaw.suggestions.forEach {
         products.add(
             Production(
