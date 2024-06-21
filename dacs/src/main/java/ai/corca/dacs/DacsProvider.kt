@@ -14,20 +14,12 @@ import java.io.ByteArrayOutputStream
 import java.io.File
 import kotlin.io.path.createTempDirectory
 
-
-
-
-
-
-
-
-
 class DacsProvider {
     @RequiresApi(Build.VERSION_CODES.O)
     fun getRemoteLatestCommitIds(repoUrl: String, branch: String = "main"): Pair<String, String> {
         val tempDir = createTempDirectory("TempGitRepo").toFile()
 
-        val repo = Git.cloneRepository()
+1        val repo = Git.cloneRepository()
             .setURI(repoUrl)
             .setBranch(branch)
             .setDirectory(tempDir)
@@ -41,7 +33,7 @@ class DacsProvider {
         return Pair(previousCommit.name, latestCommit.name)
     }
 
-    fun getDiffBetweenCommits(repoPath: String, oldCommitId: String, newCommitId: String): String {
+    private fun getDiffBetweenCommits(repoPath: String, oldCommitId: String, newCommitId: String): String {
         val repository = FileRepositoryBuilder()
             .setGitDir(File("$repoPath/.git"))
             .readEnvironment()
@@ -65,13 +57,20 @@ class DacsProvider {
                 currentFile = line.split(" ").last()
                 result.append(currentFile).append("\n\n")
             }
-            if (line.startsWith("+") && !line.startsWith("+++")) {
-                result.append(line).append("\n")
-            } else if (line.startsWith("-") && !line.startsWith("---")) {
-                result.append(line).append("\n")
+            if (currentFile != null && isRelevantObject(currentFile)) {
+                if (line.startsWith("+") && !line.startsWith("+++")) {
+                    result.append(line).append("\n")
+                } else if (line.startsWith("-") && !line.startsWith("---")) {
+                    result.append(line).append("\n")
+                }
             }
         }
+
         return result.toString()
+    }
+
+    private fun isRelevantObject(filePath: String): Boolean {
+        return filePath.contains("/adcio_analytics/src/main/java/ai/corca/adcio_analytics/feature/AdcioAnalytics.kt") || filePath.contains("/adcio_placement/src/main/java/ai/corca/adcio_placement/feature/AdcioPlacement.kt")
     }
 
     private fun getTreeParser(repository: Repository, objectId: String): CanonicalTreeParser {
