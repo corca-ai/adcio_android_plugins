@@ -28,7 +28,7 @@ jobs:
         run: ./gradlew clean
 
       - name: Build Kotlin code with detailed logs
-        run: ./gradlew build --warning-mode all --info --stacktrace
+        run: ./gradlew build
 
       - name: Run Kotlin script
         env:
