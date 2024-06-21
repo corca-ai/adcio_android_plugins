@@ -31,7 +31,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y kotlin
-          kotlinc main.kt -include-runtime -d main.jar
+          kotlinc -cp src/main/kotlin/ai/corca/dacs main.kt -include-runtime -d main.jar
           $ java -jar main.jar
 
       - name: Commit and Push changes
