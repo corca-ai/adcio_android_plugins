@@ -33,7 +33,7 @@ jobs:
       - name: Run Kotlin script
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        run: java -cp build/libs/DacsProvider.jar ai.corca.dacs.DacsProviderKt
+        run: java -cp build/libs/DacsProvider.jar ai.corca.dacs.DacsProvider.kt
 
       - name: Commit and Push changes
         run: |
