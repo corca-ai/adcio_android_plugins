@@ -17,7 +17,10 @@ import kotlin.io.path.createTempDirectory
 class DacsProvider {
     @RequiresApi(Build.VERSION_CODES.O)
     fun getRemoteLatestCommitIds(repoUrl: String, branch: String = "main"): Pair<String, String> {
+        println("Creating temporary directory23523rt23r23r23r23r23r32r2r332r3r2r23r3r")
         val tempDir = createTempDirectory("TempGitRepo").toFile()
+
+        println("Cr3r23r32r2r332r3r2r23r3r ${tempDir}")
 
         val repo = Git.cloneRepository()
             .setURI(repoUrl)
@@ -52,6 +55,7 @@ class DacsProvider {
         val diffLines = output.toString().lines()
         var currentFile: String? = null
 
+        println("Creating temporary directory")
         for (line in diffLines) {
             if (line.startsWith("diff --git")) {
                 currentFile = line.split(" ").last()
@@ -65,6 +69,8 @@ class DacsProvider {
                 }
             }
         }
+
+        println("result")
 
         return result.toString()
     }
