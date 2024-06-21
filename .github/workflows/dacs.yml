@@ -27,10 +27,10 @@ jobs:
       - name: Clear Gradle cache
         run: ./gradlew clean
 
-      - name: Build Kotlin code with detailed logs
+      - name: Build Kotlin code
         run: ./gradlew build
 
-      - name: Build Kotlin code with detailed logs
+      - name: Build Dacs Code
         run: ./gradlew :dacs:build
 
       - name: Create JAR
