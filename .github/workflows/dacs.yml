@@ -33,9 +33,10 @@ jobs:
             gradle-${{ runner.os }}-
 
       - name: Download Dependencies
-        run: ./gradlew build --no-daemon
+        run: ./gradlew dacs:build
 
       - name: Run DacsProvider greet function
+        if: success()
         run: ./gradlew :dacs:runDacsProviderFunction --no-daemon
 
       - name: Commit and Push changes
