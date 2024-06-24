@@ -76,10 +76,8 @@ class DacsProvider {
     }
 
     private fun isRelevantObject(filePath: String): Boolean {
-        return filePath.contains(
-            "/adcio_analytics/src/main/java/ai/corca/adcio_analytics/feature/AdcioAnalytics.kt") ||
-                filePath.contains(
-                    "/adcio_placement/src/main/java/ai/corca/adcio_placement/feature/AdcioPlacement.kt")
+        return filePath.contains("/adcio_analytics/src/main/java/ai/corca/adcio_analytics/feature/AdcioAnalytics.kt") ||
+                filePath.contains("/adcio_placement/src/main/java/ai/corca/adcio_placement/feature/AdcioPlacement.kt")
     }
 
     private fun getTreeParser(repository: Repository, objectId: String): CanonicalTreeParser {

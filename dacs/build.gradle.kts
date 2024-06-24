@@ -66,6 +66,14 @@ tasks.withType<Test> {
     useJUnitPlatform()
 }
 
+sourceSets {
+    create("main") {
+        java {
+            setSrcDirs(listOf("src/main/kotlin"))
+        }
+    }
+}
+
 tasks.register<JavaExec>("runDacsProviderFunction") {
     group = "application"
     description = "Runs the DacsProvider greet function"
