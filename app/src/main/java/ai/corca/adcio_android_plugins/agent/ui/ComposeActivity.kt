@@ -43,8 +43,6 @@ class ComposeActivity : AppCompatActivity() {
         var id by remember { productId }
 
         val adcioAgentCompose = AdcioAgentCompose()
-        // Returns whether the current page is the first page of the agent's page.
-        val isPageStart: Boolean = adcioAgentCompose.isAgentStartPage()
 
         val context = LocalContext.current
 
