@@ -70,5 +70,5 @@ tasks.register<JavaExec>("runDacsProviderFunction") {
     group = "application"
     description = "Runs the DacsProvider greet function"
     mainClass.set("scripts.RunDacsProviderFunctionKt")
-    classpath = sourceSets["main()"].runtimeClasspath
+    classpath = sourceSets["main"].runtimeClasspath
 }
