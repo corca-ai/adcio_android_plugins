@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.cli.jvm.compiler.findMainClass
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("com.android.library")
@@ -37,7 +38,7 @@ android {
 
 dependencies {
 
-    implementation ("org.jetbrains.kotlin:kotlin-stdlib")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
     implementation("com.aallam.openai:openai-client:3.7.2")
     implementation("io.ktor:ktor-client-core:2.3.2")
     implementation("io.ktor:ktor-client-okhttp:2.3.2")
@@ -48,7 +49,7 @@ dependencies {
     implementation("io.ktor:ktor-client-auth:2.3.2")
     implementation("org.eclipse.jgit:org.eclipse.jgit:5.13.0.202109080827-r")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
-    
+
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
@@ -63,4 +64,11 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.register<JavaExec>("runDacsProviderFunction") {
+    group = "application"
+    description = "Runs the DacsProvider greet function"
+    mainClass.set("scripts.RunDacsProviderFunctionKt")
+    classpath = sourceSets["main"].runtimeClasspath
 }

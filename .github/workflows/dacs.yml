@@ -22,14 +22,21 @@ jobs:
       - name: Clear Gradle cache
         run: ./gradlew clean
 
-      - name: Install Kotlin compiler
-        run: sudo apt-get install -y kotlin
+      - name: Cache Gradle packages
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ runner.os }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-${{ runner.os }}-
 
-      - name: Compile Kotlin code
-        run: kotlinc dacs/src/main/kotlin/ai/corca/dacs/main.kt -include-runtime -d main.jar
+      - name: Download Dependencies
+        run: ./gradlew build --no-daemon
 
-      - name: Run Kotlin program
-        run: java -jar main.jar
+      - name: Run DacsProvider greet function
+        run: ./gradlew :dacs:runDacsProviderFunction --no-daemon
 
       - name: Commit and Push changes
         run: |
