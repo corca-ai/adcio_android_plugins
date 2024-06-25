@@ -97,7 +97,7 @@ class DacsProvider {
     @RequiresApi(Build.VERSION_CODES.O)
     fun greet() {
         val repoUrl = "https://github.com/corca-ai/adcio_android_plugins.git"
-        val branch = "dacs_test"
+        val branch = "main"
 
         val (oldCommitId, newCommitId) = getRemoteLatestCommitIds(repoUrl, branch)
 
