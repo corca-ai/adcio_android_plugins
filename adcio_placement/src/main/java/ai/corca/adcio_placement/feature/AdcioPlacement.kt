@@ -30,26 +30,24 @@ object AdcioPlacement {
 
     fun createRecommendationProducts(
         clientId: String,
-        placementId: String,
+        placementId: String? = null,
         excludingProductIds: List<String>? = null,
         categoryId: String? = null,
-        customerId: String? = null,
-        fromAgent: Boolean = false,
-        birthYear: Int? = null,
+        birthYear: String? = null,
         gender: Gender? = null,
         filters: Map<String, Filters>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
         return placementRemote.createRecommendationProducts(
             clientId = clientId,
-            placementId = placementId,
+            placementId = placementId ?: "",
             deviceId = loadDeviceId(),
             sessionId = SessionClient.loadSessionId(),
-            customerId = customerId,
+            customerId = "",
             excludingProductIds = excludingProductIds,
             categoryId = categoryId,
-            fromAgent = fromAgent,
-            birthYear = birthYear,
+            fromAgent = false,
+            birthYear = birthYear?.toInt(),
             gender = gender,
             filters = filters,
             baseUrl = baseUrl,
@@ -77,11 +75,9 @@ object AdcioPlacement {
 
     fun createAdvertisementProducts(
         clientId: String,
-        placementId: String,
+        placementId: String? =  null,
         excludingProductIds: List<String>? = null,
         categoryId: String? = null,
-        customerId: String? = null,
-        fromAgent: Boolean = false,
         birthYear: Int? = null,
         gender: Gender? = null,
         filters: Map<String, Filters>? = null,
@@ -89,13 +85,13 @@ object AdcioPlacement {
     ): AdcioSuggestionProductRaw {
         return placementRemote.createAdvertisementProducts(
             clientId = clientId,
-            placementId = placementId,
+            placementId = placementId ?: "",
             deviceId = loadDeviceId(),
             sessionId = SessionClient.loadSessionId(),
             excludingProductIds = excludingProductIds,
             categoryId = categoryId,
-            customerId = customerId,
-            fromAgent = fromAgent,
+            customerId = "",
+            fromAgent = true,
             birthYear = birthYear,
             gender = gender,
             filters = filters,
@@ -122,3 +118,4 @@ object AdcioPlacement {
         )
     }
 }
+
