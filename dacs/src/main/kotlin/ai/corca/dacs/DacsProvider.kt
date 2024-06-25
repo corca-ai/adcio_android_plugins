@@ -20,8 +20,6 @@ class DacsProvider {
         println("Creating temporary directory23523rt23r23r23r23r23r32r2r332r3r2r23r3r")
         val tempDir = createTempDirectory("TempGitRepo").toFile()
 
-        println("Cr3r23r32r2r332r3r2r23r3r ${tempDir}")
-
         val repo = Git.cloneRepository()
             .setURI(repoUrl)
             .setBranch(branch)
@@ -53,29 +51,25 @@ class DacsProvider {
 
         val result = StringBuilder()
         val diffLines = output.toString().lines()
-        var currentFile: String? = null
+        var isRelevantDiff = false  // 관련 파일인지 확인하는 플래그
 
-        println("Creating temporary directory")
         for (line in diffLines) {
             if (line.startsWith("diff --git")) {
-                currentFile = line.split(" ").last()
-                result.append(currentFile).append("\n\n")
-            }
-            if (currentFile != null && isRelevantObject(currentFile)) {
-                if (line.startsWith("+") && !line.startsWith("+++")) {
-                    result.append(line).append("\n")
-                } else if (line.startsWith("-") && !line.startsWith("---")) {
-                    result.append(line).append("\n")
+                val filePath = line.split(" ").last()
+                isRelevantDiff = isRelevantFile(filePath)  // 파일 경로를 검사하여 관련 파일 여부를 결정
+                if (isRelevantDiff) {
+                    result.append("diff for: ").append(filePath).append("\n")
                 }
             }
+            if (isRelevantDiff) {
+                result.append(line).append("\n")  // 관련 파일의 diff 전체를 추가
+            }
         }
-
-        println("result")
 
         return result.toString()
     }
 
-    private fun isRelevantObject(filePath: String): Boolean {
+    private fun isRelevantFile(filePath: String): Boolean {
         return filePath.contains("/adcio_analytics/src/main/java/ai/corca/adcio_analytics/feature/AdcioAnalytics.kt") ||
                 filePath.contains("/adcio_placement/src/main/java/ai/corca/adcio_placement/feature/AdcioPlacement.kt")
     }
@@ -97,7 +91,7 @@ class DacsProvider {
     @RequiresApi(Build.VERSION_CODES.O)
     fun greet() {
         val repoUrl = "https://github.com/corca-ai/adcio_android_plugins.git"
-        val branch = "main"
+        val branch = "dacs_test"
 
         val (oldCommitId, newCommitId) = getRemoteLatestCommitIds(repoUrl, branch)
 
@@ -111,35 +105,22 @@ class DacsProvider {
         val diff = getDiffBetweenCommits(tempRepoPath, oldCommitId, newCommitId)
         val createDacs = CreateDacs()
 
-        println("diff")
         println(diff)
 
         runBlocking {
-            createDacs.greet(diff)
-            updateReadmeWithDiff(tempRepoPath, diff)
+            val newDocs = createDacs.updateDocumentation(diff)
+            println(newDocs)
+            updateReadmeWithDiff(tempRepoPath, newDocs)
         }
 
         repo.close()
-        File(tempRepoPath).deleteRecursively()
     }
 
-    private fun updateReadmeWithDiff(repoPath: String, diff: String) {
-        val readmePath = "$repoPath/dacs/README.md"
+    private fun updateReadmeWithDiff(repoPath: String, newDocs: String) {
+        val readmePath = "/Users/yuhyeonmyeong/github/adcio_android_plugins/dacs/README.md"
         val readmeFile = File(readmePath)
 
-        if (!readmeFile.exists()) {
-            throw IllegalStateException("README.md not found at $readmePath")
-        }
-
-        val updatedContent = StringBuilder()
-        readmeFile.forEachLine { line ->
-            updatedContent.append(line).append("\n")
-            if (line.trim() == "<!-- DIFF_START -->") {
-                updatedContent.append("\n").append(diff).append("\n")
-            }
-        }
-
-        readmeFile.writeText(updatedContent.toString())
+        readmeFile.writeText(newDocs)
     }
 }
 
