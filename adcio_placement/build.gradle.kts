@@ -1,7 +1,12 @@
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+import de.undercouch.gradle.tasks.download.Download
+
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+    id("org.openapi.generator") version "6.6.0"
+    id("de.undercouch.download") version "5.6.0"
 }
 
 rootProject.extra.apply {
@@ -10,6 +15,36 @@ rootProject.extra.apply {
     set("PUBLISH_VERSION", "1.3.2")
     set("PUBLISH_SCM_URL", "https://github.com/corca-ai/adcio_android_plugins")
     set("PUBLISH_DESCRIPTION", "adcio_placement is adcio suggestion library")
+}
+
+val basePackage = "ai.corca.adcio_placement"
+val targetDir = "$buildDir/generated"
+val targetFileName = "placement-swagger.json"
+
+tasks.register<Download>("downloadSwagger") {
+    src("https://api.adcio.ai/api-json")
+    dest(file("$buildDir/$targetFileName"))
+    onlyIfModified(true)
+    useETag(true)
+}
+
+tasks.register<GenerateTask>("generateClient") {
+    dependsOn(tasks.named("downloadSwagger"))
+    generatorName.set("kotlin")
+    inputSpec.set("$buildDir/$targetFileName")
+    outputDir.set(targetDir)
+    apiPackage.set("$basePackage.api")
+    modelPackage.set("$basePackage.model")
+    invokerPackage.set("$basePackage.invoker")
+    configOptions.set(
+        mapOf(
+            "library" to "jvm-retrofit2",
+            "dateLibrary" to "java8",
+            "omitGradleWrapper" to "true",
+            "sourceFolder" to "src/main/java",
+            "useCoroutines" to "false"
+        )
+    )
 }
 
 android {

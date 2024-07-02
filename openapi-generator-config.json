@@ -1,0 +1,20 @@
+{
+  "spaces": 2,
+  "generator-cli": {
+    "version": "6.6.0",
+    "generators": {
+      "analytics": {
+        "packageName": "ai.corca.analytics",
+        "generatorName": "kotlin",
+        "output": "#{cwd}/analytics/src/main/java/ai/corca/analytics",
+        "inputSpec": "https://receiver.adcio.ai/api-json"
+      },
+      "placement": {
+        "packageName": "ai.corca.placement",
+        "generatorName": "kotlin",
+        "output": "#{cwd}/placement/src/main/java/ai/corca/placement",
+        "inputSpec": "https://api.adcio.ai/api-json"
+      }
+    }
+  }
+}
