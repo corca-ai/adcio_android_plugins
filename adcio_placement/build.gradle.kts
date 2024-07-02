@@ -90,13 +90,15 @@ android {
             useLegacyPackaging = true
         }
     }
+
+    sourceSets["main"].java.srcDirs("$targetDir/src/main/java")
 }
 
 apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.9.0")
+    implementation("androidx.core:core-ktx:1.13.1")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
@@ -104,9 +106,13 @@ dependencies {
     androidTestImplementation("io.mockk:mockk-android:1.13.8")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
+    implementation("com.squareup.moshi:moshi:1.15.1")
+    implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
+
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.2")
 
     implementation("io.github.corca-ai:core:1.0.3")
 }

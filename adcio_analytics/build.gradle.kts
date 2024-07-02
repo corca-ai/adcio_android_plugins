@@ -74,6 +74,8 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    sourceSets["main"].java.srcDirs("$targetDir/src/main/java")
 }
 
 apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
