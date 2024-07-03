@@ -18,7 +18,7 @@ rootProject.extra.apply {
 }
 
 val basePackage = "ai.corca.adcio_placement"
-val targetDir = "generated-sources" // 변경된 타겟 디렉터리
+val targetDir = "${project.rootDir}/generated-sources"
 val targetFileName = "placement-swagger.json"
 
 tasks.register<Download>("downloadSwagger") {
