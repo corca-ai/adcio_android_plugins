@@ -18,12 +18,12 @@ rootProject.extra.apply {
 }
 
 val basePackage = "ai.corca.adcio_placement"
-val targetDir = "$buildDir/generated"
+val targetDir = "generated-sources" // 변경된 타겟 디렉터리
 val targetFileName = "placement-swagger.json"
 
 tasks.register<Download>("downloadSwagger") {
     src("https://api.adcio.ai/api-json")
-    dest(file("$buildDir/$targetFileName"))
+    dest(file("$targetDir/$targetFileName"))
     onlyIfModified(true)
     useETag(true)
 }
@@ -31,7 +31,7 @@ tasks.register<Download>("downloadSwagger") {
 tasks.register<GenerateTask>("generateClient") {
     dependsOn(tasks.named("downloadSwagger"))
     generatorName.set("kotlin")
-    inputSpec.set("$buildDir/$targetFileName")
+    inputSpec.set("$targetDir/$targetFileName")
     outputDir.set(targetDir)
     apiPackage.set("$basePackage.api")
     modelPackage.set("$basePackage.model")
@@ -39,7 +39,7 @@ tasks.register<GenerateTask>("generateClient") {
     configOptions.set(
         mapOf(
             "library" to "jvm-retrofit2",
-            "dateLibrary" to "java8",
+            "dateLibrary" to "java11",
             "omitGradleWrapper" to "true",
             "sourceFolder" to "src/main/java",
             "useCoroutines" to "false"

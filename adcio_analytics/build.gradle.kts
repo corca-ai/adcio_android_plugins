@@ -39,7 +39,7 @@ tasks.register<GenerateTask>("generateClient") {
     configOptions.set(
         mapOf(
             "library" to "jvm-retrofit2",
-            "dateLibrary" to "java8",
+            "dateLibrary" to "java11",
             "omitGradleWrapper" to "true",
             "sourceFolder" to "src/main/java",
             "useCoroutines" to "false"
