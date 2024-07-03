@@ -2,6 +2,8 @@ package ai.corca.adcio_analytics.feature
 
 import ai.corca.adcio_analytics.model.AdcioLogOption
 import ai.corca.adcio_analytics.network.remote.AnalyticsRemote
+import ai.corca.adcio_placement.model.FetchActivePlacementsResponseDto
+import ai.corca.adcio_placement.model.FetchPlacementResponseDto
 import com.corcaai.core.ids.SessionClient
 import com.corcaai.core.ids.loadDeviceId
 
