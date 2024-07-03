@@ -18,7 +18,7 @@ rootProject.extra.apply {
 }
 
 val basePackage = "ai.corca.adcio_analytics"
-val targetDir = "${project.rootDir}/generated-sources"
+val targetDir = "${project.rootDir}/adcio_analytics/generated-sources"
 val targetFileName = "analytics-swagger.json"
 
 tasks.register<Download>("downloadSwagger") {

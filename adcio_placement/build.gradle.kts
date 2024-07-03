@@ -18,7 +18,7 @@ rootProject.extra.apply {
 }
 
 val basePackage = "ai.corca.adcio_placement"
-val targetDir = "${project.rootDir}/generated-sources"
+val targetDir = "${project.rootDir}/adcio_placement/generated-sources"
 val targetFileName = "placement-swagger.json"
 
 tasks.register<Download>("downloadSwagger") {

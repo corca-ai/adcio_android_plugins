@@ -41,15 +41,7 @@ class AdcioAnalytics(
         productIdOnStore: String? = null,
         storeId: String? = null,
     ) {
-        analyticsRemote.onClick(
-            sessionId = SessionClient.loadSessionId(),
-            deviceId = loadDeviceId(),
-            customerId = customerId,
-            storeId = storeId ?: storeID,
-            productIdOnStore = productIdOnStore,
-            adcioLogOption = option,
-            baseUrl = baseUrl,
-        )
+
     }
 
     /**
