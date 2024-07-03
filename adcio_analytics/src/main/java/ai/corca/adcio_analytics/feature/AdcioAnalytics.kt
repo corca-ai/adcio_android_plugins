@@ -1,9 +1,12 @@
 package ai.corca.adcio_analytics.feature
 
+import ai.corca.adcio_analytics.eventsApi
 import ai.corca.adcio_analytics.model.AdcioLogOption
-import ai.corca.adcio_analytics.network.remote.AnalyticsRemote
-import ai.corca.adcio_placement.model.FetchActivePlacementsResponseDto
-import ai.corca.adcio_placement.model.FetchPlacementResponseDto
+import ai.corca.adcio_analytics.model.TrackAddToCartRequestDto
+import ai.corca.adcio_analytics.model.TrackClickRequestDto
+import ai.corca.adcio_analytics.model.TrackImpressionRequestDto
+import ai.corca.adcio_analytics.model.TrackPageViewRequestDto
+import ai.corca.adcio_analytics.model.TrackPurchaseRequestDto
 import com.corcaai.core.ids.SessionClient
 import com.corcaai.core.ids.loadDeviceId
 
@@ -16,8 +19,6 @@ class AdcioAnalytics(
             throw IllegalArgumentException("clientId cannot be empty")
         }
     }
-
-    private val analyticsRemote: AnalyticsRemote = AnalyticsRemote()
 
     /**
      * This is a function that provides the same value as getSessionId in ADCIO Placement.
@@ -34,35 +35,44 @@ class AdcioAnalytics(
      * click event log
      * This event is called when a user clicks on a recommended product displayed on a suggestion placement.
      */
-    fun onClick(
+    suspend fun onClick(
         option: AdcioLogOption,
-        baseUrl: String? = null,
         customerId: String? = null,
         productIdOnStore: String? = null,
-        storeId: String? = null,
     ) {
-
+        eventsApi.eventsControllerOnClick(
+            trackClickRequestDto = TrackClickRequestDto(
+                storeId = clientId,
+                deviceId = getDeviceId(),
+                sessionId = SessionClient.loadSessionId(),
+                customerId = customerId,
+                productIdOnStore = productIdOnStore,
+                adsetId = option.adsetId,
+                requestId = option.requestId
+            )
+        )
     }
 
     /**
      * impression event log
      * This event is called when a suggestion placement is displayed on the screen during the ad lifecycle (e.g., page lifecycle). This call occurs only once when the suggestion placement is revealed.
      */
-    fun onImpression(
+    suspend fun onImpression(
         customerId: String? = null,
         storeId: String? = null,
         option: AdcioLogOption,
         productIdOnStore: String? = null,
-        baseUrl: String? = null,
     ) {
-        analyticsRemote.onImpression(
-            sessionId = SessionClient.loadSessionId(),
-            deviceId = loadDeviceId(),
-            customerId = customerId,
-            storeId = storeId ?: storeID,
-            adcioLogOption = option,
-            productIdOnStore = productIdOnStore,
-            baseUrl = baseUrl,
+        eventsApi.eventsControllerOnImpression(
+            trackImpressionRequestDto = TrackImpressionRequestDto(
+                sessionId = SessionClient.loadSessionId(),
+                deviceId = loadDeviceId(),
+                customerId = customerId,
+                storeId = storeId ?: storeID,
+                productIdOnStore = productIdOnStore,
+                adsetId = option.adsetId,
+                requestId = option.requestId
+            )
         )
     }
 
@@ -70,30 +80,29 @@ class AdcioAnalytics(
      * purchase event log
      * This event is called when a user purchases a recommended product.
      */
-    fun onPurchase(
+    suspend fun onPurchase(
         customerId: String? = null,
         orderId: String,
-        storeId: String? = null,
         option: AdcioLogOption? = null,
         categoryIdOnStore: String? = null,
         productIdOnStore: String? = null,
         quantity: Int? = null,
         amount: Int,
-        baseUrl: String? = null,
     ) {
-        analyticsRemote.onPurchase(
-            sessionId = SessionClient.loadSessionId(),
-            deviceId = loadDeviceId(),
-            customerId = customerId,
-            orderId = orderId,
-            storeId = storeId ?: storeID,
-            requestId = option?.requestId,
-            adsetId = option?.adsetId,
-            categoryIdOnStore = categoryIdOnStore,
-            productIdOnStore = productIdOnStore,
-            quantity = quantity,
-            amount = amount,
-            baseUrl = baseUrl,
+        eventsApi.eventsControllerOnPurchase(
+            trackPurchaseRequestDto = TrackPurchaseRequestDto(
+                sessionId = SessionClient.loadSessionId(),
+                deviceId = loadDeviceId(),
+                customerId = customerId,
+                orderId = orderId,
+                storeId = clientId,
+                requestId = option?.requestId,
+                adsetId = option?.adsetId,
+                categoryIdOnStore = categoryIdOnStore,
+                productIdOnStore = productIdOnStore,
+                quantity = quantity?.toBigDecimal(),
+                amount = amount.toBigDecimal(),
+            )
         )
     }
 
@@ -102,28 +111,27 @@ class AdcioAnalytics(
      * Log when the customer views a specific product / category page.
      * If this is a specific product/category page, please add your productId to the productIdOnStore parameter.
      */
-    fun onPageView(
+    suspend fun onPageView(
         productIdOnStore: String,
         customerId: String? = null,
-        storeId: String? = null,
         option: AdcioLogOption? = null,
         categoryIdOnStore: String? = null,
-        baseUrl: String? = null,
     ) {
-        analyticsRemote.onPageView(
-            sessionId = SessionClient.loadSessionId(),
-            deviceId = loadDeviceId(),
-            customerId = customerId,
-            storeId = storeId ?: storeID,
-            requestId = option?.requestId,
-            adsetId = option?.adsetId,
-            productIdOnStore = productIdOnStore,
-            categoryIdOnStore = categoryIdOnStore,
-            baseUrl = baseUrl,
+        eventsApi.eventsControllerOnPageView(
+            trackPageViewRequestDto = TrackPageViewRequestDto(
+                sessionId = SessionClient.loadSessionId(),
+                deviceId = loadDeviceId(),
+                customerId = customerId,
+                storeId = clientId,
+                requestId = option?.requestId,
+                adsetId = option?.adsetId,
+                productIdOnStore = productIdOnStore,
+                categoryIdOnStore = categoryIdOnStore,
+            )
         )
     }
 
-    fun onAddToCart(
+    suspend fun onAddToCart(
         customerId: String? = null,
         storeId: String? = null,
         productIdOnStore: String? = null,
@@ -131,20 +139,20 @@ class AdcioAnalytics(
         option: AdcioLogOption? = null,
         quantity: Int? = null,
         cartId: String? = null,
-        baseUrl: String? = null,
     ) {
-        analyticsRemote.onAddToCart(
-            sessionId = SessionClient.loadSessionId(),
-            deviceId = loadDeviceId(),
-            customerId = customerId,
-            storeId = storeId ?: storeID,
-            productIdOnStore = productIdOnStore,
-            categoryIdOnStore = categoryIdOnStore,
-            cartId = cartId,
-            requestId = option?.requestId,
-            adsetId = option?.adsetId,
-            quantity = quantity,
-            baseUrl = baseUrl
+        eventsApi.eventsControllerOnAddToCart(
+            trackAddToCartRequestDto = TrackAddToCartRequestDto(
+                sessionId = SessionClient.loadSessionId(),
+                deviceId = loadDeviceId(),
+                customerId = customerId,
+                storeId = storeId ?: storeID,
+                productIdOnStore = productIdOnStore,
+                categoryIdOnStore = categoryIdOnStore,
+                cartId = cartId,
+                requestId = option?.requestId,
+                adsetId = option?.adsetId,
+                quantity = quantity?.toBigDecimal(),
+            )
         )
     }
 }
