@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import kotlinx.coroutines.runBlocking
 
 private val impressionHistory: MutableSet<String> = mutableSetOf()
 
@@ -24,10 +25,10 @@ internal fun hasImpression(adsetId: String): Boolean = impressionHistory.contain
 fun clearImpressionHistory() = impressionHistory.clear()
 
 class MockProductListAdapter(
-    val onImpressionItem: (logOption: AdcioLogOption) -> Unit,
-    val onPurchaseItem: (logOption: AdcioLogOption) -> Unit,
-    val onClickItem: (logOption: AdcioLogOption) -> Unit,
-    val onAddToCart: (productId: String) -> Unit
+    val onImpressionItem: suspend (logOption: AdcioLogOption) -> Unit,
+    val onPurchaseItem: suspend (logOption: AdcioLogOption) -> Unit,
+    val onClickItem: suspend (logOption: AdcioLogOption) -> Unit,
+    val onAddToCart: suspend (productId: String) -> Unit
 ) : ListAdapter<Production, MockProductListAdapter.MockProductViewHolder>(
     MockProductDiffUtilCallback
 ) {
@@ -111,7 +112,7 @@ class MockProductListAdapter(
                     // Impression should only run once after the screen is launched.
                     // This logic prevents Impression from being called multiple times.
                     if (!hasImpression(item.logOption.adsetId)) {
-                        onImpressionItem(item.logOption)
+                        runBlocking { onImpressionItem(item.logOption) }
                         impressionHistory.add(item.logOption.adsetId)
                     }
                 }
@@ -127,17 +128,17 @@ class MockProductListAdapter(
             binding.tvPrice.text = "₩${item.price}"
 
             binding.tvBuy.setOnClickListener {
-                onPurchaseItem(item.logOption)
+                runBlocking { onPurchaseItem(item.logOption) }
             }
 
             binding.cardAnalyticsSuggestion.setOnClickListener {
                 if (item.isSuggested) {
-                    onClickItem(item.logOption)
+                    runBlocking { onClickItem(item.logOption) }
                 }
             }
 
             binding.ivPurchase.setOnClickListener {
-                onAddToCart(item.productId)
+                runBlocking { onAddToCart(item.productId) }
             }
         }
     }

@@ -42,7 +42,7 @@ class AdcioAnalytics(
     ) {
         eventsApi.eventsControllerOnClick(
             trackClickRequestDto = TrackClickRequestDto(
-                storeId = clientId,
+                storeId = storeID,
                 deviceId = getDeviceId(),
                 sessionId = SessionClient.loadSessionId(),
                 customerId = customerId,
@@ -59,7 +59,6 @@ class AdcioAnalytics(
      */
     suspend fun onImpression(
         customerId: String? = null,
-        storeId: String? = null,
         option: AdcioLogOption,
         productIdOnStore: String? = null,
     ) {
@@ -68,7 +67,7 @@ class AdcioAnalytics(
                 sessionId = SessionClient.loadSessionId(),
                 deviceId = loadDeviceId(),
                 customerId = customerId,
-                storeId = storeId ?: storeID,
+                storeId = storeID,
                 productIdOnStore = productIdOnStore,
                 adsetId = option.adsetId,
                 requestId = option.requestId
@@ -95,7 +94,7 @@ class AdcioAnalytics(
                 deviceId = loadDeviceId(),
                 customerId = customerId,
                 orderId = orderId,
-                storeId = clientId,
+                storeId = storeID,
                 requestId = option?.requestId,
                 adsetId = option?.adsetId,
                 categoryIdOnStore = categoryIdOnStore,
@@ -122,7 +121,7 @@ class AdcioAnalytics(
                 sessionId = SessionClient.loadSessionId(),
                 deviceId = loadDeviceId(),
                 customerId = customerId,
-                storeId = clientId,
+                storeId = storeID,
                 requestId = option?.requestId,
                 adsetId = option?.adsetId,
                 productIdOnStore = productIdOnStore,
@@ -133,8 +132,7 @@ class AdcioAnalytics(
 
     suspend fun onAddToCart(
         customerId: String? = null,
-        storeId: String? = null,
-        productIdOnStore: String? = null,
+        productIdOnStore: String,
         categoryIdOnStore: String? = null,
         option: AdcioLogOption? = null,
         quantity: Int? = null,
@@ -145,7 +143,7 @@ class AdcioAnalytics(
                 sessionId = SessionClient.loadSessionId(),
                 deviceId = loadDeviceId(),
                 customerId = customerId,
-                storeId = storeId ?: storeID,
+                storeId = storeID,
                 productIdOnStore = productIdOnStore,
                 categoryIdOnStore = categoryIdOnStore,
                 cartId = cartId,

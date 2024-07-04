@@ -1,16 +1,24 @@
 package ai.corca.adcio_placement.feature
 
 import ai.corca.adcio_placement.enum.Gender
+import ai.corca.adcio_placement.model.BannerSuggestionRequestDto
+import ai.corca.adcio_placement.model.BannerSuggestionResponseDto
+import ai.corca.adcio_placement.model.ProductFilterOperationDto
+import ai.corca.adcio_placement.model.ProductSuggestionRequestDto
+import ai.corca.adcio_placement.model.ProductSuggestionResponseDto
+import ai.corca.adcio_placement.model.SuggestionRequestTarget
 import ai.corca.adcio_placement.model.banner.AdcioSuggestionBannerRaw
 import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
 import ai.corca.adcio_placement.network.data.request.Filters
 import ai.corca.adcio_placement.network.remote.PlacementRemote
+import ai.corca.adcio_placement.suggestionApi
+import ai.corca.adcio_placement.util.sdkVersion
+import android.os.Build
 import com.corcaai.core.ids.SessionClient
 import com.corcaai.core.ids.loadDeviceId
+import okhttp3.internal.userAgent
 
 object AdcioPlacement {
-
-    private val placementRemote = PlacementRemote()
 
     /**
      * This is a function that provides the same value as getSessionId in ADCIO Analytics.
@@ -28,97 +36,150 @@ object AdcioPlacement {
      * It smartly predicts products with high click or purchase probabilities from the client's products and returns the product information.
      */
 
-    fun createRecommendationProducts(
+    suspend fun createRecommendationProducts(
         clientId: String,
         placementId: String,
         excludingProductIds: List<String>? = null,
+        baselineProductIds: List<String>? = null,
         categoryId: String? = null,
         customerId: String? = null,
-        fromAgent: Boolean = false,
-        birthYear: Int? = null,
-        gender: Gender? = null,
-        filters: Map<String, Filters>? = null,
-        baseUrl: String? = null,
-    ): AdcioSuggestionProductRaw {
-        return placementRemote.createRecommendationProducts(
-            clientId = clientId,
-            placementId = placementId,
-            deviceId = loadDeviceId(),
-            sessionId = SessionClient.loadSessionId(),
-            customerId = customerId,
-            excludingProductIds = excludingProductIds,
-            categoryId = categoryId,
-            fromAgent = fromAgent,
-            birthYear = birthYear,
-            gender = gender,
-            filters = filters,
-            baseUrl = baseUrl,
-        )
+        fromAgent: Boolean? = null,
+        userAgent: String? = null,
+        targets: List<SuggestionRequestTarget>? = null,
+        filters: Map<String, ProductFilterOperationDto>? = null,
+    ): ProductSuggestionResponseDto? {
+        var _filters: MutableList<Map<String, ProductFilterOperationDto>>? = null
+
+        if (filters != null) {
+            val filtersArray = mutableListOf<Map<String, ProductFilterOperationDto>>()
+            for ((key, condition) in filters) {
+                val filter = ProductFilterOperationDto(
+                    equalTo = condition.equalTo,
+                    not = condition.not,
+                    contains = condition.contains
+                )
+                filtersArray.add(mapOf(key to filter))
+            }
+            if (filtersArray.isNotEmpty()) {
+                _filters = filtersArray
+            }
+        }
+
+        return suggestionApi.recommendationsControllerRecommendProducts(
+            productSuggestionRequestDto = ProductSuggestionRequestDto(
+                sessionId = SessionClient.loadSessionId(),
+                deviceId = loadDeviceId(),
+                placementId = placementId,
+                clientId = clientId,
+                customerId = customerId,
+                sdkVersion = sdkVersion,
+                placementPositionX = null,
+                placementPositionY = null,
+                fromAgent = fromAgent,
+                excludingProductIds = excludingProductIds,
+                baselineProductIds = baselineProductIds,
+                categoryId = categoryId,
+                filters = _filters?.toList(),
+                targets = targets,
+                userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}"
+            )
+        ).body()
     }
 
-    fun createRecommendationBanners(
+    suspend fun createRecommendationBanners(
         placementId: String,
         customerId: String? = null,
-        birthYear: Int? = null,
-        gender: Gender? = null,
-        baseUrl: String? = null,
-    ): AdcioSuggestionBannerRaw {
-        return placementRemote.createRecommendationBanners(
-            placementId = placementId,
-            deviceId = loadDeviceId(),
-            sessionId = SessionClient.loadSessionId(),
-            customerId = customerId,
-            fromAgent = false,
-            birthYear = birthYear,
-            gender = gender,
-            baseUrl = baseUrl,
-        )
+        fromAgent: Boolean? = null,
+        userAgent: String? = null,
+        targets: List<SuggestionRequestTarget>? = null,
+    ): BannerSuggestionResponseDto? {
+        return suggestionApi.recommendationsControllerRecommendBanners(
+            bannerSuggestionRequestDto = BannerSuggestionRequestDto(
+                sessionId = SessionClient.loadSessionId(),
+                deviceId = loadDeviceId(),
+                placementId = placementId,
+                customerId = customerId,
+                sdkVersion = sdkVersion,
+                placementPositionX = null,
+                placementPositionY = null,
+                fromAgent = fromAgent,
+                targets = targets,
+                userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}"
+            )
+        ).body()
     }
 
-    fun createAdvertisementProducts(
+    suspend fun createAdvertisementProducts(
         clientId: String,
         placementId: String,
         excludingProductIds: List<String>? = null,
+        baselineProductIds: List<String>? = null,
         categoryId: String? = null,
         customerId: String? = null,
-        fromAgent: Boolean = false,
-        birthYear: Int? = null,
-        gender: Gender? = null,
-        filters: Map<String, Filters>? = null,
-        baseUrl: String? = null,
-    ): AdcioSuggestionProductRaw {
-        return placementRemote.createAdvertisementProducts(
-            clientId = clientId,
-            placementId = placementId,
-            deviceId = loadDeviceId(),
-            sessionId = SessionClient.loadSessionId(),
-            excludingProductIds = excludingProductIds,
-            categoryId = categoryId,
-            customerId = customerId,
-            fromAgent = fromAgent,
-            birthYear = birthYear,
-            gender = gender,
-            filters = filters,
-            baseUrl = baseUrl,
-        )
+        fromAgent: Boolean? = null,
+        userAgent: String? = null,
+        targets: List<SuggestionRequestTarget>? = null,
+        filters: Map<String, ProductFilterOperationDto>? = null,
+    ): ProductSuggestionResponseDto? {
+
+        var _filters: MutableList<Map<String, ProductFilterOperationDto>>? = null
+
+        if (filters != null) {
+            val filtersArray = mutableListOf<Map<String, ProductFilterOperationDto>>()
+            for ((key, condition) in filters) {
+                val filter = ProductFilterOperationDto(
+                    equalTo = condition.equalTo,
+                    not = condition.not,
+                    contains = condition.contains
+                )
+                filtersArray.add(mapOf(key to filter))
+            }
+            if (filtersArray.isNotEmpty()) {
+                _filters = filtersArray
+            }
+        }
+
+        return suggestionApi.advertisementsControllerAdvertiseProducts(
+            productSuggestionRequestDto = ProductSuggestionRequestDto(
+                sessionId = SessionClient.loadSessionId(),
+                deviceId = loadDeviceId(),
+                placementId = placementId,
+                clientId = clientId,
+                customerId = customerId,
+                sdkVersion = sdkVersion,
+                placementPositionX = null,
+                placementPositionY = null,
+                fromAgent = fromAgent,
+                excludingProductIds = excludingProductIds,
+                baselineProductIds = baselineProductIds,
+                categoryId = categoryId,
+                filters = _filters?.toList(),
+                targets = targets,
+                userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}"
+            )
+        ).body()
     }
 
-    fun createAdvertisementBanners(
+    suspend fun createAdvertisementBanners(
         placementId: String,
         customerId: String? = null,
-        birthYear: Int? = null,
-        gender: Gender? = null,
-        baseUrl: String? = null,
-    ): AdcioSuggestionBannerRaw {
-        return placementRemote.createAdvertisementBanners(
-            placementId = placementId,
-            deviceId = loadDeviceId(),
-            sessionId = SessionClient.loadSessionId(),
-            customerId = customerId,
-            fromAgent = false,
-            birthYear = birthYear,
-            gender = gender,
-            baseUrl = baseUrl,
-        )
+        fromAgent: Boolean? = null,
+        userAgent: String? = null,
+        targets: List<SuggestionRequestTarget>? = null,
+    ): BannerSuggestionResponseDto? {
+        return suggestionApi.recommendationsControllerRecommendBanners(
+            bannerSuggestionRequestDto = BannerSuggestionRequestDto(
+                sessionId = SessionClient.loadSessionId(),
+                deviceId = loadDeviceId(),
+                placementId = placementId,
+                customerId = customerId,
+                sdkVersion = sdkVersion,
+                placementPositionX = null,
+                placementPositionY = null,
+                fromAgent = fromAgent,
+                targets = targets,
+                userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}"
+            )
+        ).body()
     }
 }

@@ -40,6 +40,5 @@ data class ProductSuggestionResponseDto (
 
     @Json(name = "metadata")
     val metadata: kotlin.Any
-
 )
 

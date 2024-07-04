@@ -50,7 +50,7 @@ interface BannerApi {
     */
     enum class Select_bannerControllerFetchMany(val value: kotlin.String) {
         @Json(name = "id") id("id"),
-        @Json(name = "name") name("name"),
+        @Json(name = "name") bannerName("name"),
         @Json(name = "imageUrl") imageUrl("imageUrl"),
         @Json(name = "url") url("url"),
         @Json(name = "data") `data`("data"),

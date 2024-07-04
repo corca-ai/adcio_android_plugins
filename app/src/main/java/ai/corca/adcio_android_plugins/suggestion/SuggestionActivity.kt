@@ -1,15 +1,17 @@
 package ai.corca.adcio_android_plugins.suggestion
 
+import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_android_plugins.suggestion.utils.MockProductListAdapter
 import ai.corca.adcio_android_plugins.databinding.ActivityPlacementBinding
 import ai.corca.adcio_android_plugins.suggestion.helper.GetSuggestionThread
-import ai.corca.adcio_android_plugins.suggestion.helper.OnAddToCartThread
-import ai.corca.adcio_android_plugins.suggestion.helper.OnClickThread
-import ai.corca.adcio_android_plugins.suggestion.helper.OnImpressionThread
-import ai.corca.adcio_android_plugins.suggestion.helper.OnPurchaseThread
+import ai.corca.adcio_android_plugins.suggestion.helper.handleResultData
 import ai.corca.adcio_android_plugins.suggestion.helper.productions
+import ai.corca.adcio_android_plugins.suggestion.model.Production
 import ai.corca.adcio_android_plugins.suggestion.user.Gender
 import ai.corca.adcio_android_plugins.suggestion.user.User
+import ai.corca.adcio_android_plugins.suggestion.utils.clearImpressionHistory
+import ai.corca.adcio_placement.feature.AdcioPlacement
+import ai.corca.adcio_placement.model.ProductFilterOperationDto
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
@@ -18,7 +20,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 import java.util.Calendar
 import java.util.UUID
@@ -28,11 +33,14 @@ lateinit var currentLocation: String
 
 lateinit var mockProductListAdapter: MockProductListAdapter
 
+private val _productState = MutableStateFlow(emptyList<Production>())
+val productions: StateFlow<List<Production>> = _productState
+
 class SuggestionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlacementBinding
 
-    private val getSuggestionThread = GetSuggestionThread()
+    val analytics = AdcioAnalytics("76dc12fa-5a73-4c90-bea5-d6578f9bc606")
 
     @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -43,29 +51,31 @@ class SuggestionActivity : AppCompatActivity() {
 
         mockProductListAdapter = MockProductListAdapter(
             onImpressionItem = { logOption ->
-                OnImpressionThread(
-                    logOption = logOption
-                ).start()
+                analytics.onImpression(
+                    option = logOption,
+                    customerId = null,
+                    productIdOnStore = null
+                )
             },
 
             onPurchaseItem = {
-                OnPurchaseThread(
+                analytics.onPurchase(
                     orderId = "SAMPLE_ORDER_ID",
                     productIdOnStore = "SAMPLE_PRODUCT_ID",
                     amount = 0
-                ).start()
+                )
             },
 
             onClickItem = { logOption ->
-                OnClickThread(
-                    logOption = logOption
-                ).start()
+                analytics.onClick(
+                    option = logOption
+                )
             },
 
             onAddToCart = { productId ->
-                OnAddToCartThread(
+                analytics.onAddToCart(
                     productIdOnStore = productId
-                ).start()
+                )
             },
         )
 
@@ -83,7 +93,27 @@ class SuggestionActivity : AppCompatActivity() {
 
         currentLocation = "Seoul, Korea"
 
-        getSuggestionThread.start()
+        val adcioSuggestionRaw = runBlocking {
+            AdcioPlacement.createAdvertisementProducts(
+                clientId = "76dc12fa-5a73-4c90-bea5-d6578f9bc606",
+                placementId = "5ae9907f-3cc2-4ed4-aaa4-4b20ac97f9f4",
+                categoryId = "2179",
+                excludingProductIds = listOf("1001"),
+                customerId = currentUser.id,
+                filters = mapOf(
+                    "price_excluding_tax" to ProductFilterOperationDto(not = 53636),
+                    "product_code" to ProductFilterOperationDto(contains = "KY"),
+                    "province_id" to ProductFilterOperationDto(equalTo = 1)
+                ),
+            )
+        }
+
+        clearImpressionHistory()
+
+        if (adcioSuggestionRaw != null) {
+            handleResultData(adcioSuggestionRaw)
+        }
+
         getSuggestionData()
 
         binding.rvSuggestions.adapter = mockProductListAdapter
