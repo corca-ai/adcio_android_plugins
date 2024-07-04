@@ -24,25 +24,33 @@ import com.squareup.moshi.JsonClass
 /**
  * 
  *
+ * @param clientId Identifier for the request client.
+ * @param placementId Identifier for the placement which the suggestion will be placed.
  * @param sessionId The session starts when the customer visits the store. It persists until the customer closes the tab, browser or app.
  * @param deviceId The device identifier should be unique for each device. A customer can have multiple devices.
- * @param placementId Identifier for the placement which the suggestion will be placed.
- * @param clientId Identifier for the request client.
- * @param customerId The customer identifier which is generated and managed by the store. The store should configure `frontApi` parameter of ADCIO SDK so that the `customerId` can be sent to ADCIO API.
- * @param sdkVersion The version of the SDK
- * @param placementPositionX The X coordinate of the placement in pixel.
- * @param placementPositionY The Y coordinate of the placement in pixel.
- * @param fromAgent Whether the request is from the ADCIO agent or not. Default value is `false`.
  * @param excludingProductIds Product IDs(on store) that should NOT be included in the suggestion.
- * @param baselineProductIds Product IDs(on store) that support the fixed baseline suggestion.
- * @param categoryId The category id(on store) for filtering adsets.
+ * @param userAgent 
  * @param filters Product filters for filtering adsets.
  * @param targets 
- * @param userAgent 
+ * @param placementPositionY The Y coordinate of the placement in pixel.
+ * @param placementPositionX The X coordinate of the placement in pixel.
+ * @param baselineProductIds Product IDs(on store) that support the fixed baseline suggestion.
+ * @param customerId The customer identifier which is generated and managed by the store. The store should configure `frontApi` parameter of ADCIO SDK so that the `customerId` can be sent to ADCIO API.
+ * @param fromAgent Whether the request is from the ADCIO agent or not. Default value is `false`.
+ * @param sdkVersion The version of the SDK
+ * @param categoryId The category id(on store) for filtering adsets.
  */
 
 
 data class ProductSuggestionRequestDto (
+
+    /* Identifier for the request client. */
+    @Json(name = "clientId")
+    val clientId: kotlin.String,
+
+    /* Identifier for the placement which the suggestion will be placed. */
+    @Json(name = "placementId")
+    val placementId: kotlin.String,
 
     /* The session starts when the customer visits the store. It persists until the customer closes the tab, browser or app. */
     @Json(name = "sessionId")
@@ -52,45 +60,12 @@ data class ProductSuggestionRequestDto (
     @Json(name = "deviceId")
     val deviceId: kotlin.String,
 
-    /* Identifier for the placement which the suggestion will be placed. */
-    @Json(name = "placementId")
-    val placementId: kotlin.String,
-
-    /* Identifier for the request client. */
-    @Json(name = "clientId")
-    val clientId: kotlin.String,
-
-    /* The customer identifier which is generated and managed by the store. The store should configure `frontApi` parameter of ADCIO SDK so that the `customerId` can be sent to ADCIO API. */
-    @Json(name = "customerId")
-    val customerId: kotlin.String? = null,
-
-    /* The version of the SDK */
-    @Json(name = "sdkVersion")
-    val sdkVersion: kotlin.String? = null,
-
-    /* The X coordinate of the placement in pixel. */
-    @Json(name = "placementPositionX")
-    val placementPositionX: java.math.BigDecimal? = null,
-
-    /* The Y coordinate of the placement in pixel. */
-    @Json(name = "placementPositionY")
-    val placementPositionY: java.math.BigDecimal? = null,
-
-    /* Whether the request is from the ADCIO agent or not. Default value is `false`. */
-    @Json(name = "fromAgent")
-    val fromAgent: kotlin.Boolean? = null,
-
     /* Product IDs(on store) that should NOT be included in the suggestion. */
     @Json(name = "excludingProductIds")
     val excludingProductIds: kotlin.collections.List<kotlin.String>? = null,
 
-    /* Product IDs(on store) that support the fixed baseline suggestion. */
-    @Json(name = "baselineProductIds")
-    val baselineProductIds: kotlin.collections.List<kotlin.String>? = null,
-
-    /* The category id(on store) for filtering adsets. */
-    @Json(name = "categoryId")
-    val categoryId: kotlin.String? = null,
+    @Json(name = "userAgent")
+    val userAgent: kotlin.String? = null,
 
     /* Product filters for filtering adsets. */
     @Json(name = "filters")
@@ -99,8 +74,33 @@ data class ProductSuggestionRequestDto (
     @Json(name = "targets")
     val targets: kotlin.collections.List<SuggestionRequestTarget>? = null,
 
-    @Json(name = "userAgent")
-    val userAgent: kotlin.String? = null
+    /* The Y coordinate of the placement in pixel. */
+    @Json(name = "placementPositionY")
+    val placementPositionY: java.math.BigDecimal? = null,
+
+    /* The X coordinate of the placement in pixel. */
+    @Json(name = "placementPositionX")
+    val placementPositionX: java.math.BigDecimal? = null,
+
+    /* Product IDs(on store) that support the fixed baseline suggestion. */
+    @Json(name = "baselineProductIds")
+    val baselineProductIds: kotlin.collections.List<kotlin.String>? = null,
+
+    /* The customer identifier which is generated and managed by the store. The store should configure `frontApi` parameter of ADCIO SDK so that the `customerId` can be sent to ADCIO API. */
+    @Json(name = "customerId")
+    val customerId: kotlin.String? = null,
+
+    /* Whether the request is from the ADCIO agent or not. Default value is `false`. */
+    @Json(name = "fromAgent")
+    val fromAgent: kotlin.Boolean? = null,
+
+    /* The version of the SDK */
+    @Json(name = "sdkVersion")
+    val sdkVersion: kotlin.String? = null,
+
+    /* The category id(on store) for filtering adsets. */
+    @Json(name = "categoryId")
+    val categoryId: kotlin.String? = null
 
 )
 

@@ -28,7 +28,6 @@ android {
     }
 }
 
-
 dependencies {
     val kotlin_version = "1.7.21"
     val retrofitVersion = "2.9.0"

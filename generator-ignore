@@ -1,0 +1,3 @@
+# Exclude non-Suggestion APIs
+src/main/java/ai/corca/placement/api/NonSuggestionApi.kt
+src/main/java/ai/corca/placement/model/NonSuggestionModel.kt

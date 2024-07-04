@@ -22,20 +22,20 @@ import com.squareup.moshi.JsonClass
 /**
  * 
  *
- * @param keyName The name of the target.
  * @param propertyValues The value of the target.
+ * @param keyName The name of the target.
  */
 
 
 data class SuggestionRequestTarget (
 
-    /* The name of the target. */
-    @Json(name = "keyName")
-    val keyName: kotlin.String,
-
     /* The value of the target. */
     @Json(name = "values")
-    val propertyValues: kotlin.collections.List<kotlin.String>
+    val propertyValues: kotlin.collections.List<kotlin.String>,
+
+    /* The name of the target. */
+    @Json(name = "keyName")
+    val keyName: kotlin.String
 
 )
 

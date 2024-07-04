@@ -1,9 +1,8 @@
 import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 import de.undercouch.gradle.tasks.download.Download
-import java.nio.charset.StandardCharsets
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.nio.file.StandardOpenOption
+import org.jose4j.json.internal.json_simple.JSONObject
+import org.jose4j.json.internal.json_simple.parser.JSONParser
+import java.io.File
 
 plugins {
     id("com.android.library")
@@ -22,8 +21,15 @@ rootProject.extra.apply {
 }
 
 val basePackage = "ai.corca.placement"
-val targetDir = "${project.rootDir}/generator-placement"  // Use buildDir for generated sources
+val targetDir = "${project.rootDir}/generator-placement"
 val targetFileName = "placement-swagger.json"
+val filteredFileName = "filtered-placement-swagger.json"
+val operationIds = listOf(
+    "RecommendationsController_recommendBanners",
+    "RecommendationsController_recommendProducts",
+    "AdvertisementsController_advertiseProducts",
+    "AdvertisementsController_advertiseBanners"
+)
 
 tasks.register<Download>("downloadSwagger") {
     src("https://api.adcio.ai/api-json")
@@ -32,21 +38,44 @@ tasks.register<Download>("downloadSwagger") {
     useETag(true)
 }
 
-tasks.register("postProcessGeneratedCode") {
+tasks.register("filterSwagger") {
+    dependsOn("downloadSwagger")
     doLast {
-        val generatedFilesDir = Paths.get("$targetDir/src/main/java")
-        Files.walk(generatedFilesDir).filter { Files.isRegularFile(it) }.forEach { filePath ->
-            val content = Files.readString(filePath, StandardCharsets.UTF_8)
-            val modifiedContent = content.replace("val name: String", "val bannerName: String")
-            Files.writeString(filePath, modifiedContent, StandardOpenOption.TRUNCATE_EXISTING)
+        val inputFile = File("$targetDir/$targetFileName")
+        val outputFile = File("$targetDir/$filteredFileName")
+        val parser = JSONParser()
+        val json = parser.parse(inputFile.reader()) as JSONObject
+
+        val paths = json["paths"] as JSONObject
+
+        val filteredPaths = JSONObject()
+
+        paths.forEach { path, pathItem ->
+            val pathItemObject = pathItem as JSONObject
+            val filteredPathItem = JSONObject()
+
+            pathItemObject.forEach { method, operation ->
+                val operationObject = operation as JSONObject
+                val operationId = operationObject["operationId"] as String
+                if (operationId in operationIds) {
+                    filteredPathItem[method] = operationObject
+                }
+            }
+
+            if (filteredPathItem.isNotEmpty()) {
+                filteredPaths[path as String] = filteredPathItem
+            }
         }
+
+        json["paths"] = filteredPaths
+        outputFile.writeText(JSONObject.toJSONString(json))
     }
 }
 
 tasks.register<GenerateTask>("generateClient") {
-    dependsOn(tasks.named("downloadSwagger"))
+    dependsOn("filterSwagger")
     generatorName.set("kotlin")
-    inputSpec.set("$targetDir/$targetFileName")
+    inputSpec.set("$targetDir/$filteredFileName")
     outputDir.set("$targetDir/src/main/java")
     apiPackage.set("$basePackage.api")
     modelPackage.set("$basePackage.model")
@@ -57,13 +86,9 @@ tasks.register<GenerateTask>("generateClient") {
             "dateLibrary" to "java11",
             "omitGradleWrapper" to "true",
             "sourceFolder" to "src/main/java",
-            "useCoroutines" to "false"
+            "useCoroutines" to "false",
         )
     )
-}
-
-tasks.named("generateClient") {
-    finalizedBy(tasks.named("postProcessGeneratedCode"))
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -114,7 +139,6 @@ android {
         unitTests.isIncludeAndroidResources = true
     }
 
-    // Add the generated sources to the main source set
     sourceSets["main"].java.srcDir("$targetDir/src/main/java")
 }
 
@@ -127,6 +151,8 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("io.github.corca-ai:core:1.0.3")
+
+    implementation("org.slf4j:slf4j-simple:2.0.13")
 
     implementation(project(":generator-placement"))
 }

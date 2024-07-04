@@ -6,8 +6,8 @@ import ai.corca.adcio_android_plugins.suggestion.model.Production
 import ai.corca.adcio_android_plugins.suggestion.utils.clearImpressionHistory
 import ai.corca.adcio_android_plugins.suggestion.utils.getMockProducts
 import ai.corca.adcio_placement.AdcioPlacement
-import ai.corca.adcio_placement.model.ProductFilterOperationDto
-import ai.corca.adcio_placement.model.ProductSuggestionResponseDto
+import ai.corca.placement.model.ProductFilterOperationDto
+import ai.corca.placement.model.ProductSuggestionResponseDto
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi

@@ -1,5 +1,6 @@
 package ai.corca.adcio_placement
 
+import ai.corca.adcio_placement.sdkVersion
 import ai.corca.placement.model.BannerSuggestionRequestDto
 import ai.corca.placement.model.BannerSuggestionResponseDto
 import ai.corca.placement.model.ProductFilterOperationDto
@@ -159,7 +160,7 @@ object AdcioPlacement {
         userAgent: String? = null,
         targets: List<SuggestionRequestTarget>? = null,
     ): BannerSuggestionResponseDto? {
-        return suggestionApi.recommendationsControllerRecommendBanners(
+        return suggestionApi.advertisementsControllerAdvertiseBanners(
             bannerSuggestionRequestDto = BannerSuggestionRequestDto(
                 sessionId = SessionClient.loadSessionId(),
                 deviceId = loadDeviceId(),

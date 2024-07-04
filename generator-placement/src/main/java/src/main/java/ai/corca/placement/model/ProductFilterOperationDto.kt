@@ -22,22 +22,22 @@ import com.squareup.moshi.JsonClass
 /**
  * 
  *
- * @param equalTo 
  * @param not 
  * @param contains 
+ * @param equalTo 
  */
 
 
 data class ProductFilterOperationDto (
 
-    @Json(name = "equalTo")
-    val equalTo: kotlin.Any? = null,
-
     @Json(name = "not")
     val not: kotlin.Any? = null,
 
     @Json(name = "contains")
-    val contains: kotlin.String? = null
+    val contains: kotlin.String? = null,
+
+    @Json(name = "equalTo")
+    val equalTo: kotlin.Any? = null
 
 )
 

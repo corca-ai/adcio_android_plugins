@@ -24,22 +24,22 @@ import com.squareup.moshi.JsonClass
 /**
  * 
  *
+ * @param metadata 
  * @param suggestions 
  * @param placement 
- * @param metadata 
  */
 
 
 data class BannerSuggestionResponseDto (
 
+    @Json(name = "metadata")
+    val metadata: kotlin.Any,
+
     @Json(name = "suggestions")
     val suggestions: kotlin.collections.List<BannerSuggestionDto>,
 
     @Json(name = "placement")
-    val placement: SuggestionResponsePlacementType,
-
-    @Json(name = "metadata")
-    val metadata: kotlin.Any
+    val placement: SuggestionResponsePlacementType
 
 )
 

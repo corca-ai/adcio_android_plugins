@@ -44,32 +44,10 @@ All URIs are relative to *https://api.adcio.ai*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
-*BannerApi* | [**bannerControllerCreate**](docs/BannerApi.md#bannercontrollercreate) | **POST** banners | 
-*BannerApi* | [**bannerControllerDelete**](docs/BannerApi.md#bannercontrollerdelete) | **DELETE** banners/{id} | 
-*BannerApi* | [**bannerControllerFetchMany**](docs/BannerApi.md#bannercontrollerfetchmany) | **GET** banners | 
-*BannerApi* | [**bannerControllerFetchOne**](docs/BannerApi.md#bannercontrollerfetchone) | **GET** banners/{id} | 
-*BannerApi* | [**bannerControllerUpdate**](docs/BannerApi.md#bannercontrollerupdate) | **PUT** banners/{id} | 
-*PageApi* | [**pageControllerFetchActivePlacements**](docs/PageApi.md#pagecontrollerfetchactiveplacements) | **GET** pages/{name}/placements | 
-*PlacementApi* | [**placementControllerConnectProducts**](docs/PlacementApi.md#placementcontrollerconnectproducts) | **POST** placements/{id}/products | 
-*PlacementApi* | [**placementControllerCreate**](docs/PlacementApi.md#placementcontrollercreate) | **POST** placements | 
-*PlacementApi* | [**placementControllerFetchMany**](docs/PlacementApi.md#placementcontrollerfetchmany) | **GET** placements | 
-*PlacementApi* | [**placementControllerFetchOne**](docs/PlacementApi.md#placementcontrollerfetchone) | **GET** placements/{id} | 
-*PlacementApi* | [**placementControllerRemove**](docs/PlacementApi.md#placementcontrollerremove) | **DELETE** placements/{id} | 
-*PlacementApi* | [**placementControllerRemoveProduct**](docs/PlacementApi.md#placementcontrollerremoveproduct) | **DELETE** placements/{id}/products/{productId} | 
-*PlacementApi* | [**placementControllerUpdate**](docs/PlacementApi.md#placementcontrollerupdate) | **PATCH** placements/{id} | 
-*ProductApi* | [**productControllerCreate**](docs/ProductApi.md#productcontrollercreate) | **POST** products | 
-*ProductApi* | [**productControllerFetchMany**](docs/ProductApi.md#productcontrollerfetchmany) | **GET** products | 
-*ProductApi* | [**productControllerFetchOne**](docs/ProductApi.md#productcontrollerfetchone) | **GET** products/{id} | 
-*ProductApi* | [**productControllerUpdate**](docs/ProductApi.md#productcontrollerupdate) | **PATCH** products/{id} | 
-*ProductApi* | [**productControllerUpsertMany**](docs/ProductApi.md#productcontrollerupsertmany) | **PUT** products/bulk | 
 *SuggestionApi* | [**advertisementsControllerAdvertiseBanners**](docs/SuggestionApi.md#advertisementscontrolleradvertisebanners) | **POST** v1/advertisements/banners | 
 *SuggestionApi* | [**advertisementsControllerAdvertiseProducts**](docs/SuggestionApi.md#advertisementscontrolleradvertiseproducts) | **POST** v1/advertisements/products | 
 *SuggestionApi* | [**recommendationsControllerRecommendBanners**](docs/SuggestionApi.md#recommendationscontrollerrecommendbanners) | **POST** v1/recommendations/banners | 
 *SuggestionApi* | [**recommendationsControllerRecommendProducts**](docs/SuggestionApi.md#recommendationscontrollerrecommendproducts) | **POST** v1/recommendations/products | 
-*SuggestionApi* | [**suggestionControllerAdvertiseBanners**](docs/SuggestionApi.md#suggestioncontrolleradvertisebanners) | **POST** advertisements/banners | 
-*SuggestionApi* | [**suggestionControllerAdvertiseProducts**](docs/SuggestionApi.md#suggestioncontrolleradvertiseproducts) | **POST** advertisements/products | 
-*SuggestionApi* | [**suggestionControllerRecommendBanners**](docs/SuggestionApi.md#suggestioncontrollerrecommendbanners) | **POST** recommendations/banners | 
-*SuggestionApi* | [**suggestionControllerRecommendProducts**](docs/SuggestionApi.md#suggestioncontrollerrecommendproducts) | **POST** recommendations/products | 
 
 
 <a id="documentation-for-models"></a>
@@ -82,7 +60,6 @@ Class | Method | HTTP request | Description
  - [ai.corca.placement.model.AdGroupWithSellerAndCampaign](docs/AdGroupWithSellerAndCampaign.md)
  - [ai.corca.placement.model.AppendInjector](docs/AppendInjector.md)
  - [ai.corca.placement.model.Banner](docs/Banner.md)
- - [ai.corca.placement.model.BannerControllerFetchMany200Response](docs/BannerControllerFetchMany200Response.md)
  - [ai.corca.placement.model.BannerInjector](docs/BannerInjector.md)
  - [ai.corca.placement.model.BannerSuggestionDto](docs/BannerSuggestionDto.md)
  - [ai.corca.placement.model.BannerSuggestionRequestDto](docs/BannerSuggestionRequestDto.md)
@@ -113,11 +90,9 @@ Class | Method | HTTP request | Description
  - [ai.corca.placement.model.NestJSErrorSchema](docs/NestJSErrorSchema.md)
  - [ai.corca.placement.model.Observer](docs/Observer.md)
  - [ai.corca.placement.model.Placement](docs/Placement.md)
- - [ai.corca.placement.model.PlacementControllerFetchMany200Response](docs/PlacementControllerFetchMany200Response.md)
  - [ai.corca.placement.model.PlacementFormat](docs/PlacementFormat.md)
  - [ai.corca.placement.model.PlacementInjectorDto](docs/PlacementInjectorDto.md)
  - [ai.corca.placement.model.Product](docs/Product.md)
- - [ai.corca.placement.model.ProductControllerFetchMany200Response](docs/ProductControllerFetchMany200Response.md)
  - [ai.corca.placement.model.ProductDetailDto](docs/ProductDetailDto.md)
  - [ai.corca.placement.model.ProductFilterOperationDto](docs/ProductFilterOperationDto.md)
  - [ai.corca.placement.model.ProductSuggestionDto](docs/ProductSuggestionDto.md)
@@ -147,15 +122,15 @@ Class | Method | HTTP request | Description
 
 
 Authentication schemes defined for the API:
-<a id="accessToken"></a>
-### accessToken
-
-- **Type**: HTTP basic authentication
-
 <a id="api-key"></a>
 ### api-key
 
 - **Type**: API key
 - **API key parameter name**: X-Api-Key
 - **Location**: HTTP header
+
+<a id="accessToken"></a>
+### accessToken
+
+- **Type**: HTTP basic authentication
 

@@ -1,3 +1,4 @@
+.openapi-generator-ignore
 README.md
 build.gradle
 docs/AdGroup.md
@@ -7,8 +8,6 @@ docs/AdGroupTargetValue.md
 docs/AdGroupWithSellerAndCampaign.md
 docs/AppendInjector.md
 docs/Banner.md
-docs/BannerApi.md
-docs/BannerControllerFetchMany200Response.md
 docs/BannerInjector.md
 docs/BannerSuggestionDto.md
 docs/BannerSuggestionRequestDto.md
@@ -38,15 +37,10 @@ docs/Injector.md
 docs/LogOptionsDto.md
 docs/NestJSErrorSchema.md
 docs/Observer.md
-docs/PageApi.md
 docs/Placement.md
-docs/PlacementApi.md
-docs/PlacementControllerFetchMany200Response.md
 docs/PlacementFormat.md
 docs/PlacementInjectorDto.md
 docs/Product.md
-docs/ProductApi.md
-docs/ProductControllerFetchMany200Response.md
 docs/ProductDetailDto.md
 docs/ProductFilterOperationDto.md
 docs/ProductSuggestionDto.md
@@ -75,10 +69,6 @@ gradle/wrapper/gradle-wrapper.properties
 gradlew
 gradlew.bat
 settings.gradle
-src/main/java/ai/corca/placement/api/BannerApi.kt
-src/main/java/ai/corca/placement/api/PageApi.kt
-src/main/java/ai/corca/placement/api/PlacementApi.kt
-src/main/java/ai/corca/placement/api/ProductApi.kt
 src/main/java/ai/corca/placement/api/SuggestionApi.kt
 src/main/java/ai/corca/placement/model/AdGroup.kt
 src/main/java/ai/corca/placement/model/AdGroupTargetKey.kt
@@ -87,7 +77,6 @@ src/main/java/ai/corca/placement/model/AdGroupTargetValue.kt
 src/main/java/ai/corca/placement/model/AdGroupWithSellerAndCampaign.kt
 src/main/java/ai/corca/placement/model/AppendInjector.kt
 src/main/java/ai/corca/placement/model/Banner.kt
-src/main/java/ai/corca/placement/model/BannerControllerFetchMany200Response.kt
 src/main/java/ai/corca/placement/model/BannerInjector.kt
 src/main/java/ai/corca/placement/model/BannerSuggestionDto.kt
 src/main/java/ai/corca/placement/model/BannerSuggestionRequestDto.kt
@@ -118,11 +107,9 @@ src/main/java/ai/corca/placement/model/LogOptionsDto.kt
 src/main/java/ai/corca/placement/model/NestJSErrorSchema.kt
 src/main/java/ai/corca/placement/model/Observer.kt
 src/main/java/ai/corca/placement/model/Placement.kt
-src/main/java/ai/corca/placement/model/PlacementControllerFetchMany200Response.kt
 src/main/java/ai/corca/placement/model/PlacementFormat.kt
 src/main/java/ai/corca/placement/model/PlacementInjectorDto.kt
 src/main/java/ai/corca/placement/model/Product.kt
-src/main/java/ai/corca/placement/model/ProductControllerFetchMany200Response.kt
 src/main/java/ai/corca/placement/model/ProductDetailDto.kt
 src/main/java/ai/corca/placement/model/ProductFilterOperationDto.kt
 src/main/java/ai/corca/placement/model/ProductSuggestionDto.kt
