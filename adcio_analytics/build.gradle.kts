@@ -90,6 +90,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("io.github.corca-ai:core:1.0.3")
-
-    implementation(project(":generator-analytics"))
+    implementation(project(":generator_analytics"))
 }

@@ -1,0 +1,16 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/yuhyeonmyeong/github/adcio_android_plugins/generator_placement/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3316680667197486452.xml:2:13-83
+INJECTED from /Users/yuhyeonmyeong/github/adcio_android_plugins/generator_placement/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3316680667197486452.xml:2:13-83
+	package
+		INJECTED from /Users/yuhyeonmyeong/github/adcio_android_plugins/generator_placement/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3316680667197486452.xml
+	xmlns:android
+		ADDED from /Users/yuhyeonmyeong/github/adcio_android_plugins/generator_placement/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3316680667197486452.xml:2:23-81
+uses-sdk
+INJECTED from /Users/yuhyeonmyeong/github/adcio_android_plugins/generator_placement/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3316680667197486452.xml reason: use-sdk injection requested
+INJECTED from /Users/yuhyeonmyeong/github/adcio_android_plugins/generator_placement/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3316680667197486452.xml
+INJECTED from /Users/yuhyeonmyeong/github/adcio_android_plugins/generator_placement/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3316680667197486452.xml
+	android:targetSdkVersion
+		INJECTED from /Users/yuhyeonmyeong/github/adcio_android_plugins/generator_placement/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3316680667197486452.xml
+	android:minSdkVersion
+		INJECTED from /Users/yuhyeonmyeong/github/adcio_android_plugins/generator_placement/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest3316680667197486452.xml

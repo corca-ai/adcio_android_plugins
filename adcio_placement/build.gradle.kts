@@ -153,6 +153,5 @@ dependencies {
     implementation("io.github.corca-ai:core:1.0.3")
 
     implementation("org.slf4j:slf4j-simple:2.0.13")
-
-    implementation(project(":generator-placement"))
+    implementation(project(":generator_placement"))
 }
