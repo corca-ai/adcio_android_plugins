@@ -5,8 +5,8 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
-    id("org.openapi.generator") version "6.6.0"
-    id("de.undercouch.download") version "5.6.0"
+    id("org.openapi.generator")
+    id("de.undercouch.download")
 }
 
 rootProject.extra.apply {
@@ -18,7 +18,7 @@ rootProject.extra.apply {
 }
 
 val basePackage = "ai.corca.adcio_placement"
-val targetDir = "${project.rootDir}/adcio_placement/generated-sources"
+val targetDir = "${project.rootDir}/placement-generated-sources"
 val targetFileName = "placement-swagger.json"
 
 tasks.register<Download>("downloadSwagger") {
@@ -97,23 +97,10 @@ android {
 apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
 
 dependencies {
-
-    implementation("androidx.core:core-ktx:1.13.1")
-
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
-
-    androidTestImplementation("org.junit.jupiter:junit-jupiter-api:5.10.1")
-    androidTestImplementation("io.mockk:mockk-android:1.13.8")
+    implementation("androidx.core:core-ktx:1.9.0")
+    testImplementation("junit:junit:4.13.2")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-
-    implementation("com.squareup.retrofit2:retrofit:2.11.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.retrofit2:converter-moshi:2.9.0")
-    implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
-    implementation("com.squareup.moshi:moshi:1.15.1")
-    implementation("com.squareup.moshi:moshi-kotlin:1.15.1")
-
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.2")
 
     implementation("io.github.corca-ai:core:1.0.3")
 }
