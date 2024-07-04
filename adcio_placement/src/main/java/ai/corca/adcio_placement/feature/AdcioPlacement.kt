@@ -1,22 +1,16 @@
 package ai.corca.adcio_placement.feature
 
-import ai.corca.adcio_placement.enum.Gender
-import ai.corca.adcio_placement.model.BannerSuggestionRequestDto
-import ai.corca.adcio_placement.model.BannerSuggestionResponseDto
-import ai.corca.adcio_placement.model.ProductFilterOperationDto
-import ai.corca.adcio_placement.model.ProductSuggestionRequestDto
-import ai.corca.adcio_placement.model.ProductSuggestionResponseDto
-import ai.corca.adcio_placement.model.SuggestionRequestTarget
-import ai.corca.adcio_placement.model.banner.AdcioSuggestionBannerRaw
-import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
-import ai.corca.adcio_placement.network.data.request.Filters
-import ai.corca.adcio_placement.network.remote.PlacementRemote
 import ai.corca.adcio_placement.suggestionApi
 import ai.corca.adcio_placement.util.sdkVersion
+import ai.corca.placement.model.BannerSuggestionRequestDto
+import ai.corca.placement.model.BannerSuggestionResponseDto
+import ai.corca.placement.model.ProductFilterOperationDto
+import ai.corca.placement.model.ProductSuggestionRequestDto
+import ai.corca.placement.model.ProductSuggestionResponseDto
+import ai.corca.placement.model.SuggestionRequestTarget
 import android.os.Build
 import com.corcaai.core.ids.SessionClient
 import com.corcaai.core.ids.loadDeviceId
-import okhttp3.internal.userAgent
 
 object AdcioPlacement {
 

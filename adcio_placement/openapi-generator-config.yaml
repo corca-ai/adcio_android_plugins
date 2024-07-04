@@ -1,0 +1,2 @@
+typeMappings:
+  enumClass: "bannerName"

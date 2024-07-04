@@ -1,9 +1,8 @@
 package ai.corca.adcio_android_plugins.suggestion
 
-import ai.corca.adcio_analytics.feature.AdcioAnalytics
+import ai.corca.adcio_analytics.AdcioAnalytics
 import ai.corca.adcio_android_plugins.suggestion.utils.MockProductListAdapter
 import ai.corca.adcio_android_plugins.databinding.ActivityPlacementBinding
-import ai.corca.adcio_android_plugins.suggestion.helper.GetSuggestionThread
 import ai.corca.adcio_android_plugins.suggestion.helper.handleResultData
 import ai.corca.adcio_android_plugins.suggestion.helper.productions
 import ai.corca.adcio_android_plugins.suggestion.model.Production

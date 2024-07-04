@@ -1,5 +1,9 @@
 import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
 import de.undercouch.gradle.tasks.download.Download
+import java.nio.charset.StandardCharsets
+import java.nio.file.Files
+import java.nio.file.Paths
+import java.nio.file.StandardOpenOption
 
 plugins {
     id("com.android.library")
@@ -28,6 +32,17 @@ tasks.register<Download>("downloadSwagger") {
     useETag(true)
 }
 
+tasks.register("postProcessGeneratedCode") {
+    doLast {
+        val generatedFilesDir = Paths.get("$targetDir/src/main/java")
+        Files.walk(generatedFilesDir).filter { Files.isRegularFile(it) }.forEach { filePath ->
+            val content = Files.readString(filePath, StandardCharsets.UTF_8)
+            val modifiedContent = content.replace("val name: String", "val bannerName: String")
+            Files.writeString(filePath, modifiedContent, StandardOpenOption.TRUNCATE_EXISTING)
+        }
+    }
+}
+
 tasks.register<GenerateTask>("generateClient") {
     dependsOn(tasks.named("downloadSwagger"))
     generatorName.set("kotlin")
@@ -45,6 +60,10 @@ tasks.register<GenerateTask>("generateClient") {
             "useCoroutines" to "false"
         )
     )
+}
+
+tasks.named("generateClient") {
+    finalizedBy(tasks.named("postProcessGeneratedCode"))
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
@@ -108,5 +127,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("io.github.corca-ai:core:1.0.3")
-    
+
+    implementation(project(":generator-placement"))
 }

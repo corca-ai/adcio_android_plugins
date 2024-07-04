@@ -1,6 +1,6 @@
 //package ai.corca.adcio_android_plugins.suggestion.helper
 //
-//import ai.corca.adcio_analytics.feature.AdcioAnalytics
+//import ai.corca.adcio_analytics.AdcioAnalytics
 //import ai.corca.adcio_analytics.model.AdcioLogOption
 //import kotlinx.coroutines.runBlocking
 //
