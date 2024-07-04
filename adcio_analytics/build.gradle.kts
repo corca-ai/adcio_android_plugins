@@ -17,10 +17,11 @@ rootProject.extra.apply {
     set("PUBLISH_DESCRIPTION", "adcio_analytics is log event collection")
 }
 
-val basePackage = "ai.corca.adcio_analytics"
-val targetDir = "${project.rootDir}/analytics-generated-sources"
+val basePackage = "ai.corca.analytics"
+val targetDir = "${project.rootDir}/generator-analytics"
 val targetFileName = "analytics-swagger.json"
 
+// Swagger 파일 다운로드 태스크
 tasks.register<Download>("downloadSwagger") {
     src("https://receiver.adcio.ai/api-json")
     dest(file("$targetDir/$targetFileName"))
@@ -28,11 +29,12 @@ tasks.register<Download>("downloadSwagger") {
     useETag(true)
 }
 
+// OpenAPI Generator 태스크
 tasks.register<GenerateTask>("generateClient") {
     dependsOn(tasks.named("downloadSwagger"))
     generatorName.set("kotlin")
     inputSpec.set("$targetDir/$targetFileName")
-    outputDir.set(targetDir)
+    outputDir.set("$targetDir/src/main/java")
     apiPackage.set("$basePackage.api")
     modelPackage.set("$basePackage.model")
     invokerPackage.set("$basePackage.invoker")
@@ -75,13 +77,13 @@ android {
         jvmTarget = "1.8"
     }
 
-    sourceSets["main"].java.srcDirs("$targetDir/src/main/java")
+    // 생성된 소스를 main 소스셋에 추가
+    sourceSets["main"].java.srcDir("$targetDir/src/main/java")
 }
 
 apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
 
 dependencies {
-
     implementation("androidx.core:core-ktx:1.9.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")

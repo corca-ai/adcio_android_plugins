@@ -17,8 +17,8 @@ rootProject.extra.apply {
     set("PUBLISH_DESCRIPTION", "adcio_placement is adcio suggestion library")
 }
 
-val basePackage = "ai.corca.adcio_placement"
-val targetDir = "${project.rootDir}/placement-generated-sources"
+val basePackage = "ai.corca.placement"
+val targetDir = "${project.rootDir}/generator-placement"  // Use buildDir for generated sources
 val targetFileName = "placement-swagger.json"
 
 tasks.register<Download>("downloadSwagger") {
@@ -32,7 +32,7 @@ tasks.register<GenerateTask>("generateClient") {
     dependsOn(tasks.named("downloadSwagger"))
     generatorName.set("kotlin")
     inputSpec.set("$targetDir/$targetFileName")
-    outputDir.set(targetDir)
+    outputDir.set("$targetDir/src/main/java")
     apiPackage.set("$basePackage.api")
     modelPackage.set("$basePackage.model")
     invokerPackage.set("$basePackage.invoker")
@@ -45,6 +45,10 @@ tasks.register<GenerateTask>("generateClient") {
             "useCoroutines" to "false"
         )
     )
+}
+
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
+    dependsOn(tasks.named("generateClient"))
 }
 
 android {
@@ -74,24 +78,25 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
-    packagingOptions.setExcludes(
-        setOf(
-            "META-INF/LICENSE.md",
-            "META-INF/DEPENDENCIES",
-            "META-INF/LICENSE",
-            "LICENSE.txt",
-            "META-INF/NOTICE",
-            "META-INF/MANIFEST.MF",
-            "META-INF/LICENSE-notice.md"
-        )
-    )
-    testOptions {
-        packagingOptions.jniLibs {
-            useLegacyPackaging = true
+    packagingOptions {
+        resources {
+            excludes += setOf(
+                "META-INF/LICENSE.md",
+                "META-INF/DEPENDENCIES",
+                "META-INF/LICENSE",
+                "LICENSE.txt",
+                "META-INF/NOTICE",
+                "META-INF/MANIFEST.MF",
+                "META-INF/LICENSE-notice.md"
+            )
         }
     }
+    testOptions {
+        unitTests.isIncludeAndroidResources = true
+    }
 
-    sourceSets["main"].java.srcDirs("$targetDir/src/main/java")
+    // Add the generated sources to the main source set
+    sourceSets["main"].java.srcDir("$targetDir/src/main/java")
 }
 
 apply(from = "${rootProject.projectDir}/scripts/publish-module.gradle")
@@ -103,4 +108,5 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("io.github.corca-ai:core:1.0.3")
+    
 }

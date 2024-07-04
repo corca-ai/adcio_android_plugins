@@ -6,13 +6,13 @@
       "analytics": {
         "packageName": "ai.corca.analytics",
         "generatorName": "kotlin",
-        "output": "#{cwd}/analytics/src/main/java/ai/corca/analytics",
+        "output": "#{cwd}/generator-analytics/src/main/java/ai/corca/analytics",
         "inputSpec": "https://receiver.adcio.ai/api-json"
       },
       "placement": {
         "packageName": "ai.corca.placement",
         "generatorName": "kotlin",
-        "output": "#{cwd}/placement/src/main/java/ai/corca/placement",
+        "output": "#{cwd}/generator-placement/src/main/java/ai/corca/placement",
         "inputSpec": "https://api.adcio.ai/api-json"
       }
     }
