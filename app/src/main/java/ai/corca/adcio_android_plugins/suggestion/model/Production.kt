@@ -1,6 +1,6 @@
 package ai.corca.adcio_android_plugins.suggestion.model
 
-import ai.corca.adcio_analytics.model.AdcioLogOption
+import ai.corca.adcio_analytics.AdcioLogOption
 
 data class Production(
     val productId: String,

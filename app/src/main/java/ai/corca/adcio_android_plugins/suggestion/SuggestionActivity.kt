@@ -9,7 +9,7 @@ import ai.corca.adcio_android_plugins.suggestion.model.Production
 import ai.corca.adcio_android_plugins.suggestion.user.Gender
 import ai.corca.adcio_android_plugins.suggestion.user.User
 import ai.corca.adcio_android_plugins.suggestion.utils.clearImpressionHistory
-import ai.corca.adcio_placement.feature.AdcioPlacement
+import ai.corca.adcio_placement.AdcioPlacement
 import ai.corca.adcio_placement.model.ProductFilterOperationDto
 import android.annotation.SuppressLint
 import android.os.Build

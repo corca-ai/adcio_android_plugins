@@ -1,20 +1,15 @@
 package ai.corca.adcio_android_plugins.suggestion.helper
 
-import ai.corca.adcio_analytics.model.AdcioLogOption
-import ai.corca.adcio_android_plugins.suggestion.currentLocation
+import ai.corca.adcio_analytics.AdcioLogOption
 import ai.corca.adcio_android_plugins.suggestion.currentUser
 import ai.corca.adcio_android_plugins.suggestion.model.Production
 import ai.corca.adcio_android_plugins.suggestion.utils.clearImpressionHistory
 import ai.corca.adcio_android_plugins.suggestion.utils.getMockProducts
-import ai.corca.adcio_placement.enum.Gender
-import ai.corca.adcio_placement.feature.AdcioPlacement
+import ai.corca.adcio_placement.AdcioPlacement
 import ai.corca.adcio_placement.model.ProductFilterOperationDto
 import ai.corca.adcio_placement.model.ProductSuggestionResponseDto
-import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
-import ai.corca.adcio_placement.network.data.request.Filters
 import android.annotation.SuppressLint
 import android.os.Build
-import android.util.Log
 import androidx.annotation.RequiresApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

@@ -1,6 +1,6 @@
 package ai.corca.adcio_android_plugins.suggestion.utils
 
-import ai.corca.adcio_analytics.model.AdcioLogOption
+import ai.corca.adcio_analytics.AdcioLogOption
 import ai.corca.adcio_android_plugins.databinding.ItemMockProductBinding
 import ai.corca.adcio_android_plugins.suggestion.model.Production
 import android.graphics.Rect

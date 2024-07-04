@@ -3,7 +3,6 @@ package ai.corca.adcio_placement
 import ai.corca.adcio_placement.exception.BadRequestException
 import ai.corca.adcio_placement.exception.DisabledPlacementException
 import ai.corca.adcio_placement.exception.UnregisteredIdException
-import ai.corca.adcio_placement.feature.AdcioPlacement
 import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
 import io.mockk.every
 import io.mockk.junit5.MockKExtension

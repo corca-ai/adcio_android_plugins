@@ -1,7 +1,5 @@
-package ai.corca.adcio_placement.feature
+package ai.corca.adcio_placement
 
-import ai.corca.adcio_placement.suggestionApi
-import ai.corca.adcio_placement.util.sdkVersion
 import ai.corca.placement.model.BannerSuggestionRequestDto
 import ai.corca.placement.model.BannerSuggestionResponseDto
 import ai.corca.placement.model.ProductFilterOperationDto

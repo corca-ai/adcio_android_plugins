@@ -1,4 +1,4 @@
-package ai.corca.adcio_analytics.model
+package ai.corca.adcio_analytics
 
 data class AdcioLogOption(
     // suggestion identifier
