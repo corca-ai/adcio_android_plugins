@@ -34,8 +34,6 @@ internal class GetSuggestionThread : Thread() {
             categoryId = "2179",
             excludingProductIds = listOf("1001"),
             customerId = currentUser.id,
-            birthYear = currentUser.birthDate.year,
-            gender = Gender.male,
             filters = mapOf(
                 "price_excluding_tax" to Filters(not = 53636),
                 "product_code" to Filters(contains = "KY"), 

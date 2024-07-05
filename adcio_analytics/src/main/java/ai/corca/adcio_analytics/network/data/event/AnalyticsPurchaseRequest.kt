@@ -14,4 +14,6 @@ data class AnalyticsPurchaseRequest(
     @SerializedName("productIdOnStore") val productIdOnStore: String?,
     @SerializedName("quantity") val quantity: Int?,
     @SerializedName("amount") val amount: Int,
+    @SerializedName("sdkVersion") val sdkVersion: String,
+    @SerializedName("userAgent") val userAgent: String
 )
