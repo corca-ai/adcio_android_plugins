@@ -1,4 +1,4 @@
-group 'org.openapitools'
+group 'ai.corca.generator_placement'
 version '1.0.0'
 
 buildscript {

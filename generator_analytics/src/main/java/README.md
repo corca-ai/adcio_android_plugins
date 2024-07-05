@@ -1,4 +1,4 @@
-# org.openapitools.client - Kotlin client library for ADCIO API:receiver
+# ai.corca.analytics - Kotlin client library for ADCIO API:receiver
 
 The ADCIO API:receiver specification
 

@@ -19,8 +19,8 @@ Log when the customer adds a product to the cart.
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.*
-//import org.openapitools.client.infrastructure.*
+//import ai.corca.analytics.*
+//import ai.corca.analytics.infrastructure.*
 //import ai.corca.analytics.model.*
 
 val apiClient = ApiClient()
@@ -59,8 +59,8 @@ Log a click.
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.*
-//import org.openapitools.client.infrastructure.*
+//import ai.corca.analytics.*
+//import ai.corca.analytics.infrastructure.*
 //import ai.corca.analytics.model.*
 
 val apiClient = ApiClient()
@@ -99,8 +99,8 @@ Log an impression.
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.*
-//import org.openapitools.client.infrastructure.*
+//import ai.corca.analytics.*
+//import ai.corca.analytics.infrastructure.*
 //import ai.corca.analytics.model.*
 
 val apiClient = ApiClient()
@@ -139,8 +139,8 @@ Log when the customer views a specific product / category page.
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.*
-//import org.openapitools.client.infrastructure.*
+//import ai.corca.analytics.*
+//import ai.corca.analytics.infrastructure.*
 //import ai.corca.analytics.model.*
 
 val apiClient = ApiClient()
@@ -179,8 +179,8 @@ Log when the customer purchases a product.
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.*
-//import org.openapitools.client.infrastructure.*
+//import ai.corca.analytics.*
+//import ai.corca.analytics.infrastructure.*
 //import ai.corca.analytics.model.*
 
 val apiClient = ApiClient()

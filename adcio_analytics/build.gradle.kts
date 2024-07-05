@@ -17,8 +17,8 @@ rootProject.extra.apply {
     set("PUBLISH_DESCRIPTION", "adcio_analytics is log event collection")
 }
 
-val basePackage = "ai.corca.analytics"
-val targetDir = "${project.rootDir}/generator-analytics"
+val basePackage = "ai.corca.generator_analytics"
+val targetDir = "${project.rootDir}/generator_analytics"
 val targetFileName = "analytics-swagger.json"
 
 // Swagger 파일 다운로드 태스크
@@ -44,7 +44,9 @@ tasks.register<GenerateTask>("generateClient") {
             "dateLibrary" to "java11",
             "omitGradleWrapper" to "true",
             "sourceFolder" to "src/main/java",
-            "useCoroutines" to "false"
+            "useCoroutines" to "false",
+            "groupId" to basePackage,
+            "packageName" to basePackage
         )
     )
 }

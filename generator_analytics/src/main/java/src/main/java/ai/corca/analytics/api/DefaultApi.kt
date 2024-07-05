@@ -1,6 +1,6 @@
 package ai.corca.analytics.api
 
-import org.openapitools.client.infrastructure.CollectionFormats.*
+import ai.corca.analytics.infrastructure.CollectionFormats.*
 import retrofit2.http.*
 import retrofit2.Response
 import okhttp3.RequestBody

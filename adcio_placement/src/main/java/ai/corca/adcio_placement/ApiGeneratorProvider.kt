@@ -1,7 +1,7 @@
 package ai.corca.adcio_placement
 
-import ai.corca.placement.api.SuggestionApi
-import org.openapitools.client.infrastructure.ApiClient
+import ai.corca.generator_placement.api.SuggestionApi
+import ai.corca.generator_placement.infrastructure.ApiClient
 
 private val apiClient = ApiClient()
 

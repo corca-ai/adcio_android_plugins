@@ -41,7 +41,7 @@ class AdcioAnalytics(
         eventsApi.eventsControllerOnClick(
             trackClickRequestDto = TrackClickRequestDto(
                 storeId = storeID,
-                deviceId = getDeviceId(),
+                deviceId = loadDeviceId(),
                 sessionId = SessionClient.loadSessionId(),
                 customerId = customerId,
                 productIdOnStore = productIdOnStore,

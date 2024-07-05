@@ -13,8 +13,8 @@ Method | HTTP request | Description
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.*
-//import org.openapitools.client.infrastructure.*
+//import ai.corca.analytics.*
+//import ai.corca.analytics.infrastructure.*
 //import ai.corca.analytics.model.*
 
 val apiClient = ApiClient()

@@ -20,8 +20,8 @@ rootProject.extra.apply {
     set("PUBLISH_DESCRIPTION", "adcio_placement is adcio suggestion library")
 }
 
-val basePackage = "ai.corca.placement"
-val targetDir = "${project.rootDir}/generator-placement"
+val basePackage = "ai.corca.generator_placement"
+val targetDir = "${project.rootDir}/generator_placement/"
 val targetFileName = "placement-swagger.json"
 val filteredFileName = "filtered-placement-swagger.json"
 val operationIds = listOf(
@@ -79,7 +79,7 @@ tasks.register<GenerateTask>("generateClient") {
     outputDir.set("$targetDir/src/main/java")
     apiPackage.set("$basePackage.api")
     modelPackage.set("$basePackage.model")
-    invokerPackage.set("$basePackage.invoker")
+    invokerPackage.set("$basePackage.client")
     configOptions.set(
         mapOf(
             "library" to "jvm-retrofit2",
@@ -87,6 +87,8 @@ tasks.register<GenerateTask>("generateClient") {
             "omitGradleWrapper" to "true",
             "sourceFolder" to "src/main/java",
             "useCoroutines" to "false",
+            "groupId" to basePackage,
+            "packageName" to basePackage
         )
     )
 }

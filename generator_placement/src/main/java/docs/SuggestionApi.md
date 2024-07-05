@@ -18,9 +18,9 @@ Fetch a personalized banner for advertisement.
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.*
-//import org.openapitools.client.infrastructure.*
-//import ai.corca.placement.model.*
+//import ai.corca.generator_placement.*
+//import ai.corca.generator_placement.infrastructure.*
+//import ai.corca.generator_placement.model.*
 
 val apiClient = ApiClient()
 val webService = apiClient.createWebservice(SuggestionApi::class.java)
@@ -58,9 +58,9 @@ Fetch a personalized product for advertisement.
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.*
-//import org.openapitools.client.infrastructure.*
-//import ai.corca.placement.model.*
+//import ai.corca.generator_placement.*
+//import ai.corca.generator_placement.infrastructure.*
+//import ai.corca.generator_placement.model.*
 
 val apiClient = ApiClient()
 val webService = apiClient.createWebservice(SuggestionApi::class.java)
@@ -98,9 +98,9 @@ Fetch a personalized banner for recommendation.
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.*
-//import org.openapitools.client.infrastructure.*
-//import ai.corca.placement.model.*
+//import ai.corca.generator_placement.*
+//import ai.corca.generator_placement.infrastructure.*
+//import ai.corca.generator_placement.model.*
 
 val apiClient = ApiClient()
 val webService = apiClient.createWebservice(SuggestionApi::class.java)
@@ -138,9 +138,9 @@ Fetch a personalized product for recommendation.
 ### Example
 ```kotlin
 // Import classes:
-//import org.openapitools.client.*
-//import org.openapitools.client.infrastructure.*
-//import ai.corca.placement.model.*
+//import ai.corca.generator_placement.*
+//import ai.corca.generator_placement.infrastructure.*
+//import ai.corca.generator_placement.model.*
 
 val apiClient = ApiClient()
 val webService = apiClient.createWebservice(SuggestionApi::class.java)
