@@ -36,29 +36,12 @@ internal class PlacementRemote {
         excludingProductIds: List<String>? = null,
         fromAgent: Boolean = false,
         userAgent: String,
-        filters: Map<String, Filters>? = null,
+        filters: List<Map<String, Filters>>? = null,
         sdkVersion: String,
         targets: List<Targets>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
-
-        lateinit var _filters: MutableList<Map<String, Filters>>
-
-        if (filters != null) {
-            val filtersArray = mutableListOf<Map<String, Filters>>()
-            for ((key, condition) in filters) {
-                val filter = Filters(
-                    equalTo = condition.equalTo,
-                    not = condition.not,
-                    contains = condition.contains
-                )
-                filtersArray.add(mapOf(key to filter))
-            }
-            if (filtersArray.isNotEmpty()) {
-                _filters = filtersArray
-            }
-        }
 
         val response = service.fetchRecommendationsProduct(
             suggestionsRequest = SuggestionsRequest(
@@ -74,7 +57,7 @@ internal class PlacementRemote {
                 placementPositionY = placementPositionY,
                 fromAgent = fromAgent,
                 userAgent = userAgent,
-                filters = _filters,
+                filters = filters,
                 sdkVersion = sdkVersion,
                 targets = targets
             )
@@ -130,30 +113,13 @@ internal class PlacementRemote {
         excludingProductIds: List<String>? = null,
         fromAgent: Boolean = false,
         userAgent: String,
-        filters: Map<String, Filters>? = null,
+        filters: List<Map<String, Filters>>? = null,
         sdkVersion: String,
         targets: List<Targets>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
-
-        lateinit var _filters: MutableList<Map<String, Filters>>
-
-        if (filters != null) {
-            val filtersArray = mutableListOf<Map<String, Filters>>()
-            for ((key, condition) in filters) {
-                val filter = Filters(
-                    equalTo = condition.equalTo,
-                    not = condition.not,
-                    contains = condition.contains
-                )
-                filtersArray.add(mapOf(key to filter))
-            }
-            if (filtersArray.isNotEmpty()) {
-                _filters = filtersArray
-            }
-        }
-
+        
         val response = service.fetchAdvertisementProduct(
             suggestionsRequest = SuggestionsRequest(
                 sessionId = sessionId,
@@ -168,7 +134,7 @@ internal class PlacementRemote {
                 placementPositionY = placementPositionY,
                 fromAgent = fromAgent,
                 userAgent = userAgent,
-                filters = _filters,
+                filters = filters,
                 targets = targets,
                 sdkVersion = sdkVersion
             )

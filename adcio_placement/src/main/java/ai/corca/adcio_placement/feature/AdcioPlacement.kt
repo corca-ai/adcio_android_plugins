@@ -42,7 +42,7 @@ object AdcioPlacement {
         customerId: String? = null,
         fromAgent: Boolean = false,
         userAgent: String? = null,
-        filters: Map<String, Filters>? = null,
+        filters: List<Map<String, Filters>>? = null,
         targets: List<Targets>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
@@ -94,7 +94,7 @@ object AdcioPlacement {
         customerId: String? = null,
         fromAgent: Boolean = false,
         userAgent: String? = null,
-        filters: Map<String, Filters>? = null,
+        filters: List<Map<String, Filters>>? = null,
         targets: List<Targets>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
