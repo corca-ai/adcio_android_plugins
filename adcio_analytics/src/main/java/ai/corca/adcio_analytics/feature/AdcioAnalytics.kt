@@ -38,6 +38,7 @@ class AdcioAnalytics(
         customerId: String? = null,
         productIdOnStore: String? = null,
         storeId: String? = null,
+        userAgent: String? = null,
     ) {
         analyticsRemote.onClick(
             sessionId = SessionClient.loadSessionId(),
@@ -46,6 +47,7 @@ class AdcioAnalytics(
             storeId = storeId ?: storeID,
             productIdOnStore = productIdOnStore,
             adcioLogOption = option,
+            userAgent = userAgent,
             baseUrl = baseUrl,
         )
     }
@@ -60,6 +62,7 @@ class AdcioAnalytics(
         option: AdcioLogOption,
         productIdOnStore: String? = null,
         baseUrl: String? = null,
+        userAgent: String? = null,
     ) {
         analyticsRemote.onImpression(
             sessionId = SessionClient.loadSessionId(),
@@ -68,6 +71,7 @@ class AdcioAnalytics(
             storeId = storeId ?: storeID,
             adcioLogOption = option,
             productIdOnStore = productIdOnStore,
+            userAgent = userAgent,
             baseUrl = baseUrl,
         )
     }
@@ -85,6 +89,7 @@ class AdcioAnalytics(
         productIdOnStore: String? = null,
         quantity: Int? = null,
         amount: Int,
+        userAgent: String? = null,
         baseUrl: String? = null,
     ) {
         analyticsRemote.onPurchase(
@@ -99,6 +104,7 @@ class AdcioAnalytics(
             productIdOnStore = productIdOnStore,
             quantity = quantity,
             amount = amount,
+            userAgent = userAgent,
             baseUrl = baseUrl,
         )
     }
@@ -114,6 +120,7 @@ class AdcioAnalytics(
         storeId: String? = null,
         option: AdcioLogOption? = null,
         categoryIdOnStore: String? = null,
+        userAgent: String? = null,
         baseUrl: String? = null,
     ) {
         analyticsRemote.onPageView(
@@ -125,6 +132,7 @@ class AdcioAnalytics(
             adsetId = option?.adsetId,
             productIdOnStore = productIdOnStore,
             categoryIdOnStore = categoryIdOnStore,
+            userAgent = userAgent,
             baseUrl = baseUrl,
         )
     }
@@ -137,6 +145,7 @@ class AdcioAnalytics(
         option: AdcioLogOption? = null,
         quantity: Int? = null,
         cartId: String? = null,
+        userAgent: String? = null,
         baseUrl: String? = null,
     ) {
         analyticsRemote.onAddToCart(
@@ -150,6 +159,7 @@ class AdcioAnalytics(
             requestId = option?.requestId,
             adsetId = option?.adsetId,
             quantity = quantity,
+            userAgent = userAgent,
             baseUrl = baseUrl
         )
     }

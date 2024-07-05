@@ -4,11 +4,16 @@ import ai.corca.adcio_placement.enum.Gender
 import ai.corca.adcio_placement.model.banner.AdcioSuggestionBannerRaw
 import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
 import ai.corca.adcio_placement.network.data.request.Filters
+import ai.corca.adcio_placement.network.data.request.Targets
 import ai.corca.adcio_placement.network.remote.PlacementRemote
+import android.os.Build
 import com.corcaai.core.ids.SessionClient
 import com.corcaai.core.ids.loadDeviceId
+import okhttp3.internal.userAgent
 
 object AdcioPlacement {
+
+    private val sdkVersion = "1.4.0"
 
     private val placementRemote = PlacementRemote()
 
@@ -32,12 +37,13 @@ object AdcioPlacement {
         clientId: String,
         placementId: String,
         excludingProductIds: List<String>? = null,
+        baselineProductIds: List<String>? = null,
         categoryId: String? = null,
         customerId: String? = null,
         fromAgent: Boolean = false,
-        birthYear: Int? = null,
-        gender: Gender? = null,
-        filters: Map<String, Filters>? = null,
+        userAgent: String? = null,
+        filters: List<Map<String, Filters>>? = null,
+        targets: List<Targets>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
         return placementRemote.createRecommendationProducts(
@@ -46,12 +52,14 @@ object AdcioPlacement {
             deviceId = loadDeviceId(),
             sessionId = SessionClient.loadSessionId(),
             customerId = customerId,
+            baselineProductIds = baselineProductIds,
             excludingProductIds = excludingProductIds,
             categoryId = categoryId,
             fromAgent = fromAgent,
-            birthYear = birthYear,
-            gender = gender,
+            userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}",
             filters = filters,
+            targets = targets,
+            sdkVersion = sdkVersion,
             baseUrl = baseUrl,
         )
     }
@@ -59,8 +67,9 @@ object AdcioPlacement {
     fun createRecommendationBanners(
         placementId: String,
         customerId: String? = null,
-        birthYear: Int? = null,
-        gender: Gender? = null,
+        fromAgent: Boolean = false,
+        userAgent: String? = null,
+        targets: List<Targets>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionBannerRaw {
         return placementRemote.createRecommendationBanners(
@@ -68,9 +77,10 @@ object AdcioPlacement {
             deviceId = loadDeviceId(),
             sessionId = SessionClient.loadSessionId(),
             customerId = customerId,
-            fromAgent = false,
-            birthYear = birthYear,
-            gender = gender,
+            fromAgent = fromAgent,
+            userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}",
+            sdkVersion = sdkVersion,
+            targets = targets,
             baseUrl = baseUrl,
         )
     }
@@ -79,12 +89,13 @@ object AdcioPlacement {
         clientId: String,
         placementId: String,
         excludingProductIds: List<String>? = null,
+        baselineProductIds: List<String>? = null,
         categoryId: String? = null,
         customerId: String? = null,
         fromAgent: Boolean = false,
-        birthYear: Int? = null,
-        gender: Gender? = null,
-        filters: Map<String, Filters>? = null,
+        userAgent: String? = null,
+        filters: List<Map<String, Filters>>? = null,
+        targets: List<Targets>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
         return placementRemote.createAdvertisementProducts(
@@ -92,13 +103,15 @@ object AdcioPlacement {
             placementId = placementId,
             deviceId = loadDeviceId(),
             sessionId = SessionClient.loadSessionId(),
+            baselineProductIds = baselineProductIds,
             excludingProductIds = excludingProductIds,
             categoryId = categoryId,
             customerId = customerId,
             fromAgent = fromAgent,
-            birthYear = birthYear,
-            gender = gender,
+            userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}",
+            sdkVersion = sdkVersion,
             filters = filters,
+            targets = targets,
             baseUrl = baseUrl,
         )
     }
@@ -106,8 +119,9 @@ object AdcioPlacement {
     fun createAdvertisementBanners(
         placementId: String,
         customerId: String? = null,
-        birthYear: Int? = null,
-        gender: Gender? = null,
+        fromAgent: Boolean = false,
+        userAgent: String? = null,
+        targets: List<Targets>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionBannerRaw {
         return placementRemote.createAdvertisementBanners(
@@ -115,9 +129,10 @@ object AdcioPlacement {
             deviceId = loadDeviceId(),
             sessionId = SessionClient.loadSessionId(),
             customerId = customerId,
-            fromAgent = false,
-            birthYear = birthYear,
-            gender = gender,
+            fromAgent = fromAgent,
+            sdkVersion = sdkVersion,
+            userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}",
+            targets = targets,
             baseUrl = baseUrl,
         )
     }

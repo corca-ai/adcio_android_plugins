@@ -10,6 +10,8 @@ data class AnalyticsPerformanceRequest(
     @SerializedName("requestId") val requestId: String,
     @SerializedName("productIdOnStore") val productIdOnStore: String?,
     @SerializedName("adsetId") val adsetId: String,
+    @SerializedName("sdkVersion") val sdkVersion: String,
+    @SerializedName("userAgent") val userAgent: String
 ) {
     override fun toString(): String {
         return "AnalyticsRequest(requestId: $requestId, adsetId: $adsetId)"

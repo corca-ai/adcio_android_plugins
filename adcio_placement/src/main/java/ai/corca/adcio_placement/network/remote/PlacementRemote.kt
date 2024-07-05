@@ -13,7 +13,9 @@ import ai.corca.adcio_placement.network.RetrofitClient
 import ai.corca.adcio_placement.network.data.request.Filters
 import ai.corca.adcio_placement.network.data.response.banner.AdcioSuggestionBannerRawData
 import ai.corca.adcio_placement.network.data.request.SuggestionsRequest
+import ai.corca.adcio_placement.network.data.request.Targets
 import ai.corca.adcio_placement.network.data.response.product.AdcioSuggestionProductRawData
+import okhttp3.internal.userAgent
 import retrofit2.Response
 import java.util.logging.Filter
 
@@ -30,31 +32,16 @@ internal class PlacementRemote {
         categoryId: String? = null,
         placementPositionX: Int? = null,
         placementPositionY: Int? = null,
+        baselineProductIds: List<String>? = null,
         excludingProductIds: List<String>? = null,
         fromAgent: Boolean = false,
-        birthYear: Int? = null,
-        gender: Gender? = null,
-        filters: Map<String, Filters>? = null,
+        userAgent: String,
+        filters: List<Map<String, Filters>>? = null,
+        sdkVersion: String,
+        targets: List<Targets>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
-
-        lateinit var _filters: MutableList<Map<String, Filters>>
-
-        if (filters != null) {
-            val filtersArray = mutableListOf<Map<String, Filters>>()
-            for ((key, condition) in filters) {
-                val filter = Filters(
-                    equalTo = condition.equalTo,
-                    not = condition.not,
-                    contains = condition.contains
-                )
-                filtersArray.add(mapOf(key to filter))
-            }
-            if (filtersArray.isNotEmpty()) {
-                _filters = filtersArray
-            }
-        }
 
         val response = service.fetchRecommendationsProduct(
             suggestionsRequest = SuggestionsRequest(
@@ -64,13 +51,15 @@ internal class PlacementRemote {
                 customerId = customerId,
                 placementId = placementId,
                 categoryId = categoryId,
+                baselineProductIds = baselineProductIds,
                 excludingProductIds = excludingProductIds,
                 placementPositionX = placementPositionX,
                 placementPositionY = placementPositionY,
                 fromAgent = fromAgent,
-                birthYear = birthYear,
-                filters = _filters,
-                gender = gender,
+                userAgent = userAgent,
+                filters = filters,
+                sdkVersion = sdkVersion,
+                targets = targets
             )
         ).execute()
 
@@ -86,8 +75,9 @@ internal class PlacementRemote {
         placementPositionX: Int? = null,
         placementPositionY: Int? = null,
         fromAgent: Boolean = false,
-        birthYear: Int? = null,
-        gender: Gender? = null,
+        userAgent: String,
+        sdkVersion: String,
+        targets: List<Targets>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionBannerRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
@@ -100,8 +90,9 @@ internal class PlacementRemote {
                 placementPositionX = placementPositionX,
                 placementPositionY = placementPositionY,
                 fromAgent = fromAgent,
-                birthYear = birthYear,
-                gender = gender,
+                userAgent = userAgent,
+                sdkVersion = sdkVersion,
+                targets = targets,
             )
         ).execute()
 
@@ -118,32 +109,17 @@ internal class PlacementRemote {
         categoryId: String? = null,
         placementPositionX: Int? = null,
         placementPositionY: Int? = null,
+        baselineProductIds: List<String>? = null,
         excludingProductIds: List<String>? = null,
         fromAgent: Boolean = false,
-        birthYear: Int? = null,
-        gender: Gender? = null,
-        filters: Map<String, Filters>? = null,
+        userAgent: String,
+        filters: List<Map<String, Filters>>? = null,
+        sdkVersion: String,
+        targets: List<Targets>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionProductRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
-
-        lateinit var _filters: MutableList<Map<String, Filters>>
-
-        if (filters != null) {
-            val filtersArray = mutableListOf<Map<String, Filters>>()
-            for ((key, condition) in filters) {
-                val filter = Filters(
-                    equalTo = condition.equalTo,
-                    not = condition.not,
-                    contains = condition.contains
-                )
-                filtersArray.add(mapOf(key to filter))
-            }
-            if (filtersArray.isNotEmpty()) {
-                _filters = filtersArray
-            }
-        }
-
+        
         val response = service.fetchAdvertisementProduct(
             suggestionsRequest = SuggestionsRequest(
                 sessionId = sessionId,
@@ -152,13 +128,15 @@ internal class PlacementRemote {
                 customerId = customerId,
                 placementId = placementId,
                 categoryId = categoryId,
+                baselineProductIds = baselineProductIds,
                 excludingProductIds = excludingProductIds,
                 placementPositionX = placementPositionX,
                 placementPositionY = placementPositionY,
                 fromAgent = fromAgent,
-                birthYear = birthYear,
-                gender = gender,
-                filters = _filters
+                userAgent = userAgent,
+                filters = filters,
+                targets = targets,
+                sdkVersion = sdkVersion
             )
         ).execute()
 
@@ -174,8 +152,9 @@ internal class PlacementRemote {
         placementPositionX: Int? = null,
         placementPositionY: Int? = null,
         fromAgent: Boolean = false,
-        birthYear: Int? = null,
-        gender: Gender? = null,
+        userAgent: String,
+        sdkVersion: String,
+        targets: List<Targets>? = null,
         baseUrl: String? = null,
     ): AdcioSuggestionBannerRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
@@ -188,8 +167,9 @@ internal class PlacementRemote {
                 placementPositionX = placementPositionX,
                 placementPositionY = placementPositionY,
                 fromAgent = fromAgent,
-                birthYear = birthYear,
-                gender = gender,
+                userAgent = userAgent,
+                targets = targets,
+                sdkVersion = sdkVersion
             )
         ).execute()
 

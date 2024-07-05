@@ -2,6 +2,7 @@ package ai.corca.adcio_android_plugins.suggestion.helper
 
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_analytics.model.AdcioLogOption
+import android.os.Build
 
 val adcioAnalytics = AdcioAnalytics("76dc12fa-5a73-4c90-bea5-d6578f9bc606")
 
@@ -14,7 +15,8 @@ internal class OnImpressionThread(
         adcioAnalytics.onImpression(
             option = logOption,
             customerId = null,
-            productIdOnStore = null
+            productIdOnStore = null,
+            userAgent = "${Build.MODEL} - ${Build.VERSION.RELEASE}" // Example OS Version
         )
     }
 }
@@ -28,7 +30,8 @@ internal class OnClickThread(
         adcioAnalytics.onClick(
             option = logOption,
             customerId = null,
-            productIdOnStore = null
+            productIdOnStore = null,
+            userAgent = "${Build.MODEL} - ${Build.VERSION.RELEASE}" // Example OS Version
         )
     }
 }
@@ -50,6 +53,7 @@ internal class OnPurchaseThread(
             customerId = null,
             option = null,
             quantity = null,
+            userAgent = "${Build.MODEL} - ${Build.VERSION.RELEASE}" // Example OS Version
         )
     }
 }
@@ -67,6 +71,7 @@ internal class OnAddToCartThread(
             cartId = null,
             option = null,
             quantity = null,
+            userAgent = "${Build.MODEL} - ${Build.VERSION.RELEASE}" // Example OS Version
         )
     }
 }
@@ -82,6 +87,7 @@ internal class OnPageViewThread(
             categoryIdOnStore = null,
             option = null,
             customerId = null,
+            userAgent = "${Build.MODEL} - ${Build.VERSION.RELEASE}" // Example OS Version
         )
     }
 }
