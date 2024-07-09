@@ -21,6 +21,7 @@ val productions: StateFlow<List<Production>> = _productState
 internal class GetSuggestionThread : Thread() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun run() {
+<<<<<<< HEAD
         val adcioSuggestionRaw = runBlocking {
             AdcioPlacement.createAdvertisementProducts(
                 clientId = "76dc12fa-5a73-4c90-bea5-d6578f9bc606",
@@ -35,6 +36,20 @@ internal class GetSuggestionThread : Thread() {
                 ),
             )
         }
+=======
+        // adcioSuggest function allows you to receive products recommended by ADCIO’s AI.
+        // You can get the placementId on the ADCIO Dashboard web page.
+        // In addition, if you have user information such as customerId(like.userId),
+        // age, gender, area, or information such as placement position related to the page,
+        // the recommended prediction accuracy is higher.
+        val adcioSuggestionRaw = AdcioPlacement.createAdvertisementProducts(
+            clientId = "76dc12fa-5a73-4c90-bea5-d6578f9bc606",
+            placementId = "5ae9907f-3cc2-4ed4-aaa4-4b20ac97f9f4",
+            categoryId = "2179",
+            excludingProductIds = listOf("1001"),
+            userAgent = "${Build.MODEL} - ${Build.VERSION.RELEASE}",
+        )
+>>>>>>> develop
 
         // Clear impression history when suggestion api called
         clearImpressionHistory()
