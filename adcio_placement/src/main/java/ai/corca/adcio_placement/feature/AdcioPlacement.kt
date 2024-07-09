@@ -13,7 +13,7 @@ import okhttp3.internal.userAgent
 
 object AdcioPlacement {
 
-    private val sdkVersion = "1.4.0"
+    private val sdkVersion = "Android 1.4.1"
 
     private val placementRemote = PlacementRemote()
 
