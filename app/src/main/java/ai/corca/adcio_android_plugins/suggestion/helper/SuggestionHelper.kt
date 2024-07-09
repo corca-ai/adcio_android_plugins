@@ -43,13 +43,15 @@ internal class GetSuggestionThread : Thread() {
         // age, gender, area, or information such as placement position related to the page,
         // the recommended prediction accuracy is higher.
         val adcioSuggestionRaw = AdcioPlacement.createAdvertisementProducts(
-            clientId = "76dc12fa-5a73-4c90-bea5-d6578f9bc606",
-            placementId = "5ae9907f-3cc2-4ed4-aaa4-4b20ac97f9f4",
-            categoryId = "2179",
-            excludingProductIds = listOf("1001"),
+            clientId = "7bbb703e-a30b-4a4a-91b4-c0a7d2303415",
+            placementId = "e4e14a3c-d99f-4646-b31e-bbe144e65dff",
             userAgent = "${Build.MODEL} - ${Build.VERSION.RELEASE}",
         )
 >>>>>>> develop
+
+        for (i in 0 until adcioSuggestionRaw.suggestions.size) {
+            Log.d("123123", adcioSuggestionRaw.suggestions[i].logOptions.toString())
+        }
 
         // Clear impression history when suggestion api called
         clearImpressionHistory()

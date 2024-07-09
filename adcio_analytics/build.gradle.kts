@@ -18,7 +18,7 @@ rootProject.extra.apply {
 }
 
 val basePackage = "ai.corca.generator_analytics"
-val targetDir = "${project.rootDir}/generator_analytics"
+val targetDir = "${project.rootDir}/generator_analytics/"
 val targetFileName = "analytics-swagger.json"
 
 // Swagger 파일 다운로드 태스크
