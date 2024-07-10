@@ -1,7 +1,6 @@
 package ai.corca.adcio_android_plugins.suggestion.helper
 
 import ai.corca.adcio_analytics.AdcioLogOption
-import ai.corca.adcio_android_plugins.suggestion.currentUser
 import ai.corca.adcio_android_plugins.suggestion.model.Production
 import ai.corca.adcio_android_plugins.suggestion.utils.clearImpressionHistory
 import ai.corca.adcio_android_plugins.suggestion.utils.getMockProducts

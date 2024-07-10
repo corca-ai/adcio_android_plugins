@@ -73,7 +73,7 @@ object AdcioPlacement {
                 categoryId = categoryId,
                 filters = _filters?.toList(),
                 targets = targets,
-                userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}"
+                userAgent = userAgent ?: "${Build.MODEL}-${Build.VERSION.RELEASE}"
             )
         ).body()
     }
@@ -96,7 +96,7 @@ object AdcioPlacement {
                 placementPositionY = null,
                 fromAgent = fromAgent,
                 targets = targets,
-                userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}"
+                userAgent = userAgent ?: "${Build.MODEL}-${Build.VERSION.RELEASE}"
             )
         ).body()
     }
@@ -147,7 +147,7 @@ object AdcioPlacement {
                 categoryId = categoryId,
                 filters = _filters?.toList(),
                 targets = targets,
-                userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}"
+                userAgent = userAgent ?: "${Build.MODEL}-${Build.VERSION.RELEASE}"
             )
         ).body()
     }
@@ -170,7 +170,7 @@ object AdcioPlacement {
                 placementPositionY = null,
                 fromAgent = fromAgent,
                 targets = targets,
-                userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}"
+                userAgent = userAgent ?: "${Build.MODEL}-${Build.VERSION.RELEASE}"
             )
         ).body()
     }

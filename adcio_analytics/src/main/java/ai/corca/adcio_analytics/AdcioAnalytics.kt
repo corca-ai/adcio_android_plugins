@@ -5,6 +5,7 @@ import ai.corca.generator_analytics.model.TrackClickRequestDto
 import ai.corca.generator_analytics.model.TrackImpressionRequestDto
 import ai.corca.generator_analytics.model.TrackPageViewRequestDto
 import ai.corca.generator_analytics.model.TrackPurchaseRequestDto
+import android.os.Build
 import com.corcaai.core.ids.SessionClient
 import com.corcaai.core.ids.loadDeviceId
 
@@ -37,6 +38,7 @@ class AdcioAnalytics(
         option: AdcioLogOption,
         customerId: String? = null,
         productIdOnStore: String? = null,
+        userAgent: String? = null
     ) {
         eventsApi.eventsControllerOnClick(
             trackClickRequestDto = TrackClickRequestDto(
@@ -45,8 +47,10 @@ class AdcioAnalytics(
                 sessionId = SessionClient.loadSessionId(),
                 customerId = customerId,
                 productIdOnStore = productIdOnStore,
+                sdkVersion = sdkVersion,
                 adsetId = option.adsetId,
-                requestId = option.requestId
+                requestId = option.requestId,
+                userAgent = userAgent ?: "${Build.MODEL}-${Build.VERSION.RELEASE}"
             )
         )
     }
@@ -59,6 +63,7 @@ class AdcioAnalytics(
         customerId: String? = null,
         option: AdcioLogOption,
         productIdOnStore: String? = null,
+        userAgent: String? = null
     ) {
         eventsApi.eventsControllerOnImpression(
             trackImpressionRequestDto = TrackImpressionRequestDto(
@@ -66,9 +71,11 @@ class AdcioAnalytics(
                 deviceId = loadDeviceId(),
                 customerId = customerId,
                 storeId = storeID,
+                sdkVersion = sdkVersion,
                 productIdOnStore = productIdOnStore,
                 adsetId = option.adsetId,
-                requestId = option.requestId
+                requestId = option.requestId,
+                userAgent = userAgent ?: "${Build.MODEL}-${Build.VERSION.RELEASE}"
             )
         )
     }
@@ -85,6 +92,7 @@ class AdcioAnalytics(
         productIdOnStore: String? = null,
         quantity: Int? = null,
         amount: Int,
+        userAgent: String? = null,
     ) {
         eventsApi.eventsControllerOnPurchase(
             trackPurchaseRequestDto = TrackPurchaseRequestDto(
@@ -93,12 +101,14 @@ class AdcioAnalytics(
                 customerId = customerId,
                 orderId = orderId,
                 storeId = storeID,
+                sdkVersion = sdkVersion,
                 requestId = option?.requestId,
                 adsetId = option?.adsetId,
                 categoryIdOnStore = categoryIdOnStore,
                 productIdOnStore = productIdOnStore,
                 quantity = quantity?.toBigDecimal(),
                 amount = amount.toBigDecimal(),
+                userAgent = userAgent ?: "${Build.MODEL}-${Build.VERSION.RELEASE}"
             )
         )
     }
@@ -113,6 +123,7 @@ class AdcioAnalytics(
         customerId: String? = null,
         option: AdcioLogOption? = null,
         categoryIdOnStore: String? = null,
+        userAgent: String? = null,
     ) {
         eventsApi.eventsControllerOnPageView(
             trackPageViewRequestDto = TrackPageViewRequestDto(
@@ -122,8 +133,10 @@ class AdcioAnalytics(
                 storeId = storeID,
                 requestId = option?.requestId,
                 adsetId = option?.adsetId,
+                sdkVersion = sdkVersion,
                 productIdOnStore = productIdOnStore,
                 categoryIdOnStore = categoryIdOnStore,
+                userAgent = userAgent ?: "${Build.MODEL}-${Build.VERSION.RELEASE}"
             )
         )
     }
@@ -135,6 +148,7 @@ class AdcioAnalytics(
         option: AdcioLogOption? = null,
         quantity: Int? = null,
         cartId: String? = null,
+        userAgent: String? = null,
     ) {
         eventsApi.eventsControllerOnAddToCart(
             trackAddToCartRequestDto = TrackAddToCartRequestDto(
@@ -145,9 +159,11 @@ class AdcioAnalytics(
                 productIdOnStore = productIdOnStore,
                 categoryIdOnStore = categoryIdOnStore,
                 cartId = cartId,
+                sdkVersion = sdkVersion,
                 requestId = option?.requestId,
                 adsetId = option?.adsetId,
                 quantity = quantity?.toBigDecimal(),
+                userAgent = userAgent ?: "${Build.MODEL}-${Build.VERSION.RELEASE}"
             )
         )
     }

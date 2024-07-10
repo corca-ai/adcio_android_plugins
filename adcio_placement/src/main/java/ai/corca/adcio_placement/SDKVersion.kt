@@ -1,3 +1,3 @@
 package ai.corca.adcio_placement
 
-const val sdkVersion = "1.4.0-alpha"
+const val sdkVersion = "Android 1.4.2"
