@@ -1,10 +1,10 @@
 package ai.corca.adcio_analytics
 
-import ai.corca.analytics.model.TrackAddToCartRequestDto
-import ai.corca.analytics.model.TrackClickRequestDto
-import ai.corca.analytics.model.TrackImpressionRequestDto
-import ai.corca.analytics.model.TrackPageViewRequestDto
-import ai.corca.analytics.model.TrackPurchaseRequestDto
+import ai.corca.generator_analytics.model.TrackAddToCartRequestDto
+import ai.corca.generator_analytics.model.TrackClickRequestDto
+import ai.corca.generator_analytics.model.TrackImpressionRequestDto
+import ai.corca.generator_analytics.model.TrackPageViewRequestDto
+import ai.corca.generator_analytics.model.TrackPurchaseRequestDto
 import com.corcaai.core.ids.SessionClient
 import com.corcaai.core.ids.loadDeviceId
 

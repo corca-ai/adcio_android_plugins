@@ -1,12 +1,11 @@
 package ai.corca.adcio_placement
 
-import ai.corca.adcio_placement.sdkVersion
-import ai.corca.placement.model.BannerSuggestionRequestDto
-import ai.corca.placement.model.BannerSuggestionResponseDto
-import ai.corca.placement.model.ProductFilterOperationDto
-import ai.corca.placement.model.ProductSuggestionRequestDto
-import ai.corca.placement.model.ProductSuggestionResponseDto
-import ai.corca.placement.model.SuggestionRequestTarget
+import ai.corca.generator_placement.model.BannerSuggestionRequestDto
+import ai.corca.generator_placement.model.BannerSuggestionResponseDto
+import ai.corca.generator_placement.model.ProductFilterOperationDto
+import ai.corca.generator_placement.model.ProductSuggestionRequestDto
+import ai.corca.generator_placement.model.ProductSuggestionResponseDto
+import ai.corca.generator_placement.model.SuggestionRequestTarget
 import android.os.Build
 import com.corcaai.core.ids.SessionClient
 import com.corcaai.core.ids.loadDeviceId

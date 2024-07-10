@@ -6,8 +6,8 @@ import ai.corca.adcio_android_plugins.suggestion.model.Production
 import ai.corca.adcio_android_plugins.suggestion.utils.clearImpressionHistory
 import ai.corca.adcio_android_plugins.suggestion.utils.getMockProducts
 import ai.corca.adcio_placement.AdcioPlacement
-import ai.corca.placement.model.ProductFilterOperationDto
-import ai.corca.placement.model.ProductSuggestionResponseDto
+import ai.corca.generator_placement.model.ProductFilterOperationDto
+import ai.corca.generator_placement.model.ProductSuggestionResponseDto
 import android.annotation.SuppressLint
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -21,36 +21,11 @@ val productions: StateFlow<List<Production>> = _productState
 internal class GetSuggestionThread : Thread() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun run() {
-<<<<<<< HEAD
         val adcioSuggestionRaw = runBlocking {
             AdcioPlacement.createAdvertisementProducts(
-                clientId = "76dc12fa-5a73-4c90-bea5-d6578f9bc606",
-                placementId = "5ae9907f-3cc2-4ed4-aaa4-4b20ac97f9f4",
-                categoryId = "2179",
-                excludingProductIds = listOf("1001"),
-                customerId = currentUser.id,
-                filters = mapOf(
-                    "price_excluding_tax" to ProductFilterOperationDto(not = 53636),
-                    "product_code" to ProductFilterOperationDto(contains = "KY"),
-                    "province_id" to ProductFilterOperationDto(equalTo = 1)
-                ),
+                clientId = "7bbb703e-a30b-4a4a-91b4-c0a7d2303415",
+                placementId = "e4e14a3c-d99f-4646-b31e-bbe144e65dff",
             )
-        }
-=======
-        // adcioSuggest function allows you to receive products recommended by ADCIO’s AI.
-        // You can get the placementId on the ADCIO Dashboard web page.
-        // In addition, if you have user information such as customerId(like.userId),
-        // age, gender, area, or information such as placement position related to the page,
-        // the recommended prediction accuracy is higher.
-        val adcioSuggestionRaw = AdcioPlacement.createAdvertisementProducts(
-            clientId = "7bbb703e-a30b-4a4a-91b4-c0a7d2303415",
-            placementId = "e4e14a3c-d99f-4646-b31e-bbe144e65dff",
-            userAgent = "${Build.MODEL} - ${Build.VERSION.RELEASE}",
-        )
->>>>>>> develop
-
-        for (i in 0 until adcioSuggestionRaw.suggestions.size) {
-            Log.d("123123", adcioSuggestionRaw.suggestions[i].logOptions.toString())
         }
 
         // Clear impression history when suggestion api called

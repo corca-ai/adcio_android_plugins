@@ -18,7 +18,7 @@ rootProject.extra.apply {
 }
 
 val basePackage = "ai.corca.generator_analytics"
-val targetDir = "${project.rootDir}/generator_analytics/"
+val targetDir = "${project.rootDir}/adcio_analytics/generator"
 val targetFileName = "analytics-swagger.json"
 
 // Swagger 파일 다운로드 태스크
@@ -92,5 +92,4 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("io.github.corca-ai:core:1.0.3")
-    implementation(project(":generator_analytics"))
 }

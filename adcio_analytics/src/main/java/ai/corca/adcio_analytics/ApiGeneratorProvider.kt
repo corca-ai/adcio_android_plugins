@@ -1,9 +1,11 @@
 package ai.corca.adcio_analytics
 
-import ai.corca.analytics.api.EventsApi
-import ai.corca.analytics.infrastructure.ApiClient
+import ai.corca.generator_analytics.api.EventsApi
+import ai.corca.generator_analytics.infrastructure.ApiClient
 
 
-private val apiClient = ApiClient()
+val apiClient = ApiClient().apply {
+    setLogger { message -> println(message) }
+}
 
 val eventsApi = apiClient.createService(EventsApi::class.java)

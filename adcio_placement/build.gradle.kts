@@ -21,7 +21,7 @@ rootProject.extra.apply {
 }
 
 val basePackage = "ai.corca.generator_placement"
-val targetDir = "${project.rootDir}/generator_placement/"
+val targetDir = "${project.rootDir}/adcio_placement/generator"
 val targetFileName = "placement-swagger.json"
 val filteredFileName = "filtered-placement-swagger.json"
 val operationIds = listOf(
@@ -152,8 +152,11 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
-    implementation("io.github.corca-ai:core:1.0.3")
 
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
+    implementation("io.github.corca-ai:core:1.0.3")
     implementation("org.slf4j:slf4j-simple:2.0.13")
-    implementation(project(":generator_placement"))
 }

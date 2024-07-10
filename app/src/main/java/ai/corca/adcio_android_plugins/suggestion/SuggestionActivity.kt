@@ -3,6 +3,7 @@ package ai.corca.adcio_android_plugins.suggestion
 import ai.corca.adcio_analytics.AdcioAnalytics
 import ai.corca.adcio_android_plugins.suggestion.utils.MockProductListAdapter
 import ai.corca.adcio_android_plugins.databinding.ActivityPlacementBinding
+import ai.corca.adcio_android_plugins.suggestion.helper.GetSuggestionThread
 import ai.corca.adcio_android_plugins.suggestion.helper.handleResultData
 import ai.corca.adcio_android_plugins.suggestion.helper.productions
 import ai.corca.adcio_android_plugins.suggestion.model.Production
@@ -10,7 +11,7 @@ import ai.corca.adcio_android_plugins.suggestion.user.Gender
 import ai.corca.adcio_android_plugins.suggestion.user.User
 import ai.corca.adcio_android_plugins.suggestion.utils.clearImpressionHistory
 import ai.corca.adcio_placement.AdcioPlacement
-import ai.corca.placement.model.ProductFilterOperationDto
+import ai.corca.generator_placement.model.ProductFilterOperationDto
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
@@ -27,19 +28,15 @@ import java.time.LocalDate
 import java.util.Calendar
 import java.util.UUID
 
-lateinit var currentUser: User
-lateinit var currentLocation: String
-
 lateinit var mockProductListAdapter: MockProductListAdapter
-
-private val _productState = MutableStateFlow(emptyList<Production>())
-val productions: StateFlow<List<Production>> = _productState
 
 class SuggestionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlacementBinding
 
-    val analytics = AdcioAnalytics("76dc12fa-5a73-4c90-bea5-d6578f9bc606")
+     val analytics = AdcioAnalytics("7bbb703e-a30b-4a4a-91b4-c0a7d2303415")
+
+    private val getSuggestionThread = GetSuggestionThread()
 
     @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -78,41 +75,7 @@ class SuggestionActivity : AppCompatActivity() {
             },
         )
 
-        val sampleBirthDate = Calendar.getInstance()
-        sampleBirthDate.set(Calendar.YEAR, 2000)
-        sampleBirthDate.set(Calendar.MONTH, Calendar.JANUARY)
-        sampleBirthDate.set(Calendar.DAY_OF_MONTH, 31)
-
-        currentUser = User(
-            id = UUID.randomUUID().toString(),
-            name = "adcio",
-            birthDate = LocalDate.of(2000, 1, 31),
-            gender = Gender.female,
-        )
-
-        currentLocation = "Seoul, Korea"
-
-        val adcioSuggestionRaw = runBlocking {
-            AdcioPlacement.createAdvertisementProducts(
-                clientId = "76dc12fa-5a73-4c90-bea5-d6578f9bc606",
-                placementId = "5ae9907f-3cc2-4ed4-aaa4-4b20ac97f9f4",
-                categoryId = "2179",
-                excludingProductIds = listOf("1001"),
-                customerId = currentUser.id,
-                filters = mapOf(
-                    "price_excluding_tax" to ProductFilterOperationDto(not = 53636),
-                    "product_code" to ProductFilterOperationDto(contains = "KY"),
-                    "province_id" to ProductFilterOperationDto(equalTo = 1)
-                ),
-            )
-        }
-
-        clearImpressionHistory()
-
-        if (adcioSuggestionRaw != null) {
-            handleResultData(adcioSuggestionRaw)
-        }
-
+        getSuggestionThread.start()
         getSuggestionData()
 
         binding.rvSuggestions.adapter = mockProductListAdapter
