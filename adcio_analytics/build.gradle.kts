@@ -29,6 +29,12 @@ tasks.register<Download>("downloadSwagger") {
     useETag(true)
 }
 
+
+
+
+
+
+
 // OpenAPI Generator 태스크
 tasks.register<GenerateTask>("generateClient") {
     dependsOn(tasks.named("downloadSwagger"))
