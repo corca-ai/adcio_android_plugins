@@ -1,5 +1,6 @@
 package ai.corca.adcio_android_plugins.suggestion
 
+import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_android_plugins.suggestion.utils.MockProductListAdapter
 import ai.corca.adcio_android_plugins.databinding.ActivityPlacementBinding
 import ai.corca.adcio_android_plugins.suggestion.helper.GetSuggestionThread
@@ -28,11 +29,13 @@ lateinit var currentLocation: String
 
 lateinit var mockProductListAdapter: MockProductListAdapter
 
+lateinit var adcioAnalytics: AdcioAnalytics
+
 class SuggestionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlacementBinding
 
-    private val getSuggestionThread = GetSuggestionThread()
+    private val getSuggestionThread = GetSuggestionThread(this)
 
     @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
@@ -40,6 +43,8 @@ class SuggestionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPlacementBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        adcioAnalytics = AdcioAnalytics("76dc12fa-5a73-4c90-bea5-d6578f9bc606", this)
 
         mockProductListAdapter = MockProductListAdapter(
             onImpressionItem = { logOption ->

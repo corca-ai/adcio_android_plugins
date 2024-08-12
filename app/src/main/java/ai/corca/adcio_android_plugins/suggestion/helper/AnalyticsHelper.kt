@@ -2,9 +2,9 @@ package ai.corca.adcio_android_plugins.suggestion.helper
 
 import ai.corca.adcio_analytics.feature.AdcioAnalytics
 import ai.corca.adcio_analytics.model.AdcioLogOption
+import ai.corca.adcio_android_plugins.suggestion.adcioAnalytics
 import android.os.Build
 
-val adcioAnalytics = AdcioAnalytics("76dc12fa-5a73-4c90-bea5-d6578f9bc606")
 
 // Background Thread for Impression Analytics
 internal class OnImpressionThread(
@@ -15,7 +15,6 @@ internal class OnImpressionThread(
         adcioAnalytics.onImpression(
             option = logOption,
             customerId = null,
-            productIdOnStore = null,
             userAgent = "${Build.MODEL} - ${Build.VERSION.RELEASE}" // Example OS Version
         )
     }

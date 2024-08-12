@@ -11,6 +11,7 @@ import ai.corca.adcio_placement.feature.AdcioPlacement
 import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
 import ai.corca.adcio_placement.network.data.request.Filters
 import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
@@ -20,7 +21,12 @@ import kotlinx.coroutines.flow.StateFlow
 private val _productState = MutableStateFlow(emptyList<Production>())
 val productions: StateFlow<List<Production>> = _productState
 
-internal class GetSuggestionThread : Thread() {
+internal class GetSuggestionThread(
+    context: Context
+) : Thread() {
+
+    val adcioPlacement = AdcioPlacement(context)
+
     @RequiresApi(Build.VERSION_CODES.O)
     override fun run() {
         // adcioSuggest function allows you to receive products recommended by ADCIO’s AI.
@@ -28,7 +34,7 @@ internal class GetSuggestionThread : Thread() {
         // In addition, if you have user information such as customerId(like.userId),
         // age, gender, area, or information such as placement position related to the page,
         // the recommended prediction accuracy is higher.
-        val adcioSuggestionRaw = AdcioPlacement.createAdvertisementProducts(
+        val adcioSuggestionRaw = adcioPlacement.createAdvertisementProducts(
             clientId = "76dc12fa-5a73-4c90-bea5-d6578f9bc606",
             placementId = "5ae9907f-3cc2-4ed4-aaa4-4b20ac97f9f4",
             categoryId = "2179",

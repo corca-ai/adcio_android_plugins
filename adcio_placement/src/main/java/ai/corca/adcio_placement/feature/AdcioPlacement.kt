@@ -6,14 +6,16 @@ import ai.corca.adcio_placement.model.product.AdcioSuggestionProductRaw
 import ai.corca.adcio_placement.network.data.request.Filters
 import ai.corca.adcio_placement.network.data.request.Targets
 import ai.corca.adcio_placement.network.remote.PlacementRemote
+import android.content.Context
 import android.os.Build
+import com.corcaai.core.ids.DeviceIdManager
 import com.corcaai.core.ids.SessionClient
-import com.corcaai.core.ids.loadDeviceId
-import okhttp3.internal.userAgent
 
-object AdcioPlacement {
+class AdcioPlacement(
+    private val context: Context
+) {
 
-    private val sdkVersion = "Android 1.4.1"
+    private val sdkVersion = "Android 1.4.2"
 
     private val placementRemote = PlacementRemote()
 
@@ -27,7 +29,7 @@ object AdcioPlacement {
      * This is a function that provides the same value as getDeviceId in ADCIO Analytics.
      */
     fun getDeviceId(): String =
-        loadDeviceId()
+        DeviceIdManager.loadDeviceId(context)
 
     /**
      * It smartly predicts products with high click or purchase probabilities from the client's products and returns the product information.
@@ -49,7 +51,7 @@ object AdcioPlacement {
         return placementRemote.createRecommendationProducts(
             clientId = clientId,
             placementId = placementId,
-            deviceId = loadDeviceId(),
+            deviceId = getDeviceId(),
             sessionId = SessionClient.loadSessionId(),
             customerId = customerId,
             baselineProductIds = baselineProductIds,
@@ -74,7 +76,7 @@ object AdcioPlacement {
     ): AdcioSuggestionBannerRaw {
         return placementRemote.createRecommendationBanners(
             placementId = placementId,
-            deviceId = loadDeviceId(),
+            deviceId = getDeviceId(),
             sessionId = SessionClient.loadSessionId(),
             customerId = customerId,
             fromAgent = fromAgent,
@@ -101,7 +103,7 @@ object AdcioPlacement {
         return placementRemote.createAdvertisementProducts(
             clientId = clientId,
             placementId = placementId,
-            deviceId = loadDeviceId(),
+            deviceId = getDeviceId(),
             sessionId = SessionClient.loadSessionId(),
             baselineProductIds = baselineProductIds,
             excludingProductIds = excludingProductIds,
@@ -126,7 +128,7 @@ object AdcioPlacement {
     ): AdcioSuggestionBannerRaw {
         return placementRemote.createAdvertisementBanners(
             placementId = placementId,
-            deviceId = loadDeviceId(),
+            deviceId = getDeviceId(),
             sessionId = SessionClient.loadSessionId(),
             customerId = customerId,
             fromAgent = fromAgent,

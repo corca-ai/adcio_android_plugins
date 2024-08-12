@@ -17,7 +17,7 @@ import retrofit2.Response
 internal class AnalyticsRemote {
 
     private val networkSuccessRange = 200 until 300
-    private val sdkVersion = "Android 1.4.3"
+    private val sdkVersion = "Android 1.4.4"
 
     fun onImpression(
         sessionId: String,
@@ -25,7 +25,6 @@ internal class AnalyticsRemote {
         customerId: String?,
         storeId: String,
         adcioLogOption: AdcioLogOption,
-        productIdOnStore: String?,
         userAgent: String? = null,
         baseUrl: String?,
     ) {
@@ -36,7 +35,7 @@ internal class AnalyticsRemote {
                 deviceId = deviceId,
                 customerId = customerId,
                 storeId = storeId,
-                productIdOnStore = productIdOnStore,
+                productIdOnStore = null,
                 requestId = adcioLogOption.requestId,
                 adsetId = adcioLogOption.adsetId,
                 sdkVersion = sdkVersion,

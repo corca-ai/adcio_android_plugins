@@ -5,6 +5,7 @@ import ai.corca.adcio_android_plugins.databinding.ActivityMainBinding
 import ai.corca.adcio_android_plugins.suggestion.SuggestionActivity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.btnAgent.setOnClickListener {
             val intent = Intent(this, AgentActivity::class.java)
             startActivity(intent)
