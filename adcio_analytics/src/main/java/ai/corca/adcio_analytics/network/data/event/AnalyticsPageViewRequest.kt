@@ -12,5 +12,6 @@ data class AnalyticsPageViewRequest(
     @SerializedName("productIdOnStore") val productIdOnStore: String?,
     @SerializedName("categoryIdOnStore") val categoryIdOnStore: String?,
     @SerializedName("sdkVersion") val sdkVersion: String,
-    @SerializedName("userAgent") val userAgent: String
+    @SerializedName("userAgent") val userAgent: String,
+    @SerializedName("appVersion") val appVersion: String,
 )

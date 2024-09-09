@@ -8,12 +8,19 @@ import com.corcaai.core.ids.SessionClient
 
 class AdcioAnalytics(
     private val clientId: String,
+    private val appVersion: String,
     private val context: Context,
 ) {
 
     private val storeID: String by lazy {
         clientId.ifEmpty {
             throw IllegalArgumentException("clientId cannot be empty")
+        }
+    }
+
+    private val _appVersion: String by lazy {
+        appVersion.ifEmpty {
+            throw IllegalArgumentException("appVersion cannot be empty")
         }
     }
 
@@ -51,6 +58,7 @@ class AdcioAnalytics(
             adcioLogOption = option,
             userAgent = userAgent,
             baseUrl = baseUrl,
+            appVersion = _appVersion
         )
     }
 
@@ -73,6 +81,7 @@ class AdcioAnalytics(
             adcioLogOption = option,
             userAgent = userAgent,
             baseUrl = baseUrl,
+            appVersion = _appVersion
         )
     }
 
@@ -106,6 +115,7 @@ class AdcioAnalytics(
             amount = amount,
             userAgent = userAgent,
             baseUrl = baseUrl,
+            appVersion = _appVersion
         )
     }
 
@@ -134,6 +144,7 @@ class AdcioAnalytics(
             categoryIdOnStore = categoryIdOnStore,
             userAgent = userAgent,
             baseUrl = baseUrl,
+            appVersion = _appVersion
         )
     }
 
@@ -160,7 +171,8 @@ class AdcioAnalytics(
             adsetId = option?.adsetId,
             quantity = quantity,
             userAgent = userAgent,
-            baseUrl = baseUrl
+            baseUrl = baseUrl,
+            appVersion = _appVersion
         )
     }
 }

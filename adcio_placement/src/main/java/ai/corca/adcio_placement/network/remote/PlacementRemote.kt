@@ -40,6 +40,7 @@ internal class PlacementRemote {
         sdkVersion: String,
         targets: List<Targets>? = null,
         baseUrl: String? = null,
+        appVersion: String
     ): AdcioSuggestionProductRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
 
@@ -59,7 +60,8 @@ internal class PlacementRemote {
                 userAgent = userAgent,
                 filters = filters,
                 sdkVersion = sdkVersion,
-                targets = targets
+                targets = targets,
+                appVersion = appVersion
             )
         ).execute()
 
@@ -79,6 +81,7 @@ internal class PlacementRemote {
         sdkVersion: String,
         targets: List<Targets>? = null,
         baseUrl: String? = null,
+        appVersion: String
     ): AdcioSuggestionBannerRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
         val response = service.fetchRecommendationsBanner(
@@ -93,6 +96,7 @@ internal class PlacementRemote {
                 userAgent = userAgent,
                 sdkVersion = sdkVersion,
                 targets = targets,
+                appVersion = appVersion
             )
         ).execute()
 
@@ -117,6 +121,7 @@ internal class PlacementRemote {
         sdkVersion: String,
         targets: List<Targets>? = null,
         baseUrl: String? = null,
+        appVersion: String
     ): AdcioSuggestionProductRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
         
@@ -136,7 +141,8 @@ internal class PlacementRemote {
                 userAgent = userAgent,
                 filters = filters,
                 targets = targets,
-                sdkVersion = sdkVersion
+                sdkVersion = sdkVersion,
+                appVersion = appVersion
             )
         ).execute()
 
@@ -156,6 +162,7 @@ internal class PlacementRemote {
         sdkVersion: String,
         targets: List<Targets>? = null,
         baseUrl: String? = null,
+        appVersion: String
     ): AdcioSuggestionBannerRaw {
         val service = RetrofitClient.getPlacementService(baseUrl)
         val response = service.fetchAdvertisementBanner(
@@ -169,7 +176,8 @@ internal class PlacementRemote {
                 fromAgent = fromAgent,
                 userAgent = userAgent,
                 targets = targets,
-                sdkVersion = sdkVersion
+                sdkVersion = sdkVersion,
+                appVersion = appVersion
             )
         ).execute()
 

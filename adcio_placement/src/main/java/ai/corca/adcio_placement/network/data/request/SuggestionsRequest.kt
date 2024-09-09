@@ -18,7 +18,8 @@ internal data class SuggestionsRequest(
     @SerializedName("userAgent") val userAgent: String,
     @SerializedName("filters") val filters: List<Map<String, Filters>>? = null,
     @SerializedName("targets") val targets: List<Targets>? = null,
-    @SerializedName("sdkVersion") val sdkVersion: String
+    @SerializedName("sdkVersion") val sdkVersion: String,
+    @SerializedName("appVersion") val appVersion: String?,
 )
 
 data class Targets(

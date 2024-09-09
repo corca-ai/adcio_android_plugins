@@ -17,7 +17,7 @@ import retrofit2.Response
 internal class AnalyticsRemote {
 
     private val networkSuccessRange = 200 until 300
-    private val sdkVersion = "Android 1.4.4"
+    private val sdkVersion = "Android 1.4.5"
 
     fun onImpression(
         sessionId: String,
@@ -27,6 +27,7 @@ internal class AnalyticsRemote {
         adcioLogOption: AdcioLogOption,
         userAgent: String? = null,
         baseUrl: String?,
+        appVersion: String,
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
         val response = service.onImpression(
@@ -40,6 +41,7 @@ internal class AnalyticsRemote {
                 adsetId = adcioLogOption.adsetId,
                 sdkVersion = sdkVersion,
                 userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}",
+                appVersion = appVersion
             )
         ).execute()
 
@@ -55,6 +57,7 @@ internal class AnalyticsRemote {
         productIdOnStore: String?,
         userAgent: String? = null,
         baseUrl: String?,
+        appVersion: String,
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
         val response = service.onClick(
@@ -68,6 +71,7 @@ internal class AnalyticsRemote {
                 adsetId = adcioLogOption.adsetId,
                 sdkVersion = sdkVersion,
                 userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}",
+                appVersion = appVersion
             )
         ).execute()
 
@@ -88,6 +92,7 @@ internal class AnalyticsRemote {
         quantity: Int?,
         userAgent: String? = null,
         baseUrl: String?,
+        appVersion: String,
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
         val response = service.onPurchase(
@@ -105,6 +110,7 @@ internal class AnalyticsRemote {
                 amount = amount,
                 sdkVersion = sdkVersion,
                 userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}",
+                appVersion = appVersion
             )
         ).execute()
 
@@ -121,7 +127,8 @@ internal class AnalyticsRemote {
         categoryIdOnStore: String?,
         productIdOnStore: String,
         userAgent: String? = null,
-        baseUrl: String?
+        baseUrl: String?,
+        appVersion: String,
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
         val response = service.onPageView(
@@ -136,6 +143,7 @@ internal class AnalyticsRemote {
                 productIdOnStore = productIdOnStore,
                 sdkVersion = sdkVersion,
                 userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}",
+                appVersion = appVersion
             )
         ).execute()
 
@@ -154,7 +162,8 @@ internal class AnalyticsRemote {
         adsetId: String?,
         quantity: Int?,
         userAgent: String? = null,
-        baseUrl: String?
+        baseUrl: String?,
+        appVersion: String,
     ) {
         val service = RetrofitClient.getAnalyticsService(baseUrl)
         val response = service.onAddToCart(
@@ -171,6 +180,7 @@ internal class AnalyticsRemote {
                 quantity = quantity,
                 sdkVersion = sdkVersion,
                 userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}",
+                appVersion = appVersion
             )
         ).execute()
 

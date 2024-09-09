@@ -15,6 +15,7 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import androidx.annotation.RequiresApi
+import com.amplitude.api.Amplitude
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -25,7 +26,7 @@ internal class GetSuggestionThread(
     context: Context
 ) : Thread() {
 
-    val adcioPlacement = AdcioPlacement(context)
+    val adcioPlacement = AdcioPlacement(context, appVersion = "appVersion")
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun run() {
@@ -34,14 +35,11 @@ internal class GetSuggestionThread(
         // In addition, if you have user information such as customerId(like.userId),
         // age, gender, area, or information such as placement position related to the page,
         // the recommended prediction accuracy is higher.
-        val adcioSuggestionRaw = adcioPlacement.createAdvertisementProducts(
-            clientId = "76dc12fa-5a73-4c90-bea5-d6578f9bc606",
-            placementId = "5ae9907f-3cc2-4ed4-aaa4-4b20ac97f9f4",
-            categoryId = "2179",
-            excludingProductIds = listOf("1001"),
+        val adcioSuggestionRaw = adcioPlacement.createRecommendationProducts(
+            clientId = "7bbb703e-a30b-4a4a-91b4-c0a7d2303415",
+            placementId = "767dc293-fa9d-48fa-a3b4-429ccc4ee8fe",
             userAgent = "${Build.MODEL} - ${Build.VERSION.RELEASE}",
         )
-
         // Clear impression history when suggestion api called
         clearImpressionHistory()
 

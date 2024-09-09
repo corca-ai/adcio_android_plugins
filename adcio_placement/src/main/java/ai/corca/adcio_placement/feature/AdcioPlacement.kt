@@ -12,12 +12,19 @@ import com.corcaai.core.ids.DeviceIdManager
 import com.corcaai.core.ids.SessionClient
 
 class AdcioPlacement(
-    private val context: Context
+    private val context: Context,
+    private val appVersion: String,
 ) {
 
-    private val sdkVersion = "Android 1.4.2"
+    private val sdkVersion = "Android 1.4.3"
 
     private val placementRemote = PlacementRemote()
+
+    private val _appVersion: String by lazy {
+        appVersion.ifEmpty {
+            throw IllegalArgumentException("appVersion cannot be empty")
+        }
+    }
 
     /**
      * This is a function that provides the same value as getSessionId in ADCIO Analytics.
@@ -63,6 +70,7 @@ class AdcioPlacement(
             targets = targets,
             sdkVersion = sdkVersion,
             baseUrl = baseUrl,
+            appVersion = _appVersion
         )
     }
 
@@ -84,6 +92,7 @@ class AdcioPlacement(
             sdkVersion = sdkVersion,
             targets = targets,
             baseUrl = baseUrl,
+            appVersion = _appVersion
         )
     }
 
@@ -115,6 +124,7 @@ class AdcioPlacement(
             filters = filters,
             targets = targets,
             baseUrl = baseUrl,
+            appVersion = _appVersion
         )
     }
 
@@ -136,6 +146,7 @@ class AdcioPlacement(
             userAgent = userAgent ?: "${Build.MODEL} - ${Build.VERSION.RELEASE}",
             targets = targets,
             baseUrl = baseUrl,
+            appVersion = _appVersion
         )
     }
 }
