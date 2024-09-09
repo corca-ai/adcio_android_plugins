@@ -3,10 +3,12 @@ package ai.corca.adcio_android_plugins
 import ai.corca.adcio_android_plugins.agent.AgentActivity
 import ai.corca.adcio_android_plugins.databinding.ActivityMainBinding
 import ai.corca.adcio_android_plugins.suggestion.SuggestionActivity
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.amplitude.api.Amplitude
+import com.amplitude.api.AmplitudeLog
 
 class MainActivity : AppCompatActivity() {
 

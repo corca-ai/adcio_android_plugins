@@ -14,5 +14,6 @@ data class AnalyticsAddToCartRequest(
     @SerializedName("categoryIdOnStore") val categoryIdOnStore: String?,
     @SerializedName("quantity") val quantity: Int?,
     @SerializedName("sdkVersion") val sdkVersion: String,
-    @SerializedName("userAgent") val userAgent: String
+    @SerializedName("userAgent") val userAgent: String,
+    @SerializedName("appVersion") val appVersion: String,
 )

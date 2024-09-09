@@ -14,11 +14,13 @@ import ai.corca.adcio_android_plugins.suggestion.user.User
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.amplitude.api.Amplitude
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.util.Calendar
@@ -44,7 +46,8 @@ class SuggestionActivity : AppCompatActivity() {
         binding = ActivityPlacementBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adcioAnalytics = AdcioAnalytics("76dc12fa-5a73-4c90-bea5-d6578f9bc606", this)
+        adcioAnalytics = AdcioAnalytics("7bbb703e-a30b-4a4a-91b4-c0a7d2303415", appVersion = "appVersion", this)
+
 
         mockProductListAdapter = MockProductListAdapter(
             onImpressionItem = { logOption ->
