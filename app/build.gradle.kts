@@ -72,9 +72,8 @@ dependencies {
 
     implementation ("com.amplitude:analytics-android:1.18.0")
     implementation("com.amplitude:android-sdk:3.35.1")
-
-    implementation(project(path = ":adcio_analytics"))
-    implementation(project(path = ":adcio_placement"))
+    implementation("io.github.corca-ai:adcio_analytics:1.4.5")
+    implementation("io.github.corca-ai:adcio_placement:1.4.3")
     implementation(project(path = ":adcio_agent"))
     implementation(project(path = ":adcio_agent_compose"))
 }

@@ -23,10 +23,11 @@ private val _productState = MutableStateFlow(emptyList<Production>())
 val productions: StateFlow<List<Production>> = _productState
 
 internal class GetSuggestionThread(
-    context: Context
+    context: Context,
+    appVersion: String
 ) : Thread() {
 
-    val adcioPlacement = AdcioPlacement(context, appVersion = "appVersion")
+    val adcioPlacement = AdcioPlacement(context, appVersion = appVersion)
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun run() {

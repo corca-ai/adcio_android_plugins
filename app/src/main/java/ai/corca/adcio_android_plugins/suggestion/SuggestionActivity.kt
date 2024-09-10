@@ -12,6 +12,7 @@ import ai.corca.adcio_android_plugins.suggestion.helper.productions
 import ai.corca.adcio_android_plugins.suggestion.user.Gender
 import ai.corca.adcio_android_plugins.suggestion.user.User
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -37,8 +38,6 @@ class SuggestionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPlacementBinding
 
-    private val getSuggestionThread = GetSuggestionThread(this)
-
     @SuppressLint("NotifyDataSetChanged")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,7 +45,16 @@ class SuggestionActivity : AppCompatActivity() {
         binding = ActivityPlacementBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        adcioAnalytics = AdcioAnalytics("7bbb703e-a30b-4a4a-91b4-c0a7d2303415", appVersion = "appVersion", this)
+        val appVersion = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            this.packageManager.getPackageInfo(this.packageName, PackageManager.PackageInfoFlags.of(0))
+        } else {
+            @Suppress("DEPRECATION")
+            this.packageManager.getPackageInfo(this.packageName, 0)
+        }.versionName
+
+
+        val getSuggestionThread = GetSuggestionThread(this, appVersion = appVersion)
+        adcioAnalytics = AdcioAnalytics("7bbb703e-a30b-4a4a-91b4-c0a7d2303415", appVersion = appVersion, this)
 
 
         mockProductListAdapter = MockProductListAdapter(
